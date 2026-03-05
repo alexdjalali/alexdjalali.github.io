@@ -51,6 +51,37 @@
 {{- end -}}
 {{- end -}}
 
+{{- if eq .Type "about" -}}
+{{/* About page: Person schema */}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "AJ Djalali",
+  "url": "{{ .Site.BaseURL }}",
+  "jobTitle": "Research Faculty",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Georgia Institute of Technology",
+    "url": "https://www.gatech.edu/"
+  },
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "Stanford University", "department": "Linguistics" },
+    { "@type": "CollegeOrUniversity", "name": "Northwestern University" },
+    { "@type": "CollegeOrUniversity", "name": "University of Amsterdam" }
+  ],
+  "knowsAbout": ["Natural Language Processing", "Formal Semantics", "Distributed Systems", "Software Architecture", "Machine Learning"],
+  "sameAs": [
+    "https://github.com/alexdjalali/",
+    "https://www.linkedin.com/in/alex-djalali-272502273/",
+    "https://scholar.google.com/citations?user=nNk4g6oAAAAJ&hl=en"
+  ],
+  "image": "{{ "images/headshot.png" | absURL }}",
+  "description": "{{ .Description | plainify | truncate 160 }}"
+}
+</script>
+{{- end -}}
+
 {{- if not .IsHome -}}
 {{/* All non-home pages: BreadcrumbList schema */}}
 <script type="application/ld+json">

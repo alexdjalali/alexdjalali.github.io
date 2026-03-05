@@ -7,7 +7,7 @@
     {{ end }}
     {{ if or .Site.Menus.main hugo.IsMultilingual }}
       <input type="checkbox" id="menu-toggle" />
-      <label class="menu-button float-right" for="menu-toggle">
+      <label class="menu-button float-right" for="menu-toggle" aria-label="Toggle navigation menu" role="button">
         <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
       </label>
       <ul class="navigation-list">
@@ -19,7 +19,7 @@
           {{ end }}
         {{ end }}
         <li class="navigation-item">
-          <a class="navigation-link nav-search-link" href="{{ "search/" | relLangURL }}"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></a>
+          <a class="navigation-link nav-search-link" href="{{ "search/" | relLangURL }}" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></a>
         </li>
         {{ if hugo.IsMultilingual }}
           {{ $node := . }}

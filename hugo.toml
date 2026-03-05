@@ -73,6 +73,17 @@ theme = "preferred_color_scheme"
 lang = "en"
 loading = "lazy"
 
+[params.csp]
+childsrc = ["'self'"]
+fontsrc = ["'self'", "https://fonts.gstatic.com"]
+formaction = ["'self'"]
+framesrc = ["'self'", "https://giscus.app"]
+imgsrc = ["'self'", "data:", "https://img.shields.io", "https://icon.icepanel.io"]
+objectsrc = ["'none'"]
+stylesrc = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
+scriptsrc = ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://www.googletagmanager.com", "https://giscus.app"]
+connectsrc = ["'self'", "https://www.google-analytics.com", "https://www.googletagmanager.com"]
+
 [languages.en]
 languageName = "English"
 

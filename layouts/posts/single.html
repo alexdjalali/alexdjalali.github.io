@@ -2,7 +2,7 @@
   {{ .Title }} · {{ .Site.Title }}
 {{ end }}
 {{ define "content" }}
-  <div class="reading-progress" id="reading-progress"></div>
+  <div class="reading-progress" id="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
   <section class="container post">
     <article>
       <header>

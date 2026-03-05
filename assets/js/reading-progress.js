@@ -12,6 +12,7 @@
     var scrolled = window.scrollY - contentTop;
     var percent = Math.min(Math.max(scrolled / (contentHeight - window.innerHeight), 0), 1) * 100;
     bar.style.width = percent + "%";
+    bar.setAttribute("aria-valuenow", Math.round(percent));
     ticking = false;
   }
 
