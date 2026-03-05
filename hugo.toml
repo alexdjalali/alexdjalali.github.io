@@ -87,18 +87,23 @@ weight = 2
 url = "posts/"
 
 [[languages.en.menu.main]]
-name = "Resume"
+name = "Projects"
 weight = 3
+url = "projects/"
+
+[[languages.en.menu.main]]
+name = "Resume"
+weight = 4
 url = "cv/"
 
 [[languages.en.menu.main]]
 name = "Publications"
-weight = 4
+weight = 5
 url = "publications/"
 
 [[languages.en.menu.main]]
 name = "About"
-weight = 5
+weight = 6
 url = "about/"
 
 [[params.social]]

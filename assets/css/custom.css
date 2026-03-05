@@ -2173,6 +2173,120 @@ body.colorscheme-dark .series-nav-next:hover {
   margin-left: auto;
 }
 
+/* Section divider — animated red gradient line */
+.section-divider {
+  border: none;
+  height: 2px;
+  margin: 2.5em 0;
+  background: linear-gradient(
+    90deg,
+    var(--grad-edge) 0%, var(--grad-mid1) 20%, var(--grad-mid2) 35%, var(--grad-center) 50%,
+    var(--grad-mid2) 65%, var(--grad-mid1) 80%, var(--grad-edge) 100%
+  );
+  background-size: 200% 100%;
+  animation: gradient-slide 3s linear infinite;
+}
+
+/* Project cards */
+.project-card {
+  padding: 1.5em 1.8em;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5em;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+  border-color: var(--accent-red);
+  box-shadow: 0 4px 12px rgba(192, 57, 43, 0.1);
+}
+
+.project-card h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 0 0 0.6em 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.project-card p {
+  font-size: 0.92em;
+  color: var(--text-body);
+  line-height: 1.7;
+  margin-bottom: 1em;
+}
+
+.project-card p:last-child {
+  margin-bottom: 0;
+}
+
+.project-card a:hover {
+  color: var(--accent-red) !important;
+}
+
+.project-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin-bottom: 1em;
+}
+
+.project-tech {
+  display: inline-block;
+  font-size: 0.78em;
+  padding: 0.2em 0.6em;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-faint);
+  background: var(--bg-secondary);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.project-tech:hover {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+}
+
+body.colorscheme-dark .project-card {
+  background: #1a1a1a;
+  border-color: #333;
+}
+
+body.colorscheme-dark .project-card:hover {
+  border-color: #c0392b;
+  box-shadow: 0 4px 12px rgba(192, 57, 43, 0.15);
+}
+
+body.colorscheme-dark .project-tech {
+  border-color: #444;
+  color: #777;
+  background: #2a2a2a;
+}
+
+@media (prefers-color-scheme: dark) {
+  body.colorscheme-auto .project-card {
+    background: #1a1a1a;
+    border-color: #333;
+  }
+  body.colorscheme-auto .project-card:hover {
+    border-color: #c0392b;
+    box-shadow: 0 4px 12px rgba(192, 57, 43, 0.15);
+  }
+  body.colorscheme-auto .project-tech {
+    border-color: #444;
+    color: #777;
+    background: #2a2a2a;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-card {
+    padding: 1.2em;
+  }
+}
+
 /* Touch-friendly states */
 @media (hover: none) and (pointer: coarse) {
   .post-card, .footer-social a { transition: none; }
