@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJ Djalali — Resume</title>
+  <style>
+    /* ── Reset & Base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1B3A5C;
+      --navy-light: #2E5090;
+      --dark: #2D2D2D;
+      --medgray: #5D5D5D;
+      --ltgray: #999999;
+      --bg: #ffffff;
+      --font-sans: "Helvetica Neue", Helvetica, "Nimbus Sans", Arial, sans-serif;
+    }
+
+    @media print {
+      body { font-size: 9pt; }
+      .page { box-shadow: none; padding: 0.45in; max-width: 100%; }
+      a { color: var(--navy-light) !important; }
+      @page { margin: 0.35in 0.45in; }
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 10pt;
+      line-height: 1.42;
+      color: var(--dark);
+      background: #f0f0f0;
+    }
+
+    .page {
+      max-width: 8.5in;
+      margin: 1em auto;
+      padding: 0.5in 0.55in;
+      background: var(--bg);
+      box-shadow: 0 1px 8px rgba(0,0,0,0.1);
+    }
+
+    a { color: var(--navy-light); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ───────────────────────────────────────── */
+    .header { text-align: center; margin-bottom: 0.3em; }
+    .header h1 {
+      font-family: var(--font-sans);
+      font-size: 2.2em;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.15em;
+    }
+    .header h1 .first { color: var(--medgray); font-weight: 300; }
+    .header h1 .last { color: var(--navy); font-weight: 700; }
+    .header .contact {
+      font-size: 0.88em;
+      color: var(--medgray);
+    }
+    .header .contact a { color: var(--medgray); }
+    .header .contact a:hover { color: var(--navy-light); }
+    .header .sep {
+      display: inline-block;
+      margin: 0 0.35em;
+      color: var(--ltgray);
+    }
+
+    /* ── Sections ─────────────────────────────────────── */
+    .section {
+      margin-top: 0.7em;
+    }
+    .section h2 {
+      font-family: var(--font-sans);
+      font-size: 0.95em;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 2px solid var(--navy);
+      padding-bottom: 0.15em;
+      margin-bottom: 0.35em;
+    }
+    .section-note {
+      font-size: 0.85em;
+      color: var(--ltgray);
+      font-weight: 400;
+      margin-top: -0.2em;
+      margin-bottom: 0.3em;
+    }
+
+    /* ── Summary ──────────────────────────────────────── */
+    .summary {
+      font-size: 0.93em;
+      line-height: 1.48;
+    }
+
+    /* ── Experience entries ────────────────────────────── */
+    .entry { margin-bottom: 0.55em; }
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+    .entry-header .org {
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 1em;
+    }
+    .entry-header .location {
+      font-size: 0.85em;
+      color: var(--ltgray);
+    }
+    .entry-header .acquired {
+      font-weight: 400;
+      font-size: 0.82em;
+      color: var(--ltgray);
+    }
+    .entry-role {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-top: -0.05em;
+    }
+    .entry-role .title {
+      font-style: italic;
+      color: var(--medgray);
+    }
+    .entry-role .dates {
+      font-size: 0.85em;
+      color: var(--ltgray);
+    }
+    .sub-role {
+      margin-left: 0.4em;
+    }
+    .entry ul {
+      margin: 0.12em 0 0 1.2em;
+      font-size: 0.93em;
+    }
+    .entry li {
+      margin-bottom: 0.05em;
+    }
+    .entry li::marker {
+      color: var(--navy);
+    }
+
+    /* ── Education ─────────────────────────────────────── */
+    .edu-entry { margin-bottom: 0.4em; }
+    .edu-entry ul { margin: 0.1em 0 0 1.2em; font-size: 0.91em; }
+    .edu-entry li { margin-bottom: 0.04em; }
+    .edu-entry li::marker { color: var(--navy); }
+
+    /* ── Publications ──────────────────────────────────── */
+    .pub-list { margin-left: 1.2em; font-size: 0.91em; }
+    .pub-list li { margin-bottom: 0.12em; }
+    .pub-list li::marker { color: var(--navy); }
+
+    /* ── Skills ────────────────────────────────────────── */
+    .skills-section { font-size: 0.93em; line-height: 1.55; }
+    .skill-row { margin-bottom: 0.2em; }
+    .skill-label {
+      font-weight: 700;
+      color: var(--navy);
+      margin-right: 0.4em;
+    }
+
+    /* ── Honors columns ────────────────────────────────── */
+    .honors-grid {
+      columns: 2;
+      column-gap: 2em;
+      font-size: 0.91em;
+    }
+    .honors-grid ul { margin-left: 1.2em; }
+    .honors-grid li { margin-bottom: 0.08em; break-inside: avoid; }
+    .honors-grid li::marker { color: var(--navy); }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <h1><span class="first">AJ</span> <span class="last">Djalali</span></h1>
+    <div class="contact">
+      Athens, GA<span class="sep">&middot;</span>
+      312.576.4525<span class="sep">&middot;</span>
+      <a href="mailto:alex.djalali@gmail.com">alex.djalali@gmail.com</a><span class="sep">&middot;</span>
+      <a href="https://alexdjalali.github.io">alexdjalali.github.io</a>
+    </div>
+    <div class="contact" style="margin-top: 0.1em;">
+      <a href="https://linkedin.com/in/alex-djalali-272502273">LinkedIn</a><span class="sep">&middot;</span>
+      <a href="https://scholar.google.com/citations?user=nNk4g6oAAAAJ">Google Scholar</a><span class="sep">&middot;</span>
+      <a href="https://github.com/alexdjalali">GitHub</a>
+    </div>
+  </div>
+
+  <!-- ═══ SUMMARY ═══ -->
+  <div class="section">
+    <h2>Summary</h2>
+    <p class="summary">
+      Research faculty and engineering leader with 12 years building language technology that ships&mdash;from formal semantics research at Stanford through two acquisitions (ClearGraph by Tableau, PerceptivePanda by Zapier) and into production systems serving hundreds of thousands of users. PhD in Linguistics, 9 patents in NL interfaces, 15+ peer-reviewed publications. Designed the NLP architecture behind Tableau&rsquo;s Ask Data before transformer models existed, built deterministic control layers over LLMs grounded in discourse theory, and currently build production AI systems at Georgia Tech&mdash;including vector search over 400M images and RAG pipelines on AWS Bedrock. Scaled teams from founding engineer to 30+, led AI strategy across Salesforce&rsquo;s cloud portfolio, and consult on AI agents and retrieval-augmented generation for startups in maritime and financial services.
+    </p>
+  </div>
+
+  <!-- ═══ EXPERIENCE ═══ -->
+  <div class="section">
+    <h2>Experience</h2>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="org">Georgia Institute of Technology</span>
+        <span class="location">Atlanta, GA</span>
+      </div>
+      <div class="entry-role">
+        <span class="title">Research Faculty &amp; Senior Research Engineer</span>
+        <span class="dates">Oct 2025 &ndash; Present</span>
+      </div>
+      <ul>
+        <li>Embedded with research teams to build production AI systems from scratch&mdash;hands-on engineering, not advisory</li>
+        <li>Built enterprise search &amp; ingestion platform: vector search over 400M+ images via CLIP/Qdrant at sub-200ms latency, distributed GPU ingestion via Ray/Spark on Databricks, zero-error completion across multi-million-image datasets</li>
+        <li>Built congressional text analysis platform: 181M+ tokens, Kafka-decoupled ingestion, Elasticsearch + Neo4j entity graphs, spaCy NLP pipeline, full Prometheus/Grafana observability</li>
+        <li>Designing graduate curriculum on software engineering for AI and distributed systems&mdash;15 weeks covering ADRs, trunk-based dev, SRE, and AI-augmented workflows</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="org">Gridline</span>
+        <span class="location">Atlanta, GA</span>
+      </div>
+      <div class="entry-role">
+        <span class="title">AI Consultant</span>
+        <span class="dates">Oct 2025 &ndash; Present</span>
+      </div>
+      <ul>
+        <li>Built production RAG system for financial advising on AWS Bedrock with S3-backed vector storage</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="org">VesselAware</span>
+        <span class="location">Remote</span>
+      </div>
+      <div class="entry-role">
+        <span class="title">Software Engineering Advisor</span>
+        <span class="dates">Jan 2024 &ndash; Present</span>
+      </div>
+      <ul>
+        <li>Building AI agents for maritime intelligence; guiding architecture and technical strategy</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="org">PerceptivePanda <span class="acquired">(acquired by Zapier, Jan 2026)</span></span>
+        <span class="location">San Francisco, CA</span>
+      </div>
+      <div class="entry-role">
+        <span class="title">Co-Founder &amp; CTO</span>
+        <span class="dates">May 2023 &ndash; Jul 2025</span>
+      </div>
+      <ul>
+        <li>Built AI-native customer research platform replacing human-led interviews with LLM-driven micro-interviews at scale</li>
+        <li>Core innovation: deterministic control layer wrapping LLMs using dialogue state management grounded in the Questions Under Discussion model from my Stanford research&mdash;tracked addressed questions, identified threads for probing, orchestrated LLM calls through a structured state machine</li>
+        <li>Raised institutional pre-seed; accepted into StartX &rsquo;24 summer cohort</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="org">Salesforce</span>
+        <span class="location">San Francisco, CA</span>
+      </div>
+      <div class="entry-role">
+        <span class="title">Software Engineering Architect</span>
+        <span class="dates">Jun 2020 &ndash; May 2023</span>
+      </div>
+      <div class="entry-role sub-role">
+        <span class="title">Principal Member of Technical Staff</span>
+        <span class="dates">Jun 2020 &ndash; Mar 2022</span>
+      </div>
+      <ul>
+        <li>Led integration of Tableau Ask Data across multiple Salesforce clouds (Sales, Service, Marketing, Commerce)</li>
+        <li>Elected to Salesforce AI Northstar Council (2022, 2023)&mdash;cross-organization body setting company-wide AI strategy</li>
+        <li>Architected next-generation analytics platform spanning CRM Analytics query engine and multiple cloud products</li>
+        <li>Led technical integration of Tableau-acquired Narrative Science into the Salesforce ecosystem</li>
+        <li>Recognized for Most Patents Filed and Granted across the organization (2022)</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="org">Tableau <span class="acquired">(via ClearGraph acquisition)</span></span>
+        <span class="location">Seattle, WA / Palo Alto, CA</span>
+      </div>
+      <div class="entry-role">
+        <span class="title">Staff Software Engineer</span>
+        <span class="dates">Aug 2017 &ndash; May 2020</span>
+      </div>
+      <ul>
+        <li>Created the NLP technology behind Tableau&rsquo;s Ask Data feature, deployed to hundreds of thousands of users</li>
+        <li>Scaled semantic indexing infrastructure using Elasticsearch to support enterprise-scale data catalogs</li>
+        <li>Published &ldquo;Inferencing underspecified natural language utterances in visual analysis&rdquo; at IUI 2019</li>
+        <li>Filed 9 patents covering NLQ architecture, intent inference, cascading edits, table calculations, and incremental visual feedback</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="org">ClearGraph <span class="acquired">(acquired by Tableau, 2017)</span></span>
+        <span class="location">San Francisco, CA</span>
+      </div>
+      <div class="entry-role">
+        <span class="title">VP, Natural Language Technology</span>
+        <span class="dates">Nov 2014 &ndash; Jul 2017</span>
+      </div>
+      <ul>
+        <li>Built the core NLP pipeline translating natural language into structured database queries&mdash;using Montague Grammar and compositional semantics from my doctoral research, years before BERT existed</li>
+        <li>Grew the engineering team from founding stage to 30+ engineers post-acquisition</li>
+        <li>Awarded the Celent Model Bank Award (2017) for innovation in financial services technology</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <span class="org">Nuance Communications</span>
+        <span class="location">Burlington, MA</span>
+      </div>
+      <div class="entry-role">
+        <span class="title">Research Intern, Natural Language Understanding</span>
+        <span class="dates">May &ndash; Sep 2014</span>
+      </div>
+      <ul>
+        <li>Developed NLU prototype based on Synthetic Logic&mdash;a formal system I published connecting monotonicity calculi with compositional textual entailment</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══ EDUCATION ═══ -->
+  <div class="section">
+    <h2>Education</h2>
+
+    <div class="edu-entry">
+      <div class="entry-header">
+        <span class="org">Stanford University</span>
+        <span class="location">Stanford, CA</span>
+      </div>
+      <div class="entry-role">
+        <span class="title">PhD, Linguistics</span>
+        <span class="dates">2009 &ndash; 2015</span>
+      </div>
+      <ul>
+        <li>Dissertation: <em>The syntax and semantics of ordinary comparative constructions in English</em></li>
+        <li>Developed compositional semantic framework using continuation semantics and Montague Grammar</li>
+        <li>5 peer-reviewed publications during doctoral study; Phi Beta Kappa Fellowship (2014)</li>
+        <li>Collaborated with Christopher Potts on formal proof systems for natural logic</li>
+      </ul>
+    </div>
+
+    <div class="edu-entry">
+      <div class="entry-header">
+        <span class="org">University of Amsterdam</span>
+        <span class="location">Amsterdam, NL</span>
+      </div>
+      <div class="entry-role">
+        <span class="title">Fulbright Scholar &mdash; Institute of Logic, Language &amp; Computation</span>
+        <span class="dates">2008 &ndash; 2009</span>
+      </div>
+      <ul>
+        <li>Research in mathematical logic, formal linguistics, and philosophy of language at the ILLC</li>
+        <li>Published on probabilistic inferences in dynamic semantics</li>
+      </ul>
+    </div>
+
+    <div class="edu-entry">
+      <div class="entry-header">
+        <span class="org">Northwestern University</span>
+        <span class="location">Evanston, IL</span>
+      </div>
+      <div class="entry-role">
+        <span class="title">BA, Linguistics &mdash; Cum Laude with Honors</span>
+        <span class="dates">2004 &ndash; 2008</span>
+      </div>
+      <ul>
+        <li>Phi Beta Kappa Honor Society; Demoz Paper Award (Linguistics Department)</li>
+        <li>Research focus: formal semantics, pragmatics, scalar implicature, bridging inferences</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══ SELECTED PUBLICATIONS ═══ -->
+  <div class="section">
+    <h2>Selected Publications</h2>
+    <p class="section-note">15+ total; see <a href="https://scholar.google.com/citations?user=nNk4g6oAAAAJ">Google Scholar</a></p>
+    <ul class="pub-list">
+      <li><strong>Djalali, AJ</strong> et al. &ldquo;Inferencing underspecified natural language utterances in visual analysis.&rdquo; <em>Proc. 24th Intl. Conf. on Intelligent User Interfaces</em> (IUI), 2019.</li>
+      <li><strong>Djalali, AJ</strong>. &ldquo;A constructive solution to the ranking problem in Partial Order Optimality Theory.&rdquo; <em>Journal of Logic, Language &amp; Information</em>, 2017.</li>
+      <li><strong>Djalali, AJ</strong>. &ldquo;Synthetic logic.&rdquo; <em>Linguistic Issues in Language Technology</em>, 2014.</li>
+      <li><strong>Djalali, AJ</strong> &amp; C. Potts. &ldquo;A Formal Proof System for Natural Logic.&rdquo; <em>Workshop on Natural Logic, Proof Theory, and Computational Semantics</em>, Stanford, 2011.</li>
+      <li><strong>Djalali, AJ</strong> et al. &ldquo;Modeling expert effects and common ground using questions under discussion.&rdquo; <em>AAAI Workshop</em>, 2012.</li>
+    </ul>
+  </div>
+
+  <!-- ═══ PATENTS ═══ -->
+  <div class="section">
+    <h2>Patents</h2>
+    <p class="section-note">9 issued/pending</p>
+    <ul class="pub-list">
+      <li>7 granted + 2 pending, all in natural language interfaces for data visualization</li>
+      <li>Covering: NLQ architecture, intent inference, underspecification resolution, cascading edits, table calculations, incremental visual feedback, levels of detail via NL constructs</li>
+      <li>Full listing: <a href="https://alexdjalali.github.io/publications/">alexdjalali.github.io/publications</a></li>
+    </ul>
+  </div>
+
+  <!-- ═══ TECHNICAL PROJECTS ═══ -->
+  <div class="section">
+    <h2>Technical Projects</h2>
+    <ul class="pub-list">
+      <li><strong>Enterprise Semantic Search Platform</strong> &mdash; Production vector search over 400M+ images. CLIP embedding generation on distributed Ray/GPU clusters via Databricks, Qdrant nearest-neighbor retrieval with hybrid dense+keyword scoring at sub-200ms latency. Circuit breakers, exponential backoff, Redis caching for fault tolerance. Batch-level fault isolation and dead-letter tracking for zero-error ingestion across multi-million-image datasets. Full Prometheus/Grafana observability.</li>
+      <li><strong>House Proceedings Corpus</strong> &mdash; Multi-service NLP platform for 181M+ tokens of congressional text. FastAPI gateway, Kafka-decoupled ingestion, Elasticsearch full-text + faceted search, Neo4j entity graphs linking speakers/bills/committees. spaCy pipeline extracting named entities, noun phrases, and dependency structures at ingest time. Clean layered architecture with repository pattern and DI. <a href="https://github.com/alexdjalali/hpc">github.com/alexdjalali/hpc</a></li>
+      <li><strong>LLM-Driven Interview Platform</strong> &mdash; AI agent system replacing human-led customer research with autonomous LLM micro-interviews at scale. Deterministic control layer orchestrating LLM calls via dialogue state machine grounded in Questions Under Discussion theory&mdash;tracked addressed questions, identified threads for probing, enforced analytical coherence while preserving conversational fluidity. (PerceptivePanda, acquired by Zapier)</li>
+      <li><strong>Financial RAG System</strong> &mdash; Production retrieval-augmented generation pipeline on AWS Bedrock for financial advisory use cases. S3-backed vector storage, document chunking with semantic boundaries, contextual retrieval with source attribution. (Gridline)</li>
+    </ul>
+  </div>
+
+  <!-- ═══ TECHNICAL SKILLS ═══ -->
+  <div class="section">
+    <h2>Technical Skills</h2>
+    <div class="skills-section">
+      <div class="skill-row"><span class="skill-label">AI / ML</span> LLM orchestration &amp; prompt engineering, RAG pipelines, AI agent architectures, dialogue state machines, vector search &amp; embeddings (CLIP, sentence-transformers), semantic retrieval, few-shot / chain-of-thought prompting, evaluation frameworks</div>
+      <div class="skill-row"><span class="skill-label">NLP</span> Formal semantics, Montague Grammar, compositional semantics, natural logic, discourse theory (QUD), dependency parsing, NER, spaCy, pre-transformer NLQ systems</div>
+      <div class="skill-row"><span class="skill-label">Distributed Systems</span> Ray (distributed GPU clusters), Apache Spark, Databricks, Kafka, event-driven architectures, batch &amp; stream processing at scale</div>
+      <div class="skill-row"><span class="skill-label">Languages</span> Python, Go, TypeScript/JavaScript, Bash, Lua, Java</div>
+      <div class="skill-row"><span class="skill-label">Data &amp; Search</span> Qdrant, Elasticsearch, Neo4j, PostgreSQL, Redis, MongoDB, S3, vector databases</div>
+      <div class="skill-row"><span class="skill-label">Cloud &amp; Infra</span> AWS (Bedrock, S3, EC2, Lambda), Docker, Kubernetes, Terraform, Helm, GitHub Actions</div>
+      <div class="skill-row"><span class="skill-label">Frameworks</span> FastAPI, React, Next.js, Node.js, GraphQL</div>
+      <div class="skill-row"><span class="skill-label">Observability</span> Prometheus, Grafana, OpenTelemetry, structured logging, SLO-driven monitoring</div>
+    </div>
+  </div>
+
+  <!-- ═══ HONORS ═══ -->
+  <div class="section">
+    <h2>Honors &amp; Awards</h2>
+    <div class="honors-grid">
+      <ul>
+        <li>StartX '24 Summer Cohort</li>
+        <li>Salesforce Most Patents Filed &amp; Granted (2022)</li>
+        <li>Salesforce AI Northstar Council (2022, 2023)</li>
+        <li>Celent Model Bank Award (2017)</li>
+        <li>Phi Beta Kappa Fellowship, Stanford (2014)</li>
+        <li>Fulbright Fellowship (2008)</li>
+        <li>Phi Beta Kappa, Northwestern</li>
+        <li>Demoz Paper Award, Northwestern</li>
+        <li>National Merit Scholar Semi-Finalist</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

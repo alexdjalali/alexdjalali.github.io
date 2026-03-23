@@ -1,0 +1,265 @@
+%——————————————————————————————————————————————————————————————
+% AJ Djalali — Resume
+% Compile: pdflatex djalali-resume.tex
+%
+% Design: Navy accent, Helvetica weight contrast,
+%         uppercase section headers, accent-colored rules
+%——————————————————————————————————————————————————————————————
+\documentclass[9pt,letterpaper]{extarticle}
+
+\usepackage[margin=0.42in, top=0.38in, bottom=0.3in]{geometry}
+\raggedbottom
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.92]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{parskip}
+
+% ── Fonts ──────────────────────────────────────────────────
+% Helvetica (URW Nimbus Sans) via helvet package, scaled to 92%
+
+% ── Colors ─────────────────────────────────────────────────
+\definecolor{navy}{HTML}{1B3A5C}
+\definecolor{navylight}{HTML}{2E5090}
+\definecolor{dark}{HTML}{2D2D2D}
+\definecolor{medgray}{HTML}{5D5D5D}
+\definecolor{ltgray}{HTML}{999999}
+
+\color{dark}
+
+% ── Hyperlinks ─────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  linkcolor=navylight,
+  urlcolor=navylight,
+  pdfauthor={AJ Djalali},
+  pdftitle={AJ Djalali -- Resume},
+}
+
+% ── Section formatting — uppercase navy headers + accent rule
+\titleformat{\section}
+  {\large\bfseries\color{navy}}
+  {}{0em}{\MakeUppercase}
+  [\vspace{-0.55em}{\color{navy}\rule{\textwidth}{0.8pt}}]
+
+\titlespacing*{\section}{0pt}{0.45em}{0.15em}
+
+% ── Entry commands ─────────────────────────────────────────
+\newcommand{\entry}[4]{%
+  \noindent\textbf{\color{dark}#1}\hfill\textcolor{ltgray}{\small #2}\\[-0.1em]
+  \textit{\color{medgray}#3}\hfill\textcolor{ltgray}{\small #4}\par
+}
+
+\newcommand{\subentry}[2]{%
+  \noindent\hspace{0.4em}\textit{\color{medgray}#1}\hfill\textcolor{ltgray}{\small #2}\par
+}
+
+% Contact line separator
+\newcommand{\cvsep}{\enspace\textcolor{ltgray}{\textperiodcentered}\enspace}
+
+% ── No page numbers ───────────────────────────────────────
+\pagestyle{empty}
+
+% ── List styling — navy bullets ────────────────────────────
+\setlist[itemize]{
+  nosep,
+  leftmargin=1.2em,
+  label=\textcolor{navy}{\textbullet},
+  topsep=0.12em,
+  itemsep=0.06em,
+}
+
+\begin{document}
+
+%════════════════════════════════════════════════════════════
+% HEADER
+%════════════════════════════════════════════════════════════
+\begin{center}
+  {\fontsize{28pt}{32pt}\selectfont
+    {\color{medgray}AJ}\enspace
+    {\bfseries\color{navy}Djalali}%
+  }\par
+  \vspace{0.3em}
+  {\small\color{medgray}
+    Athens, GA\cvsep
+    312.576.4525\cvsep
+    \href{mailto:alex.djalali@gmail.com}{alex.djalali@gmail.com}\cvsep
+    \href{https://alexdjalali.github.io}{alexdjalali.github.io}
+  }\par\vspace{0.06em}
+  {\small\color{medgray}
+    \href{https://linkedin.com/in/alex-djalali-272502273}{LinkedIn}\cvsep
+    \href{https://scholar.google.com/citations?user=nNk4g6oAAAAJ}{Google Scholar}\cvsep
+    \href{https://github.com/alexdjalali}{GitHub}
+  }
+\end{center}
+
+\vspace{-0.15em}
+
+%════════════════════════════════════════════════════════════
+% SUMMARY
+%════════════════════════════════════════════════════════════
+\section{Summary}
+
+Research faculty and engineering leader with 12 years building language technology that ships---from formal semantics research at Stanford through two acquisitions (ClearGraph by Tableau, PerceptivePanda by Zapier) and into production systems serving hundreds of thousands of users. PhD in Linguistics, 9 patents in NL interfaces, 15+ peer-reviewed publications. Designed the NLP architecture behind Tableau's Ask Data before transformer models existed, built deterministic control layers over LLMs grounded in discourse theory, and currently build production AI systems at Georgia Tech---including vector search over 400M images and RAG pipelines on AWS Bedrock. Scaled teams from founding engineer to 30+, led AI strategy across Salesforce's cloud portfolio, and consult on AI agents and retrieval-augmented generation for startups in maritime and financial services.
+
+%════════════════════════════════════════════════════════════
+% EXPERIENCE
+%════════════════════════════════════════════════════════════
+\section{Experience}
+
+\entry{Georgia Institute of Technology}{Atlanta, GA}
+      {Research Faculty \& Senior Research Engineer}{Oct 2025 -- Present}
+\begin{itemize}
+  \item Embedded with research teams to build production AI systems from scratch---hands-on engineering, not advisory
+  \item Built enterprise search \& ingestion platform: vector search over 400M+ images via CLIP/Qdrant at sub-200ms latency, distributed GPU ingestion via Ray/Spark on Databricks, zero-error completion across multi-million-image datasets
+  \item Built congressional text analysis platform: 181M+ tokens, Kafka-decoupled ingestion, Elasticsearch + Neo4j entity graphs, spaCy NLP pipeline, full Prometheus/Grafana observability
+  \item Designing graduate curriculum on software engineering for AI and distributed systems---15 weeks covering ADRs, trunk-based dev, SRE, and AI-augmented workflows
+\end{itemize}
+
+\vspace{0.1em}
+
+\entry{Gridline}{Atlanta, GA}
+      {AI Consultant}{Oct 2025 -- Present}
+\begin{itemize}
+  \item Built production RAG system for financial advising on AWS Bedrock with S3-backed vector storage
+\end{itemize}
+
+\vspace{0.1em}
+
+\entry{VesselAware}{Remote}
+      {Software Engineering Advisor}{Jan 2024 -- Present}
+\begin{itemize}
+  \item Building AI agents for maritime intelligence; guiding architecture and technical strategy
+\end{itemize}
+
+\vspace{0.1em}
+
+\entry{PerceptivePanda \textnormal{\textcolor{ltgray}{\small(acquired by Zapier, Jan 2026)}}}{San Francisco, CA}
+      {Co-Founder \& CTO}{May 2023 -- Jul 2025}
+\begin{itemize}
+  \item Built AI-native customer research platform replacing human-led interviews with LLM-driven micro-interviews at scale
+  \item Core innovation: deterministic control layer wrapping LLMs using dialogue state management grounded in the Questions Under Discussion model from my Stanford research---tracked addressed questions, identified threads for probing, orchestrated LLM calls through a structured state machine
+  \item Raised institutional pre-seed; accepted into StartX '24 summer cohort
+\end{itemize}
+
+\vspace{0.1em}
+
+\entry{Salesforce}{San Francisco, CA}
+      {Software Engineering Architect}{Jun 2020 -- May 2023}
+\subentry{Principal Member of Technical Staff}{Jun 2020 -- Mar 2022}
+\begin{itemize}
+  \item Led integration of Tableau Ask Data across multiple Salesforce clouds (Sales, Service, Marketing, Commerce)
+  \item Elected to Salesforce AI Northstar Council (2022, 2023)---cross-organization body setting company-wide AI strategy
+  \item Architected next-generation analytics platform spanning CRM Analytics query engine and multiple cloud products
+  \item Led technical integration of Tableau-acquired Narrative Science into the Salesforce ecosystem
+  \item Recognized for Most Patents Filed and Granted across the organization (2022)
+\end{itemize}
+
+\vspace{0.1em}
+
+\entry{Tableau \textnormal{\textcolor{ltgray}{\small(via ClearGraph acquisition)}}}{Seattle, WA / Palo Alto, CA}
+      {Staff Software Engineer}{Aug 2017 -- May 2020}
+\begin{itemize}
+  \item Created the NLP technology behind Tableau's Ask Data feature, deployed to hundreds of thousands of users
+  \item Scaled semantic indexing infrastructure using Elasticsearch to support enterprise-scale data catalogs
+  \item Published ``Inferencing underspecified natural language utterances in visual analysis'' at IUI 2019
+  \item Filed 9 patents covering NLQ architecture, intent inference, cascading edits, table calculations, and incremental visual feedback
+\end{itemize}
+
+\vspace{0.1em}
+
+\entry{ClearGraph \textnormal{\textcolor{ltgray}{\small(acquired by Tableau, 2017)}}}{San Francisco, CA}
+      {VP, Natural Language Technology}{Nov 2014 -- Jul 2017}
+\begin{itemize}
+  \item Built the core NLP pipeline translating natural language into structured database queries---using Montague Grammar and compositional semantics from my doctoral research, years before BERT existed
+  \item Grew the engineering team from founding stage to 30+ engineers post-acquisition
+  \item Awarded the Celent Model Bank Award (2017) for innovation in financial services technology
+\end{itemize}
+
+%════════════════════════════════════════════════════════════
+% EDUCATION
+%════════════════════════════════════════════════════════════
+\section{Education}
+
+\entry{Stanford University}{Stanford, CA}
+      {PhD, Linguistics}{2009 -- 2015}
+\begin{itemize}
+  \item Dissertation: \textit{The syntax and semantics of ordinary comparative constructions in English}
+  \item Developed compositional semantic framework using continuation semantics and Montague Grammar
+  \item 5 peer-reviewed publications; Phi Beta Kappa Fellowship (2014); collaborated with Christopher Potts on natural logic
+\end{itemize}
+
+\vspace{0.08em}
+
+\entry{University of Amsterdam}{Amsterdam, NL}
+      {Fulbright Scholar --- Institute of Logic, Language \& Computation}{2008 -- 2009}
+
+\vspace{0.08em}
+
+\entry{Northwestern University}{Evanston, IL}
+      {BA, Linguistics --- Cum Laude with Honors; Phi Beta Kappa}{2004 -- 2008}
+
+%════════════════════════════════════════════════════════════
+% PUBLICATIONS & PATENTS
+%════════════════════════════════════════════════════════════
+\section{Publications \& Patents}
+\vspace{-0.3em}
+{\small\textcolor{ltgray}{15+ publications (\href{https://scholar.google.com/citations?user=nNk4g6oAAAAJ}{Google Scholar}) \enspace\textperiodcentered\enspace 9 patents (\href{https://alexdjalali.github.io/publications/}{full listing})}}\par\vspace{0.15em}
+
+\begin{itemize}
+  \item \textbf{Djalali, AJ} et al.\ ``Inferencing underspecified natural language utterances in visual analysis.'' \textit{IUI}, 2019.
+  \item \textbf{Djalali, AJ}.\ ``Synthetic logic.'' \textit{Linguistic Issues in Language Technology}, 2014.
+  \item \textbf{Djalali, AJ} \& C.\ Potts.\ ``A Formal Proof System for Natural Logic.'' Stanford, 2011.
+  \item 9 patents (7 granted + 2 pending) covering NLQ architecture, intent inference, underspecification resolution, cascading edits, table calculations, and incremental visual feedback
+\end{itemize}
+
+%════════════════════════════════════════════════════════════
+% TECHNICAL PROJECTS
+%════════════════════════════════════════════════════════════
+\section{Technical Projects}
+
+\begin{itemize}
+  \item \textbf{Enterprise Semantic Search Platform} --- Production vector search over 400M+ images. CLIP embedding generation on distributed Ray/GPU clusters via Databricks, Qdrant nearest-neighbor retrieval with hybrid dense+keyword scoring at sub-200ms latency. Circuit breakers, exponential backoff, Redis caching for fault tolerance. Batch-level fault isolation and dead-letter tracking for zero-error ingestion across multi-million-image datasets. Full Prometheus/Grafana observability.
+  \item \textbf{House Proceedings Corpus} --- Multi-service NLP platform for 181M+ tokens of congressional text. FastAPI gateway, Kafka-decoupled ingestion, Elasticsearch full-text + faceted search, Neo4j entity graphs linking speakers/bills/committees. spaCy pipeline extracting named entities, noun phrases, and dependency structures at ingest time. Clean layered architecture with repository pattern and DI. \href{https://github.com/alexdjalali/hpc}{github.com/alexdjalali/hpc}
+  \item \textbf{LLM-Driven Interview Platform} --- AI agent system replacing human-led customer research with autonomous LLM micro-interviews at scale. Deterministic control layer orchestrating LLM calls via dialogue state machine grounded in Questions Under Discussion theory---tracked addressed questions, identified threads for probing, enforced analytical coherence while preserving conversational fluidity. (PerceptivePanda, acquired by Zapier)
+  \item \textbf{Financial RAG System} --- Production retrieval-augmented generation pipeline on AWS Bedrock for financial advisory use cases. S3-backed vector storage, document chunking with semantic boundaries, contextual retrieval with source attribution. (Gridline)
+\end{itemize}
+
+%════════════════════════════════════════════════════════════
+% TECHNICAL SKILLS
+%════════════════════════════════════════════════════════════
+\section{Technical Skills}
+
+\noindent\textbf{\color{navy}AI / ML}\enspace LLM orchestration \& prompt engineering, RAG pipelines, AI agent architectures, dialogue state machines, vector search \& embeddings (CLIP, sentence-transformers), semantic retrieval, few-shot / chain-of-thought prompting, evaluation frameworks\\[0.15em]
+\noindent\textbf{\color{navy}NLP}\enspace Formal semantics, Montague Grammar, compositional semantics, natural logic, discourse theory (QUD), dependency parsing, NER, spaCy, pre-transformer NLQ systems\\[0.15em]
+\noindent\textbf{\color{navy}Distributed Systems}\enspace Ray (distributed GPU clusters), Apache Spark, Databricks, Kafka, event-driven architectures, batch \& stream processing at scale\\[0.15em]
+\noindent\textbf{\color{navy}Languages}\enspace Python, Go, TypeScript/JavaScript, Bash, Lua, Java\\[0.15em]
+\noindent\textbf{\color{navy}Data \& Search}\enspace Qdrant, Elasticsearch, Neo4j, PostgreSQL, Redis, MongoDB, S3, vector databases\\[0.15em]
+\noindent\textbf{\color{navy}Cloud \& Infra}\enspace AWS (Bedrock, S3, EC2, Lambda), Docker, Kubernetes, Terraform, Helm, GitHub Actions\\[0.15em]
+\noindent\textbf{\color{navy}Frameworks}\enspace FastAPI, React, Next.js, Node.js, GraphQL\\[0.15em]
+\noindent\textbf{\color{navy}Observability}\enspace Prometheus, Grafana, OpenTelemetry, structured logging, SLO-driven monitoring
+
+%════════════════════════════════════════════════════════════
+% HONORS & AWARDS
+%════════════════════════════════════════════════════════════
+\section{Honors \& Awards}
+
+\begin{multicols}{2}
+\begin{itemize}
+  \item StartX '24 Summer Cohort
+  \item Salesforce Most Patents Filed \& Granted (2022)
+  \item Salesforce AI Northstar Council (2022, 2023)
+  \item Celent Model Bank Award (2017)
+  \item Phi Beta Kappa Fellowship, Stanford (2014)
+  \item Fulbright Fellowship (2008)
+  \item Phi Beta Kappa, Northwestern
+  \item Demoz Paper Award, Northwestern
+  \item National Merit Scholar Semi-Finalist
+\end{itemize}
+\end{multicols}
+
+\end{document}

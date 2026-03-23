@@ -18,6 +18,12 @@
       <p class="cv-tagline">{{ . | safeHTML }}</p>
       {{ end }}
 
+      <p style="margin-top: 0.8em;">
+        <a href="{{ "pdf/djalali-resume.pdf" | relURL }}" class="read-more-btn" download>
+          <i class="fa-solid fa-file-pdf"></i>&ensp;Download Resume (PDF)
+        </a>
+      </p>
+
       {{/* Timeline visualization */}}
       <h2>Timeline</h2>
       <div id="timeline"></div>
