@@ -1,41 +1,54 @@
-<section class="container centered">
-  <div class="about">
+<section class="landing">
+  {{/* ── Hero ── */}}
+  <div class="landing-hero">
     {{ partialCached "home/avatar.html" . }}
-
     {{ partialCached "home/author.html" . }}
-
-    {{ $posts := where .Site.RegularPages "Section" "posts" }}
-    {{ if $posts }}
-    <div class="post-cards">
-      {{ range first 4 $posts }}
-      <a href="{{ .RelPermalink }}" class="post-card">
-        <h3 class="post-card-title">{{ .Title }}</h3>
-        <p class="post-card-desc">{{ .Description }}</p>
-        <div class="post-card-meta">
-          <time>{{ .Date.Format "January 2, 2006" }}</time>
-          {{ if eq .Params.claude false }}
-          <span class="claude-badge claude-badge-no">
-            <i class="fa-solid fa-robot" aria-hidden="true"></i> AI
-          </span>
-          {{ else }}
-          <span class="claude-badge claude-badge-yes">
-            <i class="fa-solid fa-robot" aria-hidden="true"></i> AI
-          </span>
-          {{ end }}
-          {{ with .Params.tags }}
-          <span class="post-card-tags">
-            {{ range . }}<span class="post-card-tag">{{ . }}</span>{{ end }}
-          </span>
-          {{ end }}
-        </div>
+    <div class="landing-cta-group">
+      <a href="mailto:alex.djalali@gmail.com" class="landing-btn landing-btn-primary">
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Call
       </a>
-      {{ end }}
+      <a href="mailto:alex.djalali@gmail.com" class="landing-btn landing-btn-secondary">
+        <i class="fa-solid fa-envelope" aria-hidden="true"></i> Get in Touch
+      </a>
     </div>
-    <div class="post-cards-more">
-      <a href="{{ "posts/" | relURL }}" class="read-more-btn">All Posts</a>
-    </div>
-    {{ end }}
   </div>
 
-  {{ partialCached "home/extensions.html" . }}
+  {{/* ── Trust Logos ── */}}
+  <div class="landing-trust">
+    <p class="landing-trust-label">Trusted By</p>
+    <div class="landing-logos">
+      <img src="{{ "images/logos/standford.png" | relURL }}" alt="Stanford" loading="lazy">
+      <img src="{{ "images/logos/georgiatech.png" | relURL }}" alt="Georgia Tech" loading="lazy">
+      <img src="{{ "images/logos/zapier.png" | relURL }}" alt="Zapier" loading="lazy">
+      <img src="{{ "images/logos/salesforce.png" | relURL }}" alt="Salesforce" loading="lazy">
+      <img src="{{ "images/logos/tableau.png" | relURL }}" alt="Tableau" loading="lazy">
+      <img src="{{ "images/logos/startx.png" | relURL }}" alt="StartX" loading="lazy">
+      <img src="{{ "images/logos/northwestern.png" | relURL }}" alt="Northwestern" loading="lazy">
+      <img src="{{ "images/logos/nuance.png" | relURL }}" alt="Nuance" loading="lazy">
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  {{/* ── Services ── */}}
+  <div class="landing-services">
+<div class="landing-services-grid">
+      <div class="landing-service-card">
+        <i class="fa-solid fa-microchip" aria-hidden="true"></i>
+        <h3>AI Product &amp; Engineering</h3>
+        <p>NLP pipelines, ML infrastructure, LLM integration, and building the teams to own them.</p>
+      </div>
+      <div class="landing-service-card">
+        <i class="fa-solid fa-building" aria-hidden="true"></i>
+        <h3>AI Transformation</h3>
+        <p>Culture change, upskilling, process automation, and AI governance frameworks for the enterprise.</p>
+      </div>
+      <div class="landing-service-card">
+        <i class="fa-solid fa-users-between-lines" aria-hidden="true"></i>
+        <h3>Board &amp; Executive Advisory</h3>
+        <p>Fractional CTO engagements, board presentations, due diligence, and AI roadmaps.</p>
+      </div>
+    </div>
+  </div>
+
 </section>

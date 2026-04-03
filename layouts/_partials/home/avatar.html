@@ -1,19 +1,5 @@
-{{ if and (isset .Site.Params "avatarurl") (not (isset .Site.Params "gravatar")) }}
-  {{ with .Site.Params.avatarURL }}
-    <div class="avatar">
-      <div class="avatar-flip" role="button" tabindex="0" aria-label="Click to flip between AI-generated and real photo">
-        <div class="avatar-flip-inner">
-          <div class="avatar-flip-face avatar-flip-front">
-            <img src="{{ . | relURL }}" alt="AI-generated avatar" width="300" height="300" fetchpriority="high">
-          </div>
-          <div class="avatar-flip-face avatar-flip-back">
-            <img src="{{ "images/me-nobg.png" | relURL }}" alt="Real photo" width="300" height="300" fetchpriority="high">
-          </div>
-        </div>
-      </div>
-    </div>
-  {{ end }}
-{{ end }}
-{{ with .Site.Params.gravatar }}
-  <div class="avatar"><img src="https://www.gravatar.com/avatar/{{md5 .}}?s=240&d=mp" alt="gravatar"></div>
+{{ with .Site.Params.avatarURL }}
+  <div class="landing-headshot">
+    <img src="{{ . | relURL }}" alt="AJ Djalali headshot" width="300" height="300" fetchpriority="high">
+  </div>
 {{ end }}

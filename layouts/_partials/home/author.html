@@ -1,6 +1,2 @@
 <h1>{{ with .Site.Params.displayName }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}</h1>
-{{ if reflect.IsSlice .Site.Params.info }}
-<h2>{{ range .Site.Params.info }}{{ . | markdownify }}<br>{{ end}}</h2>
-{{ else }}
-<h2>{{ .Site.Params.info | markdownify }}</h2>
-{{ end }}
+<p class="landing-bio">Stanford PhD &amp; former CTO (acquired by Zapier) turned Georgia Tech Research Faculty&mdash;helping executives harness AI to ship products, transform organizations, and make smarter decisions.</p>
