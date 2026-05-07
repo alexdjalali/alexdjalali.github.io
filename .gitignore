@@ -12,3 +12,14 @@ resources/
 *.swp
 *.swo
 *~
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+
+# Python cache
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc

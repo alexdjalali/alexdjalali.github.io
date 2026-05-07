@@ -108,18 +108,23 @@ weight = 5
 url = "publications/"
 
 [[languages.en.menu.main]]
-name = "Media"
+name = "Talks"
 weight = 6
+url = "presentations/"
+
+[[languages.en.menu.main]]
+name = "Media"
+weight = 7
 url = "media/"
 
 [[languages.en.menu.main]]
 name = "Gear"
-weight = 7
+weight = 8
 url = "gear/"
 
 [[languages.en.menu.main]]
 name = "About"
-weight = 8
+weight = 9
 url = "about/"
 
 [[params.social]]

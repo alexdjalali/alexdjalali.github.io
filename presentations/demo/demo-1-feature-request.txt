@@ -1,0 +1,10 @@
+Add a Hugo shortcode called "callout" that renders styled callout boxes in blog posts.
+
+Requirements:
+- Support four types: note, warning, tip, danger
+- Usage: {{< callout type="warning" >}} Content here {{< /callout >}}
+- Style with the existing Catppuccin color palette from custom.css
+- Each type should have a distinct left-border color and subtle background
+- Include an icon (Unicode, no external dependencies) and type label
+- Support dark mode (inherits from existing color scheme)
+- Accessible: proper ARIA role="note"
