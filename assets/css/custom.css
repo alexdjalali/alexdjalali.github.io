@@ -3257,7 +3257,7 @@ body.colorscheme-dark .gear-card:hover {
 }
 
 .landing-logos img {
-  height: 3.2rem;
+  height: 5rem;
   width: auto;
   object-fit: contain;
   filter: grayscale(100%);
@@ -3459,7 +3459,7 @@ body.colorscheme-dark .landing-service-card:hover {
   }
 
   .landing-logos img {
-    height: 2.6rem;
+    height: 3.6rem;
   }
 
   .landing-cta-group {
