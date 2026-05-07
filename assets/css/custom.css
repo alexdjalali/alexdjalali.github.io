@@ -399,15 +399,21 @@ body {
 
 .navigation > .container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
+}
+
+.navigation .navigation-title {
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 /* Nav signature — large, overlaps above the nav line */
 .nav-signature {
   height: 18rem;
   width: auto;
+  max-width: 100%;
   object-fit: contain;
   display: block;
   position: relative;
@@ -439,6 +445,7 @@ body.colorscheme-dark .nav-signature {
   float: none;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   gap: 0;
   margin: 0;
   position: relative;
