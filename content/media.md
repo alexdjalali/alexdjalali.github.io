@@ -45,6 +45,23 @@ images:
     </div>
   </div>
 </div>
+<div class="project-card card-deck-item" style="display:flex;gap:1.5em;align-items:flex-start;">
+  <a href="https://www.amazon.com/Storm-Front-Dresden-Files-Book/dp/0451457811" style="flex-shrink:0;">
+    <img src="/images/storm-front-butcher.jpg" alt="Storm Front by Jim Butcher" width="120" style="border-radius:4px;">
+  </a>
+  <div>
+    <h2><a href="https://www.amazon.com/Storm-Front-Dresden-Files-Book/dp/0451457811">Storm Front</a></h2>
+    <div class="project-tech-list">
+      <span class="reading-category">Book</span>
+      <span class="project-tech">Jim Butcher</span>
+      <span class="project-tech">Urban Fantasy</span>
+      <span class="project-tech">The Dresden Files</span>
+    </div>
+    <div class="star-rating" aria-label="4 out of 5 stars">
+      <span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-empty"></span>
+    </div>
+  </div>
+</div>
 </div>
 
 <hr class="section-divider">
@@ -99,6 +116,39 @@ images:
     </div>
     <div class="star-rating" aria-label="3.5 out of 5 stars">
       <span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-half"></span><span class="star-empty"></span>
+    </div>
+  </div>
+</div>
+<div class="project-card card-deck-item" style="display:flex;gap:1.5em;align-items:flex-start;">
+  <a href="https://www.amazon.com/Good-God-Baad-Corrosion-Conformity/dp/B0DV3D4VR2" style="flex-shrink:0;">
+    <img src="/images/coc-good-god-baad-man.jpg" alt="Good God/Baad Man by Corrosion of Conformity" width="120" style="border-radius:4px;">
+  </a>
+  <div>
+    <h2><a href="https://www.amazon.com/Good-God-Baad-Corrosion-Conformity/dp/B0DV3D4VR2">Good God/Baad Man</a></h2>
+    <div class="project-tech-list">
+      <span class="reading-category">Music</span>
+      <span class="project-tech">Corrosion of Conformity</span>
+      <span class="project-tech">Sludge Metal</span>
+      <span class="project-tech">Southern Metal</span>
+    </div>
+    <div class="star-rating" aria-label="4.5 out of 5 stars">
+      <span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-half"></span>
+    </div>
+  </div>
+</div>
+<div class="project-card card-deck-item" style="display:flex;gap:1.5em;align-items:flex-start;">
+  <a href="https://www.amazon.com/0-Sunn/dp/B002LAZ75Q" style="flex-shrink:0;">
+    <img src="/images/sunn-oo-self-titled.jpg" alt="Sunn O))) self-titled" width="120" style="border-radius:4px;">
+  </a>
+  <div>
+    <h2><a href="https://www.amazon.com/0-Sunn/dp/B002LAZ75Q">ØØ Void</a></h2>
+    <div class="project-tech-list">
+      <span class="reading-category">Music</span>
+      <span class="project-tech">Sunn O)))</span>
+      <span class="project-tech">Drone Metal</span>
+    </div>
+    <div class="star-rating" aria-label="4 out of 5 stars">
+      <span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-empty"></span>
     </div>
   </div>
 </div>
