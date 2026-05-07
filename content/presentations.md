@@ -9,11 +9,10 @@ images:
 ---
 
 <ul class="cv-list">
-  <li><span class="pub-title">Enforcing Engineering Discipline with AI</span>
-    <span class="pub-extra">The lifecycle hasn't changed — architecture, design, plan, implement, test, verify, ship. AI is the mechanism that makes it enforceable. This talk covers how to encode your engineering standards so AI enforces them consistently, without fatigue or shortcuts.</span>
+  <li><span class="pub-authors"><strong>Djalali, AJ</strong>.</span> <span class="pub-title">"Enforcing Engineering Discipline with AI."</span> <span class="pub-extra"><em>IDEaS Upskilling Workshop on AI for Research</em>, Georgia Institute of Technology, Atlanta, GA. 2026.</span>
     <br>
-    <a href="/presentations/enforcing-engineering-discipline.html" class="bib-link" target="_blank" rel="noopener noreferrer">View Slides</a>
+    <a href="/presentations/enforcing-engineering-discipline.html" class="bib-link" target="_blank" rel="noopener noreferrer">Slides</a>
     <a href="/presentations/enforcing-engineering-discipline.html" class="bib-link" download target="_blank" rel="noopener noreferrer">Download HTML</a>
-    <a href="/presentations/enforcing-engineering-discipline-script.md" class="bib-link" download target="_blank" rel="noopener noreferrer">Narration Script</a>
+    <a href="/presentations/enforcing-engineering-discipline-script.md" class="bib-link" download target="_blank" rel="noopener noreferrer">Script</a>
   </li>
 </ul>
