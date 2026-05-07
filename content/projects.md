@@ -11,6 +11,27 @@ images:
 ## Present
 
 <div class="project-card">
+  <h2>Conversational Document Intelligence Platform</h2>
+  <div class="project-tech-list">
+    <span class="project-tech">Go</span>
+    <span class="project-tech">Python</span>
+    <span class="project-tech">TypeScript</span>
+    <span class="project-tech">React</span>
+    <span class="project-tech">Protobuf</span>
+    <span class="project-tech">PostgreSQL</span>
+    <span class="project-tech">Redis</span>
+    <span class="project-tech">S3</span>
+    <span class="project-tech">SQS</span>
+    <span class="project-tech">Bedrock</span>
+    <span class="project-tech">Kubernetes</span>
+    <span class="project-tech">OpenTelemetry</span>
+  </div>
+  <p>
+    A multi-tenant enterprise platform for conversational question-answering over organizational document repositories. Users upload documents in nine supported formats; an ingestion pipeline parses them through a distributed worker fleet, extracts page-level citation provenance, and syncs content into a managed RAG knowledge base. The query path rewrites multi-turn conversations into standalone questions, performs semantic retrieval with metadata-aware filtering (workspace, classification, trust level), and streams LLM-generated responses with source citations back through WebSockets. Go services handle identity, API orchestration, and connector management via Protobuf contracts and code-generated ORM schemas. Python services handle document parsing, retrieval, and notification dispatch. Both languages share a strict eight-layer architecture&mdash;core interfaces through transport&mdash;with decorator builders composing logging, metrics, tracing, retry, and circuit breaking at each boundary. A custom CLI replaces Makefiles as the sole task runner across code generation, testing, migrations, and deployment. Infrastructure runs on Kubernetes with Helm charts, Kustomize overlays, and Terraform-provisioned cloud resources, with full observability via Grafana, Prometheus, Loki, and Tempo.
+  </p>
+</div>
+
+<div class="project-card">
   <h2>House Proceedings Corpus</h2>
   <div class="project-tech-list">
     <span class="project-tech">Python</span>
@@ -31,6 +52,10 @@ images:
   </p>
 </div>
 
+<hr class="section-divider">
+
+## Past
+
 <div class="project-card">
   <h2>Enterprise Search &amp; Ingestion Platform</h2>
   <div class="project-tech-list">
@@ -50,10 +75,6 @@ images:
     A large-scale semantic search and image ingestion platform for enterprise workloads. The search API blends dense vector nearest-neighbor retrieval via Qdrant with keyword and metadata filters, delivering sub-200ms query latency. Circuit breakers, retry logic with exponential backoff, and Redis caching provide fault tolerance and graceful degradation. The ingestion engine moves images from S3 through CLIP embedding generation on distributed Ray/GPU clusters, processing over 400 million images in under 24 hours. Batch-level fault isolation, dead-letter tracking, and end-of-run reconciliation ensure zero-error completion across multi-million-image datasets. Full observability spans the pipeline via Prometheus and structured logging.
   </p>
 </div>
-
-<hr class="section-divider">
-
-## Past
 
 <div class="project-card">
   <h2>PerceptivePanda</h2>

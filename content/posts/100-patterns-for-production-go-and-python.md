@@ -2,7 +2,7 @@
 title: "100 Patterns for Production Go and Python"
 date: 2026-05-06
 draft: false
-description: "A comprehensive catalog of the design patterns, concurrency idioms, resilience strategies, and architectural practices that separate production-grade Go and Python systems from prototypes."
+description: "A catalog of the design patterns, concurrency idioms, resilience strategies, and architectural practices that separate production-grade Go and Python systems from prototypes."
 images:
   - "images/posts/100-patterns-for-production-go-and-python.jpg"
 featuredImage: "images/posts/100-patterns-for-production-go-and-python.jpg"
