@@ -453,11 +453,19 @@ body.colorscheme-dark .nav-signature {
 }
 
 @media (max-width: 768px) {
+  /* Let the container wrap so the collapsed menu drops to its own row.
+     Without this, the hidden nav-list stays a flex sibling in a nowrap
+     row and shrinks the signature to 0 width — the header vanishes. */
+  .navigation > .container {
+    flex-wrap: wrap;
+  }
+
   .navigation .navigation-list {
     flex-direction: column;
     align-items: stretch;
     text-align: center;
     padding-bottom: 0;
+    flex-basis: 100%;
   }
 
   .navigation .navigation-list::after {
