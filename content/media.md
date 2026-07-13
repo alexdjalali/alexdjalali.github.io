@@ -62,6 +62,23 @@ images:
     </div>
   </div>
 </div>
+<div class="project-card card-deck-item" style="display:flex;gap:1.5em;align-items:flex-start;">
+  <a href="https://www.amazon.com/Unseen-Realm-Expanded-Discovering-Supernatural/dp/168359875X" style="flex-shrink:0;">
+    <img src="/images/unseen-realm-heiser.jpg" alt="The Unseen Realm (Expanded Edition) by Michael S. Heiser" width="120" style="border-radius:4px;">
+  </a>
+  <div>
+    <h2><a href="https://www.amazon.com/Unseen-Realm-Expanded-Discovering-Supernatural/dp/168359875X">The Unseen Realm (Expanded Edition)</a></h2>
+    <div class="project-tech-list">
+      <span class="reading-category">Book</span>
+      <span class="project-tech">Michael S. Heiser</span>
+      <span class="project-tech">Biblical Studies</span>
+      <span class="project-tech">Theology</span>
+    </div>
+    <div class="star-rating" aria-label="5 out of 5 stars">
+      <span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-full"></span>
+    </div>
+  </div>
+</div>
 </div>
 
 <hr class="section-divider">
@@ -152,6 +169,40 @@ images:
     </div>
   </div>
 </div>
+<div class="project-card card-deck-item" style="display:flex;gap:1.5em;align-items:flex-start;">
+  <a href="https://music.apple.com/us/album/fading-failing-ruin/1886409298" style="flex-shrink:0;">
+    <img src="/images/solace-fading-failing-ruin.jpg" alt="Fading Failing Ruin by Solace" width="120" style="border-radius:4px;">
+  </a>
+  <div>
+    <h2><a href="https://music.apple.com/us/album/fading-failing-ruin/1886409298">Fading Failing Ruin</a></h2>
+    <div class="project-tech-list">
+      <span class="reading-category">Music</span>
+      <span class="project-tech">Solace</span>
+      <span class="project-tech">Stoner Metal</span>
+      <span class="project-tech">Doom Metal</span>
+    </div>
+    <div class="star-rating" aria-label="2 out of 5 stars">
+      <span class="star-full"></span><span class="star-full"></span><span class="star-empty"></span><span class="star-empty"></span><span class="star-empty"></span>
+    </div>
+  </div>
+</div>
+<div class="project-card card-deck-item" style="display:flex;gap:1.5em;align-items:flex-start;">
+  <a href="https://allthemwitches.bandcamp.com/album/house-of-mirrors" style="flex-shrink:0;">
+    <img src="/images/all-them-witches-house-of-mirrors.jpg" alt="House of Mirrors by All Them Witches" width="120" style="border-radius:4px;">
+  </a>
+  <div>
+    <h2><a href="https://allthemwitches.bandcamp.com/album/house-of-mirrors">House of Mirrors</a></h2>
+    <div class="project-tech-list">
+      <span class="reading-category">Music</span>
+      <span class="project-tech">All Them Witches</span>
+      <span class="project-tech">Psychedelic Rock</span>
+      <span class="project-tech">Stoner Rock</span>
+    </div>
+    <div class="star-rating" aria-label="3 out of 5 stars">
+      <span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-empty"></span><span class="star-empty"></span>
+    </div>
+  </div>
+</div>
 </div>
 
 <hr class="section-divider">
@@ -172,6 +223,22 @@ images:
     </div>
     <div class="star-rating" aria-label="5 out of 5 stars">
       <span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-full"></span>
+    </div>
+  </div>
+</div>
+<div class="project-card card-deck-item" style="display:flex;gap:1.5em;align-items:flex-start;">
+  <a href="https://www.fxnetworks.com/shows/the-bear" style="flex-shrink:0;">
+    <img src="/images/the-bear-s5.png" alt="The Bear Season 5 FX on Hulu poster" width="120" style="border-radius:4px;">
+  </a>
+  <div>
+    <h2><a href="https://www.fxnetworks.com/shows/the-bear">The Bear (Season 5)</a></h2>
+    <div class="project-tech-list">
+      <span class="reading-category">TV</span>
+      <span class="project-tech">FX on Hulu</span>
+      <span class="project-tech">Comedy-Drama</span>
+    </div>
+    <div class="star-rating" aria-label="3 out of 5 stars">
+      <span class="star-full"></span><span class="star-full"></span><span class="star-full"></span><span class="star-empty"></span><span class="star-empty"></span>
     </div>
   </div>
 </div>
