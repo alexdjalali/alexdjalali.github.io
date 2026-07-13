@@ -13,6 +13,7 @@ images:
     <br>
     <a href="/presentations/enforcing-engineering-discipline.html" class="bib-link" target="_blank" rel="noopener noreferrer">Slides</a>
     <a href="/presentations/enforcing-engineering-discipline.html" class="bib-link" download target="_blank" rel="noopener noreferrer">Download HTML</a>
+    <a href="/presentations/enforcing-engineering-discipline.pdf" class="bib-link" download target="_blank" rel="noopener noreferrer">Download PDF</a>
     <a href="/presentations/enforcing-engineering-discipline-script.md" class="bib-link" download target="_blank" rel="noopener noreferrer">Script</a>
   </li>
 </ul>
