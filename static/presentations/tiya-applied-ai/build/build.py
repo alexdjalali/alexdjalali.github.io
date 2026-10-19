@@ -14,7 +14,8 @@ FONTS = (
 )
 PAGES = [
     "facilitator-guide",
-    "participant-workbook",
+    "participant-workbook-day1",
+    "participant-workbook-day2",
     "index",
     "participants",
     "assessment-kit",

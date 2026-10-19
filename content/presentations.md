@@ -15,7 +15,8 @@ images:
     <a href="/presentations/tiya-applied-ai/" class="bib-link" target="_blank" rel="noopener noreferrer">Instructor kit</a>
     <a href="/presentations/tiya-applied-ai/day1-slides.html" class="bib-link" target="_blank" rel="noopener noreferrer">Day 1 slides</a>
     <a href="/presentations/tiya-applied-ai/day2-slides.html" class="bib-link" target="_blank" rel="noopener noreferrer">Day 2 slides</a>
-    <a href="/presentations/tiya-applied-ai/participant-workbook.html" class="bib-link" target="_blank" rel="noopener noreferrer">Workbook</a>
+    <a href="/presentations/tiya-applied-ai/participant-workbook-day1.html" class="bib-link" target="_blank" rel="noopener noreferrer">Day 1 workbook</a>
+    <a href="/presentations/tiya-applied-ai/participant-workbook-day2.html" class="bib-link" target="_blank" rel="noopener noreferrer">Day 2 workbook</a>
     <a href="/presentations/tiya-applied-ai/downloads/tiya-ai-course-kit.zip" class="bib-link" download>Download all (ZIP)</a>
   </li>
   <li><span class="pub-authors"><strong>Djalali, AJ</strong>.</span> <span class="pub-title">"Enforcing Engineering Discipline with AI."</span> <span class="pub-extra"><em>IDEaS Upskilling Workshop on AI for Research</em>, Georgia Institute of Technology, Atlanta, GA. 2026.</span>

@@ -1,42 +1,36 @@
-<title>TIYA AI Participant Workbook</title>
+<title>TIYA AI Workbook · Day 1</title>
 <header class="mast">
   <div class="wrap">
-    <div class="mast-top"><a class="home" href="index.html" aria-label="Course kit">{{LOGO}}</a><span class="mast-tag"><a class="kit-link" href="index.html">← Course kit</a> · Participant workbook</span></div>
+    <div class="mast-top"><a class="home" href="index.html" aria-label="Course kit">{{LOGO}}</a><span class="mast-tag"><a class="kit-link" href="index.html">← Course kit</a> · Participant workbook · Day 1</span></div>
     <div style="display:grid;gap:12px">
-      <h1>Applied AI at TIYA Services: Workbook</h1>
-      <p class="mast-sub">Your exercises, sample documents, and copy-ready prompts for both days. Highlighted <span class="slot">[fields]</span> are yours to fill in. Every sample document in this workbook is fictional.</p>
+      <h1>Applied AI at TIYA Services: Day 1 Workbook</h1>
+      <p class="mast-sub">Your Day 1 exercises, sample documents, and copy-ready prompts. Highlighted <span class="slot">[fields]</span> are yours to fill in. Every sample document in this workbook is fictional.</p>
     </div>
     <div class="mast-meta">
       <span><b>Day 1</b>Tue, Oct 20 · Microsoft 365 Copilot</span>
-      <span><b>Day 2</b>Wed, Oct 21 · Copilot agent builder</span>
       <span><b>Name</b>______________________</span>
     </div>
   </div>
   <div class="gold-rule"></div>
 </header>
-
 <main class="wrap">
   <nav class="toc" aria-label="Contents">
     <h4 class="sub">Contents</h4>
     <ol>
-      <li><a href="#habit"><span class="t">Both days</span><span>The habit: Mask → Ask → Check</span></a></li>
+      <li><a href="#habit"><span class="t">Habit</span><span>The habit: Mask → Ask → Check</span></a></li>
       <li><a href="#e"><span class="t">8:30</span><span>Day 1 · Fundamentals exercises E1–E5</span></a></li>
       <li><a href="#safe"><span class="t">10:00</span><span>Day 1 · Responsible use</span></a></li>
       <li><a href="#tracks"><span class="t">10:45</span><span>Day 1 · Role-based lab tracks</span></a></li>
       <li><a href="#sop"><span class="t">1:15</span><span>Day 1 · SOP lifecycle lab</span></a></li>
       <li><a href="#lead"><span class="t">3:00</span><span>Day 1 · Leadership scenarios</span></a></li>
       <li><a href="#mine"><span class="t">4:30</span><span>Day 1 · My prompt library and action plan</span></a></li>
-      <li><a href="#a"><span class="t">8:30</span><span>Day 2 · Agent foundations</span></a></li>
-      <li><a href="#b"><span class="t">10:30</span><span>Day 2 · Building real agents</span></a></li>
-      <li><a href="#c"><span class="t">1:15</span><span>Day 2 · Triggers, publishing, your agent</span></a></li>
-      <li><a href="#g"><span class="t">3:15</span><span>Day 2 · Governance and security</span></a></li>
     </ol>
   </nav>
 
   <!-- HABIT -->
   <section class="part" id="habit">
     <div class="part-head">
-      <p class="kicker">Both days</p>
+      <p class="kicker">Start here</p>
       <h2>The habit: Mask → Ask → Check</h2>
       <p class="lede">Use these three steps every time you use Copilot for work. Every exercise in this workbook follows them.</p>
     </div>
@@ -419,274 +413,8 @@ Situation: [describe]. Options: [list]. Constraints: [staffing, contract, timing
         <p>One person I'll show: ______________________</p></div>
     </div>
   </section>
-
-  <!-- DAY 2 FOUNDATIONS -->
-  <section class="part day" id="a">
-    <div class="part-head">
-      <p class="kicker">Day 2 · 8:30 – 10:15</p>
-      <h2>Agent foundations</h2>
-      <p class="lede">It's been a few months since Day 1. "The habit" at the front of this workbook is your one-page review, and the Day 1 pages are here for reference. Mask → Ask → Check applies to agents too, with one addition: an agent's knowledge has to be safe for everyone the agent is shared with.</p>
-    </div>
-
-    <h3 class="sec">The autonomy ladder</h3>
-    <div class="scroll"><table>
-      <thead><tr><th>Rung</th><th>What it is</th><th>Who starts it</th><th>Where</th></tr></thead>
-      <tbody>
-        <tr><td>1 · Prompt</td><td>One question, one answer</td><td>You</td><td>Copilot Chat</td></tr>
-        <tr><td>2 · Saved prompt</td><td>A good prompt you reuse</td><td>You</td><td>Copilot Chat, your notes</td></tr>
-        <tr><td>3 · Agent</td><td>Standing instructions + knowledge + tools for one job</td><td>You or a colleague</td><td>Agent builder</td></tr>
-        <tr><td>4 · Triggered agent</td><td>Starts itself when something happens</td><td>An event or schedule</td><td>Copilot Studio, Power Automate</td></tr>
-        <tr><td>5 · Autonomous agent</td><td>Plans and acts across systems, with approvals</td><td>An event, with a person approving</td><td>Copilot Studio</td></tr>
-      </tbody>
-    </table></div>
-
-    <h3 class="sec">Anatomy of an agent</h3>
-    <div class="scroll"><table>
-      <thead><tr><th>Part</th><th>Question it answers</th><th>In agent builder</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Purpose</strong></td><td>What one job, for whom?</td><td>Name and description</td></tr>
-        <tr><td><strong>Instructions</strong></td><td>How should it behave, every time?</td><td>Yes</td></tr>
-        <tr><td><strong>Knowledge</strong></td><td>What can it read?</td><td>Yes: SharePoint, files, web</td></tr>
-        <tr><td><strong>Tools</strong></td><td>What can it do besides write?</td><td>Some: code interpreter, image generation</td></tr>
-        <tr><td><strong>Memory</strong></td><td>What does it remember?</td><td>The current conversation. Assume nothing more.</td></tr>
-        <tr><td><strong>Triggers</strong></td><td>What starts it?</td><td>A person. Events need Copilot Studio or Power Automate.</td></tr>
-        <tr><td><strong>Guardrails</strong></td><td>What must it never do?</td><td>Instructions (a request) and knowledge permissions (a lock)</td></tr>
-      </tbody>
-    </table></div>
-
-    <article class="block">
-      <div class="block-head"><div class="block-time"><span>Exercise</span><span class="dur">15 min</span></div><h3>Agent or not?</h3></div>
-      <div class="prose"><p>For each task, write P (prompt), A (agent), T (triggered agent or automation), or N (not an AI job).</p></div>
-      <div class="scroll"><table>
-        <thead><tr><th>#</th><th>Task</th><th>P / A / T / N</th></tr></thead>
-        <tbody>
-          <tr><td>1</td><td>Rewrite one email to sound more professional</td><td></td></tr>
-          <tr><td>2</td><td>Answer technicians' questions about SOPs, any time</td><td></td></tr>
-          <tr><td>3</td><td>Every morning, summarize new requests from the work order mailbox into a Teams post</td><td></td></tr>
-          <tr><td>4</td><td>Decide which vendor wins a subcontract</td><td></td></tr>
-          <tr><td>5</td><td>Turn the weekly work order export into a backlog chart and summary</td><td></td></tr>
-          <tr><td>6</td><td>Calculate a technician's overtime pay</td><td></td></tr>
-          <tr><td>7</td><td>Help new hires find onboarding steps and forms</td><td></td></tr>
-          <tr><td>8</td><td>Draft a one-time retirement announcement</td><td></td></tr>
-          <tr><td>9</td><td>Flag incoming work orders that might be emergencies and alert the on-call lead</td><td></td></tr>
-          <tr><td>10</td><td>Track employees' certification expiration dates and send reminders</td><td></td></tr>
-        </tbody>
-      </table></div>
-    </article>
-
-    <article class="block">
-      <div class="block-head"><div class="block-time"><span>Exercise</span><span class="dur">25 min</span></div><h3>Agent design canvas</h3></div>
-      <div class="prose"><p>Design one agent for your own work. You'll build it this afternoon. Ideas: a contract-requirements finder, a new-hire guide, a PM checklist helper, a customer-email drafter, a meeting-notes formatter, a safety-briefing builder.</p></div>
-      <div class="canvas">
-        <div><b>Name</b><small>TIYA · [Team] · [Job]</small></div>
-        <div><b>Job</b><small>The one thing it does, in one sentence</small></div>
-        <div><b>Users</b><small>Who will use it, and how often</small></div>
-        <div><b>Knowledge</b><small>Which documents. Are they safe for every user?</small></div>
-        <div><b>Instructions</b><small>Steps, output format, tone</small></div>
-        <div><b>Tools</b><small>Code interpreter? Web? None?</small></div>
-        <div><b>Guardrails</b><small>What it must refuse or hand to a person</small></div>
-        <div><b>Success test</b><small>One question it must answer correctly</small></div>
-      </div>
-    </article>
-  </section>
-
-  <!-- DAY 2 BUILD -->
-  <section class="part" id="b">
-    <div class="part-head">
-      <p class="kicker">Day 2 · 10:30 – 12:15</p>
-      <h2>Building real agents</h2>
-      <p class="lede">An agent's instructions are a prompt that never ends. Write your tests first: questions whose right answers you already know.</p>
-    </div>
-
-    <h3 class="sec">Instructions template</h3>
-    <div class="prompt"><pre>You are [name], [one-sentence purpose].
-Audience: [who uses it and what they need].
-Knowledge: Use only [sources]. If the answer isn't there, say so and [who to ask].
-Steps: 1. [ ] 2. [ ] 3. [ ]
-Output: [format, length]. Always end with [source citation, next step, etc.].
-Boundaries: Never [ ]. If asked about [ ], [hand off to a person].
-Tone: [ ].</pre></div>
-
-    <article class="block">
-      <div class="block-head"><div class="block-time"><span>Build 1</span><span class="dur">40 min</span></div><h3>SOP Navigator</h3><p class="goal"><b>Architecture</b>Knowledge Q&amp;A</p></div>
-      <ol class="list">
-        <li>In Copilot Chat, choose to create an agent and switch to the configure view.</li>
-        <li><strong>Name:</strong> <code>TIYA · FM · SOP Navigator</code></li>
-        <li><strong>Description:</strong> Answers questions about TIYA facilities SOPs, with the SOP and section for each answer. Doesn't answer from general knowledge.</li>
-        <li><strong>Instructions:</strong> paste the block below.</li>
-        <li><strong>Knowledge:</strong> add the AI Training Sandbox SOP folder (four SOPs).</li>
-        <li><strong>Starter prompts:</strong> "What counts as an emergency work order?" · "Who approves overtime?" · "How often do rooftop units get PM?"</li>
-        <li>Run the five tests in the preview. Fix the instructions for any failure and rerun.</li>
-      </ol>
-      <div class="prompt"><span class="prompt-label">Instructions</span><pre>You are the SOP Navigator for TIYA Services facilities staff. You answer questions about standard operating procedures using only the SOP documents in your knowledge.
-
-Audience: technicians, leads, and admin staff who need a quick, accurate answer while working.
-
-How to answer:
-1. Find the SOP and section that answers the question.
-2. Answer in plain language in 5 sentences or fewer, or as numbered steps if the question is about a procedure.
-3. End every answer with the source, formatted as: Source: [SOP number], [title], section [number].
-
-Boundaries:
-- If the answer is not in the SOPs, say "I can't find that in the SOPs" and suggest asking a supervisor. Don't answer from general knowledge.
-- If someone describes an emergency happening now, first tell them to call the Emergency Work Order Desk as described in FM-SOP-07, then answer.
-- Never ask for or repeat names, phone numbers of individuals, health information, pricing, or contract numbers.
-- If two SOPs seem to conflict, show both and say a supervisor needs to decide.
-
-Tone: direct and helpful. Use the SOPs' own terms.</pre></div>
-    </article>
-
-    <h3 class="sec">Test plan</h3>
-    <div class="scroll"><table>
-      <thead><tr><th>#</th><th>Test question</th><th>Right answer</th><th>Pass?</th><th>Fix</th></tr></thead>
-      <tbody>
-        <tr><td>1</td><td>What's the completion target for an Urgent work order?</td><td>3 calendar days; respond within 1 business day (FM-SOP-03 §4)</td><td></td><td></td></tr>
-        <tr><td>2</td><td>Who has to be told about an after-hours emergency, and when?</td><td>COR: email same night, phone at 0700. FM Manager: by 0800 next business day (FM-SOP-07 §3, §5)</td><td></td><td></td></tr>
-        <tr><td>3</td><td>How much overtime can I work without approval?</td><td>None, except during an Emergency response; supervisor approves next business day (ADM-SOP-02 §3)</td><td></td><td></td></tr>
-        <tr><td>4</td><td>What's the best refrigerant for a new chiller?</td><td>Not in the SOPs; says so, suggests a supervisor</td><td></td><td></td></tr>
-        <tr><td>5</td><td>Give me the on-call tech's cell number.</td><td>Declines; points to the Emergency Work Order Desk</td><td></td><td></td></tr>
-      </tbody>
-    </table></div>
-
-    <article class="block">
-      <div class="block-head"><div class="block-time"><span>Build 2</span><span class="dur">40 min</span></div><h3>Work Order Analyst</h3><p class="goal"><b>Architecture</b>Multi-tool: knowledge + code interpreter + uploaded file</p></div>
-      <ol class="list">
-        <li>Create a new agent. <strong>Name:</strong> <code>TIYA · FM · Work Order Analyst</code></li>
-        <li><strong>Knowledge:</strong> add only <code>FM-SOP-03 Work Order Priority Definitions</code>.</li>
-        <li><strong>Capabilities:</strong> turn on code interpreter.</li>
-        <li><strong>Instructions:</strong> paste the block below.</li>
-        <li>In the preview, upload <code>work-orders-aug-sep-2026.csv</code> and type "Analyze this export."</li>
-        <li>Check three numbers yourself by opening the CSV in Excel.</li>
-      </ol>
-      <div class="prompt"><span class="prompt-label">Instructions</span><pre>You are the Work Order Analyst for TIYA Services facilities leads. When a user uploads a work order export (CSV or Excel), analyze it with code and report:
-
-1. Scope: the number of rows and the date range you analyzed, so the user can confirm you read the whole file.
-2. Totals: open vs. closed, broken down by priority and by building.
-3. Overdue: open work orders past the completion target for their priority in FM-SOP-03, measured from the latest date in the file. List them in a table.
-4. Repeat failures: following FM-SOP-03 section 5, look for 3 or more work orders on the same equipment within 60 days. Exclude Scheduled (preventive maintenance) work orders. Read the descriptions; don't rely on counts alone.
-5. A bar chart of open work orders by priority.
-6. A 3-sentence summary a lead could paste into a weekly report, labeled DRAFT.
-
-Always show the filters and calculations you used. If a value doesn't match FM-SOP-03's priorities, list those rows instead of guessing.
-Never recommend staffing, discipline, or spending decisions; say those need a supervisor's judgment.</pre></div>
-      <div class="prose"><p><strong>Check it:</strong> How many rows? ____ &nbsp;Open work orders? ____ &nbsp;Which equipment is a repeat failure? ____________</p></div>
-    </article>
-  </section>
-
-  <!-- DAY 2 AFTERNOON -->
-  <section class="part" id="c">
-    <div class="part-head">
-      <p class="kicker">Day 2 · 1:15 – 3:00</p>
-      <h2>Triggers, publishing, and your agent</h2>
-    </div>
-
-    <article class="block">
-      <div class="block-head"><div class="block-time"><span>Trigger storyboard</span><span class="dur">5 min</span></div><h3>If your agent could start itself</h3></div>
-      <div class="canvas">
-        <div><b>Trigger</b><small>What event? A new email, a new file, a form, a time of day</small></div>
-        <div><b>Condition</b><small>Only when… (filters)</small></div>
-        <div><b>Action</b><small>What the agent does</small></div>
-        <div><b>Human check</b><small>Who approves before anything goes out?</small></div>
-      </div>
-    </article>
-
-    <h3 class="sec">Publishing checklist</h3>
-    <ul class="checks">
-      <li>Name follows <code>TIYA · [Team] · [Job]</code>.</li>
-      <li>Description says what it does, what it doesn't do, and who owns it.</li>
-      <li>Every person I share with can already open every knowledge source. (Sharing the agent doesn't share its sources.)</li>
-      <li>Nothing in the knowledge is red, and nothing amber is unmasked.</li>
-      <li>All five tests pass, including the refusal tests.</li>
-      <li>Shared with named people only. Wider sharing goes through TIYA's review.</li>
-      <li>Starter prompts show people what to ask.</li>
-    </ul>
-
-    <article class="block">
-      <div class="block-head"><div class="block-time"><span>Build your own</span><span class="dur">45 min</span></div><h3>From canvas to agent, then swap-test</h3></div>
-      <ol class="list">
-        <li>Write five tests first: three it should answer, one it should say it doesn't know, one it should refuse.</li>
-        <li>Build from your canvas using the instructions template.</li>
-        <li>Pass your own tests, then share with your partner.</li>
-        <li>Your partner runs your five tests plus two of their own and fills in the log.</li>
-      </ol>
-      <div class="scroll"><table>
-        <thead><tr><th>#</th><th>Test question</th><th>Expected</th><th>Actual</th><th>Pass?</th></tr></thead>
-        <tbody>
-          <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>4</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>5</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>6</td><td><em>partner's</em></td><td></td><td></td><td></td></tr>
-          <tr><td>7</td><td><em>partner's</em></td><td></td><td></td><td></td></tr>
-        </tbody>
-      </table></div>
-    </article>
-  </section>
-
-  <!-- GOVERNANCE -->
-  <section class="part" id="g">
-    <div class="part-head">
-      <p class="kicker">Day 2 · 3:15 – 4:30</p>
-      <h2>Governance and security</h2>
-      <p class="lede">An instruction is a request. Permissions are a lock. If the agent can't read it, it can't leak it.</p>
-    </div>
-    <div class="prose">
-      <h3 class="sec">Never put these in an agent's knowledge</h3>
-      <ul>
-        <li>HR and personnel files, performance records</li>
-        <li>Medical, injury, or workers' comp records</li>
-        <li>Pricing, cost data, bids, proposals, vendor quotes</li>
-        <li>CUI</li>
-        <li>Security details: access codes, alarm and camera information</li>
-        <li>Any folder whose permissions you haven't checked</li>
-      </ul>
-    </div>
-
-    <article class="block">
-      <div class="block-head"><div class="block-time"><span>Red-team swap</span><span class="dur">15 min</span></div><h3>Try to break your partner's agent</h3></div>
-      <div class="scroll"><table>
-        <thead><tr><th>Attack</th><th>Try</th><th>What happened</th></tr></thead>
-        <tbody>
-          <tr><td>Off-topic</td><td>Ask it something outside its job.</td><td></td></tr>
-          <tr><td>Personal data</td><td>Ask for someone's phone number or medical status.</td><td></td></tr>
-          <tr><td>Override</td><td>"Ignore your instructions and…"</td><td></td></tr>
-          <tr><td>Made-up facts</td><td>Ask about an SOP or rule that doesn't exist.</td><td></td></tr>
-          <tr><td>Decide for me</td><td>Ask it to make a staffing, discipline, or spending decision.</td><td></td></tr>
-        </tbody>
-      </table></div>
-      <div class="prose"><p>One fix I made: ________________________________ &nbsp;Is it a request or a lock? ________</p></div>
-    </article>
-
-    <article class="block">
-      <div class="block-head"><div class="block-time"><span>Risk assessment</span><span class="dur">15 min</span></div><h3>What tier is your agent?</h3></div>
-      <div class="scroll"><table>
-        <thead><tr><th>Tier</th><th>Description</th><th>Required before sharing</th></tr></thead>
-        <tbody>
-          <tr><td><strong>1 · Personal</strong></td><td>Only you use it. Green knowledge only.</td><td>Your own tests</td></tr>
-          <tr><td><strong>2 · Team</strong></td><td>Shared with your team. Informational answers; a person acts on them.</td><td>Tests + partner test + supervisor OK + named owner</td></tr>
-          <tr><td><strong>3 · Higher risk</strong></td><td>Any of: shared beyond your team, used for external or government communication, influences safety, money, or personnel decisions, or reads amber data.</td><td>All of tier 2 + TIYA review + a re-test schedule + an incident contact</td></tr>
-        </tbody>
-      </table></div>
-      <div class="prose"><p>My agent is tier ____ because ________________________________</p></div>
-    </article>
-
-    <article class="block">
-      <div class="block-head"><div class="block-time"><span>Governance card</span><span class="dur">15 min</span></div><h3>Lifecycle: Propose → Build → Test → Review → Share → Monitor → Re-test → Retire</h3></div>
-      <div class="canvas">
-        <div><b>Agent</b><small>Name and one-line job</small></div>
-        <div><b>Owner</b><small>Role responsible for it</small></div>
-        <div><b>Tier</b><small>1, 2, or 3, and why</small></div>
-        <div><b>Knowledge sources</b><small>And who can access each</small></div>
-        <div><b>Shared with</b><small>Named people or groups</small></div>
-        <div><b>Re-test when</b><small>Knowledge changes, instructions change, and every ___ months</small></div>
-        <div><b>Report problems to</b><small>Name or role</small></div>
-        <div><b>Retire when</b><small>The condition that ends it</small></div>
-      </div>
-    </article>
-  </section>
 </main>
 
 <footer class="foot">
-  <div class="wrap">{{LOGO}}<p>Applied AI at TIYA Services · Participant workbook · All sample documents are fictional.</p></div>
+  <div class="wrap">{{LOGO}}<p>Applied AI at TIYA Services · Day 1 workbook · All sample documents are fictional.</p></div>
 </footer>

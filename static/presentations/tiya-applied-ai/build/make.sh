@@ -17,7 +17,8 @@ pdf() { # $1 = page in kit root, $2 = pdf name in downloads/
 pdf day1-slides.html day1-slides.pdf
 pdf day2-slides.html day2-slides.pdf
 pdf tiya-ai-onsite.html program-agenda.pdf
-pdf participant-workbook.html participant-workbook.pdf
+pdf participant-workbook-day1.html participant-workbook-day1.pdf
+pdf participant-workbook-day2.html participant-workbook-day2.pdf
 pdf facilitator-guide.html facilitator-guide.pdf
 pdf assessment-kit.html assessment-kit.pdf
 
