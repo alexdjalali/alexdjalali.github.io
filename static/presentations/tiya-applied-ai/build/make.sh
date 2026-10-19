@@ -21,9 +21,12 @@ pdf participant-workbook.html participant-workbook.pdf
 pdf facilitator-guide.html facilitator-guide.pdf
 pdf assessment-kit.html assessment-kit.pdf
 
+(cd "$KIT" && rm -f downloads/tiya-ai-materials.zip && zip -qr downloads/tiya-ai-materials.zip materials -x '*.DS_Store')
+echo "downloads/tiya-ai-materials.zip  $(du -h "$KIT/downloads/tiya-ai-materials.zip" | cut -f1)"
+
 zipkit() {
   (cd "$KIT" && rm -f downloads/tiya-ai-course-kit.zip && \
-   zip -qr downloads/tiya-ai-course-kit.zip ./*.html downloads materials -x 'downloads/tiya-ai-course-kit.zip' -x '*.DS_Store')
+   zip -qr downloads/tiya-ai-course-kit.zip ./*.html downloads materials -x 'downloads/tiya-ai-course-kit.zip' -x 'downloads/tiya-ai-materials.zip' -x '*.DS_Store')
 }
 zipkit
 python3 build.py > /dev/null   # index now shows real sizes, including the zip
