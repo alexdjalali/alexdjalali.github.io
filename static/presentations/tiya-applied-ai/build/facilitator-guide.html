@@ -1,0 +1,581 @@
+<title>TIYA AI Facilitator Guide</title>
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-top"><a class="home" href="index.html" aria-label="Course kit">{{LOGO}}</a><span class="mast-tag"><a class="kit-link" href="index.html">← Course kit</a> · Facilitator guide · instructors only</span></div>
+    <div style="display:grid;gap:12px">
+      <h1>Applied AI at TIYA Services: Facilitator Guide</h1>
+      <p class="mast-sub">Minute-by-minute run sheets, talking points, demos, and debriefs for both days. Day 1 runs on Microsoft 365 Copilot; Day 2 builds agents with the Copilot agent builder.</p>
+    </div>
+    <div class="mast-meta">
+      <span><b>Day 1</b>Tue, Oct 20, 2026</span>
+      <span><b>Day 2</b>Wed, Oct 21, 2026</span>
+      <span><b>Lead</b>Alex Djalali</span>
+      <span><b>Co-instructor</b>Alex Rhodeen</span>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+</header>
+
+<main class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <h4 class="sub">Contents</h4>
+    <ol>
+      <li><a href="#design"><span class="t">Before</span><span>Course design at a glance</span></a></li>
+      <li><a href="#ready"><span class="t">T−14 days</span><span>Readiness checklist</span></a></li>
+      <li><a href="#decide"><span class="t">Open</span><span>Decisions for the program owner</span></a></li>
+      <li><a href="#d1"><span class="t">Oct 20</span><span>Day 1 · Generative AI for Daily Work</span></a></li>
+      <li><a href="#d2"><span class="t">Oct 21</span><span>Day 2 · Agentic AI with Microsoft Copilot</span></a></li>
+      <li><a href="#after"><span class="t">After</span><span>Follow-up</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- DESIGN -->
+  <section class="part" id="design">
+    <div class="part-head">
+      <p class="kicker">Course design</p>
+      <h2>How the two days fit together</h2>
+      <p class="lede">Both days teach one habit, Mask → Ask → Check, and practice it on one set of fictional TIYA-style documents. Participants spend most of the day at the keyboard; instruction comes in short bursts between exercises.</p>
+    </div>
+
+    <div class="loop" aria-label="The Mask, Ask, Check loop">
+      <div><span class="step">1 · Mask</span><p>Strip or replace sensitive data before anything goes into Copilot.</p><ul><li>Names → roles</li><li>Numbers → placeholders</li><li>Pricing, CUI, PHI never go in</li></ul></div>
+      <div><span class="step">2 · Ask</span><p>Prompt with Microsoft's four parts for Copilot.</p><ul><li><b>G</b>oal: what you want</li><li><b>C</b>ontext: why, for whom</li><li><b>S</b>ource: what to use</li><li><b>E</b>xpectations: format, length, tone</li></ul></div>
+      <div><span class="step">3 · Check</span><p>A person verifies before anything is used or sent.</p><ul><li>Facts, numbers, names</li><li>Policy and tone</li><li>"Would I sign this?"</li></ul></div>
+    </div>
+
+    <div class="prose">
+      <h3 class="sec">Design principles</h3>
+      <ul>
+        <li><strong>Keyboard time first.</strong> Every block except the policy block has participants typing within 15 minutes of its start. Day 1 has about 5.5 hours hands-on; Day 2 has 3.5 hours of building, plus design and red-team exercises.</li>
+        <li><strong>One habit, repeated.</strong> Mask → Ask → Check appears on every exercise card, so by 4:30 it is reflexive and the closing assessment tests it directly.</li>
+        <li><strong>One sample world.</strong> The same fictional work orders, SOPs, and building names run through both days. Participants spend their attention on the AI technique, not on learning new material each hour. Day 2 introduces its own files (the sandbox SOPs and the work order export), so a Day 2 cohort that took Day 1 months earlier doesn't need to remember the Day 1 samples.</li>
+        <li><strong>Real work, masked.</strong> The role lab and the Day 2 build invite participants to bring a real task, but only after masking it. Instructors check masking before anyone pastes.</li>
+        <li><strong>AI drafts, people decide.</strong> No exercise ends with AI output used as-is. Each one ends with a Check step and a share-out about what had to be fixed.</li>
+      </ul>
+
+      <h3 class="sec">Instructor roles</h3>
+      <ul>
+        <li><strong>Djalali (lead):</strong> delivers instruction blocks, runs live demos, leads debriefs, keeps time.</li>
+        <li><strong>Rhodeen (co-instructor):</strong> runs the morning login check, circulates during labs, owns the remote channel, collects prompts for the "prompt wall", flags masking problems quietly to individuals. Swap lead on the leadership block (Day 1) and the governance block (Day 2) if you want a change of voice.</li>
+      </ul>
+
+      <h3 class="sec">Remote participants</h3>
+      <ul>
+        <li>Join the Teams meeting with camera on during exercises if possible. Rhodeen watches chat throughout and voices remote questions at each debrief.</li>
+        <li>Remote participants get the digital workbook and the materials folder link the day before.</li>
+        <li>During labs, pair remote participants with each other in a Teams breakout room, or with an in-room partner on a laptop call.</li>
+        <li>Share-outs: remote participants paste their prompt and result into chat; the lead reads one aloud each debrief.</li>
+      </ul>
+
+      <h3 class="sec">Materials</h3>
+      <ul>
+        <li><strong>Participant workbook</strong>, one printed copy each plus the digital version (prompts are copy-ready).</li>
+        <li><strong>Slide outlines</strong>, built into PowerPoint with GT branding.</li>
+        <li><strong>Assessment kit</strong>: knowledge checks, exit tasks, rubrics, certificate criteria, evaluation form.</li>
+        <li><strong>Materials folder</strong> (<code>materials/</code>): sample SOPs as Word files and a work order export as CSV. Upload these to a training SharePoint site before Day 2.</li>
+        <li>Printed: Mask/Ask/Check table tents, "Can I paste this?" quick-fire cards, red-team attack cards, certificates.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- READINESS -->
+  <section class="part" id="ready">
+    <div class="part-head">
+      <p class="kicker">Readiness</p>
+      <h2>Readiness checklist</h2>
+      <p class="lede">Most failures in tool training happen at 8:05 AM, when a third of the room can't log in. Confirm each item with TIYA IT, in writing, before the event.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <span class="tag">T−14 days · TIYA IT</span>
+        <h4>Licensing and tenant</h4>
+        <ul class="checks">
+          <li>Every participant has a Microsoft 365 Copilot license, or at least Copilot Chat. Get the list of who has which.</li>
+          <li>Which cloud: commercial, GCC, or GCC High. Feature availability differs; confirm which features below are live.</li>
+          <li>Agent builder ("Create an agent" in Copilot Chat) is enabled for participants.</li>
+          <li>Agent sharing to specific users is allowed.</li>
+          <li>Code interpreter and file upload are enabled in Copilot Chat.</li>
+          <li>Two test accounts for instructors in the same tenant.</li>
+          <li>Day 2 cohort (took Day 1 in June): confirm each person still has a license and agent builder access, since licenses can lapse or move between June and October.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag">T−14 days · TIYA leadership</span>
+        <h4>Policy and content</h4>
+        <ul class="checks">
+          <li>A copy of TIYA's AI use policy and data handling rules (PII, PHI, CUI, pricing). Replace every placeholder rule in the workbook with it.</li>
+          <li>The name of the person who answers "Is this allowed?" after the course.</li>
+          <li>TIYA's SOP template and doc-control process, if one exists.</li>
+          <li>Roster with roles, so the role lab tracks can be balanced.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag">T−7 days</span>
+        <h4>Environment</h4>
+        <ul class="checks">
+          <li>Create a SharePoint site "AI Training Sandbox"; upload <code>materials/</code>; give all participants read access.</li>
+          <li>Instructors build both Day 2 agents end to end in the tenant and save screenshots.</li>
+          <li>Run every workbook prompt once in the tenant; note any that behave differently.</li>
+          <li>Send remote participants the Teams link, digital workbook, and sandbox link.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag">Morning of</span>
+        <h4>Room</h4>
+        <ul class="checks">
+          <li>Wi-Fi tested on a participant-type device; projector and room audio tested with Teams.</li>
+          <li>Workbooks, table tents, cards, pens, power strips at each table.</li>
+          <li>Prompt wall: a flip chart labeled "Prompts that worked".</li>
+          <li>Backup plan ready (below).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="flag">
+      <b>Backup plan if Copilot is down or blocked</b>
+      <p>Switch to instructor-driven mode: the lead runs the exercise prompts on the instructor account on screen while tables write their own GCSE prompts on paper and predict the output. Every exercise card works this way. For Day 2, walk through the saved build screenshots and have pairs complete the design canvas and test plan on paper.</p>
+    </div>
+  </section>
+
+  <!-- DECISIONS -->
+  <section class="part" id="decide">
+    <div class="part-head">
+      <p class="kicker">Open items</p>
+      <h2>Decisions for the program owner</h2>
+    </div>
+    <div class="prose">
+      <ol>
+        <li><strong>Syllabus wording on tools.</strong> The Day 1 outline says "tools like ChatGPT". The course is built on Microsoft 365 Copilot. Suggest "tools like Microsoft 365 Copilot" so participants don't expect ChatGPT access.</li>
+        <li><strong>Day 2 outcomes vs. agent builder.</strong> Outcome 2 promises <em>autonomous</em> agents and the outline lists <em>event triggers</em>. The agent builder makes on-demand agents; triggers and autonomous agents need Copilot Studio or Power Automate. This guide teaches triggers as a concept with an instructor demo and a design exercise. Either soften the outcome ("design … and deploy agents, and design event-triggered automations") or provide a Copilot Studio environment for the demo.</li>
+        <li><strong>Day 2 closing.</strong> The Day 2 outline ends at 4:30 with no closing or assessment. This guide uses the last 10 minutes of the governance block for the exit checklist and certificates. If the day runs to 5:00, move them to a 4:30–5:00 closing block.</li>
+        <li><strong>Day 2 headers.</strong> The Day 2 outline reuses Day 1's session titles. Suggested: Morning "Agent Foundations & First Builds"; Afternoon "Deploy, Trigger & Govern".</li>
+        <li><strong>Certificate criteria.</strong> The assessment kit proposes: full attendance (up to 30 minutes excused) plus a completed exit task. Confirm, or set a stricter bar.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- DAY 1 -->
+  <section class="part day" id="d1">
+    <div class="part-head">
+      <p class="kicker">Day 1 · Tuesday, October 20, 2026 · 8:00 AM – 5:00 PM</p>
+      <h2>Generative AI for Daily Work</h2>
+      <p class="lede">Outcomes: <strong>LO1</strong> apply generative AI to daily tasks · <strong>LO2</strong> use a prompting framework · <strong>LO3</strong> practice responsible use · <strong>LO4</strong> improve operational materials · <strong>LO5</strong> support leadership work.</p>
+    </div>
+
+    <!-- 8:00 -->
+    <article class="block" id="d1-overview">
+      <div class="block-head">
+        <div class="block-time"><span>8:00 – 8:30</span><span class="dur">30 min</span></div>
+        <h3>AI Overview &amp; Context</h3>
+        <div class="los"><span class="lo">LO1</span></div>
+        <p class="goal"><b>Goal</b>Everyone is logged in, knows what generative AI is good and bad at, and has the day's habit in mind.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Who</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">8:00</td><td>Welcome, introductions, logistics: breaks, restrooms, Wi-Fi, phones, remote etiquette. While the lead talks, the co-instructor walks the room for the login check.</td><td class="who">Lead · Co</td></tr>
+          <tr><td class="tm">8:08</td><td>Show of hands: used Copilot or ChatGPT at work? At home? Never? Then ask two people: "Which task would you most like an hour back from each week?" Write answers on the flip chart; revisit them at 4:30.</td><td class="who">Lead</td></tr>
+          <tr><td class="tm">8:12</td><td>What generative AI is and is not. Live demo (below).</td><td class="who">Lead</td></tr>
+          <tr><td class="tm">8:20</td><td>Where AI fits in TIYA work: the "draft, not decide" map (slide).</td><td class="who">Lead</td></tr>
+          <tr><td class="tm">8:26</td><td>Introduce Mask → Ask → Check and the day's arc. Point to the parking lot flip chart.</td><td class="who">Lead</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue do"><b>Login check</b><div><p>Each participant opens Copilot Chat the way TIYA staff normally reach it and types "hello". Anyone who can't is listed by name and seat. Escalate to TIYA IT before 8:30; seat unresolved people beside a working neighbor.</p></div></div>
+        <div class="cue say"><b>Say</b><div><p>"Generative AI predicts the most likely next words based on patterns in huge amounts of text. That makes it very good at language work: drafting, summarizing, reorganizing, rewording. It doesn't know TIYA's facts unless you give them to it, and when it doesn't know, it can sound just as confident as when it does."</p></div></div>
+        <div class="cue do"><b>Demo</b><div><p>Type: <code>What is the phone number for TIYA Services' emergency work order desk at Fort Benning?</code> It will either say it doesn't know or produce something plausible. Either way, ask the room: "How would you know if that's right?" That question is the whole Check step.</p></div></div>
+        <div class="cue say"><b>Map</b><div><p>AI is good for: <strong>drafting, summarizing, organizing, analyzing, rewording</strong>. AI is not for: <strong>deciding, approving, signing, or holding sensitive data</strong>. Give one example per role: facilities (turn tech notes into a status update), contracting (plain-language summary of a public clause), business management (meeting notes into action items), leads (first draft of a team announcement).</p></div></div>
+        <div class="cue remote"><b>Remote</b><div><p>Co-instructor posts the login instructions in Teams chat at 7:55 and checks in with each remote participant by name.</p></div></div>
+      </div>
+    </article>
+
+    <!-- 8:30 -->
+    <article class="block" id="d1-fundamentals">
+      <div class="block-head">
+        <div class="block-time"><span>8:30 – 9:45</span><span class="dur">75 min · hands-on</span></div>
+        <h3>Generative AI Fundamentals</h3>
+        <div class="los"><span class="lo">LO1</span><span class="lo">LO2</span></div>
+        <p class="goal"><b>Goal</b>Participants can write a GCSE prompt, iterate with follow-ups, and use Copilot to draft, summarize, brainstorm, and reword.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">8:30</td><td>Tour of Copilot Chat on screen: new chat, typing, editing a prompt, regenerating, copying output, uploading a file, chat history. Point out the work/web toggle if the tenant shows one.</td><td>p. "Copilot basics"</td></tr>
+          <tr><td class="tm">8:35</td><td>Teach Ask = Goal, Context, Source, Expectations. Show the weak vs. strong example side by side.</td><td>GCSE card</td></tr>
+          <tr><td class="tm">8:45</td><td><strong>E1 · Two prompts, one task.</strong> Water shutoff notice: run the weak prompt, then the GCSE prompt, compare.</td><td>E1</td></tr>
+          <tr><td class="tm">9:00</td><td><strong>E2 · Summarize the work order notes.</strong> Three formats from one source: status summary, timeline, table.</td><td>E2 · Sample A</td></tr>
+          <tr><td class="tm">9:15</td><td><strong>E3 · Follow-ups are prompts too.</strong> Push the E2 output with four follow-up moves.</td><td>E3</td></tr>
+          <tr><td class="tm">9:25</td><td><strong>E4 or E5</strong>, participant's choice: brainstorm and organize ideas, or fix the tone of a terse email.</td><td>E4 · E5</td></tr>
+          <tr><td class="tm">9:35</td><td>Debrief. Two prompts go on the prompt wall.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"Copilot is like a capable new hire on day one. Smart, fast, eager, and it knows nothing about Building 214 or who the COR is. The more you'd have to explain to a new hire, the more you need to put in the prompt."</p></div></div>
+        <div class="cue do"><b>E1 setup</b><div><p>Everyone runs the weak prompt first, then the GCSE version. Ask: "Which one could you send with the fewest edits? What did the second prompt add that made the difference?" Expected answer: audience, specific details, length, and format.</p></div></div>
+        <div class="cue watch"><b>Watch for</b><div><ul>
+          <li>People pasting Sample A into a new chat without saying what they want. Prompt them: "What's the Goal?"</li>
+          <li>People accepting the first output. Push them to the E3 follow-ups.</li>
+          <li>Fast finishers: give them E4 and E5 both, then ask them to help a neighbor.</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Which part of GCSE changed the output most for you?</li>
+          <li>Where did Copilot add something that wasn't in the notes? (Expect at least one invented detail in E2. Use it to set up 10:00.)</li>
+          <li>What would you have to check before sending the E2 summary to the COR?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 10:00 -->
+    <article class="block" id="d1-responsible">
+      <div class="block-head">
+        <div class="block-time"><span>10:00 – 10:45</span><span class="dur">45 min</span></div>
+        <h3>Responsible Use (TIYA Policy)</h3>
+        <div class="los"><span class="lo">LO3</span></div>
+        <p class="goal"><b>Goal</b>Participants can classify data as red, amber, or green, mask a document correctly, and apply a Check routine before using output.</p>
+      </div>
+      <div class="flag"><b>Replace before delivery</b><p>The data rules in this block and in the workbook are placeholders based on common practice for federal-installation contractors. Replace them with TIYA's written policy. Where the two differ, TIYA's policy wins.</p></div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">10:00</td><td>Why this matters: a short story (below). Ask: "What went wrong, and when?"</td><td></td></tr>
+          <tr><td class="tm">10:05</td><td>The four categories with TIYA examples: PII, PHI, CUI, pricing. Then the red/amber/green chart.</td><td>Data traffic light</td></tr>
+          <tr><td class="tm">10:15</td><td><strong>Masking drill.</strong> Mask Sample B alone (6 min), compare with a neighbor (3 min), reveal the key (3 min).</td><td>Sample B</td></tr>
+          <tr><td class="tm">10:27</td><td><strong>"Can I paste this?"</strong> Eight quick-fire cards; tables vote green, amber, or red.</td><td>Quick-fire</td></tr>
+          <tr><td class="tm">10:35</td><td>Check: human-in-the-loop. Demo (below), then the Check list and the "Would I sign this?" rule.</td><td>Check card</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Story</b><div><p>"A contracts assistant at a company like ours gets a vendor's quote for a chiller replacement. They want a quick comparison against last year's price, so they paste both quotes into a free AI tool on their phone. The comparison is great. But two companies' pricing has now left the building, into a service the company doesn't control, under terms nobody read. Nothing bad has to happen next for this to be a problem. It already is one." <em>(Fictional; tell it as a hypothetical.)</em></p></div></div>
+        <div class="cue say"><b>Categories</b><div><ul>
+          <li><strong>PII</strong>: anything that identifies a person: names with other details, phone numbers, home addresses, employee IDs, DoD ID numbers, SSNs.</li>
+          <li><strong>PHI</strong>: health information tied to a person: injuries, medical restrictions, workers' comp details.</li>
+          <li><strong>CUI</strong>: government information marked or designated as Controlled Unclassified Information, including some facility, security, and infrastructure details. If you don't know whether something is CUI, treat it as CUI and ask.</li>
+          <li><strong>Pricing</strong>: TIYA's rates, cost data, bids, proposals, and any vendor's quote.</li>
+        </ul></div></div>
+        <div class="cue say"><b>Say</b><div><p>"Copilot signed in with your TIYA account has enterprise data protection. Microsoft doesn't use your prompts to train its models. That's real and it matters. It does not change the rules for CUI, PHI, or pricing. Those rules come from TIYA's policy and its contracts, not from the tool."</p></div></div>
+        <div class="cue do"><b>Demo</b><div><p>Ask Copilot: <code>Which FAR clause covers limitations on subcontracting for small business set-asides? Quote the key paragraph.</code> Then open acquisition.gov on screen and compare the clause number and wording. Whether Copilot gets it right or not, the point lands: you check against the source, every time it matters.</p></div></div>
+        <div class="cue debrief"><b>Masking key</b><div><p>Sample B contains 11 items to mask or remove: 3 names, 1 phone number, 1 email address, 1 injury detail (PHI, remove entirely), 1 contract number, 2 dollar amounts (pricing, remove), 1 vendor name, 1 gate access code (remove entirely). Most people miss the access code and the vendor name. The answer key is in the assessment kit.</p></div></div>
+        <div class="cue debrief"><b>Quick-fire key</b><div><ol>
+          <li>Generic HVAC troubleshooting question: green.</li>
+          <li>Meeting notes listing attendees by name: amber; replace names with roles.</li>
+          <li>Subcontractor's bid spreadsheet: red.</li>
+          <li>Published FAR clause text: green.</li>
+          <li>Email about an employee's medical restriction: red.</li>
+          <li>A SOW excerpt marked CUI: red.</li>
+          <li>Your own draft newsletter article: green.</li>
+          <li>Overtime hours by named employee: amber; use Employee A, B, C, or aggregate.</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 10:45 -->
+    <article class="block" id="d1-rolelab">
+      <div class="block-head">
+        <div class="block-time"><span>10:45 – 12:00</span><span class="dur">75 min · hands-on</span></div>
+        <h3>Role-Based Application Lab</h3>
+        <div class="los"><span class="lo">LO1</span><span class="lo">LO2</span><span class="lo">LO3</span></div>
+        <p class="goal"><b>Goal</b>Each participant completes one track task and one real task of their own, masked, and leaves with a prompt they will reuse.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">10:45</td><td>Pick a track: Facilities Maintenance, Contracting, Business Management &amp; Admin, or Supervisors &amp; Leads. Sit with your track; pair up.</td><td>Track cards</td></tr>
+          <tr><td class="tm">10:50</td><td><strong>Task A</strong> (required): the track card's task, using the sample input. Run Mask → Ask → Check.</td><td>Track cards</td></tr>
+          <tr><td class="tm">11:10</td><td><strong>Task B</strong>: a real task from your own job. Write the masked version in the workbook first; an instructor initials it before you paste. Or do the card's Task B.</td><td>Task B page</td></tr>
+          <tr><td class="tm">11:35</td><td>Share-outs: one pair per track, 4 minutes each. Show the prompt, the output, and what you had to fix.</td><td></td></tr>
+          <tr><td class="tm">11:55</td><td>Everyone copies one prompt worth keeping into "My prompt library".</td><td>Prompt library</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue watch"><b>Watch for</b><div><ul>
+          <li><strong>Masking on Task B.</strong> This is the first time participants use their own material. Look at the masked text before they paste. Common misses: building numbers combined with names, email signatures, and quoted dollar figures.</li>
+          <li>Someone with no suitable real task: they take the card's Task B.</li>
+          <li>Tracks that are lopsided: merge Supervisors &amp; Leads into Business Management if it has fewer than four people.</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>What did you have to fix in the output?</li>
+          <li>What did you have to take out before pasting?</li>
+          <li>How long would this task have taken without Copilot? With it, counting the checking?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 1:00 -->
+    <article class="block" id="d1-recap">
+      <div class="block-head">
+        <div class="block-time"><span>1:00 – 1:15</span><span class="dur">15 min</span></div>
+        <h3>Afternoon Framing &amp; Recap</h3>
+        <div class="los"><span class="lo">LO1</span><span class="lo">LO2</span><span class="lo">LO3</span></div>
+        <p class="goal"><b>Goal</b>Re-anchor the morning, then shift from single tasks to whole workflows and leading others.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">1:00</td><td>Pairs, 4 minutes: one thing that worked this morning, one thing that surprised you. Two pairs report.</td></tr>
+          <tr><td class="tm">1:05</td><td>Four-question show-of-hands quiz on slides: name the four GCSE parts; red, amber, or green for two examples; what Check means.</td></tr>
+          <tr><td class="tm">1:10</td><td>Transition: "This morning was single tasks. This afternoon is the documents your operation runs on, SOPs, and the people you lead."</td></tr>
+        </tbody>
+      </table></div>
+    </article>
+
+    <!-- 1:15 -->
+    <article class="block" id="d1-sop">
+      <div class="block-head">
+        <div class="block-time"><span>1:15 – 2:45</span><span class="dur">90 min · hands-on</span></div>
+        <h3>SOP Lifecycle Lab</h3>
+        <div class="los"><span class="lo">LO2</span><span class="lo">LO3</span><span class="lo">LO4</span></div>
+        <p class="goal"><b>Goal</b>Take one outdated SOP through four stages: diagnose it, rewrite it to a standard template, turn it into a flow, and adapt it into training and communication materials.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">1:15</td><td>The SOP lifecycle: Generate → Update → Improve → Adapt. Rule for the lab: AI drafts, the subject-matter expert owns accuracy, and the doc-control process approves.</td><td>SOP lab intro</td></tr>
+          <tr><td class="tm">1:25</td><td><strong>Step 1 · Diagnose.</strong> Ask Copilot to critique Sample C (FM-SOP-07, 2019): gaps, ambiguity, safety risks, outdated items.</td><td>Sample C · Step 1</td></tr>
+          <tr><td class="tm">1:40</td><td><strong>Step 2 · Rewrite</strong> to the standard template: Purpose, Scope, Roles, Definitions, Procedure, Records, References, Revision history.</td><td>Step 2</td></tr>
+          <tr><td class="tm">2:00</td><td><strong>Step 3 · Visualize.</strong> Turn the procedure into a step table (Step | Who | Action | Decision | Next) and a text flowchart. Optional: open the table in Word and convert it to SmartArt.</td><td>Step 3</td></tr>
+          <tr><td class="tm">2:15</td><td><strong>Step 4 · Adapt.</strong> Choose two: a one-page quick-reference card, a 5-question training check, an announcement email to technicians, or a 3-minute toolbox talk.</td><td>Step 4</td></tr>
+          <tr><td class="tm">2:30</td><td>Discussion (below).</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"Copilot is very good at the shape of an SOP: structure, plain language, consistency, catching steps that don't say who does them. It cannot know whether the after-hours number is still right, whether the on-call rotation changed, or what actually happens on a Saturday night in Building 214. That's you."</p></div></div>
+        <div class="cue watch"><b>Watch for</b><div><ul>
+          <li>Rewritten SOPs that invent specifics: response times, phone numbers, job titles. Ask participants to mark every invented detail with <code>[VERIFY]</code>. Step 2's prompt asks Copilot to do this too.</li>
+          <li>Step 1 should surface at least: no defined roles, an outdated phone tree, a missing step for notifying the COR, passive voice ("the system should be shut down"), no record-keeping step, and no definition of "emergency".</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Discuss</b><div><ol>
+          <li>What did Copilot miss or get wrong that only someone at TIYA would know?</li>
+          <li>Which step saved the most time? Which needed the most checking?</li>
+          <li>At TIYA, who would have to review an AI-assisted SOP change before it's official? Does the doc-control process need a note about AI-drafted content?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 3:00 -->
+    <article class="block" id="d1-lead">
+      <div class="block-head">
+        <div class="block-time"><span>3:00 – 4:30</span><span class="dur">90 min · hands-on</span></div>
+        <h3>AI for Leadership Support &amp; Responsible AI Adoption</h3>
+        <div class="los"><span class="lo">LO3</span><span class="lo">LO5</span></div>
+        <p class="goal"><b>Goal</b>Use Copilot as a thinking partner for communication, hard conversations, and decisions, and leave with draft AI norms for your team.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">3:00</td><td>Framing: AI as a thinking partner, not a decision-maker. Privacy for people topics: never name the employee; describe the situation.</td><td>Leadership intro</td></tr>
+          <tr><td class="tm">3:10</td><td><strong>L1 · Announce a change.</strong> Draft the message about a 90-day shift pilot and anticipate the team's questions.</td><td>L1</td></tr>
+          <tr><td class="tm">3:30</td><td><strong>L2 · Prepare a hard conversation.</strong> Plan it, then have Copilot play the employee for a practice round and give feedback.</td><td>L2</td></tr>
+          <tr><td class="tm">3:50</td><td><strong>L3 · Decide between options.</strong> Options matrix and pre-mortem for reducing a work order backlog.</td><td>L3</td></tr>
+          <tr><td class="tm">4:05</td><td><strong>L4 · Lead adoption.</strong> Respond to a team member's risky AI use and draft five team AI norms.</td><td>L4</td></tr>
+          <tr><td class="tm">4:25</td><td>Debrief.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"Leadership is judgment and relationships, and AI has neither. What it gives you is a fast, patient sounding board: a first draft, a list of questions your team will ask, a rehearsal partner who doesn't get tired. You stay the one who decides and the one who shows up."</p></div></div>
+        <div class="cue do"><b>L2 tip</b><div><p>The role-play is the most memorable exercise of the day. Model it on screen for 2 minutes first: give Copilot the scenario and say "You are the employee. Respond realistically, including some defensiveness. Wait for my reply each time." After three exchanges, type "Pause the role-play. Give me feedback on how I handled it."</p></div></div>
+        <div class="cue watch"><b>Watch for</b><div><p>Participants describing a real colleague in identifying detail during L2. Steer them to the workbook scenario or to a fully anonymized version: no names, no unique job details, no health information.</p></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Where was Copilot useful as a thinking partner, and where did it fall flat?</li>
+          <li>Read your best team norm aloud. (Collect five for the prompt wall.)</li>
+          <li>What's one conversation you'll have with your team about AI this month?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 4:30 -->
+    <article class="block" id="d1-close">
+      <div class="block-head">
+        <div class="block-time"><span>4:30 – 5:00</span><span class="dur">30 min</span></div>
+        <h3>Closing &amp; Assessment</h3>
+        <div class="los"><span class="lo">LO1–LO5</span></div>
+        <p class="goal"><b>Goal</b>Confirm learning, commit to next steps, and issue certificates.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">4:30</td><td>Knowledge check, 10 questions, self-scored. Formative: it isn't pass/fail.</td><td>Assessment kit</td></tr>
+          <tr><td class="tm">4:40</td><td>Practical exit task: Mask → Ask → Check on a short scenario. Hand in the page.</td><td>Assessment kit</td></tr>
+          <tr><td class="tm">4:52</td><td>Action plan: three tasks I'll use Copilot for next week, and one person I'll show. Revisit the 8:08 flip chart: did we cover the hour people wanted back?</td><td>Workbook</td></tr>
+          <tr><td class="tm">4:56</td><td>Evaluation form; certificates at the door once exit tasks are in.</td><td>Assessment kit</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue do"><b>Do</b><div><p>The co-instructor scans exit tasks against the rubric while the action plan runs. Anyone who scored 0 on masking gets a two-minute conversation before getting a certificate, not a refusal.</p></div></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- DAY 2 -->
+  <section class="part day" id="d2">
+    <div class="part-head">
+      <p class="kicker">Day 2 · Wednesday, October 21, 2026 · 8:30 AM – 4:30 PM</p>
+      <h2>Agentic AI with Microsoft Copilot</h2>
+      <p class="lede">Outcomes: <strong>LO1</strong> agent fundamentals and architectures · <strong>LO2</strong> design, configure, and deploy no-code agents · <strong>LO3</strong> integrate reasoning, planning, tools, and memory · <strong>LO4</strong> apply security, privacy, safety, and trust. Day 2 is for participants who took Day 1 in June 2026, four months earlier. Don't assume they remember it: the day opens with a 10-minute Day 1 review, and nothing later depends on a Day 1 exercise or sample.</p>
+    </div>
+
+    <!-- 8:30 -->
+    <article class="block" id="d2-found">
+      <div class="block-head">
+        <div class="block-time"><span>8:30 – 10:15</span><span class="dur">105 min</span></div>
+        <h3>Agentic AI Foundations</h3>
+        <div class="los"><span class="lo">LO1</span><span class="lo">LO4</span></div>
+        <p class="goal"><b>Goal</b>Participants can explain what makes an agent different from a chat, name its parts, place the Microsoft tools on a map, and design one agent on paper.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">8:30</td><td>Welcome and logistics. Login check, plus: everyone opens Copilot Chat and finds the option to create an agent. Anyone who can't is escalated now.</td><td></td></tr>
+          <tr><td class="tm">8:40</td><td><strong>Day 1 in review</strong> (four slides). Everyone took Day 1 in June: ask who has used Copilot since and for what, then recap draft-not-decide, Mask → Ask → Check, and the data traffic light, ending with a three-card traffic-light vote.</td><td>The habit (front of workbook)</td></tr>
+          <tr><td class="tm">8:50</td><td><strong>From chat to agent.</strong> The autonomy ladder (below).</td><td>Autonomy ladder</td></tr>
+          <tr><td class="tm">9:05</td><td><strong>Anatomy of an agent.</strong> Seven parts, and which ones agent builder supports.</td><td>Anatomy</td></tr>
+          <tr><td class="tm">9:20</td><td><strong>The no-code ecosystem</strong> and four common architectures.</td><td>Ecosystem</td></tr>
+          <tr><td class="tm">9:30</td><td><strong>Exercise · Agent or not?</strong> Tables sort ten TIYA tasks into prompt, agent, automation, or not-AI.</td><td>Agent or not?</td></tr>
+          <tr><td class="tm">9:45</td><td><strong>Exercise · Agent design canvas.</strong> Pairs design an agent for their own work. Three pairs share.</td><td>Design canvas</td></tr>
+          <tr><td class="tm">10:10</td><td>Wrap: "You'll build two agents this morning, then this one this afternoon."</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Ladder</b><div><ol>
+          <li><strong>Prompt:</strong> you ask, it answers, it forgets.</li>
+          <li><strong>Saved prompt:</strong> you reuse good instructions.</li>
+          <li><strong>Agent:</strong> standing instructions, its own knowledge, and tools, for one defined job. You start each conversation. <em>Agent builder lives here.</em></li>
+          <li><strong>Triggered agent:</strong> starts itself when something happens, like a new email or a scheduled time.</li>
+          <li><strong>Autonomous agent:</strong> plans and takes multi-step actions in other systems, with people approving at checkpoints. <em>Copilot Studio territory.</em></li>
+        </ol><p>"Each rung up gives the agent more independence, so each rung needs more design, more testing, and more governance."</p></div></div>
+        <div class="cue say"><b>Anatomy</b><div><ul>
+          <li><strong>Purpose:</strong> one job, one audience. Agent builder: name and description.</li>
+          <li><strong>Instructions:</strong> a standing prompt. Agent builder: yes.</li>
+          <li><strong>Knowledge:</strong> what it reads: SharePoint, files, web. Agent builder: yes.</li>
+          <li><strong>Tools:</strong> what it can do beyond text. Agent builder: some built-in capabilities, such as code interpreter and image generation. Connections to other systems: Copilot Studio.</li>
+          <li><strong>Memory:</strong> what it remembers. Agent builder: the current conversation. Long-term memory varies by tenant.</li>
+          <li><strong>Triggers:</strong> what starts it. Agent builder: a person. Events and schedules: Copilot Studio or Power Automate.</li>
+          <li><strong>Guardrails:</strong> what it must not do. Agent builder: instructions, plus the permissions of its knowledge.</li>
+        </ul></div></div>
+        <div class="cue say"><b>Architectures</b><div><ul>
+          <li><strong>Knowledge Q&amp;A:</strong> answers from a defined set of documents (the SOP Navigator).</li>
+          <li><strong>Task assistant:</strong> walks a person through a structured task with a fixed output format.</li>
+          <li><strong>Multi-tool:</strong> combines knowledge with tools, such as analyzing an uploaded spreadsheet (the Work Order Analyst).</li>
+          <li><strong>Orchestrated or multi-agent:</strong> one agent hands work to others, often triggered by events. Mentioned for awareness; not built today.</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Sort key</b><div><p>The answer key for "Agent or not?" is in the assessment kit. Expect debate on items 4 and 9; that debate is the point.</p></div></div>
+      </div>
+    </article>
+
+    <!-- 10:30 -->
+    <article class="block" id="d2-build">
+      <div class="block-head">
+        <div class="block-time"><span>10:30 – 12:15</span><span class="dur">105 min · hands-on</span></div>
+        <h3>Building Real Agents</h3>
+        <div class="los"><span class="lo">LO2</span><span class="lo">LO3</span></div>
+        <p class="goal"><b>Goal</b>Each participant builds and tests a knowledge agent and a multi-tool agent, writing instructions from a template and tests before building.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">10:30</td><td><strong>Prompt engineering for agents.</strong> Instructions template: role and purpose, audience, how to use knowledge, steps, output format, boundaries and escalation, tone. Tests first: write five test questions before building.</td><td>Instruction template · Test plan</td></tr>
+          <tr><td class="tm">10:45</td><td><strong>Build 1 · SOP Navigator</strong>, guided step by step on screen. Knowledge: the sandbox SOP folder.</td><td>Build 1</td></tr>
+          <tr><td class="tm">11:05</td><td>Run the five tests. Fix the instructions for each failure. Rerun.</td><td>Test plan</td></tr>
+          <tr><td class="tm">11:25</td><td><strong>Build 2 · Work Order Analyst</strong>, a multi-tool agent: priority definitions as knowledge, code interpreter on, CSV uploaded in chat.</td><td>Build 2</td></tr>
+          <tr><td class="tm">11:55</td><td>Test with the sample CSV; ask for a backlog chart and a repeat-failure analysis; check the numbers by hand on three rows.</td><td>Build 2</td></tr>
+          <tr><td class="tm">12:05</td><td>Debrief.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"An agent's instructions are a prompt that never ends. Every weakness in them shows up in every conversation, for everyone you share it with. So we write the tests before we build. A test is just a question with an answer you already know is right."</p></div></div>
+        <div class="cue do"><b>Build 1</b><div><p>Use the agent builder's configure view, not the conversational describe view, so everyone's screen matches. Walk through: name, description, instructions (paste from the workbook), knowledge (add the sandbox SOP folder), starter prompts. Test in the preview pane. Before the event, note the exact labels and steps in TIYA's tenant on this card; the agent builder's interface changes often.</p></div></div>
+        <div class="cue do"><b>Build 2</b><div><p>Turn on code interpreter. Add <code>FM-SOP-03 Work Order Priority Definitions</code> as knowledge. In the test chat, upload <code>work-orders-aug-sep-2026.csv</code>. The data has two planted patterns for participants to find: repeat HVAC failures in Building B-214, and a backlog of Routine work orders older than 30 days.</p></div></div>
+        <div class="cue watch"><b>Watch for</b><div><ul>
+          <li>Agents that answer questions outside their SOPs from general knowledge. Fix: the instruction "If the answer is not in the SOPs, say so and name who to ask."</li>
+          <li>Charts and totals people don't check. Have them count three rows in the CSV by hand.</li>
+          <li>Knowledge that hasn't finished indexing. A newly added SharePoint source can take a few minutes; build it before the break if possible.</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Which test failed first, and what instruction fixed it?</li>
+          <li>Where did the Work Order Analyst do real reasoning, and where did it just restate the data?</li>
+          <li>Would you trust its chart in a report to the COR? What would you check first?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 1:15 -->
+    <article class="block" id="d2-build2">
+      <div class="block-head">
+        <div class="block-time"><span>1:15 – 3:00</span><span class="dur">105 min · hands-on</span></div>
+        <h3>Building Real Agents, Continued</h3>
+        <div class="los"><span class="lo">LO2</span><span class="lo">LO3</span><span class="lo">LO4</span></div>
+        <p class="goal"><b>Goal</b>Participants design an event trigger, understand memory limits, publish safely, and build and peer-test the agent they designed this morning.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">1:15</td><td><strong>Event triggers.</strong> Trigger → condition → action. Instructor demo or walkthrough of a triggered flow. Participants storyboard a trigger for their canvas agent.</td><td>Trigger storyboard</td></tr>
+          <tr><td class="tm">1:35</td><td><strong>Memory.</strong> Conversation context vs. knowledge vs. long-term memory, and how to design an agent that doesn't need to remember.</td><td>Anatomy</td></tr>
+          <tr><td class="tm">1:45</td><td><strong>Publishing.</strong> Sharing options, knowledge permissions, naming, the description as the agent's label. Demo: share the SOP Navigator with a partner.</td><td>Publishing checklist</td></tr>
+          <tr><td class="tm">2:00</td><td><strong>Build your own</strong> from this morning's canvas. Write the five tests first.</td><td>Canvas · Test plan</td></tr>
+          <tr><td class="tm">2:30</td><td><strong>Swap test.</strong> Share with your partner; they run your tests plus two of their own and log the results. Fix and reshare.</td><td>Test plan</td></tr>
+          <tr><td class="tm">2:45</td><td>Showcase: four or five volunteers, 2 minutes each.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Triggers</b><div><p>"Everything you built this morning waits for someone to ask. A triggered agent starts itself: a new email arrives in the work order mailbox, a file lands in a SharePoint folder, it's 7 AM Monday. In Microsoft's stack, that's Copilot Studio or Power Automate. The design thinking is the same, and that's what we'll practice."</p></div></div>
+        <div class="cue do"><b>Demo</b><div><p>If a Copilot Studio or Power Automate environment is available, show a flow that starts on a new email to a shared mailbox, summarizes it, and posts to a Teams channel for a person to approve. Otherwise, walk through the screenshots captured during prep. Stress the approval step: the person stays in the loop.</p></div></div>
+        <div class="cue say"><b>Memory</b><div><p>"Assume the agent remembers nothing between conversations. If it needs context, design it to ask for it, or put that context in a document it reads as knowledge."</p></div></div>
+        <div class="cue say"><b>Publishing</b><div><ul>
+          <li>The agent can only show a user what that user can already open. Sharing an agent doesn't share its knowledge, so check that your audience can open the sources.</li>
+          <li>That cuts both ways: an agent built on a folder with loose permissions will surface whatever is in it to everyone who can open it.</li>
+          <li>Share with named people first. Organization-wide availability goes through TIYA's review (governance block).</li>
+          <li>Naming: <code>TIYA · [Team] · [Job]</code>, for example <code>TIYA · FM · SOP Navigator</code>. The description says what it does, what it doesn't, and who owns it.</li>
+        </ul></div></div>
+      </div>
+    </article>
+
+    <!-- 3:15 -->
+    <article class="block" id="d2-gov">
+      <div class="block-head">
+        <div class="block-time"><span>3:15 – 4:30</span><span class="dur">75 min</span></div>
+        <h3>Governance &amp; Security</h3>
+        <div class="los"><span class="lo">LO4</span></div>
+        <p class="goal"><b>Goal</b>Participants red-team an agent, rate its risk tier, and write a governance card for it.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">3:15</td><td><strong>PII handling in agents.</strong> Oversharing through knowledge, permission inheritance, why instructions aren't a security control, and what never goes into knowledge.</td><td>Governance intro</td></tr>
+          <tr><td class="tm">3:30</td><td><strong>Red-team swap.</strong> Five attack cards against your partner's agent. Log what broke; fix one thing.</td><td>Red-team log</td></tr>
+          <tr><td class="tm">3:45</td><td><strong>Risk assessment.</strong> Rate your agent's tier; list the controls that tier requires.</td><td>Risk tier worksheet</td></tr>
+          <tr><td class="tm">4:00</td><td><strong>Model governance.</strong> The agent lifecycle; owner, change log, re-test, retire. Write the governance card.</td><td>Governance card</td></tr>
+          <tr><td class="tm">4:20</td><td>Exit checklist, evaluation, certificates.</td><td>Assessment kit</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"An instruction like 'never reveal personal information' is a request, not a lock. A clever question can get around it. The real lock is what the agent can read. If it can't see it, it can't leak it. So the most important governance decision is what you put in the knowledge."</p></div></div>
+        <div class="cue say"><b>Never as knowledge</b><div><p>HR and personnel files, medical or injury records, pricing and cost data, bid documents, CUI, security details such as access codes or camera locations, and any folder whose permissions you haven't checked.</p></div></div>
+        <div class="cue say"><b>Lifecycle</b><div><p>Propose → Build → Test → Review → Share → Monitor → Re-test → Retire. Re-test when the knowledge changes, when the instructions change, and periodically anyway: Microsoft updates the underlying models, and behavior can shift without anyone touching the agent.</p></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Which attack worked on your agent? What fixed it, and is the fix a lock or a request?</li>
+          <li>What tier is your agent? Did your partner agree?</li>
+          <li>Who at TIYA should own the list of shared agents?</li>
+        </ol></div></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- AFTER -->
+  <section class="part" id="after">
+    <div class="part-head">
+      <p class="kicker">Follow-up</p>
+      <h2>After the course</h2>
+    </div>
+    <div class="prose">
+      <ul>
+        <li><strong>Within 2 days:</strong> send participants the prompt wall (typed) and the materials links; Day 1 participants also get the team norms collected in L4, and Day 2 participants the list of agents they built.</li>
+        <li><strong>Within 1 week:</strong> send TIYA leadership a summary: attendance, knowledge check averages by question, exit-task patterns (especially masking misses), evaluation scores, and the list of agents participants built with their risk tiers.</li>
+        <li><strong>Within 30 days:</strong> a 15-question pulse survey asking how often participants used Copilot, for what, and what got in the way. This is the evidence for a second cohort.</li>
+        <li>Delete instructor test agents and the sandbox site, or hand them to TIYA IT to own.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">{{LOGO}}<p>Applied AI at TIYA Services · Facilitator guide · October 20–21, 2026</p></div>
+</footer>

@@ -1,0 +1,151 @@
+<title>TIYA AI Course Kit</title>
+<style>
+.kit-mast .wrap { max-width: 1040px; }
+main.kit { max-width: 1040px; }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 8px 14px; box-sizing: border-box;
+  border: 1px solid var(--rule); border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--bg);
+}
+.btn:hover { border-color: var(--gold); }
+.btn:focus-visible { outline: 2px solid var(--buzz); outline-offset: 2px; }
+.btn.primary { background: var(--mast-bg); color: var(--mast-ink); border-color: var(--mast-bg); }
+.btn.primary:hover { border-color: var(--gold); }
+.btn small { font-family: var(--f-mono); font-size: 11px; color: var(--ink-soft); font-weight: 500; }
+.btn.primary small { color: var(--gold-light); }
+.fmt { font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+
+.everything { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; padding: 20px 24px; background: var(--surface); border-radius: 4px; }
+.everything p { max-width: 60ch; }
+
+.decks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 24px; }
+.deckcard { display: grid; gap: 14px; align-content: start; }
+.thumb {
+  position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 4px; overflow: hidden; container-type: inline-size;
+  background: #051E39; color: #F9F6E5; text-decoration: none; display: block; box-shadow: 0 10px 30px -18px rgba(5, 30, 57, .7);
+}
+.thumb .gt-logo { position: absolute; top: 6cqw; left: 7cqw; height: 5cqw; color: #F9F6E5; }
+.thumb .tt { position: absolute; left: 7cqw; right: 7cqw; top: 36%; display: grid; gap: 2cqw; }
+.thumb .ey { font-family: var(--f-mono); font-size: 2.4cqw; letter-spacing: .1em; text-transform: uppercase; color: #DEBD88; }
+.thumb .tn { font-family: var(--f-display); font-weight: 700; font-size: 7cqw; line-height: 1.1; text-wrap: balance; }
+.thumb::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1.4cqw; background: linear-gradient(to right, #8F713D, #B39051, #DEBD88, #8F713D); }
+.thumb:hover { outline: 2px solid var(--gold); outline-offset: 3px; }
+.thumb:focus-visible { outline: 2px solid var(--buzz); outline-offset: 3px; }
+.deckmeta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14px; color: var(--ink-soft); }
+.deckcard h3 { font-size: 22px; font-weight: 600; }
+
+.docs { display: grid; gap: 0; }
+.doc { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 24px; align-items: center; padding-block: 18px; border-top: 1px solid var(--rule); }
+.doc:last-child { border-bottom: 1px solid var(--rule); }
+.doc h3 { font-size: 19px; font-weight: 600; }
+.doc p { font-size: 15px; color: var(--ink-soft); max-width: 62ch; }
+.who { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 4px; }
+.who.inst { color: var(--remote); } .who.part { color: var(--do); } .who.all { color: var(--say); }
+@media (max-width: 640px) { .doc { grid-template-columns: 1fr; } }
+td .btn { min-height: 34px; padding: 4px 10px; }
+.keys { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--ink-soft); }
+kbd { font-family: var(--f-mono); font-size: 12px; border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 3px; padding: 1px 6px; color: var(--ink); background: var(--bg); }
+</style>
+
+<header class="mast kit-mast">
+  <div class="wrap">
+    <div class="mast-top">{{LOGO}}<span class="mast-tag">Course kit · TIYA Services · Ft. Benning</span></div>
+    <div style="display:grid;gap:12px">
+      <h1>Applied AI at TIYA Services</h1>
+      <p class="mast-sub">Two days of hands-on AI training: generative AI with Microsoft 365 Copilot, then building agents with the Copilot agent builder. Everything for delivery is here: slides, guides, workbook, assessments, and the files participants work with.</p>
+    </div>
+    <div class="mast-meta">
+      <span><b>Day 1</b>Tue, Oct 20, 2026</span>
+      <span><b>Day 2</b>Wed, Oct 21, 2026</span>
+      <span><b>Instructors</b>Alex Djalali, Alex Rhodeen</span>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+</header>
+
+<main class="wrap kit" style="padding-block:40px 72px;display:grid;gap:56px">
+  <div class="everything">
+    <p><strong>Download the whole kit.</strong> Slides, PDFs, Word files, the spreadsheet, and these web pages in one zip.</p>
+    <a class="btn primary" href="downloads/tiya-ai-course-kit.zip" download>Download everything <small>ZIP · {{SIZE:downloads/tiya-ai-course-kit.zip}}</small></a>
+  </div>
+
+  <section class="part" aria-labelledby="slides-h">
+    <div class="part-head"><p class="kicker">Slides</p><h2 id="slides-h">Present</h2>
+      <p class="lede">Open a deck to present it in the browser, or download it for PowerPoint. Both versions have the same slides and speaker notes.</p></div>
+    <div class="decks">
+      <article class="deckcard">
+        <a class="thumb" href="day1-slides.html" aria-label="Present Day 1 slides">{{LOGO}}<span class="tt"><span class="ey">Day 1 · Oct 20, 2026</span><span class="tn">Generative AI for Daily Work</span></span></a>
+        <h3>Day 1 · Generative AI for Daily Work</h3>
+        <div class="deckmeta"><span>60 slides</span><span>Microsoft 365 Copilot</span><span>8:00 AM – 5:00 PM</span></div>
+        <div class="btns">
+          <a class="btn primary" href="day1-slides.html">Present</a>
+          <a class="btn" href="downloads/day1-slides.pptx" download>PowerPoint <small>{{SIZE:downloads/day1-slides.pptx}}</small></a>
+          <a class="btn" href="downloads/day1-slides.pdf" download>PDF <small>{{SIZE:downloads/day1-slides.pdf}}</small></a>
+        </div>
+      </article>
+      <article class="deckcard">
+        <a class="thumb" href="day2-slides.html" aria-label="Present Day 2 slides">{{LOGO}}<span class="tt"><span class="ey">Day 2 · Oct 21, 2026</span><span class="tn">Agentic AI with Microsoft Copilot</span></span></a>
+        <h3>Day 2 · Agentic AI with Microsoft Copilot</h3>
+        <div class="deckmeta"><span>45 slides</span><span>Copilot agent builder</span><span>8:30 AM – 4:30 PM</span></div>
+        <div class="btns">
+          <a class="btn primary" href="day2-slides.html">Present</a>
+          <a class="btn" href="downloads/day2-slides.pptx" download>PowerPoint <small>{{SIZE:downloads/day2-slides.pptx}}</small></a>
+          <a class="btn" href="downloads/day2-slides.pdf" download>PDF <small>{{SIZE:downloads/day2-slides.pdf}}</small></a>
+        </div>
+      </article>
+    </div>
+    <div class="keys"><span><kbd>→</kbd> <kbd>Space</kbd> next</span><span><kbd>←</kbd> back</span><span><kbd>N</kbd> speaker notes</span><span><kbd>Home</kbd> <kbd>End</kbd> first and last</span><span>Click the right or left half of a slide to move.</span></div>
+  </section>
+
+  <section class="part" aria-labelledby="docs-h">
+    <div class="part-head"><p class="kicker">Documents</p><h2 id="docs-h">Read and print</h2></div>
+    <div class="docs">
+      <div class="doc">
+        <div><span class="who all">Everyone</span><h3>Program agenda</h3><p>Both days at a glance: schedules drawn to scale, learning outcomes, and logistics.</p></div>
+        <div class="btns"><a class="btn" href="tiya-ai-onsite.html">View</a><a class="btn" href="downloads/program-agenda.pdf" download>PDF <small>{{SIZE:downloads/program-agenda.pdf}}</small></a></div>
+      </div>
+      <div class="doc">
+        <div><span class="who part">Participants</span><h3>Participant workbook</h3><p>Every exercise with copy-ready prompts, the sample documents, the lab tracks, the Day 2 agent builds, and the worksheets. Print one per participant.</p></div>
+        <div class="btns"><a class="btn" href="participant-workbook.html">View</a><a class="btn" href="downloads/participant-workbook.pdf" download>PDF <small>{{SIZE:downloads/participant-workbook.pdf}}</small></a></div>
+      </div>
+      <div class="doc">
+        <div><span class="who inst">Instructors</span><h3>Facilitator guide</h3><p>Minute-by-minute plans, what to say, demos, debriefs, the readiness checklist, and open decisions.</p></div>
+        <div class="btns"><a class="btn" href="facilitator-guide.html">View</a><a class="btn" href="downloads/facilitator-guide.pdf" download>PDF <small>{{SIZE:downloads/facilitator-guide.pdf}}</small></a></div>
+      </div>
+      <div class="doc">
+        <div><span class="who inst">Instructors</span><h3>Assessment kit</h3><p>Certificate criteria, knowledge checks, the exit task and rubric, answer keys, and the evaluation form. Contains answers: don't share with participants.</p></div>
+        <div class="btns"><a class="btn" href="assessment-kit.html">View</a><a class="btn" href="downloads/assessment-kit.pdf" download>PDF <small>{{SIZE:downloads/assessment-kit.pdf}}</small></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="part" aria-labelledby="mat-h">
+    <div class="part-head"><p class="kicker">Training materials</p><h2 id="mat-h">Files participants work with</h2>
+      <p class="lede">All fictional. Upload the four sandbox SOPs to the training SharePoint site at least a week before Day 2.</p></div>
+    <div class="scroll"><table>
+      <thead><tr><th>File</th><th>Used in</th><th>Download</th></tr></thead>
+      <tbody>
+        <tr><td><strong>FM-SOP-07 Rev 3 (2019)</strong><br><span class="fmt">Word</span> Outdated emergency procedure</td><td>Day 1 · SOP lab</td><td><a class="btn" href="materials/day1/FM-SOP-07-rev3-2019.docx" download>.docx <small>{{SIZE:materials/day1/FM-SOP-07-rev3-2019.docx}}</small></a></td></tr>
+        <tr><td><strong>FM-SOP-03 Work Order Priority Definitions</strong><br><span class="fmt">Word · SharePoint</span></td><td>Day 2 · Builds 1 and 2</td><td><a class="btn" href="materials/sandbox-sops/FM-SOP-03.docx" download>.docx <small>{{SIZE:materials/sandbox-sops/FM-SOP-03.docx}}</small></a></td></tr>
+        <tr><td><strong>FM-SOP-07 Emergency Work Order Response</strong><br><span class="fmt">Word · SharePoint</span> Current version</td><td>Day 2 · Build 1</td><td><a class="btn" href="materials/sandbox-sops/FM-SOP-07.docx" download>.docx <small>{{SIZE:materials/sandbox-sops/FM-SOP-07.docx}}</small></a></td></tr>
+        <tr><td><strong>FM-SOP-15 Preventive Maintenance Scheduling</strong><br><span class="fmt">Word · SharePoint</span></td><td>Day 2 · Build 1</td><td><a class="btn" href="materials/sandbox-sops/FM-SOP-15.docx" download>.docx <small>{{SIZE:materials/sandbox-sops/FM-SOP-15.docx}}</small></a></td></tr>
+        <tr><td><strong>ADM-SOP-02 Overtime and Timekeeping</strong><br><span class="fmt">Word · SharePoint</span></td><td>Day 1 · Track 3 · Day 2 · Build 1</td><td><a class="btn" href="materials/sandbox-sops/ADM-SOP-02.docx" download>.docx <small>{{SIZE:materials/sandbox-sops/ADM-SOP-02.docx}}</small></a></td></tr>
+        <tr><td><strong>Work order export, Aug–Sep 2026</strong><br><span class="fmt">CSV · opens in Excel</span> 80 rows</td><td>Day 2 · Build 2</td><td><a class="btn" href="materials/work-orders-aug-sep-2026.csv" download>.csv <small>{{SIZE:materials/work-orders-aug-sep-2026.csv}}</small></a></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="part" aria-labelledby="use-h">
+    <div class="part-head"><p class="kicker">Notes</p><h2 id="use-h">Using this kit</h2></div>
+    <div class="prose"><ul>
+      <li><strong>Fonts.</strong> The slides use Roboto Slab and Roboto, Georgia Tech's web typefaces. Install both from Google Fonts on the presenting laptop, or PowerPoint will substitute a similar font.</li>
+      <li><strong>Before delivery.</strong> Replace the placeholder data rules with TIYA's written AI policy in the workbook, guide, and slides. Fill in "[TIYA contact]" on the closing slides.</li>
+      <li><strong>Printing.</strong> Print the workbook from its PDF, double-sided. Print the assessment kit for instructors only.</li>
+      <li><strong>Offline.</strong> The browser decks work from a laptop without internet, with a fallback font. The PowerPoint files are the safest choice for the room.</li>
+    </ul></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">{{LOGO}}<p>Applied AI at TIYA Services · Course kit · October 20–21, 2026</p></div>
+</footer>

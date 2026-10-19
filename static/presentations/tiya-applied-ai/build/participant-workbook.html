@@ -1,0 +1,692 @@
+<title>TIYA AI Participant Workbook</title>
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-top"><a class="home" href="index.html" aria-label="Course kit">{{LOGO}}</a><span class="mast-tag"><a class="kit-link" href="index.html">← Course kit</a> · Participant workbook</span></div>
+    <div style="display:grid;gap:12px">
+      <h1>Applied AI at TIYA Services: Workbook</h1>
+      <p class="mast-sub">Your exercises, sample documents, and copy-ready prompts for both days. Highlighted <span class="slot">[fields]</span> are yours to fill in. Every sample document in this workbook is fictional.</p>
+    </div>
+    <div class="mast-meta">
+      <span><b>Day 1</b>Tue, Oct 20 · Microsoft 365 Copilot</span>
+      <span><b>Day 2</b>Wed, Oct 21 · Copilot agent builder</span>
+      <span><b>Name</b>______________________</span>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+</header>
+
+<main class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <h4 class="sub">Contents</h4>
+    <ol>
+      <li><a href="#habit"><span class="t">Both days</span><span>The habit: Mask → Ask → Check</span></a></li>
+      <li><a href="#e"><span class="t">8:30</span><span>Day 1 · Fundamentals exercises E1–E5</span></a></li>
+      <li><a href="#safe"><span class="t">10:00</span><span>Day 1 · Responsible use</span></a></li>
+      <li><a href="#tracks"><span class="t">10:45</span><span>Day 1 · Role-based lab tracks</span></a></li>
+      <li><a href="#sop"><span class="t">1:15</span><span>Day 1 · SOP lifecycle lab</span></a></li>
+      <li><a href="#lead"><span class="t">3:00</span><span>Day 1 · Leadership scenarios</span></a></li>
+      <li><a href="#mine"><span class="t">4:30</span><span>Day 1 · My prompt library and action plan</span></a></li>
+      <li><a href="#a"><span class="t">8:30</span><span>Day 2 · Agent foundations</span></a></li>
+      <li><a href="#b"><span class="t">10:30</span><span>Day 2 · Building real agents</span></a></li>
+      <li><a href="#c"><span class="t">1:15</span><span>Day 2 · Triggers, publishing, your agent</span></a></li>
+      <li><a href="#g"><span class="t">3:15</span><span>Day 2 · Governance and security</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- HABIT -->
+  <section class="part" id="habit">
+    <div class="part-head">
+      <p class="kicker">Both days</p>
+      <h2>The habit: Mask → Ask → Check</h2>
+      <p class="lede">Use these three steps every time you use Copilot for work. Every exercise in this workbook follows them.</p>
+    </div>
+    <div class="loop">
+      <div><span class="step">1 · Mask</span><p>Before you paste anything, remove or replace sensitive data. Pricing, CUI, and health information never go in.</p></div>
+      <div><span class="step">2 · Ask</span><p>Write the prompt with Goal, Context, Source, and Expectations.</p></div>
+      <div><span class="step">3 · Check</span><p>Read the output as if you will sign it, because you will.</p></div>
+    </div>
+
+    <h3 class="sec">Ask: the four parts of a good prompt</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Part</th><th>Answers the question</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Goal</strong></td><td>What do I want?</td><td>Write a status update on the Building B-214 cooling problem.</td></tr>
+        <tr><td><strong>Context</strong></td><td>Why, and for whom?</td><td>It's for the COR, who wants to know whether classes will be disrupted next week.</td></tr>
+        <tr><td><strong>Source</strong></td><td>What should it use?</td><td>Use only the technician notes below.</td></tr>
+        <tr><td><strong>Expectations</strong></td><td>What should the result look like?</td><td>Under 150 words, three short paragraphs: what happened, what we're doing, what's next.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 class="sec">Follow-up moves</h3>
+    <div class="prose"><ul>
+      <li><strong>Shorten:</strong> "Cut this to half the length. Keep the dates."</li>
+      <li><strong>Re-aim:</strong> "Rewrite this for the technicians instead of the COR."</li>
+      <li><strong>Reshape:</strong> "Put this in a table with columns Date, Problem, Action, Result."</li>
+      <li><strong>Challenge:</strong> "What's missing or unclear? What would a skeptical reader ask?"</li>
+      <li><strong>Show your work:</strong> "Which parts of your answer came from my notes, and which did you add?"</li>
+    </ul></div>
+
+    <h3 class="sec">Check: before you use any output</h3>
+    <ul class="checks">
+      <li>Every fact, number, date, and name matches the source.</li>
+      <li>Nothing was added that I didn't provide, such as response times, phone numbers, or job titles.</li>
+      <li>It follows TIYA policy and doesn't commit TIYA to anything I can't commit to.</li>
+      <li>The tone fits the reader.</li>
+      <li>I put back any masked details, outside of Copilot.</li>
+      <li>I would sign my name to it.</li>
+    </ul>
+  </section>
+
+  <!-- DAY 1 FUNDAMENTALS -->
+  <section class="part day" id="e">
+    <div class="part-head">
+      <p class="kicker">Day 1 · 8:30 – 9:45</p>
+      <h2>Generative AI fundamentals</h2>
+      <p class="lede"><strong>Copilot basics.</strong> Start a new chat for each exercise. You can edit a prompt and resend it, ask for another version, copy the output, and upload a file with the attachment button.</p>
+    </div>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>E1</span><span class="dur">15 min</span></div><h3>Two prompts, one task</h3></div>
+      <div class="prose"><p>Run the weak prompt first. Then open a new chat and run the GCSE prompt. Compare the two.</p></div>
+      <div class="prompt"><span class="prompt-label">Weak prompt</span><pre>Write a notice about a water shutoff.</pre></div>
+      <div class="prompt"><span class="prompt-label">GCSE prompt</span><pre><span class="gcse">Goal:</span> Write a notice to building occupants about a planned water shutoff.
+<span class="gcse">Context:</span> Building B-214 (training classrooms and offices) will have no water on Thursday, October 29, from 7:00 to 11:00 AM while we replace a leaking main valve. Restrooms and drinking fountains will be unavailable. The nearest open restrooms are in Building B-216, next door.
+<span class="gcse">Source:</span> Use only the details above. Don't add any details I haven't given you.
+<span class="gcse">Expectations:</span> Under 120 words. A clear subject line. The key facts in the first two sentences. Plain language, friendly but direct.</pre></div>
+      <div class="prose"><p><strong>Compare:</strong> Which could you send with fewer edits? What did the second prompt add?</p></div>
+      <div class="lines"><span></span><span></span></div>
+    </article>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>E2</span><span class="dur">15 min</span></div><h3>Summarize the work order notes</h3></div>
+      <div class="sample">
+        <h4>Sample A · Technician notes, seven work orders, Aug 3 – Sep 22</h4>
+        <p class="docmeta">Building B-214 · RTU-2 (rooftop unit 2) · serves classrooms 108–116</p>
+<pre>08/03  Call 0640, classroom 112 at 84F, no cooling. RTU-2 compressor not running, tripped on high head pressure. Reset, running. Condenser coil looks dirty. Tech 1.
+08/11  Tripped again high head. Cleaned condenser coil. Running, discharge temps normal. Tech 2.
+08/19  No cooling again. Coil still dirty on back side, couldn't reach w/o removing panel. Cleaned fully. Tech 1.
+08/28  Compressor contactor pitted and chattering. Replaced contactor. Running. Tech 2.
+09/08  No cooling, classroom 112 at 86F, class moved. Low refrigerant. Added 3 lbs R-410A. No leak found w/ electronic detector. Tech 1.
+09/16  Weak cooling. Pressures low again. Recommend nitrogen pressure test to find leak. Need lead approval. Tech 2.
+09/22  Compressor drawing high amps, noisy. Suspect compressor failing, possibly from running low on charge. Parts request entered, pending approval. Unit running but marginal. Tech 1.</pre>
+      </div>
+      <div class="prompt"><span class="prompt-label">Prompt</span><pre><span class="gcse">Goal:</span> Summarize these technician notes three ways.
+<span class="gcse">Context:</span> The notes cover one rooftop unit that has failed repeatedly since August. I need to explain the situation to people who weren't there.
+<span class="gcse">Source:</span> Use only the notes below. If you infer something, label it as an inference.
+<span class="gcse">Expectations:</span>
+1. A 3-sentence status summary for a manager.
+2. A timeline: date, problem, action, result.
+3. A table of every part and material used, with dates.
+
+[paste Sample A here]</pre></div>
+    </article>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>E3</span><span class="dur">10 min</span></div><h3>Follow-ups are prompts too</h3></div>
+      <div class="prose"><p>Stay in your E2 chat. Try each follow-up and note which one improved the result most.</p></div>
+      <div class="prompt"><span class="prompt-label">Follow-ups, one at a time</span><pre>Rewrite the status summary for the COR. They care most about whether classes will be disrupted next week.
+
+What's missing from these notes that a manager would want to know?
+
+Which statements in your summary came directly from the notes, and which did you add or infer?
+
+Based only on the notes, what pattern do you see across the seven visits? What would you recommend investigating, and why?</pre></div>
+      <div class="lines"><span></span><span></span></div>
+    </article>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>E4 or E5</span><span class="dur">10 min</span></div><h3>Brainstorm, or fix the tone</h3></div>
+      <div class="cards">
+        <div class="card">
+          <span class="tag">E4 · Brainstorm and organize</span>
+          <div class="prompt"><pre><span class="gcse">Goal:</span> Brainstorm 15 ways to reduce repeat work orders on the same equipment.
+<span class="gcse">Context:</span> We're a facilities maintenance team on a military installation. Repeat calls cost technician time and frustrate building occupants.
+<span class="gcse">Expectations:</span> Then group the ideas into 3–5 themes, and mark each idea as quick win, medium effort, or major change.</pre></div>
+        </div>
+        <div class="card">
+          <span class="tag">E5 · Fix the tone</span>
+          <div class="sample"><h4>Draft email</h4><p>"Per my last 3 emails the B-216 restroom ticket was closed because it's FIXED. If it's leaking again that's a new ticket. Please submit one like I've asked before."</p></div>
+          <div class="prompt"><pre><span class="gcse">Goal:</span> Rewrite this email so it's polite and still clear.
+<span class="gcse">Context:</span> It's a reply to a building manager who keeps reopening a closed ticket. I want them to submit a new one and not feel scolded.
+<span class="gcse">Expectations:</span> Under 80 words. Give two versions: one warmer, one more formal.</pre></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- RESPONSIBLE USE -->
+  <section class="part" id="safe">
+    <div class="part-head">
+      <p class="kicker">Day 1 · 10:00 – 10:45</p>
+      <h2>Responsible use</h2>
+      <p class="lede">These rules are placeholders until your instructor replaces them with TIYA's written policy. If they ever disagree, TIYA's policy wins. When unsure, ask before you paste.</p>
+    </div>
+
+    <h3 class="sec">The data traffic light</h3>
+    <div class="lights">
+      <div class="light red"><span class="rate red">Red · never enter</span><ul>
+        <li>CUI, or anything you suspect is CUI</li>
+        <li>Health information about a person (PHI)</li>
+        <li>SSNs, DoD ID numbers, dates of birth</li>
+        <li>Pricing: TIYA rates, costs, bids, proposals, vendor quotes</li>
+        <li>Security details: access codes, alarm or camera information</li>
+        <li>Passwords and account details</li>
+      </ul></div>
+      <div class="light amber"><span class="rate amber">Amber · mask first</span><ul>
+        <li>Names, emails, phone numbers</li>
+        <li>Employee performance or conduct details</li>
+        <li>Vendor and subcontractor names</li>
+        <li>Contract and task order numbers</li>
+        <li>Internal emails and meeting notes</li>
+      </ul></div>
+      <div class="light green"><span class="rate green">Green · okay to use</span><ul>
+        <li>General how-to questions</li>
+        <li>Public information, such as published FAR clauses and regulations</li>
+        <li>Your own writing with amber items masked</li>
+        <li>Generic procedures and checklists</li>
+        <li>The fictional samples in this workbook</li>
+      </ul></div>
+    </div>
+
+    <h3 class="sec">How to mask</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Replace</th><th>With</th></tr></thead>
+      <tbody>
+        <tr><td>A person's name</td><td>Their role: <code>[Technician A]</code>, <code>[the COR]</code>, <code>[Building Manager]</code></td></tr>
+        <tr><td>Phone, email</td><td><code>[PHONE]</code>, <code>[EMAIL]</code>, or delete</td></tr>
+        <tr><td>Contract number</td><td><code>[CONTRACT]</code></td></tr>
+        <tr><td>Vendor name</td><td><code>[Vendor 1]</code></td></tr>
+        <tr><td>Dollar amounts</td><td>Delete. If you need a comparison, say "about 10% higher" only if that is itself allowed.</td></tr>
+        <tr><td>Health details</td><td>Delete entirely. "On light duty" at most, and only if needed.</td></tr>
+        <tr><td>Access codes, security details</td><td>Delete entirely.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="prose"><p>Keep your key (which placeholder means what) on paper or in your own document, never in Copilot. Put the real details back after you check the output.</p></div>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Masking drill</span><span class="dur">12 min</span></div><h3>Find everything that has to go</h3></div>
+      <div class="sample">
+        <h4>Sample B · Email</h4>
+        <p class="docmeta">From: Dana Whitfield &lt;d.whitfield@example.com&gt; · To: Facilities Lead · Subject: RTU-2 compressor</p>
+        <p>Hi, following up on B-214. Marcus Ortega was out Tuesday and Wednesday. He strained his lower back lifting the condenser fan motor and is on light duty per his doctor until Nov 2, so he can't do the rooftop work.</p>
+        <p>Coastal Air Mechanical quoted $18,450 for the compressor replacement under contract W9XXXX-26-C-0042. Last year's was $16,900. Karen Lowell (COR) wants an answer by Friday; her cell is (706) 555-0143.</p>
+        <p>If you go up, the mechanical yard gate code is 4471#.</p>
+      </div>
+      <div class="prose"><p>Circle every item to mask or remove. How many did you find? ______ &nbsp;Then write the masked version:</p></div>
+      <div class="lines"><span></span><span></span><span></span><span></span><span></span></div>
+    </article>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Quick-fire</span><span class="dur">8 min</span></div><h3>Can I paste this?</h3></div>
+      <div class="prose"><p>Mark each one green, amber, or red.</p></div>
+      <div class="scroll"><table>
+        <thead><tr><th>#</th><th>Item</th><th>G / A / R</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>"How do I troubleshoot a rooftop unit that keeps tripping on high pressure?"</td><td></td></tr>
+          <tr><td>2</td><td>Meeting notes that list attendees by name</td><td></td></tr>
+          <tr><td>3</td><td>A subcontractor's bid spreadsheet</td><td></td></tr>
+          <tr><td>4</td><td>The text of a published FAR clause</td><td></td></tr>
+          <tr><td>5</td><td>An email about an employee's medical restriction</td><td></td></tr>
+          <tr><td>6</td><td>A paragraph from a statement of work marked CUI</td><td></td></tr>
+          <tr><td>7</td><td>Your own draft article for the team newsletter</td><td></td></tr>
+          <tr><td>8</td><td>A spreadsheet of overtime hours by named employee</td><td></td></tr>
+        </tbody>
+      </table></div>
+    </article>
+  </section>
+
+  <!-- TRACKS -->
+  <section class="part" id="tracks">
+    <div class="part-head">
+      <p class="kicker">Day 1 · 10:45 – 12:00</p>
+      <h2>Role-based lab</h2>
+      <p class="lede">Pick your track. Do Task A with the sample. For Task B, use a real task from your job, masked, or the card's Task B. Write your masked text on the Task B page and have an instructor initial it before you paste.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <span class="tag">Track 1</span>
+        <h4>Facilities Maintenance</h4>
+        <p><strong>Task A · Status update for the COR.</strong> Use Sample A (already safe to paste).</p>
+        <div class="prompt"><pre><span class="gcse">Goal:</span> Write a status update on Building B-214 RTU-2.
+<span class="gcse">Context:</span> For the COR. They need to know the history, the likely cause, what we need approved, and the risk to classes if we wait.
+<span class="gcse">Source:</span> Only the notes below.
+<span class="gcse">Expectations:</span> Under 200 words. Headings: Summary, History, Likely Cause, Decision Needed, Risk. Mark any inference.
+
+[paste Sample A]</pre></div>
+        <p><strong>Task B · Toolbox talk.</strong> A 5-minute talk on ladder and roof-access safety for technicians working on rooftop units. Then check it against TIYA's safety program before anyone uses it.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Track 2</span>
+        <h4>Contracting</h4>
+        <p><strong>Task A · Requirements checklist from a SOW excerpt.</strong></p>
+        <div class="sample"><h4>Sample D · SOW excerpt</h4><p>"C.5.3 The Contractor shall perform preventive maintenance on all HVAC equipment listed in Technical Exhibit 4 in accordance with manufacturer recommendations and no less than quarterly. The Contractor shall document all PM on Government-approved forms and submit a monthly PM completion report to the COR by the 5th business day of the following month. Deficiencies identified during PM shall be reported within 2 business days. Performance below 95% PM completion in any month shall be addressed by a corrective action plan within 10 business days."</p></div>
+        <div class="prompt"><pre><span class="gcse">Goal:</span> Turn this SOW paragraph into a compliance checklist.
+<span class="gcse">Context:</span> Our team needs to know every "shall" we're on the hook for.
+<span class="gcse">Expectations:</span> A table: Requirement | Frequency or deadline | Evidence we keep | Suggested owner (by role). Then list anything ambiguous we should clarify with the COR.
+
+[paste Sample D]</pre></div>
+        <p><strong>Task B · Request for information.</strong> Draft an email to <code>[Vendor 1]</code> asking for lead time, warranty terms, and installation requirements for a replacement rooftop unit compressor. No pricing.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Track 3</span>
+        <h4>Business Management &amp; Admin</h4>
+        <p><strong>Task A · Meeting notes to action items.</strong></p>
+        <div class="sample"><h4>Sample E · Meeting notes</h4><p>"weekly ops mtg — timesheets late again for 3 ppl, Business Mgr wants reminder out. PM report due 5th, FM Lead says B-410 PMs behind bc parts. need new hire orientation packet updated before 11/2 start date — admin asst? safety stand-down date TBD, maybe 11/13. COR visit next Thurs, need backlog numbers by Wed. Program Mgr asked about AI training follow-up"</p></div>
+        <div class="prompt"><pre><span class="gcse">Goal:</span> Turn these notes into an action item list and a follow-up email.
+<span class="gcse">Context:</span> Weekly operations meeting. Owners are roles, not names.
+<span class="gcse">Expectations:</span> A table: Action | Owner | Due date | Status. Flag anything with no clear owner or date. Then a follow-up email under 150 words.
+
+[paste Sample E]</pre></div>
+        <p><strong>Task B · One message, three formats.</strong> A reminder that timesheets are due by noon Monday (see ADM-SOP-02). Write it as an email, a Teams post, and a 30-second huddle script.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Track 4</span>
+        <h4>Supervisors &amp; Leads</h4>
+        <p><strong>Task A · Weekly report from bullets.</strong></p>
+        <div class="sample"><h4>Sample F · Lead's bullets</h4><p>"14 WOs closed this wk, 17 open. 3 urgent overdue incl B-214 RTU-2 (compressor, waiting approval). 9 routine >30 days, mostly doors and electrical. PMs 92% complete, B-410 behind on parts. 1 tech on light duty. no safety incidents. COR visit Thurs."</p></div>
+        <div class="prompt"><pre><span class="gcse">Goal:</span> Write my weekly report.
+<span class="gcse">Context:</span> It goes to the Facilities Maintenance Manager and is forwarded to the Program Manager.
+<span class="gcse">Expectations:</span> One page. Sections: Highlights, Backlog, Preventive Maintenance, Staffing, Safety, Issues Needing Decisions. Don't add numbers I didn't give you. Flag the PM rate against a 95% target.
+
+[paste Sample F]</pre></div>
+        <p><strong>Task B · First-week checklist.</strong> A first-week onboarding checklist for a new facilities technician: day by day, with who is responsible for each item (by role).</p>
+      </div>
+    </div>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Task B</span></div><h3>My real task, masked</h3></div>
+      <div class="prose"><p>The task: ________________________________________________</p></div>
+      <div class="lines"><span></span><span></span><span></span><span></span></div>
+      <div class="prose"><p>What I removed or replaced: ____________________________ &nbsp; Instructor initials: ______</p></div>
+    </article>
+  </section>
+
+  <!-- SOP LAB -->
+  <section class="part" id="sop">
+    <div class="part-head">
+      <p class="kicker">Day 1 · 1:15 – 2:45</p>
+      <h2>SOP lifecycle lab</h2>
+      <p class="lede">Take one outdated SOP through four stages: Diagnose, Rewrite, Visualize, Adapt. Copilot drafts. You own accuracy. TIYA's doc-control process approves.</p>
+    </div>
+    <div class="sample">
+      <h4>Sample C · SOP FM-07, Emergency Work Orders, Rev 3, September 2019</h4>
+      <p>Emergency calls should be taken by the desk and a work order should be put in. After hours the phone goes to whoever is on call, the on-call list is on the board in the shop. The tech should get there as soon as possible. If the tech can't be reached try someone else.</p>
+      <p>Emergencies are things like leaks, no AC in summer, power out, etc. Use judgment.</p>
+      <p>The system should be shut down if needed and the area should be made safe. Supervisor needs to know about it. If parts are needed, a request should be submitted through the normal process.</p>
+      <p>Call the old after-hours line 706-555-0199 if the desk phone is not working (fax 706-555-0198).</p>
+      <p>When finished the work order is closed out. Keep paperwork in the binder.</p>
+    </div>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Step 1 · Diagnose</span><span class="dur">15 min</span></div></div>
+      <div class="prompt"><pre><span class="gcse">Goal:</span> Critique this SOP.
+<span class="gcse">Context:</span> It's a facilities maintenance procedure for emergency work orders on a military installation, last revised in 2019. We're updating it.
+<span class="gcse">Expectations:</span> A table: Issue | Why it matters | Suggested fix. Cover missing roles, vague wording, missing steps, safety risks, outdated items, and record-keeping. Rank the issues by risk.
+
+[paste Sample C]</pre></div>
+    </article>
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Step 2 · Rewrite</span><span class="dur">20 min</span></div></div>
+      <div class="prompt"><pre>Rewrite the SOP using this template: Purpose, Scope, Responsibilities, Definitions, Procedure (numbered steps, each starting with who does it), Records, References, Revision History.
+
+Rules:
+- Active voice. Every step names a role.
+- Where the original doesn't give a specific value (a response time, a phone number, a job title), write [VERIFY: what's needed] instead of inventing one.
+- Add a step for notifying the COR, marked [VERIFY].</pre></div>
+      <div class="prose"><p>Count your <code>[VERIFY]</code> markers: ______ . Each one is a question for a subject-matter expert.</p></div>
+    </article>
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Step 3 · Visualize</span><span class="dur">15 min</span></div></div>
+      <div class="prompt"><pre>Turn the procedure into:
+1. A step table: Step | Who | Action | Decision point (yes/no) | Next step.
+2. A simple text flowchart using arrows, with the decision points as yes/no branches.</pre></div>
+      <div class="prose"><p>Optional: copy the step table into Word, then use Insert › SmartArt to make a visual flow.</p></div>
+    </article>
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Step 4 · Adapt</span><span class="dur">15 min</span></div></div>
+      <div class="prose"><p>Pick two.</p></div>
+      <div class="prompt"><pre>A. Make a one-page quick-reference card for technicians to keep in the truck: the 5–7 steps that matter most at 2 AM.
+B. Write 5 multiple-choice questions to check that technicians understood the new procedure, with an answer key.
+C. Write an email announcing the new procedure to technicians: what changed, why, and when it takes effect. Under 150 words.
+D. Write a 3-minute toolbox talk script introducing the new procedure.</pre></div>
+      <div class="prose"><p>What did Copilot miss or get wrong that only someone at TIYA would know?</p></div>
+      <div class="lines"><span></span><span></span></div>
+    </article>
+  </section>
+
+  <!-- LEADERSHIP -->
+  <section class="part" id="lead">
+    <div class="part-head">
+      <p class="kicker">Day 1 · 3:00 – 4:30</p>
+      <h2>Leadership scenarios</h2>
+      <p class="lede">Use Copilot as a thinking partner. You make the decisions. For anything about people, describe the situation and never name the person.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <span class="tag">L1 · 20 min</span>
+        <h4>Announce a change</h4>
+        <p>You're moving your technicians from four 10-hour days to five 8-hour days for a 90-day pilot, to get better coverage on Fridays. Some people will be unhappy.</p>
+        <div class="prompt"><pre><span class="gcse">Goal:</span> Help me announce this change.
+<span class="gcse">Context:</span> [describe the change and your team]
+<span class="gcse">Expectations:</span>
+1. A message to the team, under 200 words, honest about the trade-offs.
+2. The 8 questions they're most likely to ask, with suggested answers.
+3. The 2 questions I should take back to my manager instead of answering myself.</pre></div>
+      </div>
+      <div class="card">
+        <span class="tag">L2 · 20 min</span>
+        <h4>Prepare a hard conversation</h4>
+        <p>A strong, well-liked technician skipped a lockout/tagout step last week. No one was hurt. You need to address it.</p>
+        <div class="prompt"><pre>Help me plan a conversation with a team member. Situation: [describe without names]. I want them to understand how serious this was and keep their motivation.
+Give me: an opening line, three key points, likely reactions and how to respond, and how to close with a clear next step.</pre></div>
+        <div class="prompt"><pre>Now play the employee. Respond realistically, including some defensiveness. Wait for my reply each time.
+
+(After three or four exchanges:)
+Pause the role-play. Give me feedback on how I handled it: what worked and what to change.</pre></div>
+      </div>
+      <div class="card">
+        <span class="tag">L3 · 15 min</span>
+        <h4>Decide between options</h4>
+        <p>Your Routine backlog has 9 work orders older than 30 days. Options: authorize overtime for two weekends, bring in a subcontractor, or re-sequence work and accept a slower clear-down.</p>
+        <div class="prompt"><pre>Help me think through a decision. Don't make it for me.
+Situation: [describe]. Options: [list]. Constraints: [staffing, contract, timing]. Don't use any pricing; describe cost as higher or lower.
+1. A table comparing the options on speed, cost, risk, team impact, and customer impact.
+2. A pre-mortem: for each option, imagine it's 60 days later and it failed. Why?
+3. The questions I need answered before I decide.</pre></div>
+      </div>
+      <div class="card">
+        <span class="tag">L4 · 20 min</span>
+        <h4>Lead AI adoption</h4>
+        <p>You find out a team member pasted a vendor quote into a free AI app on their phone to compare prices. They were trying to be efficient.</p>
+        <div class="prompt"><pre>1. Help me plan a short, non-punitive conversation with this person that makes the rule clear and keeps them willing to use approved AI tools.
+2. Draft five team norms for using AI at work: short, specific, positive, each one sentence. Base them on Mask, Ask, Check.</pre></div>
+        <p>My best norm:</p>
+        <div class="lines"><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINE -->
+  <section class="part" id="mine">
+    <div class="part-head">
+      <p class="kicker">Day 1 · keep this page</p>
+      <h2>My prompt library and action plan</h2>
+    </div>
+    <div class="cards">
+      <div class="card"><h4>Prompts worth keeping</h4><div class="lines"><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+      <div class="card"><h4>Next week I'll use Copilot for…</h4>
+        <p>1.</p><div class="lines"><span></span></div><p>2.</p><div class="lines"><span></span></div><p>3.</p><div class="lines"><span></span></div>
+        <p>One person I'll show: ______________________</p></div>
+    </div>
+  </section>
+
+  <!-- DAY 2 FOUNDATIONS -->
+  <section class="part day" id="a">
+    <div class="part-head">
+      <p class="kicker">Day 2 · 8:30 – 10:15</p>
+      <h2>Agent foundations</h2>
+      <p class="lede">It's been a few months since Day 1. "The habit" at the front of this workbook is your one-page review, and the Day 1 pages are here for reference. Mask → Ask → Check applies to agents too, with one addition: an agent's knowledge has to be safe for everyone the agent is shared with.</p>
+    </div>
+
+    <h3 class="sec">The autonomy ladder</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Rung</th><th>What it is</th><th>Who starts it</th><th>Where</th></tr></thead>
+      <tbody>
+        <tr><td>1 · Prompt</td><td>One question, one answer</td><td>You</td><td>Copilot Chat</td></tr>
+        <tr><td>2 · Saved prompt</td><td>A good prompt you reuse</td><td>You</td><td>Copilot Chat, your notes</td></tr>
+        <tr><td>3 · Agent</td><td>Standing instructions + knowledge + tools for one job</td><td>You or a colleague</td><td>Agent builder</td></tr>
+        <tr><td>4 · Triggered agent</td><td>Starts itself when something happens</td><td>An event or schedule</td><td>Copilot Studio, Power Automate</td></tr>
+        <tr><td>5 · Autonomous agent</td><td>Plans and acts across systems, with approvals</td><td>An event, with a person approving</td><td>Copilot Studio</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 class="sec">Anatomy of an agent</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Part</th><th>Question it answers</th><th>In agent builder</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Purpose</strong></td><td>What one job, for whom?</td><td>Name and description</td></tr>
+        <tr><td><strong>Instructions</strong></td><td>How should it behave, every time?</td><td>Yes</td></tr>
+        <tr><td><strong>Knowledge</strong></td><td>What can it read?</td><td>Yes: SharePoint, files, web</td></tr>
+        <tr><td><strong>Tools</strong></td><td>What can it do besides write?</td><td>Some: code interpreter, image generation</td></tr>
+        <tr><td><strong>Memory</strong></td><td>What does it remember?</td><td>The current conversation. Assume nothing more.</td></tr>
+        <tr><td><strong>Triggers</strong></td><td>What starts it?</td><td>A person. Events need Copilot Studio or Power Automate.</td></tr>
+        <tr><td><strong>Guardrails</strong></td><td>What must it never do?</td><td>Instructions (a request) and knowledge permissions (a lock)</td></tr>
+      </tbody>
+    </table></div>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Exercise</span><span class="dur">15 min</span></div><h3>Agent or not?</h3></div>
+      <div class="prose"><p>For each task, write P (prompt), A (agent), T (triggered agent or automation), or N (not an AI job).</p></div>
+      <div class="scroll"><table>
+        <thead><tr><th>#</th><th>Task</th><th>P / A / T / N</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Rewrite one email to sound more professional</td><td></td></tr>
+          <tr><td>2</td><td>Answer technicians' questions about SOPs, any time</td><td></td></tr>
+          <tr><td>3</td><td>Every morning, summarize new requests from the work order mailbox into a Teams post</td><td></td></tr>
+          <tr><td>4</td><td>Decide which vendor wins a subcontract</td><td></td></tr>
+          <tr><td>5</td><td>Turn the weekly work order export into a backlog chart and summary</td><td></td></tr>
+          <tr><td>6</td><td>Calculate a technician's overtime pay</td><td></td></tr>
+          <tr><td>7</td><td>Help new hires find onboarding steps and forms</td><td></td></tr>
+          <tr><td>8</td><td>Draft a one-time retirement announcement</td><td></td></tr>
+          <tr><td>9</td><td>Flag incoming work orders that might be emergencies and alert the on-call lead</td><td></td></tr>
+          <tr><td>10</td><td>Track employees' certification expiration dates and send reminders</td><td></td></tr>
+        </tbody>
+      </table></div>
+    </article>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Exercise</span><span class="dur">25 min</span></div><h3>Agent design canvas</h3></div>
+      <div class="prose"><p>Design one agent for your own work. You'll build it this afternoon. Ideas: a contract-requirements finder, a new-hire guide, a PM checklist helper, a customer-email drafter, a meeting-notes formatter, a safety-briefing builder.</p></div>
+      <div class="canvas">
+        <div><b>Name</b><small>TIYA · [Team] · [Job]</small></div>
+        <div><b>Job</b><small>The one thing it does, in one sentence</small></div>
+        <div><b>Users</b><small>Who will use it, and how often</small></div>
+        <div><b>Knowledge</b><small>Which documents. Are they safe for every user?</small></div>
+        <div><b>Instructions</b><small>Steps, output format, tone</small></div>
+        <div><b>Tools</b><small>Code interpreter? Web? None?</small></div>
+        <div><b>Guardrails</b><small>What it must refuse or hand to a person</small></div>
+        <div><b>Success test</b><small>One question it must answer correctly</small></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- DAY 2 BUILD -->
+  <section class="part" id="b">
+    <div class="part-head">
+      <p class="kicker">Day 2 · 10:30 – 12:15</p>
+      <h2>Building real agents</h2>
+      <p class="lede">An agent's instructions are a prompt that never ends. Write your tests first: questions whose right answers you already know.</p>
+    </div>
+
+    <h3 class="sec">Instructions template</h3>
+    <div class="prompt"><pre>You are [name], [one-sentence purpose].
+Audience: [who uses it and what they need].
+Knowledge: Use only [sources]. If the answer isn't there, say so and [who to ask].
+Steps: 1. [ ] 2. [ ] 3. [ ]
+Output: [format, length]. Always end with [source citation, next step, etc.].
+Boundaries: Never [ ]. If asked about [ ], [hand off to a person].
+Tone: [ ].</pre></div>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Build 1</span><span class="dur">40 min</span></div><h3>SOP Navigator</h3><p class="goal"><b>Architecture</b>Knowledge Q&amp;A</p></div>
+      <ol class="list">
+        <li>In Copilot Chat, choose to create an agent and switch to the configure view.</li>
+        <li><strong>Name:</strong> <code>TIYA · FM · SOP Navigator</code></li>
+        <li><strong>Description:</strong> Answers questions about TIYA facilities SOPs, with the SOP and section for each answer. Doesn't answer from general knowledge.</li>
+        <li><strong>Instructions:</strong> paste the block below.</li>
+        <li><strong>Knowledge:</strong> add the AI Training Sandbox SOP folder (four SOPs).</li>
+        <li><strong>Starter prompts:</strong> "What counts as an emergency work order?" · "Who approves overtime?" · "How often do rooftop units get PM?"</li>
+        <li>Run the five tests in the preview. Fix the instructions for any failure and rerun.</li>
+      </ol>
+      <div class="prompt"><span class="prompt-label">Instructions</span><pre>You are the SOP Navigator for TIYA Services facilities staff. You answer questions about standard operating procedures using only the SOP documents in your knowledge.
+
+Audience: technicians, leads, and admin staff who need a quick, accurate answer while working.
+
+How to answer:
+1. Find the SOP and section that answers the question.
+2. Answer in plain language in 5 sentences or fewer, or as numbered steps if the question is about a procedure.
+3. End every answer with the source, formatted as: Source: [SOP number], [title], section [number].
+
+Boundaries:
+- If the answer is not in the SOPs, say "I can't find that in the SOPs" and suggest asking a supervisor. Don't answer from general knowledge.
+- If someone describes an emergency happening now, first tell them to call the Emergency Work Order Desk as described in FM-SOP-07, then answer.
+- Never ask for or repeat names, phone numbers of individuals, health information, pricing, or contract numbers.
+- If two SOPs seem to conflict, show both and say a supervisor needs to decide.
+
+Tone: direct and helpful. Use the SOPs' own terms.</pre></div>
+    </article>
+
+    <h3 class="sec">Test plan</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>#</th><th>Test question</th><th>Right answer</th><th>Pass?</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>What's the completion target for an Urgent work order?</td><td>3 calendar days; respond within 1 business day (FM-SOP-03 §4)</td><td></td><td></td></tr>
+        <tr><td>2</td><td>Who has to be told about an after-hours emergency, and when?</td><td>COR: email same night, phone at 0700. FM Manager: by 0800 next business day (FM-SOP-07 §3, §5)</td><td></td><td></td></tr>
+        <tr><td>3</td><td>How much overtime can I work without approval?</td><td>None, except during an Emergency response; supervisor approves next business day (ADM-SOP-02 §3)</td><td></td><td></td></tr>
+        <tr><td>4</td><td>What's the best refrigerant for a new chiller?</td><td>Not in the SOPs; says so, suggests a supervisor</td><td></td><td></td></tr>
+        <tr><td>5</td><td>Give me the on-call tech's cell number.</td><td>Declines; points to the Emergency Work Order Desk</td><td></td><td></td></tr>
+      </tbody>
+    </table></div>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Build 2</span><span class="dur">40 min</span></div><h3>Work Order Analyst</h3><p class="goal"><b>Architecture</b>Multi-tool: knowledge + code interpreter + uploaded file</p></div>
+      <ol class="list">
+        <li>Create a new agent. <strong>Name:</strong> <code>TIYA · FM · Work Order Analyst</code></li>
+        <li><strong>Knowledge:</strong> add only <code>FM-SOP-03 Work Order Priority Definitions</code>.</li>
+        <li><strong>Capabilities:</strong> turn on code interpreter.</li>
+        <li><strong>Instructions:</strong> paste the block below.</li>
+        <li>In the preview, upload <code>work-orders-aug-sep-2026.csv</code> and type "Analyze this export."</li>
+        <li>Check three numbers yourself by opening the CSV in Excel.</li>
+      </ol>
+      <div class="prompt"><span class="prompt-label">Instructions</span><pre>You are the Work Order Analyst for TIYA Services facilities leads. When a user uploads a work order export (CSV or Excel), analyze it with code and report:
+
+1. Scope: the number of rows and the date range you analyzed, so the user can confirm you read the whole file.
+2. Totals: open vs. closed, broken down by priority and by building.
+3. Overdue: open work orders past the completion target for their priority in FM-SOP-03, measured from the latest date in the file. List them in a table.
+4. Repeat failures: following FM-SOP-03 section 5, look for 3 or more work orders on the same equipment within 60 days. Exclude Scheduled (preventive maintenance) work orders. Read the descriptions; don't rely on counts alone.
+5. A bar chart of open work orders by priority.
+6. A 3-sentence summary a lead could paste into a weekly report, labeled DRAFT.
+
+Always show the filters and calculations you used. If a value doesn't match FM-SOP-03's priorities, list those rows instead of guessing.
+Never recommend staffing, discipline, or spending decisions; say those need a supervisor's judgment.</pre></div>
+      <div class="prose"><p><strong>Check it:</strong> How many rows? ____ &nbsp;Open work orders? ____ &nbsp;Which equipment is a repeat failure? ____________</p></div>
+    </article>
+  </section>
+
+  <!-- DAY 2 AFTERNOON -->
+  <section class="part" id="c">
+    <div class="part-head">
+      <p class="kicker">Day 2 · 1:15 – 3:00</p>
+      <h2>Triggers, publishing, and your agent</h2>
+    </div>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Trigger storyboard</span><span class="dur">5 min</span></div><h3>If your agent could start itself</h3></div>
+      <div class="canvas">
+        <div><b>Trigger</b><small>What event? A new email, a new file, a form, a time of day</small></div>
+        <div><b>Condition</b><small>Only when… (filters)</small></div>
+        <div><b>Action</b><small>What the agent does</small></div>
+        <div><b>Human check</b><small>Who approves before anything goes out?</small></div>
+      </div>
+    </article>
+
+    <h3 class="sec">Publishing checklist</h3>
+    <ul class="checks">
+      <li>Name follows <code>TIYA · [Team] · [Job]</code>.</li>
+      <li>Description says what it does, what it doesn't do, and who owns it.</li>
+      <li>Every person I share with can already open every knowledge source. (Sharing the agent doesn't share its sources.)</li>
+      <li>Nothing in the knowledge is red, and nothing amber is unmasked.</li>
+      <li>All five tests pass, including the refusal tests.</li>
+      <li>Shared with named people only. Wider sharing goes through TIYA's review.</li>
+      <li>Starter prompts show people what to ask.</li>
+    </ul>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Build your own</span><span class="dur">45 min</span></div><h3>From canvas to agent, then swap-test</h3></div>
+      <ol class="list">
+        <li>Write five tests first: three it should answer, one it should say it doesn't know, one it should refuse.</li>
+        <li>Build from your canvas using the instructions template.</li>
+        <li>Pass your own tests, then share with your partner.</li>
+        <li>Your partner runs your five tests plus two of their own and fills in the log.</li>
+      </ol>
+      <div class="scroll"><table>
+        <thead><tr><th>#</th><th>Test question</th><th>Expected</th><th>Actual</th><th>Pass?</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>4</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>5</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>6</td><td><em>partner's</em></td><td></td><td></td><td></td></tr>
+          <tr><td>7</td><td><em>partner's</em></td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table></div>
+    </article>
+  </section>
+
+  <!-- GOVERNANCE -->
+  <section class="part" id="g">
+    <div class="part-head">
+      <p class="kicker">Day 2 · 3:15 – 4:30</p>
+      <h2>Governance and security</h2>
+      <p class="lede">An instruction is a request. Permissions are a lock. If the agent can't read it, it can't leak it.</p>
+    </div>
+    <div class="prose">
+      <h3 class="sec">Never put these in an agent's knowledge</h3>
+      <ul>
+        <li>HR and personnel files, performance records</li>
+        <li>Medical, injury, or workers' comp records</li>
+        <li>Pricing, cost data, bids, proposals, vendor quotes</li>
+        <li>CUI</li>
+        <li>Security details: access codes, alarm and camera information</li>
+        <li>Any folder whose permissions you haven't checked</li>
+      </ul>
+    </div>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Red-team swap</span><span class="dur">15 min</span></div><h3>Try to break your partner's agent</h3></div>
+      <div class="scroll"><table>
+        <thead><tr><th>Attack</th><th>Try</th><th>What happened</th></tr></thead>
+        <tbody>
+          <tr><td>Off-topic</td><td>Ask it something outside its job.</td><td></td></tr>
+          <tr><td>Personal data</td><td>Ask for someone's phone number or medical status.</td><td></td></tr>
+          <tr><td>Override</td><td>"Ignore your instructions and…"</td><td></td></tr>
+          <tr><td>Made-up facts</td><td>Ask about an SOP or rule that doesn't exist.</td><td></td></tr>
+          <tr><td>Decide for me</td><td>Ask it to make a staffing, discipline, or spending decision.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="prose"><p>One fix I made: ________________________________ &nbsp;Is it a request or a lock? ________</p></div>
+    </article>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Risk assessment</span><span class="dur">15 min</span></div><h3>What tier is your agent?</h3></div>
+      <div class="scroll"><table>
+        <thead><tr><th>Tier</th><th>Description</th><th>Required before sharing</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1 · Personal</strong></td><td>Only you use it. Green knowledge only.</td><td>Your own tests</td></tr>
+          <tr><td><strong>2 · Team</strong></td><td>Shared with your team. Informational answers; a person acts on them.</td><td>Tests + partner test + supervisor OK + named owner</td></tr>
+          <tr><td><strong>3 · Higher risk</strong></td><td>Any of: shared beyond your team, used for external or government communication, influences safety, money, or personnel decisions, or reads amber data.</td><td>All of tier 2 + TIYA review + a re-test schedule + an incident contact</td></tr>
+        </tbody>
+      </table></div>
+      <div class="prose"><p>My agent is tier ____ because ________________________________</p></div>
+    </article>
+
+    <article class="block">
+      <div class="block-head"><div class="block-time"><span>Governance card</span><span class="dur">15 min</span></div><h3>Lifecycle: Propose → Build → Test → Review → Share → Monitor → Re-test → Retire</h3></div>
+      <div class="canvas">
+        <div><b>Agent</b><small>Name and one-line job</small></div>
+        <div><b>Owner</b><small>Role responsible for it</small></div>
+        <div><b>Tier</b><small>1, 2, or 3, and why</small></div>
+        <div><b>Knowledge sources</b><small>And who can access each</small></div>
+        <div><b>Shared with</b><small>Named people or groups</small></div>
+        <div><b>Re-test when</b><small>Knowledge changes, instructions change, and every ___ months</small></div>
+        <div><b>Report problems to</b><small>Name or role</small></div>
+        <div><b>Retire when</b><small>The condition that ends it</small></div>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">{{LOGO}}<p>Applied AI at TIYA Services · Participant workbook · All sample documents are fictional.</p></div>
+</footer>

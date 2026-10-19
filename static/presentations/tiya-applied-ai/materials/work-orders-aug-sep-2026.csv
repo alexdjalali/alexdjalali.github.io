@@ -1,0 +1,81 @@
+WO_Number,Date_Opened,Building,System,Description,Priority,Status,Date_Closed,Labor_Hours
+26-04301,2026-08-02,B-118,Doors/Locks,Door not latching,Routine,Closed,2026-08-16,0.5
+26-04302,2026-08-03,B-214,Electrical,Outlet not working,Routine,Closed,2026-08-17,0.5
+26-04303,2026-08-03,B-214,HVAC,"RTU-2 no cooling, classroom 112 at 84F",Emergency,Closed,2026-08-03,3.5
+26-04304,2026-08-04,B-410,Doors/Locks,Door not latching,Urgent,Closed,2026-08-05,4
+26-04305,2026-08-04,B-214,Doors/Locks,Door closer broken,Routine,Closed,2026-08-14,3
+26-04306,2026-08-04,B-101,Doors/Locks,"Door closer broken, conference room",Routine,Open,,
+26-04307,2026-08-05,B-410,Electrical,Outlet not working,Routine,Closed,2026-08-13,1
+26-04308,2026-08-05,B-101,Doors/Locks,Lock cylinder sticking,Urgent,Closed,2026-08-05,1
+26-04309,2026-08-05,B-214,Doors/Locks,Lock cylinder sticking,Routine,Closed,2026-08-17,3
+26-04310,2026-08-05,B-118,Grounds,"Preventive maintenance, quarterly",Scheduled,Closed,2026-08-07,0.5
+26-04311,2026-08-06,B-305,Plumbing,Slow drain in restroom,Routine,Closed,2026-08-15,0.5
+26-04312,2026-08-06,B-305,Electrical,Light fixture out,Urgent,Closed,2026-08-07,1.5
+26-04313,2026-08-06,B-101,Grounds,Pothole near entrance,Routine,Closed,2026-08-22,3
+26-04314,2026-08-06,B-118,Electrical,"Light fixture out, aisle 4",Routine,Open,,
+26-04315,2026-08-07,B-214,Grounds,Irrigation head broken,Urgent,Closed,2026-08-08,1.5
+26-04316,2026-08-07,B-410,Electrical,Outlet not working,Routine,Closed,2026-08-22,1
+26-04317,2026-08-08,B-305,Doors/Locks,Lock cylinder sticking,Routine,Closed,2026-08-11,1.5
+26-04318,2026-08-10,B-118,Plumbing,Slow drain in restroom,Urgent,Closed,2026-08-12,4
+26-04319,2026-08-10,B-101,Plumbing,Leaking faucet,Urgent,Closed,2026-08-11,3
+26-04320,2026-08-10,B-410,Doors/Locks,"Preventive maintenance, quarterly",Scheduled,Closed,2026-08-10,1.5
+26-04321,2026-08-10,B-305,Plumbing,"Leaking faucet, locker room",Routine,Open,,
+26-04322,2026-08-11,B-214,HVAC,RTU-2 tripped on high head pressure,Urgent,Closed,2026-08-12,2
+26-04323,2026-08-12,B-216,Plumbing,Toilet running,Routine,Closed,2026-08-28,2
+26-04324,2026-08-12,B-101,Electrical,Outlet not working,Routine,Closed,2026-08-15,3
+26-04325,2026-08-13,B-410,Grounds,Pothole near entrance,Routine,Open,,
+26-04326,2026-08-16,B-410,Doors/Locks,Lock cylinder sticking,Urgent,Closed,2026-08-18,4
+26-04327,2026-08-17,B-101,Doors/Locks,"Preventive maintenance, quarterly",Scheduled,Closed,2026-08-18,2
+26-04328,2026-08-17,B-216,Electrical,"Preventive maintenance, quarterly",Scheduled,Closed,2026-08-21,1
+26-04329,2026-08-17,B-216,Electrical,"Outlet not working, room 204",Routine,Open,,
+26-04330,2026-08-18,B-118,Doors/Locks,Lock cylinder sticking,Urgent,Closed,2026-08-19,2
+26-04331,2026-08-19,B-410,Roofing,"Preventive maintenance, quarterly",Scheduled,Closed,2026-08-21,3
+26-04332,2026-08-19,B-214,HVAC,"RTU-2 no cooling again, condenser coil dirty",Urgent,Closed,2026-08-20,4
+26-04333,2026-08-20,B-305,Electrical,"Preventive maintenance, quarterly",Scheduled,Closed,2026-08-23,3
+26-04334,2026-08-20,B-410,Electrical,"Preventive maintenance, quarterly",Scheduled,Closed,2026-08-20,0.5
+26-04335,2026-08-20,B-101,Roofing,"Ceiling stain after rain, hallway",Routine,Open,,
+26-04336,2026-08-21,B-214,Doors/Locks,Door not latching,Routine,Closed,2026-09-08,0.5
+26-04337,2026-08-23,B-118,Grounds,"Preventive maintenance, quarterly",Scheduled,Closed,2026-08-27,1.5
+26-04338,2026-08-23,B-101,Grounds,Tree limb down,Urgent,Closed,2026-08-25,1
+26-04339,2026-08-24,B-118,Doors/Locks,Roll-up door not latching,Routine,Open,,
+26-04340,2026-08-25,B-410,Electrical,"Preventive maintenance, quarterly",Scheduled,Closed,2026-08-29,4
+26-04341,2026-08-26,B-214,Roofing,Ceiling stain after rain,Urgent,Closed,2026-08-28,3
+26-04342,2026-08-26,B-305,Plumbing,Water fountain low pressure,Routine,Open,,
+26-04343,2026-08-27,B-214,Plumbing,Toilet running,Routine,Closed,2026-08-30,2
+26-04344,2026-08-27,B-410,Electrical,Exit sign bulb out,Routine,Open,,
+26-04345,2026-08-28,B-214,HVAC,RTU-2 contactor replaced,Urgent,Closed,2026-08-29,2.5
+26-04346,2026-08-29,B-410,Electrical,"Preventive maintenance, quarterly",Scheduled,Closed,2026-08-30,1.5
+26-04347,2026-08-29,B-214,Plumbing,Toilet running,Routine,Closed,2026-09-08,1
+26-04348,2026-08-29,B-216,Plumbing,Leaking faucet,Urgent,Closed,2026-08-30,1.5
+26-04349,2026-08-29,B-118,Plumbing,Water fountain low pressure,Routine,Closed,2026-09-18,1
+26-04350,2026-08-31,B-118,Doors/Locks,Door closer broken,Routine,Closed,2026-09-09,4
+26-04351,2026-09-03,B-118,Doors/Locks,Lock cylinder sticking,Routine,Closed,2026-09-20,0.5
+26-04352,2026-09-05,B-101,HVAC,Noisy supply fan,Routine,Closed,2026-09-11,3
+26-04353,2026-09-05,B-305,Grounds,Tree limb down,Routine,Open,,
+26-04354,2026-09-05,B-101,Roofing,"Preventive maintenance, quarterly",Scheduled,Closed,2026-09-07,3
+26-04355,2026-09-05,B-410,HVAC,Filter change request,Urgent,Closed,2026-09-07,3
+26-04356,2026-09-06,B-305,Electrical,"Preventive maintenance, quarterly",Scheduled,Closed,2026-09-10,2
+26-04357,2026-09-07,B-216,Electrical,"Preventive maintenance, quarterly",Scheduled,Closed,2026-09-10,1.5
+26-04358,2026-09-07,B-214,Grounds,Pothole near entrance,Routine,Open,,
+26-04359,2026-09-08,B-214,HVAC,"RTU-2 low refrigerant, added charge, no leak found",Emergency,Closed,2026-09-08,5
+26-04360,2026-09-09,B-214,Grounds,Irrigation head broken,Urgent,Closed,2026-09-09,1
+26-04361,2026-09-10,B-118,Plumbing,"Preventive maintenance, quarterly",Scheduled,Closed,2026-09-11,2
+26-04362,2026-09-10,B-101,Grounds,"Preventive maintenance, quarterly",Scheduled,Closed,2026-09-12,2
+26-04363,2026-09-10,B-410,Doors/Locks,Door closer broken,Routine,Closed,2026-09-17,0.5
+26-04364,2026-09-12,B-305,Plumbing,Leaking faucet,Routine,Closed,2026-09-14,4
+26-04365,2026-09-12,B-305,Doors/Locks,"Preventive maintenance, quarterly",Scheduled,Closed,2026-09-14,1.5
+26-04366,2026-09-12,B-214,Grounds,Irrigation head broken,Urgent,Closed,2026-09-14,2
+26-04367,2026-09-14,B-101,HVAC,Noisy supply fan,Routine,Closed,2026-09-19,3
+26-04368,2026-09-15,B-214,Plumbing,Leaking faucet,Routine,Open,,
+26-04369,2026-09-16,B-101,Grounds,"Preventive maintenance, quarterly",Scheduled,Closed,2026-09-17,3
+26-04370,2026-09-16,B-214,HVAC,"RTU-2 no cooling, recommend nitrogen leak search",Urgent,Closed,2026-09-17,3
+26-04371,2026-09-17,B-118,Doors/Locks,Door closer broken,Routine,Closed,2026-09-29,4
+26-04372,2026-09-21,B-101,Electrical,"Preventive maintenance, quarterly",Scheduled,Closed,2026-09-26,0.5
+26-04373,2026-09-21,B-216,Plumbing,Restroom flush valve leaking continuously,Urgent,Open,,
+26-04374,2026-09-22,B-214,HVAC,"RTU-2 compressor suspected, parts pending approval",Urgent,On Hold - Parts,,1.5
+26-04375,2026-09-24,B-410,Electrical,Outlet not working,Routine,Closed,2026-09-27,3
+26-04376,2026-09-24,B-101,Electrical,"Breaker tripping, server closet",Urgent,Open,,
+26-04377,2026-09-27,B-216,HVAC,Office too warm,Routine,Open,,
+26-04378,2026-09-28,B-410,Grounds,"Preventive maintenance, quarterly",Scheduled,Closed,2026-09-30,0.5
+26-04379,2026-09-28,B-118,Electrical,Light fixture out,Routine,Open,,
+26-04380,2026-09-29,B-101,Plumbing,"Preventive maintenance, quarterly",Scheduled,Closed,2026-09-30,1

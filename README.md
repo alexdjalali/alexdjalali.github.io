@@ -29,7 +29,7 @@ presentations/              Presentation source files (Markdown, demos)
 static/
   bib/                      25 individual BibTeX files (publications, dissertation, patents)
   images/                   Avatar, favicon, OG images, presentation diagrams
-  presentations/            Compiled Reveal.js slide decks
+  presentations/            Compiled slide decks; tiya-applied-ai/ is a full course kit (rebuild with its build/make.sh)
 resume/                     Resume source (LaTeX) and compiled PDF
 hugo.toml                   Site configuration, nav, social links, KaTeX, Google Analytics
 ```

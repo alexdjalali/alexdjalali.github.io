@@ -1,0 +1,851 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TIYA AI Facilitator Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap">
+<style>
+/* Layout: GT navy masthead, then a single 760px reading column per document; agenda blocks are time-stamped sections, cues and prompts sit inline as typed callouts. */
+:root {
+  --navy: #051E39;
+  --gold: #B39051;
+  --gold-dark: #8F713D;
+  --gold-light: #DEBD88;
+  --buzz: #EAAA00;
+  --diploma: #F9F6E5;
+
+  --bg: #FFFFFF;
+  --surface: #F9F6E5;
+  --surface-2: #F2EEDB;
+  --paper: #FFFFFF;
+  --ink: #051E39;
+  --ink-soft: #3A4A5C;
+  --rule: #E3DCC4;
+  --accent: #8F713D;
+  --mast-bg: #051E39;
+  --mast-ink: #F9F6E5;
+  --slot-bg: #F6E7B8;
+  --slot-ink: #4A3A12;
+  --say: #003D69;
+  --do: #066034;
+  --watch: #9A5B00;
+  --remote: #660064;
+  --red: #B3261E;
+  --amber: #9A5B00;
+  --green: #066034;
+
+  --f-display: "Roboto Slab", "Rockwell", Georgia, serif;
+  --f-body: "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "Roboto Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #04172C;
+    --surface: #0A2643;
+    --surface-2: #0E2E50;
+    --paper: #0A2643;
+    --ink: #F9F6E5;
+    --ink-soft: #B9C2CC;
+    --rule: #1C3A5C;
+    --accent: #DEBD88;
+    --mast-bg: #020F1E;
+    --slot-bg: #4A3A12;
+    --slot-ink: #F6E7B8;
+    --say: #8FB8E0;
+    --do: #7CC79A;
+    --watch: #F0B95A;
+    --remote: #D59AD3;
+    --red: #F28B82;
+    --amber: #F0B95A;
+    --green: #7CC79A;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #04172C;
+  --surface: #0A2643;
+  --surface-2: #0E2E50;
+  --paper: #0A2643;
+  --ink: #F9F6E5;
+  --ink-soft: #B9C2CC;
+  --rule: #1C3A5C;
+  --accent: #DEBD88;
+  --mast-bg: #020F1E;
+  --slot-bg: #4A3A12;
+  --slot-ink: #F6E7B8;
+  --say: #8FB8E0;
+  --do: #7CC79A;
+  --watch: #F0B95A;
+  --remote: #D59AD3;
+  --red: #F28B82;
+  --amber: #F0B95A;
+  --green: #7CC79A;
+}
+
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.6; }
+h1, h2, h3, h4 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.25; color: var(--ink); }
+p, ul, ol { margin: 0; }
+a { color: inherit; text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--buzz); outline-offset: 3px; border-radius: 2px; }
+strong { font-weight: 700; }
+code { font-family: var(--f-mono); font-size: .9em; background: var(--surface); padding: 1px 5px; border-radius: 3px; }
+
+.wrap { max-width: 820px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 40px); }
+
+/* Masthead */
+.mast { background: var(--mast-bg); color: var(--mast-ink); }
+.mast .wrap { padding-block: 24px 36px; display: grid; gap: 26px; }
+.mast-top { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; }
+.gt-logo { height: 34px; width: auto; max-width: 100%; color: var(--mast-ink); display: block; }
+.mast-tag { font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-light); }
+.mast h1 { font-size: clamp(30px, 5.2vw, 46px); font-weight: 700; color: var(--mast-ink); }
+.mast-sub { color: #D4D9DF; max-width: 62ch; font-size: 17px; }
+.mast-meta { display: flex; flex-wrap: wrap; gap: 6px 28px; font-size: 14px; color: #D4D9DF; }
+.mast-meta b { color: var(--gold-light); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; font-size: 11px; margin-right: 6px; }
+.gold-rule { height: 6px; background: linear-gradient(to right, #8F713D, #B39051, #DEBD88, #8F713D); }
+
+/* Document flow */
+main.wrap { padding-block: 48px 72px; display: grid; gap: 56px; }
+.part { display: grid; gap: 28px; }
+.part-head { display: grid; gap: 10px; padding-top: 28px; border-top: 3px solid var(--ink); }
+.kicker { font-family: var(--f-mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.part-head h2 { font-size: clamp(26px, 4vw, 36px); font-weight: 700; }
+.lede { font-size: 17px; color: var(--ink-soft); max-width: 66ch; }
+.prose { display: grid; gap: 14px; max-width: 68ch; }
+.prose ul, .prose ol, .list { padding-left: 22px; display: grid; gap: 6px; }
+.prose li::marker, .list li::marker { color: var(--gold); }
+h3.sec { font-size: 22px; font-weight: 600; }
+h4.sub { font-family: var(--f-body); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+
+/* Contents */
+.toc { display: grid; gap: 10px; padding: 20px 24px; background: var(--surface); border-radius: 4px; }
+.toc ol { list-style: none; padding: 0; display: grid; gap: 6px; }
+.toc a { text-decoration: none; display: flex; gap: 14px; }
+.toc a:hover span:last-child { text-decoration: underline; }
+.toc .t { font-family: var(--f-mono); font-size: 13px; color: var(--ink-soft); min-width: 7.5rem; font-variant-numeric: tabular-nums; padding-top: 2px; }
+
+/* Agenda block */
+.block { display: grid; gap: 18px; scroll-margin-top: 16px; }
+.block-head { display: grid; gap: 8px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
+.block-time { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-family: var(--f-mono); font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.block-time .dur { color: var(--accent); }
+.block h3 { font-size: 24px; font-weight: 600; }
+.los { display: flex; flex-wrap: wrap; gap: 6px; }
+.lo { font-size: 12px; font-weight: 500; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--rule); color: var(--ink-soft); }
+.goal { font-size: 16px; max-width: 68ch; }
+.goal b { color: var(--accent); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; margin-right: 6px; }
+
+/* Run sheet */
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th { text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 8px 0; border-bottom: 2px solid var(--ink); }
+td { vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); }
+td.tm { font-family: var(--f-mono); font-size: 13px; white-space: nowrap; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+td.who { font-size: 13px; color: var(--ink-soft); white-space: nowrap; }
+td ul { padding-left: 18px; display: grid; gap: 2px; }
+
+/* Facilitator cues */
+.cues { display: grid; gap: 10px; }
+.cue { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 12px; padding: 12px 14px; background: var(--surface); border-radius: 4px; }
+.cue > b { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding-top: 3px; }
+.cue.say > b { color: var(--say); }
+.cue.do > b { color: var(--do); }
+.cue.watch > b { color: var(--watch); }
+.cue.remote > b { color: var(--remote); }
+.cue.debrief > b { color: var(--accent); }
+.cue ul, .cue ol { padding-left: 18px; display: grid; gap: 4px; }
+.cue p + p, .cue p + ul, .cue ul + p { margin-top: 6px; }
+@media (max-width: 520px) { .cue { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Prompt boxes */
+.prompt { display: grid; gap: 8px; }
+.prompt-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+.prompt pre {
+  margin: 0; white-space: pre-wrap; word-break: break-word; font-family: var(--f-mono); font-size: 14px; line-height: 1.6;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; padding: 14px 16px; color: var(--ink);
+}
+.slot { background: var(--slot-bg); color: var(--slot-ink); border-radius: 2px; padding: 0 3px; }
+.gcse { font-weight: 700; color: var(--accent); }
+
+/* Sample documents */
+.sample {
+  position: relative; background: var(--paper); border: 1px solid var(--rule); border-radius: 2px;
+  padding: 28px clamp(16px, 4vw, 32px) 24px; display: grid; gap: 12px; font-size: 15px;
+  box-shadow: 0 1px 0 var(--rule), 0 6px 18px -12px rgba(5, 30, 57, .35);
+}
+.sample::before {
+  content: "Sample · fictional"; position: absolute; top: 10px; right: 12px;
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--red); border: 1px solid var(--red); padding: 1px 6px; border-radius: 2px;
+}
+.sample h4 { font-family: var(--f-body); font-size: 15px; font-weight: 700; }
+.sample .docmeta { font-family: var(--f-mono); font-size: 12px; color: var(--ink-soft); }
+.sample ol, .sample ul { padding-left: 22px; display: grid; gap: 4px; }
+.sample pre { margin: 0; white-space: pre-wrap; font-family: var(--f-mono); font-size: 13px; line-height: 1.55; }
+
+/* Cards (lab tracks, scenarios) */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.card { display: grid; gap: 10px; align-content: start; padding: 18px 20px; border: 1px solid var(--rule); border-radius: 4px; background: var(--bg); }
+.card h4 { font-size: 18px; font-weight: 600; }
+.card .tag { font-family: var(--f-mono); font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; }
+.card ul, .card ol { padding-left: 18px; display: grid; gap: 4px; font-size: 15px; }
+
+/* Data ratings */
+.rate { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.rate::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: currentColor; }
+.rate.red { color: var(--red); }
+.rate.amber { color: var(--amber); }
+.rate.green { color: var(--green); }
+.lights { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 16px; }
+.light { display: grid; gap: 8px; align-content: start; padding: 16px 18px; border-top: 4px solid currentColor; background: var(--surface); }
+.light.red { color: var(--red); } .light.amber { color: var(--amber); } .light.green { color: var(--green); }
+.light > * { color: var(--ink); }
+.light > .rate { color: inherit; }
+.light ul { padding-left: 18px; display: grid; gap: 4px; font-size: 15px; }
+
+/* Framework strip */
+.loop { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+.loop > div { padding: 18px; display: grid; gap: 6px; align-content: start; }
+.loop > div + div { border-left: 1px solid var(--rule); }
+.loop .step { font-family: var(--f-display); font-size: 22px; font-weight: 700; color: var(--accent); }
+.loop p { font-size: 15px; }
+.loop ul { padding-left: 18px; font-size: 14px; display: grid; gap: 2px; }
+@media (max-width: 620px) { .loop { grid-template-columns: 1fr; } .loop > div + div { border-left: 0; border-top: 1px solid var(--rule); } }
+
+/* Write-in lines and checkboxes (workbook) */
+.lines { display: grid; gap: 0; }
+.lines span { display: block; height: 30px; border-bottom: 1px solid var(--rule); }
+.checks { list-style: none; padding: 0; display: grid; gap: 8px; }
+.checks li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; }
+.checks li::before { content: ""; width: 14px; height: 14px; border: 1.5px solid var(--ink-soft); border-radius: 2px; margin-top: 4px; }
+.canvas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 0; border: 1px solid var(--rule); }
+.canvas > div { padding: 12px 14px; min-height: 120px; border: 1px solid var(--rule); margin: -1px 0 0 -1px; display: grid; gap: 4px; align-content: start; }
+.canvas b { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.canvas small { color: var(--ink-soft); font-size: 13px; line-height: 1.4; }
+
+/* Notes for the program owner */
+.flag { display: grid; gap: 6px; padding: 14px 16px; border: 1px dashed var(--accent); border-radius: 4px; font-size: 15px; }
+.flag > b { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+
+/* Slides */
+.deck { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.slide { display: grid; grid-template-rows: auto 1fr auto; gap: 8px; padding: 14px 16px; min-height: 190px; border: 1px solid var(--rule); border-radius: 3px; background: var(--paper); }
+.slide-no { display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; color: var(--ink-soft); }
+.slide-no .ty { text-transform: uppercase; letter-spacing: .08em; color: var(--accent); }
+.slide h4 { font-size: 16px; font-weight: 600; line-height: 1.3; }
+.slide ul { padding-left: 16px; font-size: 13.5px; line-height: 1.45; display: grid; gap: 2px; color: var(--ink-soft); }
+.slide .note { font-size: 12.5px; color: var(--ink-soft); border-top: 1px solid var(--rule); padding-top: 6px; font-style: italic; }
+.slide.section { background: var(--mast-bg); border-color: var(--mast-bg); }
+.slide.section h4, .slide.section ul { color: var(--mast-ink); }
+.slide.section .slide-no, .slide.section .note { color: #B9C2CC; border-color: #1C3A5C; }
+.slide.section .slide-no .ty { color: var(--gold-light); }
+
+/* Quiz */
+.quiz { list-style: none; padding: 0; display: grid; gap: 22px; counter-reset: q; }
+.quiz > li { counter-increment: q; display: grid; gap: 8px; }
+.quiz > li > p:first-child::before { content: counter(q) ". "; font-weight: 700; color: var(--accent); }
+.quiz .opts { list-style: none; padding-left: 20px; display: grid; gap: 4px; }
+.quiz .key { font-size: 14px; color: var(--ink-soft); padding: 8px 12px; background: var(--surface); border-radius: 3px; }
+.quiz .key b { color: var(--green); }
+
+.foot { background: var(--mast-bg); color: var(--mast-ink); }
+.foot .wrap { padding-block: 24px; display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; }
+.foot .gt-logo { height: 26px; }
+.foot p { font-size: 13px; color: #B9C2CC; }
+
+@media print {
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  body { font-size: 11pt; }
+  .mast, .foot, .slide.section { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .part.day { break-before: page; }
+  .card, .cue, .sample, .light, .slide, .prompt, .canvas { break-inside: avoid; }
+  .toc { display: none; }
+}
+
+/* Course-kit navigation */
+.home { display: block; }
+.kit-link { color: inherit; text-decoration: none; }
+.kit-link:hover { text-decoration: underline; }
+@media print { .kit-link { display: none; } }
+</style>
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-top"><a class="home" href="index.html" aria-label="Course kit"><svg class="gt-logo" role="img" aria-label="Georgia Tech" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 681.82346 121.32001"><defs><style>.gt-logo .cls-1{fill:currentColor;}</style></defs><path class="cls-1" d="M236.72,7a1.12,1.12,0,0,1,.48,1v8.3a.65.65,0,0,1-.69.69h-6.24a.65.65,0,0,1-.7-.69V12.21a.58.58,0,0,0-.27-.56A13.56005,13.56005,0,0,0,222,9.78c-5.82,0-8.46,2.5-9.78,6.31-.55,1.74-1.11,4.09-1.11,10.82s.35,9,.9,10.68c1.32,3.82,3.89,6.18,9.65,6.18,3.81,0,6.31-.77,7.69-1.67.56-.34.7-.55.7-1.11V31.77a.37.37,0,0,0-.42-.42h-7.49a.65.65,0,0,1-.69-.69V25.11a.65.65,0,0,1,.69-.69h15.12a.65005.65005,0,0,1,.7.69V45a1.62,1.62,0,0,1-.91,1.66c-3.74,2.71-9,4.44-15.53,4.44-9.51,0-15.12-3.54-17.55-11-1-2.91-1.18-5.76-1.18-13.18s.35-10.12,1.32-13c2.42-7.49,8.6-11.44,18.1-11.44C228.19,2.43,233.67,4.44,236.72,7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M272.51,25.39c.76,2.36,1.11,4.64,1.11,10a.68.68,0,0,1-.77.7h-20.6a.37.37,0,0,0-.41.41,7.3102,7.3102,0,0,0,.48,2.57c1.11,3.26,3.75,5.06,7.49,5.06A10,10,0,0,0,267.65,41a.72.72,0,0,1,1-.14l4.09,3.61a.62.62,0,0,1,.07,1c-2.84,3.33-7.56,5.69-13.73,5.69-7.08,0-12.07-3.47-13.94-9.29A25.76027,25.76027,0,0,1,244,33.64a26.70944,26.70944,0,0,1,1.11-8.25c1.87-5.83,7-9.23,13.66-9.23C265.64,16.16,270.63,19.7,272.51,25.39Zm-20.26,1.66a8.71987,8.71987,0,0,0-.41,2.85.37.37,0,0,0,.41.41h13.11a.37.37,0,0,0,.42-.41,8.44012,8.44012,0,0,0-.42-2.85,6.5,6.5,0,0,0-6.52-4.3C255.65,22.75,253.15,24.35,252.25,27.05Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M307,25.39a24.74007,24.74007,0,0,1,1.11,8.25A24.81037,24.81037,0,0,1,307,41.9c-1.87,5.82-7,9.22-13.73,9.22s-11.93-3.4-13.81-9.22a24.81011,24.81011,0,0,1-1.11-8.26,24.73981,24.73981,0,0,1,1.11-8.25c1.88-5.83,7-9.23,13.81-9.23S305.11,19.56,307,25.39Zm-20.05,2.08a19.26025,19.26025,0,0,0-.69,6.17,19.00043,19.00043,0,0,0,.69,6.17,6.26,6.26,0,0,0,6.32,4.37,6.17,6.17,0,0,0,6.24-4.37,19.00037,19.00037,0,0,0,.69-6.17,19.26,19.26,0,0,0-.69-6.17,6.11,6.11,0,0,0-6.24-4.37,6.21,6.21,0,0,0-6.34,4.37Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M335.76,16.79c.42.07.7.27.7.69v6c0,.49-.28.84-.83.7a23.20974,23.20974,0,0,0-4.1-.56c-4.92,0-7.49,2.64-7.49,8.6V43.14a.37.37,0,0,0,.42.42h3.26a.66.66,0,0,1,.69.62857q.00142.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H312.87a.66.66,0,0,1-.69-.7V44.25a.66.66,0,0,1,.62857-.69q.03072-.00143.06144,0h3a.37.37,0,0,0,.41-.42v-19a.37.37,0,0,0-.41-.42h-3a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7h10.48a.66.66,0,0,1,.69.7v3.47h.07a9.53,9.53,0,0,1,8.39-4.65A15.14957,15.14957,0,0,1,335.76,16.79Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M360.67,20.12h.06v-2.5a.66.66,0,0,1,.7-.7H371.9a.66.66,0,0,1,.7.7V23a.65.65,0,0,1-.7.69h-3a.37.37,0,0,0-.42.42V48.28c0,9.57-5.34,15.32-15.6,15.32-4.65,0-9.58-1.94-12.14-5a.62.62,0,0,1,.07-1l4.09-4.09a.64994.64994,0,0,1,1,0,10.26,10.26,0,0,0,7.28,3.12c5.14,0,7.49-2.78,7.49-8V45.57h-.06c-1.53,2.36-4.37,3.89-8.67,3.89-5.62,0-9.65-2.85-11.38-8.12a25.55011,25.55011,0,0,1-1.11-8.53,25.00021,25.00021,0,0,1,1.11-8.46c1.73-5.34,5.76-8.19,11.38-8.19C356.3,16.16,359.14,17.69,360.67,20.12Zm-12.56,7.21a16.18953,16.18953,0,0,0-.76,5.48,15.70993,15.70993,0,0,0,.76,5.48,6.24,6.24,0,0,0,11.86,0,15.47991,15.47991,0,0,0,.76-5.48,15.9399,15.9399,0,0,0-.76-5.48,6.27,6.27,0,0,0-11.86,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M387.23,16.92a.65.65,0,0,1,.69.7V43.14a.37.37,0,0,0,.42.42h3a.66.66,0,0,1,.7.69v5.41a.66.66,0,0,1-.7.7H376.76a.66.66,0,0,1-.7-.7V44.25a.66.66,0,0,1,.7-.69h3a.37.37,0,0,0,.42-.42v-19a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.7-.69V17.62a.66.66,0,0,1,.7-.7Zm0-13.73a.65.65,0,0,1,.69.7v6a.65.65,0,0,1-.69.69h-6.38a.65.65,0,0,1-.69-.69v-6a.65.65,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M423.3,27.81V43.14a.37.37,0,0,0,.41.42h3a.66.66,0,0,1,.69.62857q.00142.03069,0,.06143v5.41a.66.66,0,0,1-.69.7h-9.92a.66.66,0,0,1-.7-.7V47.24H416c-1.59,2.28-4.64,3.88-9.29,3.88-6,0-11.17-3.26-11.17-10.27,0-7.28,5.14-10.68,13.32-10.68h6.66a.36.36,0,0,0,.41-.41V28.44c0-3.82-1.45-5.83-6.86-5.83a18.26961,18.26961,0,0,0-3.61.42c-.28.07-.35.21-.35.48v3a.65.65,0,0,1-.69.69h-6a.66.66,0,0,1-.7-.69V19.42a.9.9,0,0,1,.56-.9,26.50979,26.50979,0,0,1,11.16-2.36C419.62,16.16,423.3,19.63,423.3,27.81ZM410.12,36c-4.93,0-7.15,1.46-7.15,4.58,0,2.77,2,4.23,5.69,4.23,4.72,0,7.28-1.87,7.28-5.69v-2.7c0-.28-.13-.42-.41-.42Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M461.86,3.19a.65.65,0,0,1,.69.7V9.3a.65.65,0,0,1-.69.69h-3.33a.37.37,0,0,0-.42.41V43.14a.37.37,0,0,0,.42.42h3.33a.65.65,0,0,1,.69.69v5.41a.65.65,0,0,1-.69.7H446.18a.66.66,0,0,1-.69-.7V44.25a.66.66,0,0,1,.62857-.69q.03072-.00143.06143,0h3.33a.37.37,0,0,0,.42-.42V10.4a.37.37,0,0,0-.42-.41h-3.33a.66.66,0,0,1-.69-.62857q-.00142-.03069,0-.06143V3.89a.66.66,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M499.13,28.58V43.14a.37.37,0,0,0,.41.42h2.85a.66.66,0,0,1,.69.62857q.00145.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H488a.65.65,0,0,1-.69-.7V44.25a.65.65,0,0,1,.69-.69h3a.37.37,0,0,0,.42-.42V30.38c0-4.3-2.08-7.28-6.24-7.28s-6.25,3-6.25,7.28V43.14a.37.37,0,0,0,.42.42h3a.66.66,0,0,1,.7.69v5.41a.66.66,0,0,1-.7.7H467.71a.66.66,0,0,1-.7-.7V44.25a.66.66,0,0,1,.7-.69h3a.37.37,0,0,0,.42-.42v-19a.37.37,0,0,0-.42-.42h-3A.64993.64993,0,0,1,467,23V17.62a.66.66,0,0,1,.7-.7h10.47a.65.65,0,0,1,.69.7v2.43h.07c1.46-2.08,4.3-3.89,8.6-3.89C494.69,16.16,499.13,21.43,499.13,28.58Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M532.16,18.52a.94.94,0,0,1,.55,1v6.94a.66.66,0,0,1-.6286.69q-.03067.00143-.0614,0H526.4a.65.65,0,0,1-.69-.69v-2.6a.51.51,0,0,0-.35-.55,14.31023,14.31023,0,0,0-5-.77c-3.89,0-5.62,1.32-5.62,3.4s1.11,3.19,5.62,3.68L524,30c7.77.91,10.61,4.44,10.61,10.06,0,6.8-4.92,11-14.35,11a28.40012,28.40012,0,0,1-12.49-2.64.79.79,0,0,1-.48-.83V40.16a.65.65,0,0,1,.69-.69h5.9a.65.65,0,0,1,.69.69v3.05a.47.47,0,0,0,.35.49,16.19,16.19,0,0,0,5.82.9c4.3,0,6.24-1.39,6.24-3.88,0-2.22-1.24-3.4-5.75-3.89l-3.68-.41c-7.28-.84-10.33-4.3-10.33-9.92,0-6.25,4.57-10.34,13.18-10.34A28.30014,28.30014,0,0,1,532.16,18.52Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M548.16,6.66a.65975.65975,0,0,1,.7.69v9.16a.36.36,0,0,0,.41.41h4.44a.66.66,0,0,1,.7.7V23a.65.65,0,0,1-.7.69h-4.44a.37.37,0,0,0-.41.42v16.3c0,2.36,1,3.12,3.12,3.12h1.73a.65975.65975,0,0,1,.7.69v5.62a.66.66,0,0,1-.7.7h-3.33c-6.72,0-9.29-3.26-9.29-9.79V24.14a.37.37,0,0,0-.42-.42h-2.22a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7h2.22c.28,0,.42-.13.42-.41V7.35a.66.66,0,0,1,.62854-.69q.03075-.00143.06146,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M570,16.92a.66.66,0,0,1,.7.7V43.14a.37.37,0,0,0,.41.42h3a.66.66,0,0,1,.69.62857q.00146.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H559.54a.64994.64994,0,0,1-.69-.7V44.25a.65.65,0,0,1,.69-.69h3a.37.37,0,0,0,.42-.42v-19a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.69-.69V17.62a.65.65,0,0,1,.69-.7Zm0-13.73a.66.66,0,0,1,.7.7v6a.65.65,0,0,1-.7.69h-6.38a.65.65,0,0,1-.69-.69v-6a.66.66,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M587.19,6.66a.65967.65967,0,0,1,.7.69v9.16a.36.36,0,0,0,.41.41h4.44a.66.66,0,0,1,.7.7V23a.65.65,0,0,1-.7.69H588.3a.37.37,0,0,0-.41.42v16.3c0,2.36,1,3.12,3.12,3.12h1.73a.65975.65975,0,0,1,.7.69v5.62a.66.66,0,0,1-.7.7h-3.33c-6.72,0-9.29-3.26-9.29-9.79V24.14a.37.37,0,0,0-.42-.42h-2.22a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7h2.22c.28,0,.42-.13.42-.41V7.35a.66.66,0,0,1,.62854-.69q.03075-.00143.06146,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M628.92,16.92a.66033.66033,0,0,1,.69.7V43.14a.37.37,0,0,0,.42.42h3a.66.66,0,0,1,.69.62857q.00147.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H622.53a.66024.66024,0,0,1-.69-.7V47.24h-.07c-1.8,2.28-4.37,3.88-8.6,3.88-7.14,0-11.44-5.27-11.44-12.42V24.14a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.7-.69V17.62a.66.66,0,0,1,.7-.7H608.8a.65.65,0,0,1,.69.7V36.9c0,4.3,2,7.28,6.18,7.28,4,0,6.17-3,6.17-7.21V24.14a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M646.26,6.66a.65.65,0,0,1,.69.69v9.16c0,.28.14.41.42.41h4.44a.65.65,0,0,1,.69.7V23a.65.65,0,0,1-.69.69h-4.44a.37.37,0,0,0-.42.42v16.3c0,2.36,1,3.12,3.13,3.12h1.73a.65.65,0,0,1,.69.60738.64342.64342,0,0,1,0,.08262v5.62a.65.65,0,0,1-.69.7h-3.33c-6.73,0-9.29-3.26-9.29-9.79V24.14a.37.37,0,0,0-.42-.42h-2.22a.65.65,0,0,1-.69-.69V17.62a.65.65,0,0,1,.69-.7h2.22c.28,0,.42-.13.42-.41V7.35a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M685.76,25.39c.77,2.36,1.11,4.64,1.11,10a.68.68,0,0,1-.76.7h-20.6a.37.37,0,0,0-.42.41,7.29893,7.29893,0,0,0,.49,2.57c1.11,3.26,3.74,5.06,7.49,5.06A10.08,10.08,0,0,0,680.91,41a.72.72,0,0,1,1-.14l4.09,3.6a.62.62,0,0,1,.07,1c-2.84,3.33-7.56,5.69-13.73,5.69-7.08,0-12.07-3.47-14-9.29a26.05062,26.05062,0,0,1-1.18-8.19,26.71065,26.71065,0,0,1,1.11-8.25c1.88-5.83,7-9.23,13.67-9.23C678.9,16.16,683.89,19.7,685.76,25.39Zm-20.25,1.66a8.43959,8.43959,0,0,0-.42,2.85.37.37,0,0,0,.42.41h13.11a.36.36,0,0,0,.41-.41,8.4591,8.4591,0,0,0-.41-2.85,6.5,6.5,0,0,0-6.52-4.3C668.91,22.75,666.41,24.35,665.51,27.05Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M158,104.24h0a3.11,3.11,0,1,0,3.05962,3.15958q.00048-.02979.00038-.05958a3.08,3.08,0,0,0-3.05953-3.10034q-.03525-.00024-.07048.00034Zm0,5.73a2.63,2.63,0,0,1,0-5.25h0a2.63,2.63,0,0,1,0,5.25Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M158.5,107.45h0a.86.86,0,0,0,.67-.84.85.85,0,0,0-.31-.72,1.87,1.87,0,0,0-1.08-.26,6.44922,6.44922,0,0,0-1,.08v3.46h.55v-1.49h.39a.65.65,0,0,1,.7345.55274q.004.0285.00551.05725a2.3301,2.3301,0,0,0,.24.88h.58a2.55,2.55,0,0,1-.22-.85C159,107.78,158.8,107.5,158.5,107.45Zm-.75-.22h-.4v-1.18h.4c.62,0,.84.3.84.6S158.21,107.23,157.75,107.23Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M59.92,3.17Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M74.23,37.05v27h14.5L90.26,56h6.52C94.39,68.35,82.09,76.9,66.5,76.9a28.88359,28.88359,0,0,1-3.22-.12C54.64,76.11,46.7,73.33,40.92,69c-6.38-4.84-9.73-11.3-9.7-18.7a27.65,27.65,0,0,1,9.51-20.73,35.38993,35.38993,0,0,1,21.94-8.58h1.58a45.44,45.44,0,0,1,28,10.24,4.89981,4.89981,0,0,0,.58.46,5.36062,5.36062,0,0,1,.56.45l.22.19h16.65V3.16H93.37V11.5C86.26,6.95,74.11,2.36,59.92,2.36h-.24A58.5,58.5,0,0,0,18.46,19.68C9.67,28.61,4.91,39.53,5.05,50.43c.16,11.72,5.8,22.64,15.91,30.75,9.66,7.76,22.77,12.21,35.94,12.21,1.63,0,3.28-.07,4.9-.2,13-1.06,24.62-4,32.79-8.42v3.61h17.93V56h6.19V93.55h-9.34v16.89H151V93.55h-9.34V56h21.11l1.47,8.11h14.57v-27ZM59.92,3.17Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M234.6,85.46a24.81035,24.81035,0,0,1,1.11,8.26A24.78032,24.78032,0,0,1,234.6,102c-1.88,5.83-7,9.22-13.74,9.22s-11.93-3.39-13.8-9.22a24.77961,24.77961,0,0,1-1.11-8.25,24.80983,24.80983,0,0,1,1.11-8.26c1.87-5.82,7-9.22,13.8-9.22S232.72,79.64,234.6,85.46Zm-20,2.08a19.32994,19.32994,0,0,0-.69,6.18,18.99983,18.99983,0,0,0,.69,6.17,6.69736,6.69736,0,0,0,12.56,0,18.99983,18.99983,0,0,0,.69-6.17,19.32994,19.32994,0,0,0-.69-6.18,6.14,6.14,0,0,0-6.25-4.37,6.21,6.21,0,0,0-6.36,4.37Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M258,63.27a.65.65,0,0,1,.69.69v5.55a.65.65,0,0,1-.69.69h-2.15c-3.47,0-4.23.84-4.23,4.09v2.29a.37.37,0,0,0,.42.42h6a.65.65,0,0,1,.69.69V83.1a.65.65,0,0,1-.69.7h-6a.37.37,0,0,0-.42.41v19c0,.28.14.41.42.41h3.67a.66.66,0,0,1,.7.7v5.41a.66.66,0,0,1-.7.69H240.49a.66.66,0,0,1-.69-.62857q-.00141-.03069,0-.06143v-5.41a.66.66,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41v-19a.37.37,0,0,0-.42-.41h-2.21a.66.66,0,0,1-.7-.7V77.69a.66.66,0,0,1,.7-.69h2.21a.37.37,0,0,0,.42-.42V74.43c0-7.77,3.82-11.16,11.1-11.16Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M313.11,63.27a.65.65,0,0,1,.7.69v11.1a.66.66,0,0,1-.7.69h-6a.66.66,0,0,1-.7-.69V70.9c0-.28-.13-.42-.41-.42h-7a.37.37,0,0,0-.41.42v32.32a.36.36,0,0,0,.41.41h3.61a.65.65,0,0,1,.69.7v5.41a.65.65,0,0,1-.69.69H286.34a.65.65,0,0,1-.69-.69v-5.41a.65006.65006,0,0,1,.69-.7H290a.36.36,0,0,0,.41-.41V70.9a.37.37,0,0,0-.41-.42h-7.08c-.28,0-.41.14-.41.42v4.16a.66.66,0,0,1-.7.69h-6a.65993.65993,0,0,1-.7-.69V64a.65.65,0,0,1,.7-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M339.2,85.46c.76,2.36,1.11,4.65,1.11,10.06a.67.67,0,0,1-.76.69H319a.37.37,0,0,0-.42.42,7.35033,7.35033,0,0,0,.49,2.57c1.1,3.26,3.74,5.06,7.49,5.06a10.07,10.07,0,0,0,7.83-3.19c.35-.35.7-.42,1-.14l4.1,3.61a.63.63,0,0,1,.07,1c-2.85,3.33-7.56,5.68-13.74,5.68-7.07,0-12.07-3.46-13.94-9.29a25.99986,25.99986,0,0,1-1.18-8.18,26.78005,26.78005,0,0,1,1.11-8.26c1.87-5.82,7-9.22,13.67-9.22C332.33,76.24,337.33,79.77,339.2,85.46ZM319,87.13a8.37928,8.37928,0,0,0-.42,2.84.37.37,0,0,0,.42.42h13.11a.37.37,0,0,0,.41-.42,8.65984,8.65984,0,0,0-.41-2.84c-.91-2.71-3.4-4.3-6.53-4.3S319.85,84.42,319,87.13Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M371.29,78.87a.9.9,0,0,1,.55.9V87.4a.66.66,0,0,1-.69.7h-5.9a.66.66,0,0,1-.69-.7V84.35c0-.28-.07-.34-.35-.48a11.65962,11.65962,0,0,0-4.23-.7c-3.54,0-5.9,1.46-6.87,4.37a19.86007,19.86007,0,0,0-.69,6.18,20.30925,20.30925,0,0,0,.69,6.24c1,2.84,3.33,4.3,6.87,4.3a10.57992,10.57992,0,0,0,4.23-.63c.28-.13.35-.2.35-.48V100a.66.66,0,0,1,.69-.7h5.9a.66.66,0,0,1,.69.7v7.7a.9.9,0,0,1-.55.9,24.89,24.89,0,0,1-11.52,2.56c-7.28,0-12.27-3.05-14.22-9a27.87031,27.87031,0,0,1-1-8.46,26.41,26.41,0,0,1,1-8.26c1.95-6,7.15-9.22,14.22-9.22A23.99993,23.99993,0,0,1,371.29,78.87Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M387.18,63.27a.65.65,0,0,1,.7.69V80.12H388c1.45-2.08,4.3-3.88,8.67-3.88,7.07,0,11.51,5.27,11.51,12.41v14.57c0,.28.14.41.42.41h2.84a.65.65,0,0,1,.69.7v5.41a.65.65,0,0,1-.69.69H397a.66.66,0,0,1-.69-.62857q-.00142-.03069,0-.06143v-5.41a.66.66,0,0,1,.69-.7h3a.36.36,0,0,0,.41-.41V90.46c0-4.3-2.08-7.29-6.24-7.29s-6.24,3-6.24,7.29v12.76a.36.36,0,0,0,.41.41h3a.66.66,0,0,1,.69.7v5.41a.66.66,0,0,1-.62857.69q-.03072.00141-.06143,0H376.71a.65.65,0,0,1-.69-.69v-5.41a.65006.65006,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41V70.48a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.69-.69V64a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M447.68,88.65v14.57c0,.28.14.41.42.41h2.84a.64995.64995,0,0,1,.69.7v5.41a.65.65,0,0,1-.69.69H436.51a.66.66,0,0,1-.69-.62857q-.00143-.03069,0-.06143v-5.41a.66.66,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41V90.46c0-4.3-2.08-7.29-6.24-7.29s-6.24,3-6.24,7.29v12.76a.36.36,0,0,0,.41.41h3a.66.66,0,0,1,.7.7v5.41a.66.66,0,0,1-.7.69h-14.6a.65.65,0,0,1-.69-.69v-5.41a.65006.65006,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41v-19a.37.37,0,0,0-.42-.41h-3a.65.65,0,0,1-.69-.7V77.69a.65.65,0,0,1,.69-.69h10.47a.66.66,0,0,1,.7.69v2.43h.07c1.45-2.08,4.3-3.88,8.6-3.88C443.24,76.24,447.68,81.51,447.68,88.65Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M483.25,85.46a24.81034,24.81034,0,0,1,1.11,8.26,24.77986,24.77986,0,0,1-1.11,8.25c-1.88,5.83-7,9.22-13.74,9.22s-11.93-3.39-13.8-9.22a24.77985,24.77985,0,0,1-1.11-8.25,24.81007,24.81007,0,0,1,1.11-8.26c1.87-5.82,7-9.22,13.8-9.22S481.37,79.64,483.25,85.46ZM463.2,87.54a19.3305,19.3305,0,0,0-.69,6.18,19.00037,19.00037,0,0,0,.69,6.17,6.26,6.26,0,0,0,6.31,4.37,6.18,6.18,0,0,0,6.25-4.37,19.00037,19.00037,0,0,0,.69-6.17,19.3305,19.3305,0,0,0-.69-6.18,6.13,6.13,0,0,0-6.25-4.37A6.21,6.21,0,0,0,463.2,87.54Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M497.4,63.27a.65.65,0,0,1,.69.69v36.62c0,2.29.9,3,2.91,3h1.53a.65.65,0,0,1,.69.7V110a.65.65,0,0,1-.69.69h-3c-6.52,0-9.16-3.33-9.16-9.78V70.48a.37.37,0,0,0-.41-.42h-3a.65.65,0,0,1-.69-.69V64a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M534.6,85.46a24.81007,24.81007,0,0,1,1.11,8.26A24.77979,24.77979,0,0,1,534.6,102c-1.87,5.83-7,9.22-13.73,9.22s-11.93-3.39-13.81-9.22a24.80959,24.80959,0,0,1-1.1-8.25,24.83982,24.83982,0,0,1,1.1-8.26c1.88-5.82,7-9.22,13.81-9.22S532.73,79.64,534.6,85.46Zm-20,2.08a18.99879,18.99879,0,0,0-.7,6.18,18.73027,18.73027,0,0,0,.7,6.17,6.26,6.26,0,0,0,6.31,4.37,6.18,6.18,0,0,0,6.24-4.37,18.76975,18.76975,0,0,0,.69-6.17,19.00031,19.00031,0,0,0-.69-6.18,6.12,6.12,0,0,0-6.24-4.37,6.21,6.21,0,0,0-6.35,4.37Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M561.1,80.19h.07v-2.5a.66.66,0,0,1,.7-.69h10.47a.65975.65975,0,0,1,.7.69V83.1a.66.66,0,0,1-.7.7h-3a.37.37,0,0,0-.42.41v24.14c0,9.57-5.34,15.33-15.6,15.33-4.65,0-9.58-1.94-12.14-5a.63.63,0,0,1,.07-1l4.09-4.09a.66.66,0,0,1,.93078-.06918.65334.65334,0,0,1,.06922.06918,10.26,10.26,0,0,0,7.28,3.12c5.14,0,7.49-2.77,7.49-8v-3.12h-.07c-1.52,2.35-4.37,3.88-8.67,3.88-5.61,0-9.64-2.84-11.37-8.11a25.57957,25.57957,0,0,1-1.11-8.54,25.1192,25.1192,0,0,1,1.11-8.46c1.73-5.34,5.76-8.18,11.37-8.18C556.73,76.24,559.58,77.76,561.1,80.19ZM548.55,87.4a16.22975,16.22975,0,0,0-.76,5.48,15.67,15.67,0,0,0,.76,5.48,6.24,6.24,0,0,0,11.86,0,15.44026,15.44026,0,0,0,.76-5.48,15.99985,15.99985,0,0,0-.76-5.48,6.27,6.27,0,0,0-11.86,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M608.78,77a.66.66,0,0,1,.69.62857q.00147.03069,0,.06143V83.1a.66.66,0,0,1-.69.7H607c-.27,0-.41.07-.55.41l-11,28.3c-3,7.84-5.69,10.41-11.24,10.41H582a.66024.66024,0,0,1-.69-.7v-5.55a.66.66,0,0,1,.64923-.67061c.01361-.00022.02716,0,.04077.0006h1.25c2.64,0,4-1.18,5-3.95l1-2.85-10.41-25a.46.46,0,0,0-.48-.34h-1.88a.66024.66024,0,0,1-.69-.7V77.69a.66.66,0,0,1,.62854-.69q.03076-.00143.06146,0h13a.65967.65967,0,0,1,.7.69V83.1a.66.66,0,0,1-.7.7H587.2c-.34,0-.41.21-.34.48l6,15.75H593l5.9-15.75a.34.34,0,0,0-.35-.48h-2.22a.64994.64994,0,0,1-.69-.7V77.69a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M606.09,104h0a3.39,3.39,0,1,0,3.33966,3.43959q.00045-.02979.00036-.05959a3.35,3.35,0,0,0-3.31982-3.37988C606.0968,104,606.08344,104,606.07,104Zm0,6.25a2.86,2.86,0,0,1,0-5.72h0a2.86,2.86,0,0,1,0,5.72Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M606.69,107.45h0a1,1,0,0,0,.39-1.7,1.99993,1.99993,0,0,0-1.17-.28,6.28986,6.28986,0,0,0-1.07.09v3.77h.6v-1.62h.42a.7.7,0,0,1,.81.66,2.901,2.901,0,0,0,.26,1h.63a3.14936,3.14936,0,0,1-.24-.93C607.24,107.81,607,107.51,606.69,107.45Zm-.81-.24h-.44v-1.28a3.94284,3.94284,0,0,1,.44,0c.67,0,.91.33.91.67S606.37,107.21,605.88,107.21Z" transform="translate(-5.047 -2.36)"/></svg></a><span class="mast-tag"><a class="kit-link" href="index.html">← Course kit</a> · Facilitator guide · instructors only</span></div>
+    <div style="display:grid;gap:12px">
+      <h1>Applied AI at TIYA Services: Facilitator Guide</h1>
+      <p class="mast-sub">Minute-by-minute run sheets, talking points, demos, and debriefs for both days. Day 1 runs on Microsoft 365 Copilot; Day 2 builds agents with the Copilot agent builder.</p>
+    </div>
+    <div class="mast-meta">
+      <span><b>Day 1</b>Tue, Oct 20, 2026</span>
+      <span><b>Day 2</b>Wed, Oct 21, 2026</span>
+      <span><b>Lead</b>Alex Djalali</span>
+      <span><b>Co-instructor</b>Alex Rhodeen</span>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+</header>
+
+<main class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <h4 class="sub">Contents</h4>
+    <ol>
+      <li><a href="#design"><span class="t">Before</span><span>Course design at a glance</span></a></li>
+      <li><a href="#ready"><span class="t">T−14 days</span><span>Readiness checklist</span></a></li>
+      <li><a href="#decide"><span class="t">Open</span><span>Decisions for the program owner</span></a></li>
+      <li><a href="#d1"><span class="t">Oct 20</span><span>Day 1 · Generative AI for Daily Work</span></a></li>
+      <li><a href="#d2"><span class="t">Oct 21</span><span>Day 2 · Agentic AI with Microsoft Copilot</span></a></li>
+      <li><a href="#after"><span class="t">After</span><span>Follow-up</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- DESIGN -->
+  <section class="part" id="design">
+    <div class="part-head">
+      <p class="kicker">Course design</p>
+      <h2>How the two days fit together</h2>
+      <p class="lede">Both days teach one habit, Mask → Ask → Check, and practice it on one set of fictional TIYA-style documents. Participants spend most of the day at the keyboard; instruction comes in short bursts between exercises.</p>
+    </div>
+
+    <div class="loop" aria-label="The Mask, Ask, Check loop">
+      <div><span class="step">1 · Mask</span><p>Strip or replace sensitive data before anything goes into Copilot.</p><ul><li>Names → roles</li><li>Numbers → placeholders</li><li>Pricing, CUI, PHI never go in</li></ul></div>
+      <div><span class="step">2 · Ask</span><p>Prompt with Microsoft's four parts for Copilot.</p><ul><li><b>G</b>oal: what you want</li><li><b>C</b>ontext: why, for whom</li><li><b>S</b>ource: what to use</li><li><b>E</b>xpectations: format, length, tone</li></ul></div>
+      <div><span class="step">3 · Check</span><p>A person verifies before anything is used or sent.</p><ul><li>Facts, numbers, names</li><li>Policy and tone</li><li>"Would I sign this?"</li></ul></div>
+    </div>
+
+    <div class="prose">
+      <h3 class="sec">Design principles</h3>
+      <ul>
+        <li><strong>Keyboard time first.</strong> Every block except the policy block has participants typing within 15 minutes of its start. Day 1 has about 5.5 hours hands-on; Day 2 has 3.5 hours of building, plus design and red-team exercises.</li>
+        <li><strong>One habit, repeated.</strong> Mask → Ask → Check appears on every exercise card, so by 4:30 it is reflexive and the closing assessment tests it directly.</li>
+        <li><strong>One sample world.</strong> The same fictional work orders, SOPs, and building names run through both days. Participants spend their attention on the AI technique, not on learning new material each hour. Day 2 introduces its own files (the sandbox SOPs and the work order export), so a Day 2 cohort that took Day 1 months earlier doesn't need to remember the Day 1 samples.</li>
+        <li><strong>Real work, masked.</strong> The role lab and the Day 2 build invite participants to bring a real task, but only after masking it. Instructors check masking before anyone pastes.</li>
+        <li><strong>AI drafts, people decide.</strong> No exercise ends with AI output used as-is. Each one ends with a Check step and a share-out about what had to be fixed.</li>
+      </ul>
+
+      <h3 class="sec">Instructor roles</h3>
+      <ul>
+        <li><strong>Djalali (lead):</strong> delivers instruction blocks, runs live demos, leads debriefs, keeps time.</li>
+        <li><strong>Rhodeen (co-instructor):</strong> runs the morning login check, circulates during labs, owns the remote channel, collects prompts for the "prompt wall", flags masking problems quietly to individuals. Swap lead on the leadership block (Day 1) and the governance block (Day 2) if you want a change of voice.</li>
+      </ul>
+
+      <h3 class="sec">Remote participants</h3>
+      <ul>
+        <li>Join the Teams meeting with camera on during exercises if possible. Rhodeen watches chat throughout and voices remote questions at each debrief.</li>
+        <li>Remote participants get the digital workbook and the materials folder link the day before.</li>
+        <li>During labs, pair remote participants with each other in a Teams breakout room, or with an in-room partner on a laptop call.</li>
+        <li>Share-outs: remote participants paste their prompt and result into chat; the lead reads one aloud each debrief.</li>
+      </ul>
+
+      <h3 class="sec">Materials</h3>
+      <ul>
+        <li><strong>Participant workbook</strong>, one printed copy each plus the digital version (prompts are copy-ready).</li>
+        <li><strong>Slide outlines</strong>, built into PowerPoint with GT branding.</li>
+        <li><strong>Assessment kit</strong>: knowledge checks, exit tasks, rubrics, certificate criteria, evaluation form.</li>
+        <li><strong>Materials folder</strong> (<code>materials/</code>): sample SOPs as Word files and a work order export as CSV. Upload these to a training SharePoint site before Day 2.</li>
+        <li>Printed: Mask/Ask/Check table tents, "Can I paste this?" quick-fire cards, red-team attack cards, certificates.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- READINESS -->
+  <section class="part" id="ready">
+    <div class="part-head">
+      <p class="kicker">Readiness</p>
+      <h2>Readiness checklist</h2>
+      <p class="lede">Most failures in tool training happen at 8:05 AM, when a third of the room can't log in. Confirm each item with TIYA IT, in writing, before the event.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <span class="tag">T−14 days · TIYA IT</span>
+        <h4>Licensing and tenant</h4>
+        <ul class="checks">
+          <li>Every participant has a Microsoft 365 Copilot license, or at least Copilot Chat. Get the list of who has which.</li>
+          <li>Which cloud: commercial, GCC, or GCC High. Feature availability differs; confirm which features below are live.</li>
+          <li>Agent builder ("Create an agent" in Copilot Chat) is enabled for participants.</li>
+          <li>Agent sharing to specific users is allowed.</li>
+          <li>Code interpreter and file upload are enabled in Copilot Chat.</li>
+          <li>Two test accounts for instructors in the same tenant.</li>
+          <li>Day 2 cohort (took Day 1 in June): confirm each person still has a license and agent builder access, since licenses can lapse or move between June and October.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag">T−14 days · TIYA leadership</span>
+        <h4>Policy and content</h4>
+        <ul class="checks">
+          <li>A copy of TIYA's AI use policy and data handling rules (PII, PHI, CUI, pricing). Replace every placeholder rule in the workbook with it.</li>
+          <li>The name of the person who answers "Is this allowed?" after the course.</li>
+          <li>TIYA's SOP template and doc-control process, if one exists.</li>
+          <li>Roster with roles, so the role lab tracks can be balanced.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag">T−7 days</span>
+        <h4>Environment</h4>
+        <ul class="checks">
+          <li>Create a SharePoint site "AI Training Sandbox"; upload <code>materials/</code>; give all participants read access.</li>
+          <li>Instructors build both Day 2 agents end to end in the tenant and save screenshots.</li>
+          <li>Run every workbook prompt once in the tenant; note any that behave differently.</li>
+          <li>Send remote participants the Teams link, digital workbook, and sandbox link.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag">Morning of</span>
+        <h4>Room</h4>
+        <ul class="checks">
+          <li>Wi-Fi tested on a participant-type device; projector and room audio tested with Teams.</li>
+          <li>Workbooks, table tents, cards, pens, power strips at each table.</li>
+          <li>Prompt wall: a flip chart labeled "Prompts that worked".</li>
+          <li>Backup plan ready (below).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="flag">
+      <b>Backup plan if Copilot is down or blocked</b>
+      <p>Switch to instructor-driven mode: the lead runs the exercise prompts on the instructor account on screen while tables write their own GCSE prompts on paper and predict the output. Every exercise card works this way. For Day 2, walk through the saved build screenshots and have pairs complete the design canvas and test plan on paper.</p>
+    </div>
+  </section>
+
+  <!-- DECISIONS -->
+  <section class="part" id="decide">
+    <div class="part-head">
+      <p class="kicker">Open items</p>
+      <h2>Decisions for the program owner</h2>
+    </div>
+    <div class="prose">
+      <ol>
+        <li><strong>Syllabus wording on tools.</strong> The Day 1 outline says "tools like ChatGPT". The course is built on Microsoft 365 Copilot. Suggest "tools like Microsoft 365 Copilot" so participants don't expect ChatGPT access.</li>
+        <li><strong>Day 2 outcomes vs. agent builder.</strong> Outcome 2 promises <em>autonomous</em> agents and the outline lists <em>event triggers</em>. The agent builder makes on-demand agents; triggers and autonomous agents need Copilot Studio or Power Automate. This guide teaches triggers as a concept with an instructor demo and a design exercise. Either soften the outcome ("design … and deploy agents, and design event-triggered automations") or provide a Copilot Studio environment for the demo.</li>
+        <li><strong>Day 2 closing.</strong> The Day 2 outline ends at 4:30 with no closing or assessment. This guide uses the last 10 minutes of the governance block for the exit checklist and certificates. If the day runs to 5:00, move them to a 4:30–5:00 closing block.</li>
+        <li><strong>Day 2 headers.</strong> The Day 2 outline reuses Day 1's session titles. Suggested: Morning "Agent Foundations & First Builds"; Afternoon "Deploy, Trigger & Govern".</li>
+        <li><strong>Certificate criteria.</strong> The assessment kit proposes: full attendance (up to 30 minutes excused) plus a completed exit task. Confirm, or set a stricter bar.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- DAY 1 -->
+  <section class="part day" id="d1">
+    <div class="part-head">
+      <p class="kicker">Day 1 · Tuesday, October 20, 2026 · 8:00 AM – 5:00 PM</p>
+      <h2>Generative AI for Daily Work</h2>
+      <p class="lede">Outcomes: <strong>LO1</strong> apply generative AI to daily tasks · <strong>LO2</strong> use a prompting framework · <strong>LO3</strong> practice responsible use · <strong>LO4</strong> improve operational materials · <strong>LO5</strong> support leadership work.</p>
+    </div>
+
+    <!-- 8:00 -->
+    <article class="block" id="d1-overview">
+      <div class="block-head">
+        <div class="block-time"><span>8:00 – 8:30</span><span class="dur">30 min</span></div>
+        <h3>AI Overview &amp; Context</h3>
+        <div class="los"><span class="lo">LO1</span></div>
+        <p class="goal"><b>Goal</b>Everyone is logged in, knows what generative AI is good and bad at, and has the day's habit in mind.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Who</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">8:00</td><td>Welcome, introductions, logistics: breaks, restrooms, Wi-Fi, phones, remote etiquette. While the lead talks, the co-instructor walks the room for the login check.</td><td class="who">Lead · Co</td></tr>
+          <tr><td class="tm">8:08</td><td>Show of hands: used Copilot or ChatGPT at work? At home? Never? Then ask two people: "Which task would you most like an hour back from each week?" Write answers on the flip chart; revisit them at 4:30.</td><td class="who">Lead</td></tr>
+          <tr><td class="tm">8:12</td><td>What generative AI is and is not. Live demo (below).</td><td class="who">Lead</td></tr>
+          <tr><td class="tm">8:20</td><td>Where AI fits in TIYA work: the "draft, not decide" map (slide).</td><td class="who">Lead</td></tr>
+          <tr><td class="tm">8:26</td><td>Introduce Mask → Ask → Check and the day's arc. Point to the parking lot flip chart.</td><td class="who">Lead</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue do"><b>Login check</b><div><p>Each participant opens Copilot Chat the way TIYA staff normally reach it and types "hello". Anyone who can't is listed by name and seat. Escalate to TIYA IT before 8:30; seat unresolved people beside a working neighbor.</p></div></div>
+        <div class="cue say"><b>Say</b><div><p>"Generative AI predicts the most likely next words based on patterns in huge amounts of text. That makes it very good at language work: drafting, summarizing, reorganizing, rewording. It doesn't know TIYA's facts unless you give them to it, and when it doesn't know, it can sound just as confident as when it does."</p></div></div>
+        <div class="cue do"><b>Demo</b><div><p>Type: <code>What is the phone number for TIYA Services' emergency work order desk at Fort Benning?</code> It will either say it doesn't know or produce something plausible. Either way, ask the room: "How would you know if that's right?" That question is the whole Check step.</p></div></div>
+        <div class="cue say"><b>Map</b><div><p>AI is good for: <strong>drafting, summarizing, organizing, analyzing, rewording</strong>. AI is not for: <strong>deciding, approving, signing, or holding sensitive data</strong>. Give one example per role: facilities (turn tech notes into a status update), contracting (plain-language summary of a public clause), business management (meeting notes into action items), leads (first draft of a team announcement).</p></div></div>
+        <div class="cue remote"><b>Remote</b><div><p>Co-instructor posts the login instructions in Teams chat at 7:55 and checks in with each remote participant by name.</p></div></div>
+      </div>
+    </article>
+
+    <!-- 8:30 -->
+    <article class="block" id="d1-fundamentals">
+      <div class="block-head">
+        <div class="block-time"><span>8:30 – 9:45</span><span class="dur">75 min · hands-on</span></div>
+        <h3>Generative AI Fundamentals</h3>
+        <div class="los"><span class="lo">LO1</span><span class="lo">LO2</span></div>
+        <p class="goal"><b>Goal</b>Participants can write a GCSE prompt, iterate with follow-ups, and use Copilot to draft, summarize, brainstorm, and reword.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">8:30</td><td>Tour of Copilot Chat on screen: new chat, typing, editing a prompt, regenerating, copying output, uploading a file, chat history. Point out the work/web toggle if the tenant shows one.</td><td>p. "Copilot basics"</td></tr>
+          <tr><td class="tm">8:35</td><td>Teach Ask = Goal, Context, Source, Expectations. Show the weak vs. strong example side by side.</td><td>GCSE card</td></tr>
+          <tr><td class="tm">8:45</td><td><strong>E1 · Two prompts, one task.</strong> Water shutoff notice: run the weak prompt, then the GCSE prompt, compare.</td><td>E1</td></tr>
+          <tr><td class="tm">9:00</td><td><strong>E2 · Summarize the work order notes.</strong> Three formats from one source: status summary, timeline, table.</td><td>E2 · Sample A</td></tr>
+          <tr><td class="tm">9:15</td><td><strong>E3 · Follow-ups are prompts too.</strong> Push the E2 output with four follow-up moves.</td><td>E3</td></tr>
+          <tr><td class="tm">9:25</td><td><strong>E4 or E5</strong>, participant's choice: brainstorm and organize ideas, or fix the tone of a terse email.</td><td>E4 · E5</td></tr>
+          <tr><td class="tm">9:35</td><td>Debrief. Two prompts go on the prompt wall.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"Copilot is like a capable new hire on day one. Smart, fast, eager, and it knows nothing about Building 214 or who the COR is. The more you'd have to explain to a new hire, the more you need to put in the prompt."</p></div></div>
+        <div class="cue do"><b>E1 setup</b><div><p>Everyone runs the weak prompt first, then the GCSE version. Ask: "Which one could you send with the fewest edits? What did the second prompt add that made the difference?" Expected answer: audience, specific details, length, and format.</p></div></div>
+        <div class="cue watch"><b>Watch for</b><div><ul>
+          <li>People pasting Sample A into a new chat without saying what they want. Prompt them: "What's the Goal?"</li>
+          <li>People accepting the first output. Push them to the E3 follow-ups.</li>
+          <li>Fast finishers: give them E4 and E5 both, then ask them to help a neighbor.</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Which part of GCSE changed the output most for you?</li>
+          <li>Where did Copilot add something that wasn't in the notes? (Expect at least one invented detail in E2. Use it to set up 10:00.)</li>
+          <li>What would you have to check before sending the E2 summary to the COR?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 10:00 -->
+    <article class="block" id="d1-responsible">
+      <div class="block-head">
+        <div class="block-time"><span>10:00 – 10:45</span><span class="dur">45 min</span></div>
+        <h3>Responsible Use (TIYA Policy)</h3>
+        <div class="los"><span class="lo">LO3</span></div>
+        <p class="goal"><b>Goal</b>Participants can classify data as red, amber, or green, mask a document correctly, and apply a Check routine before using output.</p>
+      </div>
+      <div class="flag"><b>Replace before delivery</b><p>The data rules in this block and in the workbook are placeholders based on common practice for federal-installation contractors. Replace them with TIYA's written policy. Where the two differ, TIYA's policy wins.</p></div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">10:00</td><td>Why this matters: a short story (below). Ask: "What went wrong, and when?"</td><td></td></tr>
+          <tr><td class="tm">10:05</td><td>The four categories with TIYA examples: PII, PHI, CUI, pricing. Then the red/amber/green chart.</td><td>Data traffic light</td></tr>
+          <tr><td class="tm">10:15</td><td><strong>Masking drill.</strong> Mask Sample B alone (6 min), compare with a neighbor (3 min), reveal the key (3 min).</td><td>Sample B</td></tr>
+          <tr><td class="tm">10:27</td><td><strong>"Can I paste this?"</strong> Eight quick-fire cards; tables vote green, amber, or red.</td><td>Quick-fire</td></tr>
+          <tr><td class="tm">10:35</td><td>Check: human-in-the-loop. Demo (below), then the Check list and the "Would I sign this?" rule.</td><td>Check card</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Story</b><div><p>"A contracts assistant at a company like ours gets a vendor's quote for a chiller replacement. They want a quick comparison against last year's price, so they paste both quotes into a free AI tool on their phone. The comparison is great. But two companies' pricing has now left the building, into a service the company doesn't control, under terms nobody read. Nothing bad has to happen next for this to be a problem. It already is one." <em>(Fictional; tell it as a hypothetical.)</em></p></div></div>
+        <div class="cue say"><b>Categories</b><div><ul>
+          <li><strong>PII</strong>: anything that identifies a person: names with other details, phone numbers, home addresses, employee IDs, DoD ID numbers, SSNs.</li>
+          <li><strong>PHI</strong>: health information tied to a person: injuries, medical restrictions, workers' comp details.</li>
+          <li><strong>CUI</strong>: government information marked or designated as Controlled Unclassified Information, including some facility, security, and infrastructure details. If you don't know whether something is CUI, treat it as CUI and ask.</li>
+          <li><strong>Pricing</strong>: TIYA's rates, cost data, bids, proposals, and any vendor's quote.</li>
+        </ul></div></div>
+        <div class="cue say"><b>Say</b><div><p>"Copilot signed in with your TIYA account has enterprise data protection. Microsoft doesn't use your prompts to train its models. That's real and it matters. It does not change the rules for CUI, PHI, or pricing. Those rules come from TIYA's policy and its contracts, not from the tool."</p></div></div>
+        <div class="cue do"><b>Demo</b><div><p>Ask Copilot: <code>Which FAR clause covers limitations on subcontracting for small business set-asides? Quote the key paragraph.</code> Then open acquisition.gov on screen and compare the clause number and wording. Whether Copilot gets it right or not, the point lands: you check against the source, every time it matters.</p></div></div>
+        <div class="cue debrief"><b>Masking key</b><div><p>Sample B contains 11 items to mask or remove: 3 names, 1 phone number, 1 email address, 1 injury detail (PHI, remove entirely), 1 contract number, 2 dollar amounts (pricing, remove), 1 vendor name, 1 gate access code (remove entirely). Most people miss the access code and the vendor name. The answer key is in the assessment kit.</p></div></div>
+        <div class="cue debrief"><b>Quick-fire key</b><div><ol>
+          <li>Generic HVAC troubleshooting question: green.</li>
+          <li>Meeting notes listing attendees by name: amber; replace names with roles.</li>
+          <li>Subcontractor's bid spreadsheet: red.</li>
+          <li>Published FAR clause text: green.</li>
+          <li>Email about an employee's medical restriction: red.</li>
+          <li>A SOW excerpt marked CUI: red.</li>
+          <li>Your own draft newsletter article: green.</li>
+          <li>Overtime hours by named employee: amber; use Employee A, B, C, or aggregate.</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 10:45 -->
+    <article class="block" id="d1-rolelab">
+      <div class="block-head">
+        <div class="block-time"><span>10:45 – 12:00</span><span class="dur">75 min · hands-on</span></div>
+        <h3>Role-Based Application Lab</h3>
+        <div class="los"><span class="lo">LO1</span><span class="lo">LO2</span><span class="lo">LO3</span></div>
+        <p class="goal"><b>Goal</b>Each participant completes one track task and one real task of their own, masked, and leaves with a prompt they will reuse.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">10:45</td><td>Pick a track: Facilities Maintenance, Contracting, Business Management &amp; Admin, or Supervisors &amp; Leads. Sit with your track; pair up.</td><td>Track cards</td></tr>
+          <tr><td class="tm">10:50</td><td><strong>Task A</strong> (required): the track card's task, using the sample input. Run Mask → Ask → Check.</td><td>Track cards</td></tr>
+          <tr><td class="tm">11:10</td><td><strong>Task B</strong>: a real task from your own job. Write the masked version in the workbook first; an instructor initials it before you paste. Or do the card's Task B.</td><td>Task B page</td></tr>
+          <tr><td class="tm">11:35</td><td>Share-outs: one pair per track, 4 minutes each. Show the prompt, the output, and what you had to fix.</td><td></td></tr>
+          <tr><td class="tm">11:55</td><td>Everyone copies one prompt worth keeping into "My prompt library".</td><td>Prompt library</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue watch"><b>Watch for</b><div><ul>
+          <li><strong>Masking on Task B.</strong> This is the first time participants use their own material. Look at the masked text before they paste. Common misses: building numbers combined with names, email signatures, and quoted dollar figures.</li>
+          <li>Someone with no suitable real task: they take the card's Task B.</li>
+          <li>Tracks that are lopsided: merge Supervisors &amp; Leads into Business Management if it has fewer than four people.</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>What did you have to fix in the output?</li>
+          <li>What did you have to take out before pasting?</li>
+          <li>How long would this task have taken without Copilot? With it, counting the checking?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 1:00 -->
+    <article class="block" id="d1-recap">
+      <div class="block-head">
+        <div class="block-time"><span>1:00 – 1:15</span><span class="dur">15 min</span></div>
+        <h3>Afternoon Framing &amp; Recap</h3>
+        <div class="los"><span class="lo">LO1</span><span class="lo">LO2</span><span class="lo">LO3</span></div>
+        <p class="goal"><b>Goal</b>Re-anchor the morning, then shift from single tasks to whole workflows and leading others.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">1:00</td><td>Pairs, 4 minutes: one thing that worked this morning, one thing that surprised you. Two pairs report.</td></tr>
+          <tr><td class="tm">1:05</td><td>Four-question show-of-hands quiz on slides: name the four GCSE parts; red, amber, or green for two examples; what Check means.</td></tr>
+          <tr><td class="tm">1:10</td><td>Transition: "This morning was single tasks. This afternoon is the documents your operation runs on, SOPs, and the people you lead."</td></tr>
+        </tbody>
+      </table></div>
+    </article>
+
+    <!-- 1:15 -->
+    <article class="block" id="d1-sop">
+      <div class="block-head">
+        <div class="block-time"><span>1:15 – 2:45</span><span class="dur">90 min · hands-on</span></div>
+        <h3>SOP Lifecycle Lab</h3>
+        <div class="los"><span class="lo">LO2</span><span class="lo">LO3</span><span class="lo">LO4</span></div>
+        <p class="goal"><b>Goal</b>Take one outdated SOP through four stages: diagnose it, rewrite it to a standard template, turn it into a flow, and adapt it into training and communication materials.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">1:15</td><td>The SOP lifecycle: Generate → Update → Improve → Adapt. Rule for the lab: AI drafts, the subject-matter expert owns accuracy, and the doc-control process approves.</td><td>SOP lab intro</td></tr>
+          <tr><td class="tm">1:25</td><td><strong>Step 1 · Diagnose.</strong> Ask Copilot to critique Sample C (FM-SOP-07, 2019): gaps, ambiguity, safety risks, outdated items.</td><td>Sample C · Step 1</td></tr>
+          <tr><td class="tm">1:40</td><td><strong>Step 2 · Rewrite</strong> to the standard template: Purpose, Scope, Roles, Definitions, Procedure, Records, References, Revision history.</td><td>Step 2</td></tr>
+          <tr><td class="tm">2:00</td><td><strong>Step 3 · Visualize.</strong> Turn the procedure into a step table (Step | Who | Action | Decision | Next) and a text flowchart. Optional: open the table in Word and convert it to SmartArt.</td><td>Step 3</td></tr>
+          <tr><td class="tm">2:15</td><td><strong>Step 4 · Adapt.</strong> Choose two: a one-page quick-reference card, a 5-question training check, an announcement email to technicians, or a 3-minute toolbox talk.</td><td>Step 4</td></tr>
+          <tr><td class="tm">2:30</td><td>Discussion (below).</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"Copilot is very good at the shape of an SOP: structure, plain language, consistency, catching steps that don't say who does them. It cannot know whether the after-hours number is still right, whether the on-call rotation changed, or what actually happens on a Saturday night in Building 214. That's you."</p></div></div>
+        <div class="cue watch"><b>Watch for</b><div><ul>
+          <li>Rewritten SOPs that invent specifics: response times, phone numbers, job titles. Ask participants to mark every invented detail with <code>[VERIFY]</code>. Step 2's prompt asks Copilot to do this too.</li>
+          <li>Step 1 should surface at least: no defined roles, an outdated phone tree, a missing step for notifying the COR, passive voice ("the system should be shut down"), no record-keeping step, and no definition of "emergency".</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Discuss</b><div><ol>
+          <li>What did Copilot miss or get wrong that only someone at TIYA would know?</li>
+          <li>Which step saved the most time? Which needed the most checking?</li>
+          <li>At TIYA, who would have to review an AI-assisted SOP change before it's official? Does the doc-control process need a note about AI-drafted content?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 3:00 -->
+    <article class="block" id="d1-lead">
+      <div class="block-head">
+        <div class="block-time"><span>3:00 – 4:30</span><span class="dur">90 min · hands-on</span></div>
+        <h3>AI for Leadership Support &amp; Responsible AI Adoption</h3>
+        <div class="los"><span class="lo">LO3</span><span class="lo">LO5</span></div>
+        <p class="goal"><b>Goal</b>Use Copilot as a thinking partner for communication, hard conversations, and decisions, and leave with draft AI norms for your team.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">3:00</td><td>Framing: AI as a thinking partner, not a decision-maker. Privacy for people topics: never name the employee; describe the situation.</td><td>Leadership intro</td></tr>
+          <tr><td class="tm">3:10</td><td><strong>L1 · Announce a change.</strong> Draft the message about a 90-day shift pilot and anticipate the team's questions.</td><td>L1</td></tr>
+          <tr><td class="tm">3:30</td><td><strong>L2 · Prepare a hard conversation.</strong> Plan it, then have Copilot play the employee for a practice round and give feedback.</td><td>L2</td></tr>
+          <tr><td class="tm">3:50</td><td><strong>L3 · Decide between options.</strong> Options matrix and pre-mortem for reducing a work order backlog.</td><td>L3</td></tr>
+          <tr><td class="tm">4:05</td><td><strong>L4 · Lead adoption.</strong> Respond to a team member's risky AI use and draft five team AI norms.</td><td>L4</td></tr>
+          <tr><td class="tm">4:25</td><td>Debrief.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"Leadership is judgment and relationships, and AI has neither. What it gives you is a fast, patient sounding board: a first draft, a list of questions your team will ask, a rehearsal partner who doesn't get tired. You stay the one who decides and the one who shows up."</p></div></div>
+        <div class="cue do"><b>L2 tip</b><div><p>The role-play is the most memorable exercise of the day. Model it on screen for 2 minutes first: give Copilot the scenario and say "You are the employee. Respond realistically, including some defensiveness. Wait for my reply each time." After three exchanges, type "Pause the role-play. Give me feedback on how I handled it."</p></div></div>
+        <div class="cue watch"><b>Watch for</b><div><p>Participants describing a real colleague in identifying detail during L2. Steer them to the workbook scenario or to a fully anonymized version: no names, no unique job details, no health information.</p></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Where was Copilot useful as a thinking partner, and where did it fall flat?</li>
+          <li>Read your best team norm aloud. (Collect five for the prompt wall.)</li>
+          <li>What's one conversation you'll have with your team about AI this month?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 4:30 -->
+    <article class="block" id="d1-close">
+      <div class="block-head">
+        <div class="block-time"><span>4:30 – 5:00</span><span class="dur">30 min</span></div>
+        <h3>Closing &amp; Assessment</h3>
+        <div class="los"><span class="lo">LO1–LO5</span></div>
+        <p class="goal"><b>Goal</b>Confirm learning, commit to next steps, and issue certificates.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">4:30</td><td>Knowledge check, 10 questions, self-scored. Formative: it isn't pass/fail.</td><td>Assessment kit</td></tr>
+          <tr><td class="tm">4:40</td><td>Practical exit task: Mask → Ask → Check on a short scenario. Hand in the page.</td><td>Assessment kit</td></tr>
+          <tr><td class="tm">4:52</td><td>Action plan: three tasks I'll use Copilot for next week, and one person I'll show. Revisit the 8:08 flip chart: did we cover the hour people wanted back?</td><td>Workbook</td></tr>
+          <tr><td class="tm">4:56</td><td>Evaluation form; certificates at the door once exit tasks are in.</td><td>Assessment kit</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue do"><b>Do</b><div><p>The co-instructor scans exit tasks against the rubric while the action plan runs. Anyone who scored 0 on masking gets a two-minute conversation before getting a certificate, not a refusal.</p></div></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- DAY 2 -->
+  <section class="part day" id="d2">
+    <div class="part-head">
+      <p class="kicker">Day 2 · Wednesday, October 21, 2026 · 8:30 AM – 4:30 PM</p>
+      <h2>Agentic AI with Microsoft Copilot</h2>
+      <p class="lede">Outcomes: <strong>LO1</strong> agent fundamentals and architectures · <strong>LO2</strong> design, configure, and deploy no-code agents · <strong>LO3</strong> integrate reasoning, planning, tools, and memory · <strong>LO4</strong> apply security, privacy, safety, and trust. Day 2 is for participants who took Day 1 in June 2026, four months earlier. Don't assume they remember it: the day opens with a 10-minute Day 1 review, and nothing later depends on a Day 1 exercise or sample.</p>
+    </div>
+
+    <!-- 8:30 -->
+    <article class="block" id="d2-found">
+      <div class="block-head">
+        <div class="block-time"><span>8:30 – 10:15</span><span class="dur">105 min</span></div>
+        <h3>Agentic AI Foundations</h3>
+        <div class="los"><span class="lo">LO1</span><span class="lo">LO4</span></div>
+        <p class="goal"><b>Goal</b>Participants can explain what makes an agent different from a chat, name its parts, place the Microsoft tools on a map, and design one agent on paper.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">8:30</td><td>Welcome and logistics. Login check, plus: everyone opens Copilot Chat and finds the option to create an agent. Anyone who can't is escalated now.</td><td></td></tr>
+          <tr><td class="tm">8:40</td><td><strong>Day 1 in review</strong> (four slides). Everyone took Day 1 in June: ask who has used Copilot since and for what, then recap draft-not-decide, Mask → Ask → Check, and the data traffic light, ending with a three-card traffic-light vote.</td><td>The habit (front of workbook)</td></tr>
+          <tr><td class="tm">8:50</td><td><strong>From chat to agent.</strong> The autonomy ladder (below).</td><td>Autonomy ladder</td></tr>
+          <tr><td class="tm">9:05</td><td><strong>Anatomy of an agent.</strong> Seven parts, and which ones agent builder supports.</td><td>Anatomy</td></tr>
+          <tr><td class="tm">9:20</td><td><strong>The no-code ecosystem</strong> and four common architectures.</td><td>Ecosystem</td></tr>
+          <tr><td class="tm">9:30</td><td><strong>Exercise · Agent or not?</strong> Tables sort ten TIYA tasks into prompt, agent, automation, or not-AI.</td><td>Agent or not?</td></tr>
+          <tr><td class="tm">9:45</td><td><strong>Exercise · Agent design canvas.</strong> Pairs design an agent for their own work. Three pairs share.</td><td>Design canvas</td></tr>
+          <tr><td class="tm">10:10</td><td>Wrap: "You'll build two agents this morning, then this one this afternoon."</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Ladder</b><div><ol>
+          <li><strong>Prompt:</strong> you ask, it answers, it forgets.</li>
+          <li><strong>Saved prompt:</strong> you reuse good instructions.</li>
+          <li><strong>Agent:</strong> standing instructions, its own knowledge, and tools, for one defined job. You start each conversation. <em>Agent builder lives here.</em></li>
+          <li><strong>Triggered agent:</strong> starts itself when something happens, like a new email or a scheduled time.</li>
+          <li><strong>Autonomous agent:</strong> plans and takes multi-step actions in other systems, with people approving at checkpoints. <em>Copilot Studio territory.</em></li>
+        </ol><p>"Each rung up gives the agent more independence, so each rung needs more design, more testing, and more governance."</p></div></div>
+        <div class="cue say"><b>Anatomy</b><div><ul>
+          <li><strong>Purpose:</strong> one job, one audience. Agent builder: name and description.</li>
+          <li><strong>Instructions:</strong> a standing prompt. Agent builder: yes.</li>
+          <li><strong>Knowledge:</strong> what it reads: SharePoint, files, web. Agent builder: yes.</li>
+          <li><strong>Tools:</strong> what it can do beyond text. Agent builder: some built-in capabilities, such as code interpreter and image generation. Connections to other systems: Copilot Studio.</li>
+          <li><strong>Memory:</strong> what it remembers. Agent builder: the current conversation. Long-term memory varies by tenant.</li>
+          <li><strong>Triggers:</strong> what starts it. Agent builder: a person. Events and schedules: Copilot Studio or Power Automate.</li>
+          <li><strong>Guardrails:</strong> what it must not do. Agent builder: instructions, plus the permissions of its knowledge.</li>
+        </ul></div></div>
+        <div class="cue say"><b>Architectures</b><div><ul>
+          <li><strong>Knowledge Q&amp;A:</strong> answers from a defined set of documents (the SOP Navigator).</li>
+          <li><strong>Task assistant:</strong> walks a person through a structured task with a fixed output format.</li>
+          <li><strong>Multi-tool:</strong> combines knowledge with tools, such as analyzing an uploaded spreadsheet (the Work Order Analyst).</li>
+          <li><strong>Orchestrated or multi-agent:</strong> one agent hands work to others, often triggered by events. Mentioned for awareness; not built today.</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Sort key</b><div><p>The answer key for "Agent or not?" is in the assessment kit. Expect debate on items 4 and 9; that debate is the point.</p></div></div>
+      </div>
+    </article>
+
+    <!-- 10:30 -->
+    <article class="block" id="d2-build">
+      <div class="block-head">
+        <div class="block-time"><span>10:30 – 12:15</span><span class="dur">105 min · hands-on</span></div>
+        <h3>Building Real Agents</h3>
+        <div class="los"><span class="lo">LO2</span><span class="lo">LO3</span></div>
+        <p class="goal"><b>Goal</b>Each participant builds and tests a knowledge agent and a multi-tool agent, writing instructions from a template and tests before building.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">10:30</td><td><strong>Prompt engineering for agents.</strong> Instructions template: role and purpose, audience, how to use knowledge, steps, output format, boundaries and escalation, tone. Tests first: write five test questions before building.</td><td>Instruction template · Test plan</td></tr>
+          <tr><td class="tm">10:45</td><td><strong>Build 1 · SOP Navigator</strong>, guided step by step on screen. Knowledge: the sandbox SOP folder.</td><td>Build 1</td></tr>
+          <tr><td class="tm">11:05</td><td>Run the five tests. Fix the instructions for each failure. Rerun.</td><td>Test plan</td></tr>
+          <tr><td class="tm">11:25</td><td><strong>Build 2 · Work Order Analyst</strong>, a multi-tool agent: priority definitions as knowledge, code interpreter on, CSV uploaded in chat.</td><td>Build 2</td></tr>
+          <tr><td class="tm">11:55</td><td>Test with the sample CSV; ask for a backlog chart and a repeat-failure analysis; check the numbers by hand on three rows.</td><td>Build 2</td></tr>
+          <tr><td class="tm">12:05</td><td>Debrief.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"An agent's instructions are a prompt that never ends. Every weakness in them shows up in every conversation, for everyone you share it with. So we write the tests before we build. A test is just a question with an answer you already know is right."</p></div></div>
+        <div class="cue do"><b>Build 1</b><div><p>Use the agent builder's configure view, not the conversational describe view, so everyone's screen matches. Walk through: name, description, instructions (paste from the workbook), knowledge (add the sandbox SOP folder), starter prompts. Test in the preview pane. Before the event, note the exact labels and steps in TIYA's tenant on this card; the agent builder's interface changes often.</p></div></div>
+        <div class="cue do"><b>Build 2</b><div><p>Turn on code interpreter. Add <code>FM-SOP-03 Work Order Priority Definitions</code> as knowledge. In the test chat, upload <code>work-orders-aug-sep-2026.csv</code>. The data has two planted patterns for participants to find: repeat HVAC failures in Building B-214, and a backlog of Routine work orders older than 30 days.</p></div></div>
+        <div class="cue watch"><b>Watch for</b><div><ul>
+          <li>Agents that answer questions outside their SOPs from general knowledge. Fix: the instruction "If the answer is not in the SOPs, say so and name who to ask."</li>
+          <li>Charts and totals people don't check. Have them count three rows in the CSV by hand.</li>
+          <li>Knowledge that hasn't finished indexing. A newly added SharePoint source can take a few minutes; build it before the break if possible.</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Which test failed first, and what instruction fixed it?</li>
+          <li>Where did the Work Order Analyst do real reasoning, and where did it just restate the data?</li>
+          <li>Would you trust its chart in a report to the COR? What would you check first?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 1:15 -->
+    <article class="block" id="d2-build2">
+      <div class="block-head">
+        <div class="block-time"><span>1:15 – 3:00</span><span class="dur">105 min · hands-on</span></div>
+        <h3>Building Real Agents, Continued</h3>
+        <div class="los"><span class="lo">LO2</span><span class="lo">LO3</span><span class="lo">LO4</span></div>
+        <p class="goal"><b>Goal</b>Participants design an event trigger, understand memory limits, publish safely, and build and peer-test the agent they designed this morning.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">1:15</td><td><strong>Event triggers.</strong> Trigger → condition → action. Instructor demo or walkthrough of a triggered flow. Participants storyboard a trigger for their canvas agent.</td><td>Trigger storyboard</td></tr>
+          <tr><td class="tm">1:35</td><td><strong>Memory.</strong> Conversation context vs. knowledge vs. long-term memory, and how to design an agent that doesn't need to remember.</td><td>Anatomy</td></tr>
+          <tr><td class="tm">1:45</td><td><strong>Publishing.</strong> Sharing options, knowledge permissions, naming, the description as the agent's label. Demo: share the SOP Navigator with a partner.</td><td>Publishing checklist</td></tr>
+          <tr><td class="tm">2:00</td><td><strong>Build your own</strong> from this morning's canvas. Write the five tests first.</td><td>Canvas · Test plan</td></tr>
+          <tr><td class="tm">2:30</td><td><strong>Swap test.</strong> Share with your partner; they run your tests plus two of their own and log the results. Fix and reshare.</td><td>Test plan</td></tr>
+          <tr><td class="tm">2:45</td><td>Showcase: four or five volunteers, 2 minutes each.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Triggers</b><div><p>"Everything you built this morning waits for someone to ask. A triggered agent starts itself: a new email arrives in the work order mailbox, a file lands in a SharePoint folder, it's 7 AM Monday. In Microsoft's stack, that's Copilot Studio or Power Automate. The design thinking is the same, and that's what we'll practice."</p></div></div>
+        <div class="cue do"><b>Demo</b><div><p>If a Copilot Studio or Power Automate environment is available, show a flow that starts on a new email to a shared mailbox, summarizes it, and posts to a Teams channel for a person to approve. Otherwise, walk through the screenshots captured during prep. Stress the approval step: the person stays in the loop.</p></div></div>
+        <div class="cue say"><b>Memory</b><div><p>"Assume the agent remembers nothing between conversations. If it needs context, design it to ask for it, or put that context in a document it reads as knowledge."</p></div></div>
+        <div class="cue say"><b>Publishing</b><div><ul>
+          <li>The agent can only show a user what that user can already open. Sharing an agent doesn't share its knowledge, so check that your audience can open the sources.</li>
+          <li>That cuts both ways: an agent built on a folder with loose permissions will surface whatever is in it to everyone who can open it.</li>
+          <li>Share with named people first. Organization-wide availability goes through TIYA's review (governance block).</li>
+          <li>Naming: <code>TIYA · [Team] · [Job]</code>, for example <code>TIYA · FM · SOP Navigator</code>. The description says what it does, what it doesn't, and who owns it.</li>
+        </ul></div></div>
+      </div>
+    </article>
+
+    <!-- 3:15 -->
+    <article class="block" id="d2-gov">
+      <div class="block-head">
+        <div class="block-time"><span>3:15 – 4:30</span><span class="dur">75 min</span></div>
+        <h3>Governance &amp; Security</h3>
+        <div class="los"><span class="lo">LO4</span></div>
+        <p class="goal"><b>Goal</b>Participants red-team an agent, rate its risk tier, and write a governance card for it.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">3:15</td><td><strong>PII handling in agents.</strong> Oversharing through knowledge, permission inheritance, why instructions aren't a security control, and what never goes into knowledge.</td><td>Governance intro</td></tr>
+          <tr><td class="tm">3:30</td><td><strong>Red-team swap.</strong> Five attack cards against your partner's agent. Log what broke; fix one thing.</td><td>Red-team log</td></tr>
+          <tr><td class="tm">3:45</td><td><strong>Risk assessment.</strong> Rate your agent's tier; list the controls that tier requires.</td><td>Risk tier worksheet</td></tr>
+          <tr><td class="tm">4:00</td><td><strong>Model governance.</strong> The agent lifecycle; owner, change log, re-test, retire. Write the governance card.</td><td>Governance card</td></tr>
+          <tr><td class="tm">4:20</td><td>Exit checklist, evaluation, certificates.</td><td>Assessment kit</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"An instruction like 'never reveal personal information' is a request, not a lock. A clever question can get around it. The real lock is what the agent can read. If it can't see it, it can't leak it. So the most important governance decision is what you put in the knowledge."</p></div></div>
+        <div class="cue say"><b>Never as knowledge</b><div><p>HR and personnel files, medical or injury records, pricing and cost data, bid documents, CUI, security details such as access codes or camera locations, and any folder whose permissions you haven't checked.</p></div></div>
+        <div class="cue say"><b>Lifecycle</b><div><p>Propose → Build → Test → Review → Share → Monitor → Re-test → Retire. Re-test when the knowledge changes, when the instructions change, and periodically anyway: Microsoft updates the underlying models, and behavior can shift without anyone touching the agent.</p></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Which attack worked on your agent? What fixed it, and is the fix a lock or a request?</li>
+          <li>What tier is your agent? Did your partner agree?</li>
+          <li>Who at TIYA should own the list of shared agents?</li>
+        </ol></div></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- AFTER -->
+  <section class="part" id="after">
+    <div class="part-head">
+      <p class="kicker">Follow-up</p>
+      <h2>After the course</h2>
+    </div>
+    <div class="prose">
+      <ul>
+        <li><strong>Within 2 days:</strong> send participants the prompt wall (typed) and the materials links; Day 1 participants also get the team norms collected in L4, and Day 2 participants the list of agents they built.</li>
+        <li><strong>Within 1 week:</strong> send TIYA leadership a summary: attendance, knowledge check averages by question, exit-task patterns (especially masking misses), evaluation scores, and the list of agents participants built with their risk tiers.</li>
+        <li><strong>Within 30 days:</strong> a 15-question pulse survey asking how often participants used Copilot, for what, and what got in the way. This is the evidence for a second cohort.</li>
+        <li>Delete instructor test agents and the sandbox site, or hand them to TIYA IT to own.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap"><svg class="gt-logo" role="img" aria-label="Georgia Tech" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 681.82346 121.32001"><defs><style>.gt-logo .cls-1{fill:currentColor;}</style></defs><path class="cls-1" d="M236.72,7a1.12,1.12,0,0,1,.48,1v8.3a.65.65,0,0,1-.69.69h-6.24a.65.65,0,0,1-.7-.69V12.21a.58.58,0,0,0-.27-.56A13.56005,13.56005,0,0,0,222,9.78c-5.82,0-8.46,2.5-9.78,6.31-.55,1.74-1.11,4.09-1.11,10.82s.35,9,.9,10.68c1.32,3.82,3.89,6.18,9.65,6.18,3.81,0,6.31-.77,7.69-1.67.56-.34.7-.55.7-1.11V31.77a.37.37,0,0,0-.42-.42h-7.49a.65.65,0,0,1-.69-.69V25.11a.65.65,0,0,1,.69-.69h15.12a.65005.65005,0,0,1,.7.69V45a1.62,1.62,0,0,1-.91,1.66c-3.74,2.71-9,4.44-15.53,4.44-9.51,0-15.12-3.54-17.55-11-1-2.91-1.18-5.76-1.18-13.18s.35-10.12,1.32-13c2.42-7.49,8.6-11.44,18.1-11.44C228.19,2.43,233.67,4.44,236.72,7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M272.51,25.39c.76,2.36,1.11,4.64,1.11,10a.68.68,0,0,1-.77.7h-20.6a.37.37,0,0,0-.41.41,7.3102,7.3102,0,0,0,.48,2.57c1.11,3.26,3.75,5.06,7.49,5.06A10,10,0,0,0,267.65,41a.72.72,0,0,1,1-.14l4.09,3.61a.62.62,0,0,1,.07,1c-2.84,3.33-7.56,5.69-13.73,5.69-7.08,0-12.07-3.47-13.94-9.29A25.76027,25.76027,0,0,1,244,33.64a26.70944,26.70944,0,0,1,1.11-8.25c1.87-5.83,7-9.23,13.66-9.23C265.64,16.16,270.63,19.7,272.51,25.39Zm-20.26,1.66a8.71987,8.71987,0,0,0-.41,2.85.37.37,0,0,0,.41.41h13.11a.37.37,0,0,0,.42-.41,8.44012,8.44012,0,0,0-.42-2.85,6.5,6.5,0,0,0-6.52-4.3C255.65,22.75,253.15,24.35,252.25,27.05Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M307,25.39a24.74007,24.74007,0,0,1,1.11,8.25A24.81037,24.81037,0,0,1,307,41.9c-1.87,5.82-7,9.22-13.73,9.22s-11.93-3.4-13.81-9.22a24.81011,24.81011,0,0,1-1.11-8.26,24.73981,24.73981,0,0,1,1.11-8.25c1.88-5.83,7-9.23,13.81-9.23S305.11,19.56,307,25.39Zm-20.05,2.08a19.26025,19.26025,0,0,0-.69,6.17,19.00043,19.00043,0,0,0,.69,6.17,6.26,6.26,0,0,0,6.32,4.37,6.17,6.17,0,0,0,6.24-4.37,19.00037,19.00037,0,0,0,.69-6.17,19.26,19.26,0,0,0-.69-6.17,6.11,6.11,0,0,0-6.24-4.37,6.21,6.21,0,0,0-6.34,4.37Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M335.76,16.79c.42.07.7.27.7.69v6c0,.49-.28.84-.83.7a23.20974,23.20974,0,0,0-4.1-.56c-4.92,0-7.49,2.64-7.49,8.6V43.14a.37.37,0,0,0,.42.42h3.26a.66.66,0,0,1,.69.62857q.00142.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H312.87a.66.66,0,0,1-.69-.7V44.25a.66.66,0,0,1,.62857-.69q.03072-.00143.06144,0h3a.37.37,0,0,0,.41-.42v-19a.37.37,0,0,0-.41-.42h-3a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7h10.48a.66.66,0,0,1,.69.7v3.47h.07a9.53,9.53,0,0,1,8.39-4.65A15.14957,15.14957,0,0,1,335.76,16.79Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M360.67,20.12h.06v-2.5a.66.66,0,0,1,.7-.7H371.9a.66.66,0,0,1,.7.7V23a.65.65,0,0,1-.7.69h-3a.37.37,0,0,0-.42.42V48.28c0,9.57-5.34,15.32-15.6,15.32-4.65,0-9.58-1.94-12.14-5a.62.62,0,0,1,.07-1l4.09-4.09a.64994.64994,0,0,1,1,0,10.26,10.26,0,0,0,7.28,3.12c5.14,0,7.49-2.78,7.49-8V45.57h-.06c-1.53,2.36-4.37,3.89-8.67,3.89-5.62,0-9.65-2.85-11.38-8.12a25.55011,25.55011,0,0,1-1.11-8.53,25.00021,25.00021,0,0,1,1.11-8.46c1.73-5.34,5.76-8.19,11.38-8.19C356.3,16.16,359.14,17.69,360.67,20.12Zm-12.56,7.21a16.18953,16.18953,0,0,0-.76,5.48,15.70993,15.70993,0,0,0,.76,5.48,6.24,6.24,0,0,0,11.86,0,15.47991,15.47991,0,0,0,.76-5.48,15.9399,15.9399,0,0,0-.76-5.48,6.27,6.27,0,0,0-11.86,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M387.23,16.92a.65.65,0,0,1,.69.7V43.14a.37.37,0,0,0,.42.42h3a.66.66,0,0,1,.7.69v5.41a.66.66,0,0,1-.7.7H376.76a.66.66,0,0,1-.7-.7V44.25a.66.66,0,0,1,.7-.69h3a.37.37,0,0,0,.42-.42v-19a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.7-.69V17.62a.66.66,0,0,1,.7-.7Zm0-13.73a.65.65,0,0,1,.69.7v6a.65.65,0,0,1-.69.69h-6.38a.65.65,0,0,1-.69-.69v-6a.65.65,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M423.3,27.81V43.14a.37.37,0,0,0,.41.42h3a.66.66,0,0,1,.69.62857q.00142.03069,0,.06143v5.41a.66.66,0,0,1-.69.7h-9.92a.66.66,0,0,1-.7-.7V47.24H416c-1.59,2.28-4.64,3.88-9.29,3.88-6,0-11.17-3.26-11.17-10.27,0-7.28,5.14-10.68,13.32-10.68h6.66a.36.36,0,0,0,.41-.41V28.44c0-3.82-1.45-5.83-6.86-5.83a18.26961,18.26961,0,0,0-3.61.42c-.28.07-.35.21-.35.48v3a.65.65,0,0,1-.69.69h-6a.66.66,0,0,1-.7-.69V19.42a.9.9,0,0,1,.56-.9,26.50979,26.50979,0,0,1,11.16-2.36C419.62,16.16,423.3,19.63,423.3,27.81ZM410.12,36c-4.93,0-7.15,1.46-7.15,4.58,0,2.77,2,4.23,5.69,4.23,4.72,0,7.28-1.87,7.28-5.69v-2.7c0-.28-.13-.42-.41-.42Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M461.86,3.19a.65.65,0,0,1,.69.7V9.3a.65.65,0,0,1-.69.69h-3.33a.37.37,0,0,0-.42.41V43.14a.37.37,0,0,0,.42.42h3.33a.65.65,0,0,1,.69.69v5.41a.65.65,0,0,1-.69.7H446.18a.66.66,0,0,1-.69-.7V44.25a.66.66,0,0,1,.62857-.69q.03072-.00143.06143,0h3.33a.37.37,0,0,0,.42-.42V10.4a.37.37,0,0,0-.42-.41h-3.33a.66.66,0,0,1-.69-.62857q-.00142-.03069,0-.06143V3.89a.66.66,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M499.13,28.58V43.14a.37.37,0,0,0,.41.42h2.85a.66.66,0,0,1,.69.62857q.00145.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H488a.65.65,0,0,1-.69-.7V44.25a.65.65,0,0,1,.69-.69h3a.37.37,0,0,0,.42-.42V30.38c0-4.3-2.08-7.28-6.24-7.28s-6.25,3-6.25,7.28V43.14a.37.37,0,0,0,.42.42h3a.66.66,0,0,1,.7.69v5.41a.66.66,0,0,1-.7.7H467.71a.66.66,0,0,1-.7-.7V44.25a.66.66,0,0,1,.7-.69h3a.37.37,0,0,0,.42-.42v-19a.37.37,0,0,0-.42-.42h-3A.64993.64993,0,0,1,467,23V17.62a.66.66,0,0,1,.7-.7h10.47a.65.65,0,0,1,.69.7v2.43h.07c1.46-2.08,4.3-3.89,8.6-3.89C494.69,16.16,499.13,21.43,499.13,28.58Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M532.16,18.52a.94.94,0,0,1,.55,1v6.94a.66.66,0,0,1-.6286.69q-.03067.00143-.0614,0H526.4a.65.65,0,0,1-.69-.69v-2.6a.51.51,0,0,0-.35-.55,14.31023,14.31023,0,0,0-5-.77c-3.89,0-5.62,1.32-5.62,3.4s1.11,3.19,5.62,3.68L524,30c7.77.91,10.61,4.44,10.61,10.06,0,6.8-4.92,11-14.35,11a28.40012,28.40012,0,0,1-12.49-2.64.79.79,0,0,1-.48-.83V40.16a.65.65,0,0,1,.69-.69h5.9a.65.65,0,0,1,.69.69v3.05a.47.47,0,0,0,.35.49,16.19,16.19,0,0,0,5.82.9c4.3,0,6.24-1.39,6.24-3.88,0-2.22-1.24-3.4-5.75-3.89l-3.68-.41c-7.28-.84-10.33-4.3-10.33-9.92,0-6.25,4.57-10.34,13.18-10.34A28.30014,28.30014,0,0,1,532.16,18.52Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M548.16,6.66a.65975.65975,0,0,1,.7.69v9.16a.36.36,0,0,0,.41.41h4.44a.66.66,0,0,1,.7.7V23a.65.65,0,0,1-.7.69h-4.44a.37.37,0,0,0-.41.42v16.3c0,2.36,1,3.12,3.12,3.12h1.73a.65975.65975,0,0,1,.7.69v5.62a.66.66,0,0,1-.7.7h-3.33c-6.72,0-9.29-3.26-9.29-9.79V24.14a.37.37,0,0,0-.42-.42h-2.22a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7h2.22c.28,0,.42-.13.42-.41V7.35a.66.66,0,0,1,.62854-.69q.03075-.00143.06146,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M570,16.92a.66.66,0,0,1,.7.7V43.14a.37.37,0,0,0,.41.42h3a.66.66,0,0,1,.69.62857q.00146.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H559.54a.64994.64994,0,0,1-.69-.7V44.25a.65.65,0,0,1,.69-.69h3a.37.37,0,0,0,.42-.42v-19a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.69-.69V17.62a.65.65,0,0,1,.69-.7Zm0-13.73a.66.66,0,0,1,.7.7v6a.65.65,0,0,1-.7.69h-6.38a.65.65,0,0,1-.69-.69v-6a.66.66,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M587.19,6.66a.65967.65967,0,0,1,.7.69v9.16a.36.36,0,0,0,.41.41h4.44a.66.66,0,0,1,.7.7V23a.65.65,0,0,1-.7.69H588.3a.37.37,0,0,0-.41.42v16.3c0,2.36,1,3.12,3.12,3.12h1.73a.65975.65975,0,0,1,.7.69v5.62a.66.66,0,0,1-.7.7h-3.33c-6.72,0-9.29-3.26-9.29-9.79V24.14a.37.37,0,0,0-.42-.42h-2.22a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7h2.22c.28,0,.42-.13.42-.41V7.35a.66.66,0,0,1,.62854-.69q.03075-.00143.06146,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M628.92,16.92a.66033.66033,0,0,1,.69.7V43.14a.37.37,0,0,0,.42.42h3a.66.66,0,0,1,.69.62857q.00147.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H622.53a.66024.66024,0,0,1-.69-.7V47.24h-.07c-1.8,2.28-4.37,3.88-8.6,3.88-7.14,0-11.44-5.27-11.44-12.42V24.14a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.7-.69V17.62a.66.66,0,0,1,.7-.7H608.8a.65.65,0,0,1,.69.7V36.9c0,4.3,2,7.28,6.18,7.28,4,0,6.17-3,6.17-7.21V24.14a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M646.26,6.66a.65.65,0,0,1,.69.69v9.16c0,.28.14.41.42.41h4.44a.65.65,0,0,1,.69.7V23a.65.65,0,0,1-.69.69h-4.44a.37.37,0,0,0-.42.42v16.3c0,2.36,1,3.12,3.13,3.12h1.73a.65.65,0,0,1,.69.60738.64342.64342,0,0,1,0,.08262v5.62a.65.65,0,0,1-.69.7h-3.33c-6.73,0-9.29-3.26-9.29-9.79V24.14a.37.37,0,0,0-.42-.42h-2.22a.65.65,0,0,1-.69-.69V17.62a.65.65,0,0,1,.69-.7h2.22c.28,0,.42-.13.42-.41V7.35a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M685.76,25.39c.77,2.36,1.11,4.64,1.11,10a.68.68,0,0,1-.76.7h-20.6a.37.37,0,0,0-.42.41,7.29893,7.29893,0,0,0,.49,2.57c1.11,3.26,3.74,5.06,7.49,5.06A10.08,10.08,0,0,0,680.91,41a.72.72,0,0,1,1-.14l4.09,3.6a.62.62,0,0,1,.07,1c-2.84,3.33-7.56,5.69-13.73,5.69-7.08,0-12.07-3.47-14-9.29a26.05062,26.05062,0,0,1-1.18-8.19,26.71065,26.71065,0,0,1,1.11-8.25c1.88-5.83,7-9.23,13.67-9.23C678.9,16.16,683.89,19.7,685.76,25.39Zm-20.25,1.66a8.43959,8.43959,0,0,0-.42,2.85.37.37,0,0,0,.42.41h13.11a.36.36,0,0,0,.41-.41,8.4591,8.4591,0,0,0-.41-2.85,6.5,6.5,0,0,0-6.52-4.3C668.91,22.75,666.41,24.35,665.51,27.05Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M158,104.24h0a3.11,3.11,0,1,0,3.05962,3.15958q.00048-.02979.00038-.05958a3.08,3.08,0,0,0-3.05953-3.10034q-.03525-.00024-.07048.00034Zm0,5.73a2.63,2.63,0,0,1,0-5.25h0a2.63,2.63,0,0,1,0,5.25Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M158.5,107.45h0a.86.86,0,0,0,.67-.84.85.85,0,0,0-.31-.72,1.87,1.87,0,0,0-1.08-.26,6.44922,6.44922,0,0,0-1,.08v3.46h.55v-1.49h.39a.65.65,0,0,1,.7345.55274q.004.0285.00551.05725a2.3301,2.3301,0,0,0,.24.88h.58a2.55,2.55,0,0,1-.22-.85C159,107.78,158.8,107.5,158.5,107.45Zm-.75-.22h-.4v-1.18h.4c.62,0,.84.3.84.6S158.21,107.23,157.75,107.23Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M59.92,3.17Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M74.23,37.05v27h14.5L90.26,56h6.52C94.39,68.35,82.09,76.9,66.5,76.9a28.88359,28.88359,0,0,1-3.22-.12C54.64,76.11,46.7,73.33,40.92,69c-6.38-4.84-9.73-11.3-9.7-18.7a27.65,27.65,0,0,1,9.51-20.73,35.38993,35.38993,0,0,1,21.94-8.58h1.58a45.44,45.44,0,0,1,28,10.24,4.89981,4.89981,0,0,0,.58.46,5.36062,5.36062,0,0,1,.56.45l.22.19h16.65V3.16H93.37V11.5C86.26,6.95,74.11,2.36,59.92,2.36h-.24A58.5,58.5,0,0,0,18.46,19.68C9.67,28.61,4.91,39.53,5.05,50.43c.16,11.72,5.8,22.64,15.91,30.75,9.66,7.76,22.77,12.21,35.94,12.21,1.63,0,3.28-.07,4.9-.2,13-1.06,24.62-4,32.79-8.42v3.61h17.93V56h6.19V93.55h-9.34v16.89H151V93.55h-9.34V56h21.11l1.47,8.11h14.57v-27ZM59.92,3.17Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M234.6,85.46a24.81035,24.81035,0,0,1,1.11,8.26A24.78032,24.78032,0,0,1,234.6,102c-1.88,5.83-7,9.22-13.74,9.22s-11.93-3.39-13.8-9.22a24.77961,24.77961,0,0,1-1.11-8.25,24.80983,24.80983,0,0,1,1.11-8.26c1.87-5.82,7-9.22,13.8-9.22S232.72,79.64,234.6,85.46Zm-20,2.08a19.32994,19.32994,0,0,0-.69,6.18,18.99983,18.99983,0,0,0,.69,6.17,6.69736,6.69736,0,0,0,12.56,0,18.99983,18.99983,0,0,0,.69-6.17,19.32994,19.32994,0,0,0-.69-6.18,6.14,6.14,0,0,0-6.25-4.37,6.21,6.21,0,0,0-6.36,4.37Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M258,63.27a.65.65,0,0,1,.69.69v5.55a.65.65,0,0,1-.69.69h-2.15c-3.47,0-4.23.84-4.23,4.09v2.29a.37.37,0,0,0,.42.42h6a.65.65,0,0,1,.69.69V83.1a.65.65,0,0,1-.69.7h-6a.37.37,0,0,0-.42.41v19c0,.28.14.41.42.41h3.67a.66.66,0,0,1,.7.7v5.41a.66.66,0,0,1-.7.69H240.49a.66.66,0,0,1-.69-.62857q-.00141-.03069,0-.06143v-5.41a.66.66,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41v-19a.37.37,0,0,0-.42-.41h-2.21a.66.66,0,0,1-.7-.7V77.69a.66.66,0,0,1,.7-.69h2.21a.37.37,0,0,0,.42-.42V74.43c0-7.77,3.82-11.16,11.1-11.16Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M313.11,63.27a.65.65,0,0,1,.7.69v11.1a.66.66,0,0,1-.7.69h-6a.66.66,0,0,1-.7-.69V70.9c0-.28-.13-.42-.41-.42h-7a.37.37,0,0,0-.41.42v32.32a.36.36,0,0,0,.41.41h3.61a.65.65,0,0,1,.69.7v5.41a.65.65,0,0,1-.69.69H286.34a.65.65,0,0,1-.69-.69v-5.41a.65006.65006,0,0,1,.69-.7H290a.36.36,0,0,0,.41-.41V70.9a.37.37,0,0,0-.41-.42h-7.08c-.28,0-.41.14-.41.42v4.16a.66.66,0,0,1-.7.69h-6a.65993.65993,0,0,1-.7-.69V64a.65.65,0,0,1,.7-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M339.2,85.46c.76,2.36,1.11,4.65,1.11,10.06a.67.67,0,0,1-.76.69H319a.37.37,0,0,0-.42.42,7.35033,7.35033,0,0,0,.49,2.57c1.1,3.26,3.74,5.06,7.49,5.06a10.07,10.07,0,0,0,7.83-3.19c.35-.35.7-.42,1-.14l4.1,3.61a.63.63,0,0,1,.07,1c-2.85,3.33-7.56,5.68-13.74,5.68-7.07,0-12.07-3.46-13.94-9.29a25.99986,25.99986,0,0,1-1.18-8.18,26.78005,26.78005,0,0,1,1.11-8.26c1.87-5.82,7-9.22,13.67-9.22C332.33,76.24,337.33,79.77,339.2,85.46ZM319,87.13a8.37928,8.37928,0,0,0-.42,2.84.37.37,0,0,0,.42.42h13.11a.37.37,0,0,0,.41-.42,8.65984,8.65984,0,0,0-.41-2.84c-.91-2.71-3.4-4.3-6.53-4.3S319.85,84.42,319,87.13Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M371.29,78.87a.9.9,0,0,1,.55.9V87.4a.66.66,0,0,1-.69.7h-5.9a.66.66,0,0,1-.69-.7V84.35c0-.28-.07-.34-.35-.48a11.65962,11.65962,0,0,0-4.23-.7c-3.54,0-5.9,1.46-6.87,4.37a19.86007,19.86007,0,0,0-.69,6.18,20.30925,20.30925,0,0,0,.69,6.24c1,2.84,3.33,4.3,6.87,4.3a10.57992,10.57992,0,0,0,4.23-.63c.28-.13.35-.2.35-.48V100a.66.66,0,0,1,.69-.7h5.9a.66.66,0,0,1,.69.7v7.7a.9.9,0,0,1-.55.9,24.89,24.89,0,0,1-11.52,2.56c-7.28,0-12.27-3.05-14.22-9a27.87031,27.87031,0,0,1-1-8.46,26.41,26.41,0,0,1,1-8.26c1.95-6,7.15-9.22,14.22-9.22A23.99993,23.99993,0,0,1,371.29,78.87Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M387.18,63.27a.65.65,0,0,1,.7.69V80.12H388c1.45-2.08,4.3-3.88,8.67-3.88,7.07,0,11.51,5.27,11.51,12.41v14.57c0,.28.14.41.42.41h2.84a.65.65,0,0,1,.69.7v5.41a.65.65,0,0,1-.69.69H397a.66.66,0,0,1-.69-.62857q-.00142-.03069,0-.06143v-5.41a.66.66,0,0,1,.69-.7h3a.36.36,0,0,0,.41-.41V90.46c0-4.3-2.08-7.29-6.24-7.29s-6.24,3-6.24,7.29v12.76a.36.36,0,0,0,.41.41h3a.66.66,0,0,1,.69.7v5.41a.66.66,0,0,1-.62857.69q-.03072.00141-.06143,0H376.71a.65.65,0,0,1-.69-.69v-5.41a.65006.65006,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41V70.48a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.69-.69V64a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M447.68,88.65v14.57c0,.28.14.41.42.41h2.84a.64995.64995,0,0,1,.69.7v5.41a.65.65,0,0,1-.69.69H436.51a.66.66,0,0,1-.69-.62857q-.00143-.03069,0-.06143v-5.41a.66.66,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41V90.46c0-4.3-2.08-7.29-6.24-7.29s-6.24,3-6.24,7.29v12.76a.36.36,0,0,0,.41.41h3a.66.66,0,0,1,.7.7v5.41a.66.66,0,0,1-.7.69h-14.6a.65.65,0,0,1-.69-.69v-5.41a.65006.65006,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41v-19a.37.37,0,0,0-.42-.41h-3a.65.65,0,0,1-.69-.7V77.69a.65.65,0,0,1,.69-.69h10.47a.66.66,0,0,1,.7.69v2.43h.07c1.45-2.08,4.3-3.88,8.6-3.88C443.24,76.24,447.68,81.51,447.68,88.65Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M483.25,85.46a24.81034,24.81034,0,0,1,1.11,8.26,24.77986,24.77986,0,0,1-1.11,8.25c-1.88,5.83-7,9.22-13.74,9.22s-11.93-3.39-13.8-9.22a24.77985,24.77985,0,0,1-1.11-8.25,24.81007,24.81007,0,0,1,1.11-8.26c1.87-5.82,7-9.22,13.8-9.22S481.37,79.64,483.25,85.46ZM463.2,87.54a19.3305,19.3305,0,0,0-.69,6.18,19.00037,19.00037,0,0,0,.69,6.17,6.26,6.26,0,0,0,6.31,4.37,6.18,6.18,0,0,0,6.25-4.37,19.00037,19.00037,0,0,0,.69-6.17,19.3305,19.3305,0,0,0-.69-6.18,6.13,6.13,0,0,0-6.25-4.37A6.21,6.21,0,0,0,463.2,87.54Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M497.4,63.27a.65.65,0,0,1,.69.69v36.62c0,2.29.9,3,2.91,3h1.53a.65.65,0,0,1,.69.7V110a.65.65,0,0,1-.69.69h-3c-6.52,0-9.16-3.33-9.16-9.78V70.48a.37.37,0,0,0-.41-.42h-3a.65.65,0,0,1-.69-.69V64a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M534.6,85.46a24.81007,24.81007,0,0,1,1.11,8.26A24.77979,24.77979,0,0,1,534.6,102c-1.87,5.83-7,9.22-13.73,9.22s-11.93-3.39-13.81-9.22a24.80959,24.80959,0,0,1-1.1-8.25,24.83982,24.83982,0,0,1,1.1-8.26c1.88-5.82,7-9.22,13.81-9.22S532.73,79.64,534.6,85.46Zm-20,2.08a18.99879,18.99879,0,0,0-.7,6.18,18.73027,18.73027,0,0,0,.7,6.17,6.26,6.26,0,0,0,6.31,4.37,6.18,6.18,0,0,0,6.24-4.37,18.76975,18.76975,0,0,0,.69-6.17,19.00031,19.00031,0,0,0-.69-6.18,6.12,6.12,0,0,0-6.24-4.37,6.21,6.21,0,0,0-6.35,4.37Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M561.1,80.19h.07v-2.5a.66.66,0,0,1,.7-.69h10.47a.65975.65975,0,0,1,.7.69V83.1a.66.66,0,0,1-.7.7h-3a.37.37,0,0,0-.42.41v24.14c0,9.57-5.34,15.33-15.6,15.33-4.65,0-9.58-1.94-12.14-5a.63.63,0,0,1,.07-1l4.09-4.09a.66.66,0,0,1,.93078-.06918.65334.65334,0,0,1,.06922.06918,10.26,10.26,0,0,0,7.28,3.12c5.14,0,7.49-2.77,7.49-8v-3.12h-.07c-1.52,2.35-4.37,3.88-8.67,3.88-5.61,0-9.64-2.84-11.37-8.11a25.57957,25.57957,0,0,1-1.11-8.54,25.1192,25.1192,0,0,1,1.11-8.46c1.73-5.34,5.76-8.18,11.37-8.18C556.73,76.24,559.58,77.76,561.1,80.19ZM548.55,87.4a16.22975,16.22975,0,0,0-.76,5.48,15.67,15.67,0,0,0,.76,5.48,6.24,6.24,0,0,0,11.86,0,15.44026,15.44026,0,0,0,.76-5.48,15.99985,15.99985,0,0,0-.76-5.48,6.27,6.27,0,0,0-11.86,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M608.78,77a.66.66,0,0,1,.69.62857q.00147.03069,0,.06143V83.1a.66.66,0,0,1-.69.7H607c-.27,0-.41.07-.55.41l-11,28.3c-3,7.84-5.69,10.41-11.24,10.41H582a.66024.66024,0,0,1-.69-.7v-5.55a.66.66,0,0,1,.64923-.67061c.01361-.00022.02716,0,.04077.0006h1.25c2.64,0,4-1.18,5-3.95l1-2.85-10.41-25a.46.46,0,0,0-.48-.34h-1.88a.66024.66024,0,0,1-.69-.7V77.69a.66.66,0,0,1,.62854-.69q.03076-.00143.06146,0h13a.65967.65967,0,0,1,.7.69V83.1a.66.66,0,0,1-.7.7H587.2c-.34,0-.41.21-.34.48l6,15.75H593l5.9-15.75a.34.34,0,0,0-.35-.48h-2.22a.64994.64994,0,0,1-.69-.7V77.69a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M606.09,104h0a3.39,3.39,0,1,0,3.33966,3.43959q.00045-.02979.00036-.05959a3.35,3.35,0,0,0-3.31982-3.37988C606.0968,104,606.08344,104,606.07,104Zm0,6.25a2.86,2.86,0,0,1,0-5.72h0a2.86,2.86,0,0,1,0,5.72Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M606.69,107.45h0a1,1,0,0,0,.39-1.7,1.99993,1.99993,0,0,0-1.17-.28,6.28986,6.28986,0,0,0-1.07.09v3.77h.6v-1.62h.42a.7.7,0,0,1,.81.66,2.901,2.901,0,0,0,.26,1h.63a3.14936,3.14936,0,0,1-.24-.93C607.24,107.81,607,107.51,606.69,107.45Zm-.81-.24h-.44v-1.28a3.94284,3.94284,0,0,1,.44,0c.67,0,.91.33.91.67S606.37,107.21,605.88,107.21Z" transform="translate(-5.047 -2.36)"/></svg><p>Applied AI at TIYA Services · Facilitator guide · October 20–21, 2026</p></div>
+</footer>
