@@ -1,52 +1,4 @@
 <title>TIYA AI Course Kit</title>
-<style>
-.kit-mast .wrap { max-width: 1040px; }
-main.kit { max-width: 1040px; }
-.btns { display: flex; flex-wrap: wrap; gap: 8px; }
-.btn {
-  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 8px 14px; box-sizing: border-box;
-  border: 1px solid var(--rule); border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--bg);
-}
-.btn:hover { border-color: var(--gold); }
-.btn:focus-visible { outline: 2px solid var(--buzz); outline-offset: 2px; }
-.btn.primary { background: var(--mast-bg); color: var(--mast-ink); border-color: var(--mast-bg); }
-.btn.primary:hover { border-color: var(--gold); }
-.btn small { font-family: var(--f-mono); font-size: 11px; color: var(--ink-soft); font-weight: 500; }
-.btn.primary small { color: var(--gold-light); }
-.fmt { font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
-
-.everything { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; padding: 20px 24px; background: var(--surface); border-radius: 4px; }
-.everything p { max-width: 60ch; }
-
-.decks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 24px; }
-.deckcard { display: grid; gap: 14px; align-content: start; }
-.thumb {
-  position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 4px; overflow: hidden; container-type: inline-size;
-  background: #051E39; color: #F9F6E5; text-decoration: none; display: block; box-shadow: 0 10px 30px -18px rgba(5, 30, 57, .7);
-}
-.thumb .gt-logo { position: absolute; top: 6cqw; left: 7cqw; height: 5cqw; color: #F9F6E5; }
-.thumb .tt { position: absolute; left: 7cqw; right: 7cqw; top: 36%; display: grid; gap: 2cqw; }
-.thumb .ey { font-family: var(--f-mono); font-size: 2.4cqw; letter-spacing: .1em; text-transform: uppercase; color: #DEBD88; }
-.thumb .tn { font-family: var(--f-display); font-weight: 700; font-size: 7cqw; line-height: 1.1; text-wrap: balance; }
-.thumb::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1.4cqw; background: linear-gradient(to right, #8F713D, #B39051, #DEBD88, #8F713D); }
-.thumb:hover { outline: 2px solid var(--gold); outline-offset: 3px; }
-.thumb:focus-visible { outline: 2px solid var(--buzz); outline-offset: 3px; }
-.deckmeta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14px; color: var(--ink-soft); }
-.deckcard h3 { font-size: 22px; font-weight: 600; }
-
-.docs { display: grid; gap: 0; }
-.doc { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 24px; align-items: center; padding-block: 18px; border-top: 1px solid var(--rule); }
-.doc:last-child { border-bottom: 1px solid var(--rule); }
-.doc h3 { font-size: 19px; font-weight: 600; }
-.doc p { font-size: 15px; color: var(--ink-soft); max-width: 62ch; }
-.who { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 4px; }
-.who.inst { color: var(--remote); } .who.part { color: var(--do); } .who.all { color: var(--say); }
-@media (max-width: 640px) { .doc { grid-template-columns: 1fr; } }
-td .btn { min-height: 34px; padding: 4px 10px; }
-.keys { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--ink-soft); }
-kbd { font-family: var(--f-mono); font-size: 12px; border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 3px; padding: 1px 6px; color: var(--ink); background: var(--bg); }
-</style>
-
 <header class="mast kit-mast">
   <div class="wrap">
     <div class="mast-top">{{LOGO}}<span class="mast-tag">Course kit · TIYA Services · Ft. Benning</span></div>
@@ -64,6 +16,10 @@ kbd { font-family: var(--f-mono); font-size: 12px; border: 1px solid var(--rule)
 </header>
 
 <main class="wrap kit" style="padding-block:40px 72px;display:grid;gap:56px">
+  <div class="everything">
+    <p><strong>Share this with participants.</strong> A participant-only page: slides, workbook, agenda, and exercise files, with no instructor materials.</p>
+    <a class="btn primary" href="participants.html">Participant page</a>
+  </div>
   <div class="everything">
     <p><strong>Download the whole kit.</strong> Slides, PDFs, Word files, the spreadsheet, and these web pages in one zip.</p>
     <a class="btn primary" href="downloads/tiya-ai-course-kit.zip" download>Download everything <small>ZIP · {{SIZE:downloads/tiya-ai-course-kit.zip}}</small></a>

@@ -16,6 +16,7 @@ PAGES = [
     "facilitator-guide",
     "participant-workbook",
     "index",
+    "participants",
     "assessment-kit",
 ]
 
