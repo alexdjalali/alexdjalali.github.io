@@ -7,6 +7,7 @@ CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 python3 make_decks.py
 uv run --quiet --with python-pptx python make_pptx.py
+uv run --quiet --with markdown python make_sops.py
 python3 build.py > /dev/null
 
 pdf() { # $1 = page in kit root, $2 = pdf name in downloads/

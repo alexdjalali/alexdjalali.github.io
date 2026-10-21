@@ -18,6 +18,7 @@ PAGES = [
     "participant-workbook-day2",
     "index",
     "participants",
+    "day2-sops",
     "assessment-kit",
 ]
 
