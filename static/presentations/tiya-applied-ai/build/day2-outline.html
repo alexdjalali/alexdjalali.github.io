@@ -1,0 +1,147 @@
+<title>TIYA AI Day 2 Outline · Agentic AI with Microsoft Copilot</title>
+<style>
+@media print { #who, #lo, #env, #assess, #mat, #open { break-inside: avoid; } }
+</style>
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-top"><a class="home" href="index.html" aria-label="Course kit">{{LOGO}}</a><span class="mast-tag"><a class="kit-link" href="index.html">← Course kit</a> · Day 2 outline · for the program owner</span></div>
+    <div style="display:grid;gap:12px">
+      <h1>Day 2 Outline: Agentic AI with Microsoft Copilot</h1>
+      <p class="mast-sub">The second day of Applied AI at TIYA Services. Day 1 taught participants to prompt Copilot safely. Day 2 teaches them to build no-code agents with the Copilot agent builder: standing instructions, their own knowledge, and tools for one defined job. Participants test each agent before sharing it, and govern it after.</p>
+    </div>
+    <div class="mast-meta">
+      <span><b>Day 2</b>Wed, Oct 21, 2026</span>
+      <span><b>Hours</b>8:30 AM – 4:30 PM</span>
+      <span><b>Tool</b>Copilot agent builder</span>
+      <span><b>Instructors</b>Alex Djalali, Alex Rhodeen</span>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+</header>
+
+<main class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <h4 class="sub">Contents</h4>
+    <ol>
+      <li><a href="#who"><span class="t">1</span><span>Audience and prerequisites</span></a></li>
+      <li><a href="#lo"><span class="t">2</span><span>Learning outcomes</span></a></li>
+      <li><a href="#plan"><span class="t">3</span><span>The day, 8:30 to 4:30</span></a></li>
+      <li><a href="#builds"><span class="t">4</span><span>The builds</span></a></li>
+      <li><a href="#env"><span class="t">5</span><span>Environment requirements</span></a></li>
+      <li><a href="#assess"><span class="t">6</span><span>Assessment and certificate</span></a></li>
+      <li><a href="#mat"><span class="t">7</span><span>Materials</span></a></li>
+      <li><a href="#open"><span class="t">8</span><span>Decisions for the program owner</span></a></li>
+    </ol>
+  </nav>
+
+  <section class="part" id="who">
+    <div class="part-head"><p class="kicker">1</p><h2>Audience and prerequisites</h2></div>
+    <div class="prose"><ul>
+      <li><strong>Who:</strong> TIYA staff in operational and administrative roles who completed Day 1. About 30 per cohort, with limited remote seats.</li>
+      <li><strong>Prerequisite:</strong> Day 1, Generative AI for Daily Work. The current cohort took Day 1 in June 2026. Day 2 opens with a 10-minute Day 1 review, and nothing later depends on a Day 1 exercise or sample.</li>
+      <li><strong>Accounts:</strong> a Microsoft 365 Copilot license, or at least Copilot Chat, with the agent builder enabled (section 5).</li>
+    </ul></div>
+  </section>
+
+  <section class="part" id="lo">
+    <div class="part-head"><p class="kicker">2</p><h2>Learning outcomes</h2><p class="lede">On completing Day 2, participants will be able to:</p></div>
+    <div class="scroll"><table>
+      <thead><tr><th></th><th>Outcome</th><th>Practiced in</th></tr></thead>
+      <tbody>
+        <tr><td><span class="lo">LO1</span></td><td>Understand the fundamentals of AI agent creation and common agent architectures.</td><td>Agent or not? · Design canvas</td></tr>
+        <tr><td><span class="lo">LO2</span></td><td>Design, configure, and deploy autonomous agents using no-code and low-code tools.</td><td>Builds 1 and 2 · Build your own</td></tr>
+        <tr><td><span class="lo">LO3</span></td><td>Integrate reasoning, planning, tools, and memory into practical agent workflows.</td><td>Build 2 · Trigger storyboard</td></tr>
+        <tr><td><span class="lo">LO4</span></td><td>Apply security, privacy, safety, and trust principles when developing and deploying agentic AI.</td><td>Red-team swap · Risk tier · Governance card</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="part" id="plan">
+    <div class="part-head"><p class="kicker">3</p><h2>The day, 8:30 to 4:30</h2><p class="lede">About 3½ hours of building, plus design and red-team exercises. Every agent is tested before it's shared.</p></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Time</th><th>Block</th><th>Topics</th><th>Activity</th><th>LO</th></tr></thead>
+      <tbody>
+        <tr><td class="tm">8:30 – 10:15</td><td><strong>Agentic AI Foundations</strong><br>105 min</td><td>Login check · Day 1 in review: Mask → Ask → Check and the data traffic light · from chat to agent: the autonomy ladder · anatomy of an agent · the no-code ecosystem and four architectures</td><td>"Agent or not?" sort of ten TIYA tasks · agent design canvas for the participant's own work</td><td>LO1 · LO4</td></tr>
+        <tr class="brk"><td class="tm">10:15 – 10:30</td><td colspan="4">Morning break</td></tr>
+        <tr><td class="tm">10:30 – 12:15</td><td><strong>Building Real Agents</strong><br>105 min · hands-on</td><td>Prompt engineering for agents: the instructions template · tests first · knowledge Q&amp;A and multi-tool agents</td><td><strong>Build 1</strong> SOP Navigator · <strong>Build 2</strong> Work Order Analyst with code interpreter, numbers checked by hand</td><td>LO2 · LO3</td></tr>
+        <tr class="brk"><td class="tm">12:15 – 1:15</td><td colspan="4">Lunch</td></tr>
+        <tr><td class="tm">1:15 – 3:00</td><td><strong>Building Real Agents, Continued</strong><br>105 min · hands-on</td><td>Event triggers as a design concept, with an instructor demo · memory · publishing: permissions, naming, sharing</td><td>Trigger storyboard · <strong>build your own</strong> agent from the morning's canvas · partner swap test · showcase</td><td>LO2 · LO3 · LO4</td></tr>
+        <tr class="brk"><td class="tm">3:00 – 3:15</td><td colspan="4">Afternoon break</td></tr>
+        <tr><td class="tm">3:15 – 4:30</td><td><strong>Governance &amp; Security</strong><br>75 min</td><td>PII handling in agents: instructions are a request, permissions are a lock · risk tiers · the agent lifecycle and model governance</td><td>Red-team swap with five attack cards · risk tier · governance card · exit checklist, evaluation, and certificates from 4:20</td><td>LO4</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="part" id="builds">
+    <div class="part-head"><p class="kicker">4</p><h2>The builds</h2><p class="lede">Two guided builds on fictional TIYA SOPs and work order data, then the participant's own agent. Step-by-step instructions are in the Day 2 workbook.</p></div>
+    <div class="cards">
+      <div class="card"><span class="tag">Build 1 · 10:45</span><h4>SOP Navigator</h4><ul>
+        <li><strong>Architecture:</strong> knowledge Q&amp;A</li>
+        <li><strong>Knowledge:</strong> the four sandbox SOPs</li>
+        <li><strong>Teaches:</strong> the instructions template, tests first, "I can't find that" over guessing</li>
+      </ul></div>
+      <div class="card"><span class="tag">Build 2 · 11:25</span><h4>Work Order Analyst</h4><ul>
+        <li><strong>Architecture:</strong> multi-tool</li>
+        <li><strong>Knowledge and tools:</strong> FM-SOP-03 plus code interpreter, with an 80-row CSV uploaded in chat</li>
+        <li><strong>Teaches:</strong> analysis with tools, and checking the numbers by hand</li>
+      </ul></div>
+      <div class="card"><span class="tag">2:00</span><h4>Build your own</h4><ul>
+        <li><strong>From:</strong> the participant's design canvas</li>
+        <li><strong>Teaches:</strong> five tests before building, partner swap test, safe publishing</li>
+        <li><strong>Then:</strong> red-teamed and governed in the last block</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="part" id="env">
+    <div class="part-head"><p class="kicker">5</p><h2>Environment requirements</h2><p class="lede">Confirm each item with TIYA IT, in writing, at least 14 days before.</p></div>
+    <ul class="checks">
+      <li>Every participant has a Microsoft 365 Copilot license, or at least Copilot Chat. Licenses from the June Day 1 are still active.</li>
+      <li>Which cloud TIYA is on (commercial, GCC, or GCC High), and that the features below are live there.</li>
+      <li>The agent builder ("Create an agent" in Copilot Chat) is enabled for participants.</li>
+      <li>Agent sharing to specific users is allowed.</li>
+      <li>Code interpreter and file upload are enabled in Copilot Chat.</li>
+      <li>An "AI Training Sandbox" SharePoint site with the four sample SOPs, readable by every participant, at least a week before.</li>
+    </ul>
+    <div class="flag"><b>If Copilot is down or blocked</b><p>The lead walks through saved build screenshots on screen, and pairs complete the design canvas and test plan on paper.</p></div>
+  </section>
+
+  <section class="part" id="assess">
+    <div class="part-head"><p class="kicker">6</p><h2>Assessment and certificate</h2></div>
+    <div class="prose"><ul>
+      <li><strong>Formative:</strong> a six-question knowledge check, self-scored. Instructors collect anonymous per-question scores.</li>
+      <li><strong>Evidence of work:</strong> the test plan, the partner's swap-test log, the risk tier, and the governance card.</li>
+      <li><strong>Certificate (proposed):</strong> full attendance (up to 30 minutes excused), at least one agent built and tested with five tests, and a completed governance card.</li>
+    </ul></div>
+  </section>
+
+  <section class="part" id="mat">
+    <div class="part-head"><p class="kicker">7</p><h2>Materials</h2></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Item</th><th>For</th></tr></thead>
+      <tbody>
+        <tr><td>Day 2 slides (HTML, PowerPoint, PDF)</td><td>Instructors · participants</td></tr>
+        <tr><td>Day 2 workbook: Day 1 review, autonomy ladder, design canvas, two builds, test plans, governance worksheets</td><td>Participants</td></tr>
+        <tr><td>Day 2 agenda</td><td>Everyone</td></tr>
+        <tr><td>Day 2 assessment kit: certificate criteria, answer keys, knowledge check, exit checklist, evaluation</td><td>Instructors</td></tr>
+        <tr><td>Facilitator guide, Day 2 section: run sheet, talking points, demos, watch-fors, debriefs</td><td>Instructors</td></tr>
+        <tr><td>The four sandbox SOPs (Word, and on one web page)</td><td>Participants</td></tr>
+        <tr><td>Work order export, Aug–Sep 2026 (CSV, 80 rows)</td><td>Participants</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="part" id="open">
+    <div class="part-head"><p class="kicker">8</p><h2>Decisions for the program owner</h2></div>
+    <div class="prose"><ol>
+      <li><strong>Outcome 2 vs. the agent builder.</strong> LO2 promises <em>autonomous</em> agents and the agenda lists <em>event triggers</em>. The agent builder makes on-demand agents; triggers and autonomous agents need Copilot Studio, which is Day 3. Day 2 teaches triggers as a design concept with an instructor demo. Either soften LO2 ("design, configure, and deploy agents, and design event-triggered automations") or provide a Copilot Studio environment for the demo.</li>
+      <li><strong>Closing.</strong> The agenda ends at 4:30 with no closing block. The exit checklist, evaluation, and certificates run from 4:20 inside the governance block. If the day can run to 5:00, move them to a 4:30–5:00 closing.</li>
+      <li><strong>Session headers.</strong> The agenda's sessions are titled only "Morning" and "Afternoon". Suggested: "Agent Foundations &amp; First Builds" and "Deploy, Trigger &amp; Govern".</li>
+      <li><strong>Certificate criteria.</strong> Confirm the proposal in section 6.</li>
+    </ol></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">{{LOGO}}<p>Applied AI at TIYA Services · Day 2 outline · Agentic AI with Microsoft Copilot</p></div>
+</footer>

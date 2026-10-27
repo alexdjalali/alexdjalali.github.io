@@ -1,0 +1,163 @@
+<title>TIYA AI Day 3 Outline · Advanced Agents with Copilot Studio</title>
+<style>
+@media print { #who, #lo, #env, #assess, #mat, #open { break-inside: avoid; } }
+</style>
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-top"><a class="home" href="index.html" aria-label="Course kit">{{LOGO}}</a><span class="mast-tag"><a class="kit-link" href="index.html">← Course kit</a> · Day 3 outline · for the program owner</span></div>
+    <div style="display:grid;gap:12px">
+      <h1>Day 3 Outline: Advanced Agents with Copilot Studio</h1>
+      <p class="mast-sub">The third day of Applied AI at TIYA Services. Day 2 built agents that wait for a person to ask. Day 3 builds agents that start themselves: on an incoming email, on a schedule, and by handing work to other agents. It also covers how to run them safely once no one is watching.</p>
+    </div>
+    <div class="mast-meta">
+      <span><b>Day 3</b>[Date TBD]</span>
+      <span><b>Hours</b>8:00 AM – 4:00 PM</span>
+      <span><b>Tool</b>Microsoft Copilot Studio</span>
+      <span><b>Instructors</b>Alex Djalali, Alex Rhodeen</span>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+</header>
+
+<main class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <h4 class="sub">Contents</h4>
+    <ol>
+      <li><a href="#who"><span class="t">1</span><span>Audience and prerequisites</span></a></li>
+      <li><a href="#lo"><span class="t">2</span><span>Learning outcomes</span></a></li>
+      <li><a href="#plan"><span class="t">3</span><span>The day, 8:00 to 4:00</span></a></li>
+      <li><a href="#builds"><span class="t">4</span><span>The four builds</span></a></li>
+      <li><a href="#env"><span class="t">5</span><span>Environment requirements</span></a></li>
+      <li><a href="#assess"><span class="t">6</span><span>Assessment and certificate</span></a></li>
+      <li><a href="#mat"><span class="t">7</span><span>Materials</span></a></li>
+      <li><a href="#open"><span class="t">8</span><span>Decisions for the program owner</span></a></li>
+    </ol>
+  </nav>
+
+  <section class="part" id="who">
+    <div class="part-head"><p class="kicker">1</p><h2>Audience and prerequisites</h2></div>
+    <div class="prose"><ul>
+      <li><strong>Who:</strong> TIYA staff who completed Day 2 and will design or own agents for their team: facilities leads, the work order desk, business management, and supervisors. About 30 per cohort, with limited remote seats.</li>
+      <li><strong>Prerequisite:</strong> Day 2, Agentic AI with Microsoft Copilot. Day 3 assumes participants can write agent instructions from the template, write tests before building, and rate an agent's risk tier. It opens with a 15-minute Day 2 review and doesn't depend on any agent built on Day 2.</li>
+      <li><strong>Accounts:</strong> a Copilot Studio license and maker access to a training environment (section 5).</li>
+    </ul></div>
+  </section>
+
+  <section class="part" id="lo">
+    <div class="part-head"><p class="kicker">2</p><h2>Learning outcomes</h2><p class="lede">On completing Day 3, participants will be able to:</p></div>
+    <div class="scroll"><table>
+      <thead><tr><th></th><th>Outcome</th><th>Practiced in</th></tr></thead>
+      <tbody>
+        <tr><td><span class="lo">LO1</span></td><td>Decide whether an agent should run on demand, on an event, or on a schedule, and design its trigger, conditions, actions, and human check.</td><td>Builds 2 and 3</td></tr>
+        <tr><td><span class="lo">LO2</span></td><td>Build and test event-triggered and scheduled agents in Microsoft Copilot Studio that hand their output to a person for review.</td><td>Builds 1–3</td></tr>
+        <tr><td><span class="lo">LO3</span></td><td>Design and build a multi-agent solution with an orchestrator and specialist agents, and judge when one agent is enough.</td><td>Build 4 · One agent or many?</td></tr>
+        <tr><td><span class="lo">LO4</span></td><td>Operate autonomous agents safely, including untrusted input, credentials, cost, monitoring, and a documented off switch.</td><td>Red team · Runbook · Shutdown check</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="part" id="plan">
+    <div class="part-head"><p class="kicker">3</p><h2>The day, 8:00 to 4:00</h2><p class="lede">About 5¼ hours at the keyboard. Every build ends with a person checking what the agent produced.</p></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Time</th><th>Block</th><th>Topics</th><th>Activity</th><th>LO</th></tr></thead>
+      <tbody>
+        <tr><td class="tm">8:00 – 8:30</td><td><strong>Welcome &amp; Day 2 in Review</strong><br>30 min</td><td>Copilot Studio login check · the autonomy ladder, rungs 4 and 5 · what changes when no one is watching: untrusted input, real actions, real cost</td><td>Login check · show of hands on agents built since Day 2</td><td></td></tr>
+        <tr><td class="tm">8:30 – 9:45</td><td><strong>From Agent Builder to Copilot Studio</strong><br>75 min · hands-on</td><td>A tour of Copilot Studio · tools and connectors as the way an agent acts · general-knowledge and web settings as a lock · the activity view · publishing for other agents</td><td><strong>Build 1</strong> SOP Navigator, rebuilt and retested against the Day 2 tests, then published</td><td>LO2</td></tr>
+        <tr class="brk"><td class="tm">9:45 – 10:00</td><td colspan="4">Morning break</td></tr>
+        <tr><td class="tm">10:00 – 11:45</td><td><strong>Event-Triggered Agents</strong><br>105 min · hands-on</td><td>Trigger, condition, payload, action, human check · agent vs. payload instructions · the email is data, not instructions · fixed tool inputs · leaving out the send-email tool</td><td><strong>Build 2</strong> Work Order Intake: eight sample emails, triage cards posted to Teams for a Facilities Lead</td><td>LO1 · LO2 · LO4</td></tr>
+        <tr class="brk"><td class="tm">11:45 – 12:30</td><td colspan="4">Lunch</td></tr>
+        <tr><td class="tm">12:30 – 1:30</td><td><strong>Scheduled Agents</strong><br>60 min · hands-on</td><td>Scheduled prompts in Copilot Chat vs. recurrence triggers in Copilot Studio · let the flow count, let the agent write · testing on a short schedule, then turning it off</td><td><strong>Build 3</strong> Monday Backlog Briefing from an Excel table, checked against the answer key</td><td>LO1 · LO2</td></tr>
+        <tr><td class="tm">1:30 – 2:45</td><td><strong>Multi-Agent Orchestration</strong><br>75 min · hands-on</td><td>Orchestrators and specialists · child vs. connected agents · descriptions drive routing · the cost of a team of agents</td><td><strong>Build 4</strong> Facilities Desk with six routing tests · "One agent or many?" sort</td><td>LO3</td></tr>
+        <tr class="brk"><td class="tm">2:45 – 3:00</td><td colspan="4">Afternoon break</td></tr>
+        <tr><td class="tm">3:00 – 3:45</td><td><strong>Operating Autonomous Agents</strong><br>45 min</td><td>Five new risks: injection, credentials, silent failure, cost, chained errors · the off switch · risk tiers for triggered agents</td><td>Red-team the intake agent with three attack emails · write its runbook</td><td>LO4</td></tr>
+        <tr><td class="tm">3:45 – 4:00</td><td><strong>Closing &amp; Assessment</strong><br>15 min</td><td>What to propose at TIYA, and who approves it</td><td>Knowledge check · trigger shutdown check · evaluation · certificates</td><td></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="part" id="builds">
+    <div class="part-head"><p class="kicker">4</p><h2>The four builds</h2><p class="lede">Each build adds one capability on top of the last, using the same fictional SOPs and work order data as Day 2. Step-by-step instructions are in the Day 3 workbook.</p></div>
+    <div class="cards">
+      <div class="card"><span class="tag">Build 1 · 8:30</span><h4>SOP Navigator (Studio)</h4><ul>
+        <li><strong>Rung:</strong> 3, on-demand</li>
+        <li><strong>Knowledge:</strong> the four sandbox SOPs</li>
+        <li><strong>Teaches:</strong> the Copilot Studio workspace, settings as locks, publishing for reuse</li>
+        <li><strong>Human check:</strong> the person asking</li>
+      </ul></div>
+      <div class="card"><span class="tag">Build 2 · 10:00</span><h4>Work Order Intake</h4><ul>
+        <li><strong>Rung:</strong> 4, event-triggered</li>
+        <li><strong>Trigger:</strong> a new email with <code>[WO-TRAIN]</code> in the subject</li>
+        <li><strong>Tools:</strong> post to Teams, to the owner only; no send-email tool</li>
+        <li><strong>Teaches:</strong> payloads, untrusted input, tools as locks</li>
+        <li><strong>Human check:</strong> a Facilities Lead reads every card</li>
+      </ul></div>
+      <div class="card"><span class="tag">Build 3 · 12:30</span><h4>Monday Backlog Briefing</h4><ul>
+        <li><strong>Rung:</strong> 4, scheduled</li>
+        <li><strong>Trigger:</strong> recurrence; 5 minutes for testing, then Monday 7:00, then off</li>
+        <li><strong>Tools:</strong> read the Excel table, post to Teams</li>
+        <li><strong>Teaches:</strong> schedules, cost, checking AI arithmetic</li>
+        <li><strong>Human check:</strong> the lead verifies numbers before sharing</li>
+      </ul></div>
+      <div class="card"><span class="tag">Build 4 · 1:30</span><h4>Facilities Desk</h4><ul>
+        <li><strong>Rung:</strong> 5, orchestrated</li>
+        <li><strong>Agents:</strong> SOP Navigator (connected), Priority Advisor and Notice Drafter (child)</li>
+        <li><strong>Teaches:</strong> routing by description, child vs. connected, when not to split</li>
+        <li><strong>Human check:</strong> the person asking; notices are drafts</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="part" id="env">
+    <div class="part-head"><p class="kicker">5</p><h2>Environment requirements</h2><p class="lede">Day 3 needs more of TIYA's tenant than Days 1 and 2 did. Confirm each item with TIYA IT, in writing, at least 14 days before.</p></div>
+    <ul class="checks">
+      <li>A Copilot Studio license for every participant and both instructors, and maker access to one training environment.</li>
+      <li>Which cloud TIYA is on (commercial, GCC, or GCC High), and that event triggers, agent flows, and child and connected agents are available there.</li>
+      <li>Data policies allow the Office 365 Outlook, Microsoft Teams, Excel Online (Business), and SharePoint connectors in the training environment.</li>
+      <li>Enough Copilot Studio capacity for the day. Estimate: 30 participants × (8 inbox + 3 red-team emails + about 6 scheduled runs + about 20 test messages per build).</li>
+      <li>The AI Training Sandbox SharePoint site from Day 2, with the four SOPs, still in place with read access for every participant.</li>
+      <li>A plan to switch off or delete every training agent and trigger after the day.</li>
+    </ul>
+    <div class="flag"><b>If Copilot Studio isn't available</b><p>Run Builds 2–4 as instructor demos on screen. Participants complete the trigger canvas, triage log, routing tests, and runbook on paper from the demo output. Build 1 can run in the Copilot agent builder instead. The outcomes shift from "build" to "design and evaluate".</p></div>
+  </section>
+
+  <section class="part" id="assess">
+    <div class="part-head"><p class="kicker">6</p><h2>Assessment and certificate</h2></div>
+    <div class="prose"><ul>
+      <li><strong>Formative:</strong> an eight-question knowledge check, self-scored. Instructors collect anonymous per-question scores.</li>
+      <li><strong>Evidence of work:</strong> the triage log from Build 2, the red-team log, and the runbook.</li>
+      <li><strong>Certificate (proposed):</strong> full attendance (up to 30 minutes excused), Build 2 run against the sample inbox, a completed runbook, and every trigger shown turned off before leaving.</li>
+    </ul></div>
+  </section>
+
+  <section class="part" id="mat">
+    <div class="part-head"><p class="kicker">7</p><h2>Materials</h2></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Item</th><th>For</th></tr></thead>
+      <tbody>
+        <tr><td>Day 3 slides (HTML, PowerPoint, PDF)</td><td>Instructors · participants</td></tr>
+        <tr><td>Day 3 workbook: Day 2 review, four builds, sample inbox, red-team log, runbook, shutdown checklist</td><td>Participants</td></tr>
+        <tr><td>Day 3 agenda</td><td>Everyone</td></tr>
+        <tr><td>Day 3 assessment kit: certificate criteria, answer keys, knowledge check, exit checklist, evaluation</td><td>Instructors</td></tr>
+        <tr><td>Facilitator guide, Day 3 section: run sheet, talking points, demos, watch-fors, debriefs</td><td>Instructors</td></tr>
+        <tr><td>Sample inbox (Word): eight request emails and three red-team emails</td><td>Participants</td></tr>
+        <tr><td>Work order export as an Excel table (<code>WorkOrders</code>, 80 rows)</td><td>Participants</td></tr>
+        <tr><td>The four sandbox SOPs, also on one web page</td><td>Participants</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="part" id="open">
+    <div class="part-head"><p class="kicker">8</p><h2>Decisions for the program owner</h2></div>
+    <div class="prose"><ol>
+      <li><strong>Date.</strong> Day 3 has no date yet. Every Day 3 document shows "[Date TBD]".</li>
+      <li><strong>Copilot Studio access.</strong> Day 3 depends on it (section 5). If TIYA can't license participants, decide between instructor-demo delivery and postponing.</li>
+      <li><strong>Who attends.</strong> Day 3 suits people who will own agents, not everyone who took Day 2. Consider a smaller cohort of 15–20.</li>
+      <li><strong>Who approves triggered agents at TIYA.</strong> The closing asks participants to name the person who would approve a triggered agent. TIYA should name that role before the day.</li>
+      <li><strong>Certificate criteria.</strong> Confirm the proposal in section 6.</li>
+    </ol></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">{{LOGO}}<p>Applied AI at TIYA Services · Day 3 outline · Advanced Agents with Copilot Studio</p></div>
+</footer>

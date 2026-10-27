@@ -253,6 +253,11 @@ td ul { padding-left: 18px; display: grid; gap: 2px; }
   .mast, .foot, .slide.section { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .part.day { break-before: page; }
   .card, .cue, .sample, .light, .slide, .prompt, .canvas { break-inside: avoid; }
+  /* Grid lists overlap when a row splits across pages in Chrome; print them as blocks, items kept whole. */
+  .prose ul, .prose ol, .list { display: block; }
+  .prose li, .list li { margin-bottom: 6px; break-inside: avoid; }
+  tr { break-inside: avoid; }
+  .part-head { break-after: avoid; }
   .toc { display: none; }
 }
 

@@ -1,4 +1,4 @@
-"""Slide content for both decks, shared by the HTML and PowerPoint renderers.
+"""Slide content for every deck, shared by the HTML and PowerPoint renderers.
 
 Each slide is (type, title, bullets, speaker note).
 Types: title | section | content | columns | exercise | demo.
@@ -20,6 +20,12 @@ DECKS: dict[str, dict[str, str]] = {
         "date": "Wednesday, October 21, 2026",
         "title": "Agentic AI with Microsoft Copilot",
         "tool": "Copilot agent builder",
+    },
+    "day3": {
+        "label": "Day 3",
+        "date": "[Date TBD]",
+        "title": "Advanced Agents with Copilot Studio",
+        "tool": "Microsoft Copilot Studio",
     },
 }
 
@@ -559,7 +565,7 @@ DAY2: list[Slide] = [
         ],
         "Quick check, tables vote: a vendor's quote (red), a technician's name (amber), how to build a table in Word (green). Placeholder rules until replaced with TIYA policy.",
     ),
-    ("section", "Agentic AI Foundations · 8:30", ["105 min"], ""),
+    ("section", "Agentic AI Foundations · 8:50", ["85 min"], ""),
     (
         "content",
         "From chat to agent",
@@ -825,4 +831,394 @@ DAY2: list[Slide] = [
     ),
 ]
 
-SLIDES: dict[str, list[Slide]] = {"day1": DAY1, "day2": DAY2}
+DAY3: list[Slide] = [
+    (
+        "title",
+        "Advanced Agents with Copilot Studio",
+        [
+            "Triggered, scheduled, and multi-agent",
+            "[Date TBD] · Alex Djalali · Alex Rhodeen",
+        ],
+        "On screen as people arrive. Everyone here completed Day 2.",
+    ),
+    (
+        "content",
+        "Today",
+        [
+            "8:00 Login check and Day 2 in review",
+            "8:30 From agent builder to Copilot Studio",
+            "10:00 Event-triggered agents",
+            "12:30 Scheduled agents",
+            "1:30 Multi-agent orchestration",
+            "3:00 Operating autonomous agents · 3:45 Closing",
+        ],
+        "Four builds today. Every one ends with a person checking the output.",
+    ),
+    (
+        "content",
+        "Logistics",
+        [
+            "Breaks at 9:45, 11:45 (lunch), and 2:45",
+            "Every build is in the Day 3 workbook, copy-ready",
+            "Remote: chat is watched all day",
+            "Turn your triggers off before you leave",
+        ],
+        "Say the last bullet now and again at 3:45. Triggers left on keep running and keep costing.",
+    ),
+    (
+        "exercise",
+        "Login check",
+        [
+            "Open Copilot Studio and find your training environment",
+            "Create a blank agent; delete it",
+            "Open Outlook and Teams in other tabs",
+        ],
+        "Escalate anyone who can't, now. Rhodeen keeps the list.",
+    ),
+    ("section", "Day 2 in Review · 8:10", ["15 min"], ""),
+    (
+        "columns",
+        "The autonomy ladder",
+        [
+            "1 · Prompt: You ask; it answers",
+            "2 · Saved prompt: You reuse what works",
+            "3 · Agent: Instructions, knowledge, tools",
+            "4 · Triggered: Starts itself on an event or a schedule",
+            "5 · Autonomous: Plans and acts, with approvals",
+        ],
+        "Day 2 stopped at rung 3. Today is rungs 4 and 5. Each rung up needs more design, testing, and governance.",
+    ),
+    (
+        "columns",
+        "What still holds",
+        [
+            "Mask → Ask → Check: Every input and every output",
+            "Tests first: Questions with known answers",
+            "Request vs. lock: Instructions ask; permissions enforce",
+            "Draft, not decide: People approve what leaves the agent",
+        ],
+        "Ask: who built an agent after Day 2? What happened when someone else used it?",
+    ),
+    (
+        "columns",
+        "What's new today",
+        [
+            "No one is watching: The agent runs when nobody is at the keyboard",
+            "Untrusted input: Whoever sends the email writes part of the prompt",
+            "Real actions: It can post, write, and send",
+            "Real cost: Every run uses capacity",
+        ],
+        "These four ideas come back in every block. The 3:00 block is built on them.",
+    ),
+    (
+        "section",
+        "From Agent Builder to Copilot Studio · 8:30",
+        ["Hands-on · 75 min"],
+        "",
+    ),
+    (
+        "columns",
+        "Two builders, one idea",
+        [
+            "Agent builder: In Copilot Chat. A person starts every conversation",
+            "Copilot Studio: Triggers, tools, connected agents, channels, analytics",
+            "Power Automate: Rules-based flows; Copilot Studio uses the same connectors",
+        ],
+        "Confirm TIYA's licensing and environment before the day. See the facilitator guide's readiness card.",
+    ),
+    (
+        "content",
+        "A tour of Copilot Studio",
+        [
+            "Overview: instructions and description",
+            "Knowledge · Tools · Agents · Topics",
+            "Triggers on the Overview page",
+            "Test pane and the activity map",
+            "Publish and channels",
+        ],
+        "Keep it to 10 minutes. Note the tenant's exact labels during prep; the interface changes often.",
+    ),
+    (
+        "demo",
+        "Build 1 · SOP Navigator in Copilot Studio",
+        [
+            "Same instructions as Day 2",
+            "Knowledge: the sandbox SOP library",
+            "Test pane: watch which source it used",
+        ],
+        "Show the activity map after the first test question. That's the habit for the whole day.",
+    ),
+    (
+        "content",
+        "Tools: how an agent acts",
+        [
+            "A tool is a connector action the agent may call",
+            "Its name and description tell the agent when to use it",
+            "Every tool you add is something it can do without asking",
+        ],
+        "Add only the tools the job needs. That's a lock, not a request.",
+    ),
+    (
+        "exercise",
+        "Rebuild, retest, publish",
+        [
+            "Port the Navigator; rerun the Day 2 tests",
+            "Publish it, and allow other agents to connect",
+        ],
+        "35 min. Build 4 connects to this agent, so everyone must publish.",
+    ),
+    (
+        "content",
+        "Debrief",
+        [
+            "Did any Day 2 test give a different answer here?",
+            "What did the activity map show you that the chat didn't?",
+        ],
+        "",
+    ),
+    ("section", "Event-Triggered Agents · 10:00", ["Hands-on · 105 min"], ""),
+    (
+        "columns",
+        "Anatomy of a trigger",
+        [
+            "Event: A new email, a new file, a new list item",
+            "Condition: Only when… (subject, folder, sender)",
+            "Payload: The event's content plus your instructions",
+            "Action: What the agent does with it",
+            "Human check: Who approves before anything leaves",
+        ],
+        "In Copilot Studio, the trigger sends a payload to the agent as a message. The agent follows its instructions plus the payload's.",
+    ),
+    (
+        "columns",
+        "Agent instructions vs. payload instructions",
+        [
+            "Agent instructions: Who it is and how it always behaves",
+            "Payload instructions: What to do with this one event",
+            "Never: Let them conflict",
+        ],
+        "Microsoft's guidance: with more than one trigger, put the event-specific steps in each payload.",
+    ),
+    (
+        "content",
+        "The email is not your instructions",
+        [
+            "The sender writes part of what the agent reads",
+            "Treat the body as data to classify, never as orders",
+            "Say so in the instructions, then test it",
+        ],
+        "This is the most important idea of the day. The red-team block at 3:00 tests it.",
+    ),
+    (
+        "demo",
+        "Build 2 · Work Order Intake",
+        [
+            "Trigger: a new email with [WO-TRAIN] in the subject",
+            "Knowledge: FM-SOP-03 and FM-SOP-07",
+            "Tool: post a triage card to Teams; no send-email tool",
+        ],
+        "Stress the missing tool. The agent can't reply to the requester because we didn't give it a way to.",
+    ),
+    (
+        "exercise",
+        "Send the inbox",
+        [
+            "Send yourself the eight sample emails",
+            "Check each triage card against the key",
+        ],
+        "30 min. Rhodeen watches for triggers that never fire: usually the subject filter or the folder.",
+    ),
+    (
+        "columns",
+        "The three hard emails",
+        [
+            "#4 Override: Hidden orders in the body",
+            "#5 Health details: An injury in the report",
+            "#6 Duplicate: The agent can't remember #1",
+        ],
+        "Each one has a design answer. The duplicate one has no AI answer: a person, or a lookup in the work order system.",
+    ),
+    (
+        "content",
+        "Debrief",
+        [
+            "Which email did your agent get wrong first?",
+            "Was the fix a request or a lock?",
+            "What would have happened with a send-email tool?",
+        ],
+        "",
+    ),
+    ("section", "Scheduled Agents · 12:30", ["Hands-on · 60 min"], ""),
+    (
+        "columns",
+        "Two ways to run on a schedule",
+        [
+            "Scheduled prompt: In Copilot Chat. Personal, no build",
+            "Recurrence trigger: In Copilot Studio. Shared, can use tools",
+        ],
+        "Show a scheduled prompt for 2 minutes if TIYA's tenant has it; note who sees the result.",
+    ),
+    (
+        "content",
+        "Let the flow count; let the agent write",
+        [
+            "Totals and dates come from data, not from the model",
+            "The agent explains, summarizes, and flags",
+            "Every number in the briefing gets checked",
+        ],
+        "Day 2's B-410 trap is the reason. A model reading rows can miscount.",
+    ),
+    (
+        "demo",
+        "Build 3 · Monday Backlog Briefing",
+        [
+            "Recurrence trigger · Excel tool · Teams post",
+            "Test every 5 minutes; then Monday 7:00; then off",
+        ],
+        "Show the run history after the first run. Then show where to turn the trigger off.",
+    ),
+    (
+        "exercise",
+        "Check the briefing",
+        ["Open, overdue, and the repeat failure", "Against the answer key"],
+        "25 min",
+    ),
+    (
+        "content",
+        "Debrief",
+        [
+            "Which number was wrong, if any?",
+            "Who reads this every Monday, and what do they do with it?",
+            "How would you know if it silently stopped?",
+        ],
+        "The last question sets up monitoring at 3:00.",
+    ),
+    ("section", "Multi-Agent Orchestration · 1:30", ["Hands-on · 75 min"], ""),
+    (
+        "columns",
+        "Why more than one agent",
+        [
+            "Focus: Each agent does one job well",
+            "Reuse: One SOP agent serves many",
+            "Ownership: Different teams own different agents",
+        ],
+        "",
+    ),
+    (
+        "columns",
+        "Child or connected?",
+        [
+            "Child agent: Lives inside the main agent. One owner, not reused",
+            "Connected agent: Its own published agent. Own owner, reused by others",
+        ],
+        "Microsoft's guidance: start with one agent. Split when tool choice degrades, or ownership and reuse demand it.",
+    ),
+    (
+        "content",
+        "The cost of a team",
+        [
+            "Every hand-off adds time",
+            "Every agent is another thing to test and govern",
+            "An error in one agent flows into the next",
+        ],
+        "",
+    ),
+    (
+        "demo",
+        "Build 4 · Facilities Desk",
+        [
+            "Orchestrator: routes the question",
+            "Connected: your SOP Navigator",
+            "Children: Priority Advisor, Notice Drafter",
+        ],
+        "Open the activity map after each test to show which agent answered.",
+    ),
+    (
+        "exercise",
+        "Routing tests",
+        [
+            "Six questions, the expected agent for each",
+            "Fix descriptions, not just instructions",
+        ],
+        "30 min. Most routing failures are vague descriptions.",
+    ),
+    (
+        "exercise",
+        "One agent or many?",
+        ["Four TIYA scenarios", "Single, child, connected, or not an agent"],
+        "10 min",
+    ),
+    ("section", "Operating Autonomous Agents · 3:00", ["45 min"], ""),
+    (
+        "columns",
+        "Five new risks",
+        [
+            "Injection: Input carries orders",
+            "Credentials: It acts with its maker's connections",
+            "Silence: It fails with no one watching",
+            "Cost: Every run uses capacity",
+            "Chains: One agent's error feeds the next",
+        ],
+        "Credentials: confirm during prep how TIYA's triggers authenticate. The point stands either way: whose access does the agent use?",
+    ),
+    (
+        "exercise",
+        "Red-team your intake agent",
+        ["Three attack emails", "Did it obey the email?"],
+        "15 min",
+    ),
+    (
+        "content",
+        "The off switch",
+        [
+            "Turn off the trigger",
+            "Disable a child or connected agent",
+            "Unpublish the agent",
+            "Know which one, before you need it",
+        ],
+        "",
+    ),
+    (
+        "exercise",
+        "Agent runbook",
+        ["Owner, trigger, normal, alarm, off switch, re-test"],
+        "15 min",
+    ),
+    (
+        "columns",
+        "Risk tiers for autonomous agents",
+        [
+            "Tier 2: Triggered, posts only to its owner or team, a person acts",
+            "Tier 3: Anything that sends, writes to a system of record, or reaches outside the team",
+        ],
+        "A triggered agent never starts below tier 2: it runs when no one is watching.",
+    ),
+    ("section", "Closing & Assessment · 3:45", ["15 min"], ""),
+    (
+        "exercise",
+        "Knowledge check and exit checklist",
+        ["Eight questions", "Show an instructor every trigger turned off"],
+        "10 min",
+    ),
+    (
+        "content",
+        "Next step",
+        [
+            "One trigger you'd propose at TIYA",
+            "Its runbook, on one page",
+            "The person who would approve it",
+        ],
+        "",
+    ),
+    (
+        "title",
+        "Thank you",
+        [
+            "Evaluation form · certificates at the door",
+            "Questions after today: [TIYA contact]",
+        ],
+        "",
+    ),
+]
+
+SLIDES: dict[str, list[Slide]] = {"day1": DAY1, "day2": DAY2, "day3": DAY3}

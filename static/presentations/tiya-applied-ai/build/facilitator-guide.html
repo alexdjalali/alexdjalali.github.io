@@ -4,11 +4,12 @@
     <div class="mast-top"><a class="home" href="index.html" aria-label="Course kit">{{LOGO}}</a><span class="mast-tag"><a class="kit-link" href="index.html">← Course kit</a> · Facilitator guide · instructors only</span></div>
     <div style="display:grid;gap:12px">
       <h1>Applied AI at TIYA Services: Facilitator Guide</h1>
-      <p class="mast-sub">Minute-by-minute run sheets, talking points, demos, and debriefs for both days. Day 1 runs on Microsoft 365 Copilot; Day 2 builds agents with the Copilot agent builder.</p>
+      <p class="mast-sub">The one document that covers all three days: minute-by-minute run sheets, talking points, demos, and debriefs. Day 1 runs on Microsoft 365 Copilot, Day 2 builds agents with the Copilot agent builder, and Day 3 builds triggered, scheduled, and multi-agent solutions in Copilot Studio.</p>
     </div>
     <div class="mast-meta">
       <span><b>Day 1</b>Tue, Oct 20, 2026</span>
       <span><b>Day 2</b>Wed, Oct 21, 2026</span>
+      <span><b>Day 3</b>[Date TBD]</span>
       <span><b>Lead</b>Alex Djalali</span>
       <span><b>Co-instructor</b>Alex Rhodeen</span>
     </div>
@@ -25,6 +26,7 @@
       <li><a href="#decide"><span class="t">Open</span><span>Decisions for the program owner</span></a></li>
       <li><a href="#d1"><span class="t">Oct 20</span><span>Day 1 · Generative AI for Daily Work</span></a></li>
       <li><a href="#d2"><span class="t">Oct 21</span><span>Day 2 · Agentic AI with Microsoft Copilot</span></a></li>
+      <li><a href="#d3"><span class="t">TBD</span><span>Day 3 · Advanced Agents with Copilot Studio</span></a></li>
       <li><a href="#after"><span class="t">After</span><span>Follow-up</span></a></li>
     </ol>
   </nav>
@@ -33,8 +35,8 @@
   <section class="part" id="design">
     <div class="part-head">
       <p class="kicker">Course design</p>
-      <h2>How the two days fit together</h2>
-      <p class="lede">Both days teach one habit, Mask → Ask → Check, and practice it on one set of fictional TIYA-style documents. Participants spend most of the day at the keyboard; instruction comes in short bursts between exercises.</p>
+      <h2>How the three days fit together</h2>
+      <p class="lede">Each day climbs one part of the autonomy ladder: Day 1 prompts, Day 2 on-demand agents, Day 3 agents that start themselves. All three teach one habit, Mask → Ask → Check, and practice it on one set of fictional TIYA-style documents. Participants spend most of the day at the keyboard; instruction comes in short bursts between exercises.</p>
     </div>
 
     <div class="loop" aria-label="The Mask, Ask, Check loop">
@@ -46,9 +48,9 @@
     <div class="prose">
       <h3 class="sec">Design principles</h3>
       <ul>
-        <li><strong>Keyboard time first.</strong> Every block except the policy block has participants typing within 15 minutes of its start. Day 1 has about 5.5 hours hands-on; Day 2 has 3.5 hours of building, plus design and red-team exercises.</li>
+        <li><strong>Keyboard time first.</strong> Every block except the policy block has participants typing within 15 minutes of its start. Day 1 has about 5.5 hours hands-on; Day 2 has 3.5 hours of building, plus design and red-team exercises; Day 3 has about 5.25 hours of building.</li>
         <li><strong>One habit, repeated.</strong> Mask → Ask → Check appears on every exercise card, so by 4:30 it is reflexive and the closing assessment tests it directly.</li>
-        <li><strong>One sample world.</strong> The same fictional work orders, SOPs, and building names run through both days. Participants spend their attention on the AI technique, not on learning new material each hour. Day 2 introduces its own files (the sandbox SOPs and the work order export), so a Day 2 cohort that took Day 1 months earlier doesn't need to remember the Day 1 samples.</li>
+        <li><strong>One sample world.</strong> The same fictional work orders, SOPs, and building names run through both days. Participants spend their attention on the AI technique, not on learning new material each hour. Day 2 introduces its own files (the sandbox SOPs and the work order export), so a Day 2 cohort that took Day 1 months earlier doesn't need to remember the Day 1 samples. Day 3 reuses the Day 2 SOPs and export and adds a fictional inbox. Each day's materials stand alone: its own participant page, workbook, agenda, assessment kit, and zip.</li>
         <li><strong>Real work, masked.</strong> The role lab and the Day 2 build invite participants to bring a real task, but only after masking it. Instructors check masking before anyone pastes.</li>
         <li><strong>AI drafts, people decide.</strong> No exercise ends with AI output used as-is. Each one ends with a Check step and a share-out about what had to be fixed.</li>
       </ul>
@@ -56,7 +58,7 @@
       <h3 class="sec">Instructor roles</h3>
       <ul>
         <li><strong>Djalali (lead):</strong> delivers instruction blocks, runs live demos, leads debriefs, keeps time.</li>
-        <li><strong>Rhodeen (co-instructor):</strong> runs the morning login check, circulates during labs, owns the remote channel, collects prompts for the "prompt wall", flags masking problems quietly to individuals. Swap lead on the leadership block (Day 1) and the governance block (Day 2) if you want a change of voice.</li>
+        <li><strong>Rhodeen (co-instructor):</strong> runs the morning login check, circulates during labs, owns the remote channel, collects prompts for the "prompt wall", flags masking problems quietly to individuals. Swap lead on the leadership block (Day 1), the governance block (Day 2), and the operations block (Day 3) if you want a change of voice. On Day 3, Rhodeen also owns the trigger shutdown check.</li>
       </ul>
 
       <h3 class="sec">Remote participants</h3>
@@ -71,8 +73,9 @@
       <ul>
         <li><strong>Participant workbooks</strong>, one for each day: a printed copy of that day's workbook for each participant plus the digital version (prompts are copy-ready). The Day 2 workbook opens with a one-page Day 1 review.</li>
         <li><strong>Slide outlines</strong>, built into PowerPoint with GT branding.</li>
-        <li><strong>Assessment kit</strong>: knowledge checks, exit tasks, rubrics, certificate criteria, evaluation form.</li>
-        <li><strong>Materials folder</strong> (<code>materials/</code>): sample SOPs as Word files and a work order export as CSV. Upload these to a training SharePoint site before Day 2.</li>
+        <li><strong>Assessment kits</strong>, one for each day: knowledge check, exit task or checklist, rubric, answer keys, certificate criteria, evaluation form.</li>
+        <li><strong>Materials folder</strong> (<code>materials/</code>): sample SOPs as Word files and a work order export as CSV. Upload these to a training SharePoint site before Day 2. Day 3 adds <code>materials/day3/</code>: the sample inbox and the export as an Excel table.</li>
+        <li><strong>Day 3 outline</strong> for the program owner: purpose, prerequisites, outcomes, the 8:00–4:00 plan, environment requirements, and open decisions.</li>
         <li>Printed: Mask/Ask/Check table tents, "Can I paste this?" quick-fire cards, red-team attack cards, certificates.</li>
       </ul>
     </div>
@@ -129,10 +132,23 @@
           <li>Backup plan ready (below).</li>
         </ul>
       </div>
+      <div class="card">
+        <span class="tag">T−14 days · Day 3 · TIYA IT</span>
+        <h4>Copilot Studio</h4>
+        <ul class="checks">
+          <li>A Copilot Studio license for every Day 3 participant and both instructors, and maker access to one training environment.</li>
+          <li>Event triggers, agent flows, and child and connected agents are available in TIYA's cloud (commercial, GCC, or GCC High).</li>
+          <li>Data policies allow the Office 365 Outlook, Microsoft Teams, Excel Online (Business), and SharePoint connectors in that environment.</li>
+          <li>Enough capacity for the day; the Day 3 outline has the estimate.</li>
+          <li>The Day 2 sandbox SOP site still exists, with read access for every Day 3 participant.</li>
+          <li>Instructors build all four Day 3 agents end to end, send the full inbox, and record the tenant's labels, trigger timing, and which connection each trigger and tool uses.</li>
+          <li>A named owner who switches off or deletes every training agent and trigger after the day.</li>
+        </ul>
+      </div>
     </div>
     <div class="flag">
       <b>Backup plan if Copilot is down or blocked</b>
-      <p>Switch to instructor-driven mode: the lead runs the exercise prompts on the instructor account on screen while tables write their own GCSE prompts on paper and predict the output. Every exercise card works this way. For Day 2, walk through the saved build screenshots and have pairs complete the design canvas and test plan on paper.</p>
+      <p>Switch to instructor-driven mode: the lead runs the exercise prompts on the instructor account on screen while tables write their own GCSE prompts on paper and predict the output. Every exercise card works this way. For Day 2, walk through the saved build screenshots and have pairs complete the design canvas and test plan on paper. For Day 3, run Builds 2–4 as instructor demos on screen; participants fill in the triage log, routing tests, and runbook from the demo output.</p>
     </div>
   </section>
 
@@ -148,7 +164,8 @@
         <li><strong>Day 2 outcomes vs. agent builder.</strong> Outcome 2 promises <em>autonomous</em> agents and the outline lists <em>event triggers</em>. The agent builder makes on-demand agents; triggers and autonomous agents need Copilot Studio or Power Automate. This guide teaches triggers as a concept with an instructor demo and a design exercise. Either soften the outcome ("design … and deploy agents, and design event-triggered automations") or provide a Copilot Studio environment for the demo.</li>
         <li><strong>Day 2 closing.</strong> The Day 2 outline ends at 4:30 with no closing or assessment. This guide uses the last 10 minutes of the governance block for the exit checklist and certificates. If the day runs to 5:00, move them to a 4:30–5:00 closing block.</li>
         <li><strong>Day 2 headers.</strong> The Day 2 outline reuses Day 1's session titles. Suggested: Morning "Agent Foundations & First Builds"; Afternoon "Deploy, Trigger & Govern".</li>
-        <li><strong>Certificate criteria.</strong> The assessment kit proposes: full attendance (up to 30 minutes excused) plus a completed exit task. Confirm, or set a stricter bar.</li>
+        <li><strong>Certificate criteria.</strong> Each day's assessment kit proposes full attendance (up to 30 minutes excused) plus that day's evidence of work: the Day 1 exit task, the Day 2 agent and governance card, and the Day 3 intake agent, runbook, and trigger shutdown check. Confirm, or set a stricter bar.</li>
+        <li><strong>Day 3 date and access.</strong> Day 3 has no date yet, and it can't run as designed without Copilot Studio licenses (readiness card above). The <a href="day3-outline.html">Day 3 outline</a> lists the remaining Day 3 decisions: cohort size and who approves triggered agents at TIYA.</li>
       </ol>
     </div>
   </section>
@@ -559,6 +576,221 @@
     </article>
   </section>
 
+  <!-- DAY 3 -->
+  <section class="part day" id="d3">
+    <div class="part-head">
+      <p class="kicker">Day 3 · [Date TBD] · 8:00 AM – 4:00 PM</p>
+      <h2>Advanced Agents with Copilot Studio</h2>
+      <p class="lede">Outcomes: <strong>LO1</strong> choose and design on-demand, event, or scheduled agents · <strong>LO2</strong> build triggered and scheduled agents with a human check · <strong>LO3</strong> build an orchestrated multi-agent solution, and know when not to · <strong>LO4</strong> operate autonomous agents safely. Day 3 is for Day 2 completers who will own agents. The program owner's outline is <a href="day3-outline.html">a separate document</a>. Everything runs in Copilot Studio, so the Day 3 readiness card above is not optional.</p>
+    </div>
+
+    <!-- 8:00 -->
+    <article class="block" id="d3-open">
+      <div class="block-head">
+        <div class="block-time"><span>8:00 – 8:30</span><span class="dur">30 min</span></div>
+        <h3>Welcome &amp; Day 2 in Review</h3>
+        <p class="goal"><b>Goal</b>Everyone is logged in to Copilot Studio, and the room shares four new ideas the rest of the day depends on.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">8:00</td><td>Welcome and logistics. Say "turn your triggers off before you leave" now; you'll check it at 3:45.</td><td></td></tr>
+          <tr><td class="tm">8:05</td><td><strong>Login check.</strong> Open Copilot Studio in the training environment, create a blank agent, delete it. Open Outlook and Teams in other tabs. Rhodeen escalates anyone who can't.</td><td></td></tr>
+          <tr><td class="tm">8:10</td><td><strong>Day 2 in review.</strong> The autonomy ladder, then four rules that still hold. Ask who built an agent after Day 2 and what happened when someone else used it.</td><td>Day 2 in one page</td></tr>
+          <tr><td class="tm">8:20</td><td><strong>What's new today:</strong> no one is watching, untrusted input, real actions, real cost.</td><td>New today</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"On Day 2, every agent waited for someone to ask. Today's agents start themselves, at 2 AM on a Sunday if that's when the email arrives. Everything you learned still applies, but a person isn't sitting there reading each answer as it appears. So we design the human check into the agent instead."</p></div></div>
+      </div>
+    </article>
+
+    <!-- 8:30 -->
+    <article class="block" id="d3-studio">
+      <div class="block-head">
+        <div class="block-time"><span>8:30 – 9:45</span><span class="dur">75 min · hands-on</span></div>
+        <h3>From Agent Builder to Copilot Studio</h3>
+        <div class="los"><span class="lo">LO2</span></div>
+        <p class="goal"><b>Goal</b>Participants can find their way around Copilot Studio, rebuild a known agent there, see what it used in the activity view, and publish it for other agents.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">8:30</td><td><strong>Two builders, one idea.</strong> Agent builder vs. Copilot Studio vs. Power Automate.</td><td></td></tr>
+          <tr><td class="tm">8:35</td><td><strong>Tour</strong> (10 min): Overview, Knowledge, Tools, Agents, Topics, triggers, test pane, activity view, Publish.</td><td>Page map</td></tr>
+          <tr><td class="tm">8:45</td><td><strong>Tools: how an agent acts.</strong> A tool's name and description tell the agent when to call it; every tool is something it can do without asking.</td><td></td></tr>
+          <tr><td class="tm">8:50</td><td><strong>Build 1 · SOP Navigator (Studio)</strong>, demo then hands-on: same instructions as Day 2, the sandbox library as knowledge, general knowledge and web search off. Rerun the Day 2 tests. Publish and allow other agents to connect.</td><td>Build 1 · Retest log</td></tr>
+          <tr><td class="tm">9:35</td><td>Debrief.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue do"><b>Demo</b><div><p>Use the configure view so screens match. After the first test question, open the activity view and show which knowledge source it used. Make that the habit for the whole day. Before the event, record TIYA's tenant labels for: the general-knowledge and web-search settings, the setting that lets other agents connect, and Publish. Copilot Studio's interface changes often.</p></div></div>
+        <div class="cue say"><b>Settings as locks</b><div><p>"On Day 2, 'don't answer from general knowledge' was a request in the instructions. Here you can turn general knowledge off. That's a lock. Whenever a setting can enforce something, use the setting and keep the instruction as backup."</p></div></div>
+        <div class="cue watch"><b>Watch for</b><div><ul>
+          <li>Knowledge still indexing: answers say "I can't find that" for a few minutes after adding the library. Wait before changing instructions.</li>
+          <li>Participants who skip Publish. Build 4 can't connect to an unpublished agent; check before the break.</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Did any Day 2 test give a different answer here? Why?</li>
+          <li>What did the activity view show that the chat didn't?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 10:00 -->
+    <article class="block" id="d3-trig">
+      <div class="block-head">
+        <div class="block-time"><span>10:00 – 11:45</span><span class="dur">105 min · hands-on</span></div>
+        <h3>Event-Triggered Agents</h3>
+        <div class="los"><span class="lo">LO1</span><span class="lo">LO2</span><span class="lo">LO4</span></div>
+        <p class="goal"><b>Goal</b>Each participant builds an agent that starts on a new email, triages it against FM-SOP-03, and posts a card for a person, with no way to reply on its own.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">10:00</td><td><strong>Anatomy of a trigger:</strong> event, condition, payload, action, human check. Agent instructions vs. payload instructions.</td><td>Trigger canvas</td></tr>
+          <tr><td class="tm">10:10</td><td><strong>The email is not your instructions.</strong> The day's most important idea.</td><td></td></tr>
+          <tr><td class="tm">10:15</td><td><strong>Build 2 · Work Order Intake</strong>, demo then hands-on. Knowledge: FM-SOP-03 and FM-SOP-07. Tool: Teams post to yourself with fixed recipient. Trigger: new email with <code>[WO-TRAIN]</code> in the subject.</td><td>Build 2</td></tr>
+          <tr><td class="tm">10:55</td><td><strong>Send the inbox.</strong> Each participant sends themselves the eight sample emails and fills in the triage log.</td><td>The inbox · Triage log</td></tr>
+          <tr><td class="tm">11:25</td><td><strong>The three hard emails:</strong> #4 override, #5 health details, #6 duplicate. Fix one thing and resend.</td><td>Triage log</td></tr>
+          <tr><td class="tm">11:35</td><td>Debrief.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"When a trigger fires, the agent reads the email. That means whoever wrote the email wrote part of the agent's prompt. Most senders are colleagues, but the agent can't tell a colleague from someone who wants to trick it. So we treat every email as data to classify, never as instructions, and we make sure that even a fooled agent can't do anything harmful. Look at the tools: it can post one card to you. That's all."</p></div></div>
+        <div class="cue do"><b>Build 2</b><div><p>Each participant's trigger watches <em>their own</em> inbox, filtered on <code>[WO-TRAIN]</code>, so 30 people don't trigger each other's agents. The Teams tool posts to a chat with the Flow bot, with the recipient fixed to the participant. During prep: confirm in TIYA's tenant whether a trigger fires before the agent is published or only after, how long the first run takes, and which account's connection the trigger and tools use. Write all three on this card.</p></div></div>
+        <div class="cue watch"><b>Watch for</b><div><ul>
+          <li>Triggers that never fire: usually the subject filter (brackets, spacing) or the wrong folder. Check the activity page before the instructions.</li>
+          <li>Cards that repeat the injured person's details from email 5. Fix: the boundary instruction, and check that it's above the format block.</li>
+          <li>Anyone who adds a send-email tool "to make it useful". Ask what email 4 would have done with it.</li>
+          <li>Participants pasting real work emails. Today's inbox is fictional for a reason.</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Which email did your agent get wrong first? Was the fix a request or a lock?</li>
+          <li>What would email 4 have done if the agent had a send-email tool?</li>
+          <li>Email 6: how would a real version catch duplicates? (A person, or a tool that searches open work orders, not memory.)</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 12:30 -->
+    <article class="block" id="d3-sched">
+      <div class="block-head">
+        <div class="block-time"><span>12:30 – 1:30</span><span class="dur">60 min · hands-on</span></div>
+        <h3>Scheduled Agents</h3>
+        <div class="los"><span class="lo">LO1</span><span class="lo">LO2</span></div>
+        <p class="goal"><b>Goal</b>Participants build an agent that runs on a schedule, check its numbers against the source, and turn it off.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">12:30</td><td><strong>Two ways to run on a schedule.</strong> If TIYA's tenant has scheduled prompts in Copilot Chat, show one for 2 minutes. Then the recurrence trigger.</td><td>Comparison table</td></tr>
+          <tr><td class="tm">12:40</td><td><strong>Let the flow count; let the agent write.</strong> Recall the B-410 trap from Day 2.</td><td>Flag box</td></tr>
+          <tr><td class="tm">12:45</td><td><strong>Build 3 · Monday Backlog Briefing.</strong> Excel table in OneDrive, Excel tool, Teams tool, recurrence every 5 minutes for testing.</td><td>Build 3</td></tr>
+          <tr><td class="tm">1:05</td><td>Check the first briefing against the key. Fix, wait for one more run. Set Monday 7:00, then turn the trigger off.</td><td>Check the briefing</td></tr>
+          <tr><td class="tm">1:20</td><td>Debrief.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"A schedule is just a trigger whose event is the clock. The question is the same as this morning's: who reads this, and what do they do with it? A briefing that nobody reads is cost with no benefit. A briefing that someone forwards to the COR without checking is worse."</p></div></div>
+        <div class="cue do"><b>Build 3</b><div><p>The Excel connector needs a table, not a CSV, so participants use <code>work-orders-aug-sep-2026.xlsx</code> (table <code>WorkOrders</code>), saved to their own OneDrive. Fix location, file, and table as set values. During prep, run it once and note how long the Excel tool takes on 80 rows and whether the agent gets every row.</p></div></div>
+        <div class="cue watch"><b>Watch for</b><div><ul>
+          <li>Five-minute schedules left running. At 1:20, walk the room and check that every trigger is off.</li>
+          <li>Briefings that report fewer than 80 rows. The instructions say to stop and say so; check that it did.</li>
+          <li>Counts that are close but wrong. That's the lesson, not a failure: credit the participant who caught it.</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Which number was wrong, if any?</li>
+          <li>Who reads this every Monday, and what do they do with it?</li>
+          <li>If it silently stopped, who would notice, and when? (Sets up 3:00.)</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 1:30 -->
+    <article class="block" id="d3-multi">
+      <div class="block-head">
+        <div class="block-time"><span>1:30 – 2:45</span><span class="dur">75 min · hands-on</span></div>
+        <h3>Multi-Agent Orchestration</h3>
+        <div class="los"><span class="lo">LO3</span></div>
+        <p class="goal"><b>Goal</b>Participants build an orchestrator with one connected and two child agents, test its routing, and can say when one agent would have been better.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">1:30</td><td><strong>Why more than one agent</strong>: focus, reuse, ownership. <strong>Child or connected?</strong> <strong>The cost of a team</strong>: latency, more to govern, chained errors.</td><td>Child vs. connected</td></tr>
+          <tr><td class="tm">1:45</td><td><strong>Build 4 · Facilities Desk</strong>, demo then hands-on. Connect the Build 1 SOP Navigator; add Priority Advisor and Notice Drafter as child agents; reference them in the orchestrator's instructions with <code>/</code>.</td><td>Build 4</td></tr>
+          <tr><td class="tm">2:05</td><td><strong>Routing tests.</strong> Six questions; record which agents ran from the activity view. Fix descriptions first.</td><td>Routing tests</td></tr>
+          <tr><td class="tm">2:30</td><td><strong>One agent or many?</strong> Four scenarios, tables vote.</td><td>One agent or many?</td></tr>
+          <tr><td class="tm">2:40</td><td>Debrief.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Say</b><div><p>"The orchestrator picks an agent mostly by reading its description. If two descriptions sound alike, it guesses. So when routing goes wrong, fix the description of the agent that should have been picked before you touch any instructions. And remember Microsoft's own advice: start with one agent. Split when it starts choosing badly, or when different teams own the parts."</p></div></div>
+        <div class="cue do"><b>Demo</b><div><p>Run routing test 4 (leak + after-hours notification) and open the activity view: two agents run and the orchestrator combines them. That's the picture to leave on screen while people build.</p></div></div>
+        <div class="cue watch"><b>Watch for</b><div><ul>
+          <li>"Can't find the agent to connect": the Build 1 agent wasn't published or doesn't allow connections.</li>
+          <li>Test 2 routed to the SOP Navigator, which also has FM-SOP-03. Good teaching moment about overlapping descriptions.</li>
+          <li>Facilities Desk answering itself: general knowledge still on.</li>
+        </ul></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Which test routed wrong, and what fixed it?</li>
+          <li>Scenario 3, child agents or a single agent? (Expect debate.)</li>
+          <li>Where would you not use a team of agents at TIYA?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 3:00 -->
+    <article class="block" id="d3-ops">
+      <div class="block-head">
+        <div class="block-time"><span>3:00 – 3:45</span><span class="dur">45 min</span></div>
+        <h3>Operating Autonomous Agents</h3>
+        <div class="los"><span class="lo">LO4</span></div>
+        <p class="goal"><b>Goal</b>Participants attack their own triggered agent, rate its tier, and write the runbook someone else could operate it from.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">3:00</td><td><strong>Five new risks:</strong> injection, credentials, silence, cost, chains. Each with its lock.</td><td>Five new risks</td></tr>
+          <tr><td class="tm">3:08</td><td><strong>Red team.</strong> Turn the Build 2 trigger back on, send attack emails A1–A3, then one of your own. Log what the card said and whether the agent obeyed.</td><td>Red-team log</td></tr>
+          <tr><td class="tm">3:23</td><td><strong>The off switch and risk tiers.</strong> A triggered agent is never tier 1.</td><td>Risk tiers</td></tr>
+          <tr><td class="tm">3:28</td><td><strong>Runbook</strong> for the intake agent.</td><td>Runbook</td></tr>
+          <tr><td class="tm">3:40</td><td>Debrief.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue say"><b>Credentials</b><div><p>"When a triggered agent posts to Teams or reads a file, it does that with somebody's connection. Often it's the maker's. If you leave TIYA, or your access changes, the agent changes with you. And whatever your connection can reach, a fooled agent might reach too. Give it the least access the job needs, and write down whose it is." Confirm during prep how triggers and tools authenticate in TIYA's tenant, and correct this talking point if it differs.</p></div></div>
+        <div class="cue say"><b>The off switch</b><div><p>Three levels, smallest first: turn off the trigger; disable a child or connected agent on the Agents page; unpublish the agent. "Know which one you'd use, and where it is, before you need it. That's the most important line in the runbook."</p></div></div>
+        <div class="cue debrief"><b>Debrief</b><div><ol>
+          <li>Did any attack email work? Was your fix a request or a lock?</li>
+          <li>What tier is your intake agent? What would make it tier 3?</li>
+          <li>Who at TIYA should approve a triggered agent before it runs for real?</li>
+        </ol></div></div>
+      </div>
+    </article>
+
+    <!-- 3:45 -->
+    <article class="block" id="d3-close">
+      <div class="block-head">
+        <div class="block-time"><span>3:45 – 4:00</span><span class="dur">15 min</span></div>
+        <h3>Closing &amp; Assessment</h3>
+        <p class="goal"><b>Goal</b>Knowledge check, every trigger off, evaluation, certificates.</p>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Time</th><th>What happens</th><th>Workbook</th></tr></thead>
+        <tbody>
+          <tr><td class="tm">3:45</td><td>Knowledge check, eight questions, self-scored.</td><td>Day 3 assessment kit</td></tr>
+          <tr><td class="tm">3:52</td><td><strong>Shutdown check.</strong> Each participant shows an instructor that their triggers are off and no agent has a send-email tool; instructor initials the exit checklist.</td><td>Turn it all off</td></tr>
+          <tr><td class="tm">3:57</td><td>Next step (one trigger to propose, its runbook, its approver), evaluation, certificates.</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <div class="cues">
+        <div class="cue watch"><b>Watch for</b><div><p>Remote participants: Rhodeen checks their triggers by screen share before they leave the call. Don't issue a certificate until the shutdown check is initialed.</p></div></div>
+      </div>
+    </article>
+  </section>
+
   <!-- AFTER -->
   <section class="part" id="after">
     <div class="part-head">
@@ -567,15 +799,15 @@
     </div>
     <div class="prose">
       <ul>
-        <li><strong>Within 2 days:</strong> send participants the prompt wall (typed) and the materials links; Day 1 participants also get the team norms collected in L4, and Day 2 participants the list of agents they built.</li>
+        <li><strong>Within 2 days:</strong> send participants the prompt wall (typed) and the materials links; Day 1 participants also get the team norms collected in L4, and Day 2 participants the list of agents they built, Day 3 participants their runbooks.</li>
         <li><strong>Within 1 week:</strong> send TIYA leadership a summary: attendance, knowledge check averages by question, exit-task patterns (especially masking misses), evaluation scores, and the list of agents participants built with their risk tiers.</li>
         <li><strong>Within 30 days:</strong> a 15-question pulse survey asking how often participants used Copilot, for what, and what got in the way. This is the evidence for a second cohort.</li>
-        <li>Delete instructor test agents and the sandbox site, or hand them to TIYA IT to own.</li>
+        <li>Delete instructor test agents and the sandbox site, or hand them to TIYA IT to own. After Day 3, confirm in Copilot Studio that every training trigger is off and every training agent is unpublished or deleted.</li>
       </ul>
     </div>
   </section>
 </main>
 
 <footer class="foot">
-  <div class="wrap">{{LOGO}}<p>Applied AI at TIYA Services · Facilitator guide · October 20–21, 2026</p></div>
+  <div class="wrap">{{LOGO}}<p>Applied AI at TIYA Services · Facilitator guide · Days 1–3</p></div>
 </footer>

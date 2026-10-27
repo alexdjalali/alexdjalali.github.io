@@ -14,12 +14,21 @@ FONTS = (
 )
 PAGES = [
     "facilitator-guide",
-    "participant-workbook-day1",
-    "participant-workbook-day2",
     "index",
     "participants",
+    "participants-day1",
+    "participants-day2",
+    "participants-day3",
+    "participant-workbook-day1",
+    "participant-workbook-day2",
+    "participant-workbook-day3",
+    "assessment-kit-day1",
+    "assessment-kit-day2",
+    "assessment-kit-day3",
     "day2-sops",
-    "assessment-kit",
+    "day3-sops",
+    "day2-outline",
+    "day3-outline",
 ]
 
 
@@ -28,12 +37,17 @@ def size(path: pathlib.Path) -> str:
     if not path.exists():
         return "–"
     n = path.stat().st_size
-    return f"{n / 1_048_576:.1f} MB" if n >= 1_048_576 else f"{max(1, round(n / 1024))} KB"
+    return (
+        f"{n / 1_048_576:.1f} MB" if n >= 1_048_576 else f"{max(1, round(n / 1024))} KB"
+    )
 
 
 def build(name: str, css: str, logo: str) -> None:
-    """Write OUT/<name>.html from build/<name>.html with CSS and logo injected."""
+    """Write OUT/<name>.html from build/<name>.html with includes, CSS, and logo injected."""
     frag = (HERE / f"{name}.html").read_text()
+    frag = re.sub(
+        r"\{\{INCLUDE:([^}]+)\}\}", lambda m: (HERE / m.group(1)).read_text(), frag
+    )
     title, body = frag.split("\n", 1)
     html = (
         '<meta charset="utf-8">\n'

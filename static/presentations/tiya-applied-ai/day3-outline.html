@@ -1,0 +1,485 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TIYA AI Day 3 Outline · Advanced Agents with Copilot Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap">
+<style>
+/* Layout: GT navy masthead, then a single 760px reading column per document; agenda blocks are time-stamped sections, cues and prompts sit inline as typed callouts. */
+:root {
+  --navy: #051E39;
+  --gold: #B39051;
+  --gold-dark: #8F713D;
+  --gold-light: #DEBD88;
+  --buzz: #EAAA00;
+  --diploma: #F9F6E5;
+
+  --bg: #FFFFFF;
+  --surface: #F9F6E5;
+  --surface-2: #F2EEDB;
+  --paper: #FFFFFF;
+  --ink: #051E39;
+  --ink-soft: #3A4A5C;
+  --rule: #E3DCC4;
+  --accent: #8F713D;
+  --mast-bg: #051E39;
+  --mast-ink: #F9F6E5;
+  --slot-bg: #F6E7B8;
+  --slot-ink: #4A3A12;
+  --say: #003D69;
+  --do: #066034;
+  --watch: #9A5B00;
+  --remote: #660064;
+  --red: #B3261E;
+  --amber: #9A5B00;
+  --green: #066034;
+
+  --f-display: "Roboto Slab", "Rockwell", Georgia, serif;
+  --f-body: "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "Roboto Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #04172C;
+    --surface: #0A2643;
+    --surface-2: #0E2E50;
+    --paper: #0A2643;
+    --ink: #F9F6E5;
+    --ink-soft: #B9C2CC;
+    --rule: #1C3A5C;
+    --accent: #DEBD88;
+    --mast-bg: #020F1E;
+    --slot-bg: #4A3A12;
+    --slot-ink: #F6E7B8;
+    --say: #8FB8E0;
+    --do: #7CC79A;
+    --watch: #F0B95A;
+    --remote: #D59AD3;
+    --red: #F28B82;
+    --amber: #F0B95A;
+    --green: #7CC79A;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #04172C;
+  --surface: #0A2643;
+  --surface-2: #0E2E50;
+  --paper: #0A2643;
+  --ink: #F9F6E5;
+  --ink-soft: #B9C2CC;
+  --rule: #1C3A5C;
+  --accent: #DEBD88;
+  --mast-bg: #020F1E;
+  --slot-bg: #4A3A12;
+  --slot-ink: #F6E7B8;
+  --say: #8FB8E0;
+  --do: #7CC79A;
+  --watch: #F0B95A;
+  --remote: #D59AD3;
+  --red: #F28B82;
+  --amber: #F0B95A;
+  --green: #7CC79A;
+}
+
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.6; }
+h1, h2, h3, h4 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.25; color: var(--ink); }
+p, ul, ol { margin: 0; }
+a { color: inherit; text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--buzz); outline-offset: 3px; border-radius: 2px; }
+strong { font-weight: 700; }
+code { font-family: var(--f-mono); font-size: .9em; background: var(--surface); padding: 1px 5px; border-radius: 3px; }
+
+.wrap { max-width: 820px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 40px); }
+
+/* Masthead */
+.mast { background: var(--mast-bg); color: var(--mast-ink); }
+.mast .wrap { padding-block: 24px 36px; display: grid; gap: 26px; }
+.mast-top { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; }
+.gt-logo { height: 34px; width: auto; max-width: 100%; color: var(--mast-ink); display: block; }
+.mast-tag { font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-light); }
+.mast h1 { font-size: clamp(30px, 5.2vw, 46px); font-weight: 700; color: var(--mast-ink); }
+.mast-sub { color: #D4D9DF; max-width: 62ch; font-size: 17px; }
+.mast-meta { display: flex; flex-wrap: wrap; gap: 6px 28px; font-size: 14px; color: #D4D9DF; }
+.mast-meta b { color: var(--gold-light); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; font-size: 11px; margin-right: 6px; }
+.gold-rule { height: 6px; background: linear-gradient(to right, #8F713D, #B39051, #DEBD88, #8F713D); }
+
+/* Document flow */
+main.wrap { padding-block: 48px 72px; display: grid; gap: 56px; }
+.part { display: grid; gap: 28px; }
+.part-head { display: grid; gap: 10px; padding-top: 28px; border-top: 3px solid var(--ink); }
+.kicker { font-family: var(--f-mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.part-head h2 { font-size: clamp(26px, 4vw, 36px); font-weight: 700; }
+.lede { font-size: 17px; color: var(--ink-soft); max-width: 66ch; }
+.prose { display: grid; gap: 14px; max-width: 68ch; }
+.prose ul, .prose ol, .list { padding-left: 22px; display: grid; gap: 6px; }
+.prose li::marker, .list li::marker { color: var(--gold); }
+h3.sec { font-size: 22px; font-weight: 600; }
+h4.sub { font-family: var(--f-body); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+
+/* Contents */
+.toc { display: grid; gap: 10px; padding: 20px 24px; background: var(--surface); border-radius: 4px; }
+.toc ol { list-style: none; padding: 0; display: grid; gap: 6px; }
+.toc a { text-decoration: none; display: flex; gap: 14px; }
+.toc a:hover span:last-child { text-decoration: underline; }
+.toc .t { font-family: var(--f-mono); font-size: 13px; color: var(--ink-soft); min-width: 7.5rem; font-variant-numeric: tabular-nums; padding-top: 2px; }
+
+/* Agenda block */
+.block { display: grid; gap: 18px; scroll-margin-top: 16px; }
+.block-head { display: grid; gap: 8px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
+.block-time { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-family: var(--f-mono); font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.block-time .dur { color: var(--accent); }
+.block h3 { font-size: 24px; font-weight: 600; }
+.los { display: flex; flex-wrap: wrap; gap: 6px; }
+.lo { font-size: 12px; font-weight: 500; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--rule); color: var(--ink-soft); }
+.goal { font-size: 16px; max-width: 68ch; }
+.goal b { color: var(--accent); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; margin-right: 6px; }
+
+/* Run sheet */
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th { text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); padding: 8px 12px 8px 0; border-bottom: 2px solid var(--ink); }
+td { vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); }
+td.tm { font-family: var(--f-mono); font-size: 13px; white-space: nowrap; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+td.who { font-size: 13px; color: var(--ink-soft); white-space: nowrap; }
+td ul { padding-left: 18px; display: grid; gap: 2px; }
+
+/* Facilitator cues */
+.cues { display: grid; gap: 10px; }
+.cue { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 12px; padding: 12px 14px; background: var(--surface); border-radius: 4px; }
+.cue > b { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding-top: 3px; }
+.cue.say > b { color: var(--say); }
+.cue.do > b { color: var(--do); }
+.cue.watch > b { color: var(--watch); }
+.cue.remote > b { color: var(--remote); }
+.cue.debrief > b { color: var(--accent); }
+.cue ul, .cue ol { padding-left: 18px; display: grid; gap: 4px; }
+.cue p + p, .cue p + ul, .cue ul + p { margin-top: 6px; }
+@media (max-width: 520px) { .cue { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Prompt boxes */
+.prompt { display: grid; gap: 8px; }
+.prompt-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+.prompt pre {
+  margin: 0; white-space: pre-wrap; word-break: break-word; font-family: var(--f-mono); font-size: 14px; line-height: 1.6;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; padding: 14px 16px; color: var(--ink);
+}
+.slot { background: var(--slot-bg); color: var(--slot-ink); border-radius: 2px; padding: 0 3px; }
+.gcse { font-weight: 700; color: var(--accent); }
+
+/* Sample documents */
+.sample {
+  position: relative; background: var(--paper); border: 1px solid var(--rule); border-radius: 2px;
+  padding: 28px clamp(16px, 4vw, 32px) 24px; display: grid; gap: 12px; font-size: 15px;
+  box-shadow: 0 1px 0 var(--rule), 0 6px 18px -12px rgba(5, 30, 57, .35);
+}
+.sample::before {
+  content: "Sample · fictional"; position: absolute; top: 10px; right: 12px;
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--red); border: 1px solid var(--red); padding: 1px 6px; border-radius: 2px;
+}
+.sample h4 { font-family: var(--f-body); font-size: 15px; font-weight: 700; }
+.sample .docmeta { font-family: var(--f-mono); font-size: 12px; color: var(--ink-soft); }
+.sample ol, .sample ul { padding-left: 22px; display: grid; gap: 4px; }
+.sample pre { margin: 0; white-space: pre-wrap; font-family: var(--f-mono); font-size: 13px; line-height: 1.55; }
+
+/* Cards (lab tracks, scenarios) */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.card { display: grid; gap: 10px; align-content: start; padding: 18px 20px; border: 1px solid var(--rule); border-radius: 4px; background: var(--bg); }
+.card h4 { font-size: 18px; font-weight: 600; }
+.card .tag { font-family: var(--f-mono); font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; }
+.card ul, .card ol { padding-left: 18px; display: grid; gap: 4px; font-size: 15px; }
+
+/* Data ratings */
+.rate { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.rate::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: currentColor; }
+.rate.red { color: var(--red); }
+.rate.amber { color: var(--amber); }
+.rate.green { color: var(--green); }
+.lights { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 16px; }
+.light { display: grid; gap: 8px; align-content: start; padding: 16px 18px; border-top: 4px solid currentColor; background: var(--surface); }
+.light.red { color: var(--red); } .light.amber { color: var(--amber); } .light.green { color: var(--green); }
+.light > * { color: var(--ink); }
+.light > .rate { color: inherit; }
+.light ul { padding-left: 18px; display: grid; gap: 4px; font-size: 15px; }
+
+/* Framework strip */
+.loop { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+.loop > div { padding: 18px; display: grid; gap: 6px; align-content: start; }
+.loop > div + div { border-left: 1px solid var(--rule); }
+.loop .step { font-family: var(--f-display); font-size: 22px; font-weight: 700; color: var(--accent); }
+.loop p { font-size: 15px; }
+.loop ul { padding-left: 18px; font-size: 14px; display: grid; gap: 2px; }
+@media (max-width: 620px) { .loop { grid-template-columns: 1fr; } .loop > div + div { border-left: 0; border-top: 1px solid var(--rule); } }
+
+/* Write-in lines and checkboxes (workbook) */
+.lines { display: grid; gap: 0; }
+.lines span { display: block; height: 30px; border-bottom: 1px solid var(--rule); }
+.checks { list-style: none; padding: 0; display: grid; gap: 8px; }
+.checks li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; }
+.checks li::before { content: ""; width: 14px; height: 14px; border: 1.5px solid var(--ink-soft); border-radius: 2px; margin-top: 4px; }
+.canvas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 0; border: 1px solid var(--rule); }
+.canvas > div { padding: 12px 14px; min-height: 120px; border: 1px solid var(--rule); margin: -1px 0 0 -1px; display: grid; gap: 4px; align-content: start; }
+.canvas b { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.canvas small { color: var(--ink-soft); font-size: 13px; line-height: 1.4; }
+
+/* Notes for the program owner */
+.flag { display: grid; gap: 6px; padding: 14px 16px; border: 1px dashed var(--accent); border-radius: 4px; font-size: 15px; }
+.flag > b { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+
+/* Slides */
+.deck { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.slide { display: grid; grid-template-rows: auto 1fr auto; gap: 8px; padding: 14px 16px; min-height: 190px; border: 1px solid var(--rule); border-radius: 3px; background: var(--paper); }
+.slide-no { display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; color: var(--ink-soft); }
+.slide-no .ty { text-transform: uppercase; letter-spacing: .08em; color: var(--accent); }
+.slide h4 { font-size: 16px; font-weight: 600; line-height: 1.3; }
+.slide ul { padding-left: 16px; font-size: 13.5px; line-height: 1.45; display: grid; gap: 2px; color: var(--ink-soft); }
+.slide .note { font-size: 12.5px; color: var(--ink-soft); border-top: 1px solid var(--rule); padding-top: 6px; font-style: italic; }
+.slide.section { background: var(--mast-bg); border-color: var(--mast-bg); }
+.slide.section h4, .slide.section ul { color: var(--mast-ink); }
+.slide.section .slide-no, .slide.section .note { color: #B9C2CC; border-color: #1C3A5C; }
+.slide.section .slide-no .ty { color: var(--gold-light); }
+
+/* Quiz */
+.quiz { list-style: none; padding: 0; display: grid; gap: 22px; counter-reset: q; }
+.quiz > li { counter-increment: q; display: grid; gap: 8px; }
+.quiz > li > p:first-child::before { content: counter(q) ". "; font-weight: 700; color: var(--accent); }
+.quiz .opts { list-style: none; padding-left: 20px; display: grid; gap: 4px; }
+.quiz .key { font-size: 14px; color: var(--ink-soft); padding: 8px 12px; background: var(--surface); border-radius: 3px; }
+.quiz .key b { color: var(--green); }
+
+.foot { background: var(--mast-bg); color: var(--mast-ink); }
+.foot .wrap { padding-block: 24px; display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; }
+.foot .gt-logo { height: 26px; }
+.foot p { font-size: 13px; color: #B9C2CC; }
+
+@media print {
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  body { font-size: 11pt; }
+  .mast, .foot, .slide.section { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .part.day { break-before: page; }
+  .card, .cue, .sample, .light, .slide, .prompt, .canvas { break-inside: avoid; }
+  /* Grid lists overlap when a row splits across pages in Chrome; print them as blocks, items kept whole. */
+  .prose ul, .prose ol, .list { display: block; }
+  .prose li, .list li { margin-bottom: 6px; break-inside: avoid; }
+  tr { break-inside: avoid; }
+  .part-head { break-after: avoid; }
+  .toc { display: none; }
+}
+
+/* Course-kit navigation */
+.home { display: block; }
+.kit-link { color: inherit; text-decoration: none; }
+.kit-link:hover { text-decoration: underline; }
+@media print { .kit-link { display: none; } }
+
+/* Kit landing pages (index, participants): download buttons, deck cards, document rows. */
+.kit-mast .wrap { max-width: 1040px; }
+main.kit { max-width: 1040px; }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 8px 14px; box-sizing: border-box;
+  border: 1px solid var(--rule); border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--bg);
+}
+.btn:hover { border-color: var(--gold); }
+.btn:focus-visible { outline: 2px solid var(--buzz); outline-offset: 2px; }
+.btn.primary { background: var(--mast-bg); color: var(--mast-ink); border-color: var(--mast-bg); }
+.btn.primary:hover { border-color: var(--gold); }
+.btn small { font-family: var(--f-mono); font-size: 11px; color: var(--ink-soft); font-weight: 500; }
+.btn.primary small { color: var(--gold-light); }
+.fmt { font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+
+.everything { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; padding: 20px 24px; background: var(--surface); border-radius: 4px; }
+.everything p { max-width: 60ch; }
+
+.decks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 24px; }
+.deckcard { display: grid; gap: 14px; align-content: start; }
+.thumb {
+  position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 4px; overflow: hidden; container-type: inline-size;
+  background: #051E39; color: #F9F6E5; text-decoration: none; display: block; box-shadow: 0 10px 30px -18px rgba(5, 30, 57, .7);
+}
+.thumb .gt-logo { position: absolute; top: 6cqw; left: 7cqw; height: 5cqw; color: #F9F6E5; }
+.thumb .tt { position: absolute; left: 7cqw; right: 7cqw; top: 36%; display: grid; gap: 2cqw; }
+.thumb .ey { font-family: var(--f-mono); font-size: 2.4cqw; letter-spacing: .1em; text-transform: uppercase; color: #DEBD88; }
+.thumb .tn { font-family: var(--f-display); font-weight: 700; font-size: 7cqw; line-height: 1.1; text-wrap: balance; }
+.thumb::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1.4cqw; background: linear-gradient(to right, #8F713D, #B39051, #DEBD88, #8F713D); }
+.thumb:hover { outline: 2px solid var(--gold); outline-offset: 3px; }
+.thumb:focus-visible { outline: 2px solid var(--buzz); outline-offset: 3px; }
+.deckmeta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14px; color: var(--ink-soft); }
+.deckcard h3 { font-size: 22px; font-weight: 600; }
+
+.docs { display: grid; gap: 0; }
+.doc { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 24px; align-items: center; padding-block: 18px; border-top: 1px solid var(--rule); }
+.doc:last-child { border-bottom: 1px solid var(--rule); }
+.doc h3 { font-size: 19px; font-weight: 600; }
+.doc p { font-size: 15px; color: var(--ink-soft); max-width: 62ch; }
+.who { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 4px; }
+.who.inst { color: var(--remote); } .who.part { color: var(--do); } .who.all { color: var(--say); }
+@media (max-width: 640px) { .doc { grid-template-columns: 1fr; } }
+td .btn { min-height: 34px; padding: 4px 10px; }
+.keys { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--ink-soft); }
+kbd { font-family: var(--f-mono); font-size: 12px; border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 3px; padding: 1px 6px; color: var(--ink); background: var(--bg); }
+</style>
+<style>
+@media print { #who, #lo, #env, #assess, #mat, #open { break-inside: avoid; } }
+</style>
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-top"><a class="home" href="index.html" aria-label="Course kit"><svg class="gt-logo" role="img" aria-label="Georgia Tech" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 681.82346 121.32001"><defs><style>.gt-logo .cls-1{fill:currentColor;}</style></defs><path class="cls-1" d="M236.72,7a1.12,1.12,0,0,1,.48,1v8.3a.65.65,0,0,1-.69.69h-6.24a.65.65,0,0,1-.7-.69V12.21a.58.58,0,0,0-.27-.56A13.56005,13.56005,0,0,0,222,9.78c-5.82,0-8.46,2.5-9.78,6.31-.55,1.74-1.11,4.09-1.11,10.82s.35,9,.9,10.68c1.32,3.82,3.89,6.18,9.65,6.18,3.81,0,6.31-.77,7.69-1.67.56-.34.7-.55.7-1.11V31.77a.37.37,0,0,0-.42-.42h-7.49a.65.65,0,0,1-.69-.69V25.11a.65.65,0,0,1,.69-.69h15.12a.65005.65005,0,0,1,.7.69V45a1.62,1.62,0,0,1-.91,1.66c-3.74,2.71-9,4.44-15.53,4.44-9.51,0-15.12-3.54-17.55-11-1-2.91-1.18-5.76-1.18-13.18s.35-10.12,1.32-13c2.42-7.49,8.6-11.44,18.1-11.44C228.19,2.43,233.67,4.44,236.72,7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M272.51,25.39c.76,2.36,1.11,4.64,1.11,10a.68.68,0,0,1-.77.7h-20.6a.37.37,0,0,0-.41.41,7.3102,7.3102,0,0,0,.48,2.57c1.11,3.26,3.75,5.06,7.49,5.06A10,10,0,0,0,267.65,41a.72.72,0,0,1,1-.14l4.09,3.61a.62.62,0,0,1,.07,1c-2.84,3.33-7.56,5.69-13.73,5.69-7.08,0-12.07-3.47-13.94-9.29A25.76027,25.76027,0,0,1,244,33.64a26.70944,26.70944,0,0,1,1.11-8.25c1.87-5.83,7-9.23,13.66-9.23C265.64,16.16,270.63,19.7,272.51,25.39Zm-20.26,1.66a8.71987,8.71987,0,0,0-.41,2.85.37.37,0,0,0,.41.41h13.11a.37.37,0,0,0,.42-.41,8.44012,8.44012,0,0,0-.42-2.85,6.5,6.5,0,0,0-6.52-4.3C255.65,22.75,253.15,24.35,252.25,27.05Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M307,25.39a24.74007,24.74007,0,0,1,1.11,8.25A24.81037,24.81037,0,0,1,307,41.9c-1.87,5.82-7,9.22-13.73,9.22s-11.93-3.4-13.81-9.22a24.81011,24.81011,0,0,1-1.11-8.26,24.73981,24.73981,0,0,1,1.11-8.25c1.88-5.83,7-9.23,13.81-9.23S305.11,19.56,307,25.39Zm-20.05,2.08a19.26025,19.26025,0,0,0-.69,6.17,19.00043,19.00043,0,0,0,.69,6.17,6.26,6.26,0,0,0,6.32,4.37,6.17,6.17,0,0,0,6.24-4.37,19.00037,19.00037,0,0,0,.69-6.17,19.26,19.26,0,0,0-.69-6.17,6.11,6.11,0,0,0-6.24-4.37,6.21,6.21,0,0,0-6.34,4.37Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M335.76,16.79c.42.07.7.27.7.69v6c0,.49-.28.84-.83.7a23.20974,23.20974,0,0,0-4.1-.56c-4.92,0-7.49,2.64-7.49,8.6V43.14a.37.37,0,0,0,.42.42h3.26a.66.66,0,0,1,.69.62857q.00142.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H312.87a.66.66,0,0,1-.69-.7V44.25a.66.66,0,0,1,.62857-.69q.03072-.00143.06144,0h3a.37.37,0,0,0,.41-.42v-19a.37.37,0,0,0-.41-.42h-3a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7h10.48a.66.66,0,0,1,.69.7v3.47h.07a9.53,9.53,0,0,1,8.39-4.65A15.14957,15.14957,0,0,1,335.76,16.79Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M360.67,20.12h.06v-2.5a.66.66,0,0,1,.7-.7H371.9a.66.66,0,0,1,.7.7V23a.65.65,0,0,1-.7.69h-3a.37.37,0,0,0-.42.42V48.28c0,9.57-5.34,15.32-15.6,15.32-4.65,0-9.58-1.94-12.14-5a.62.62,0,0,1,.07-1l4.09-4.09a.64994.64994,0,0,1,1,0,10.26,10.26,0,0,0,7.28,3.12c5.14,0,7.49-2.78,7.49-8V45.57h-.06c-1.53,2.36-4.37,3.89-8.67,3.89-5.62,0-9.65-2.85-11.38-8.12a25.55011,25.55011,0,0,1-1.11-8.53,25.00021,25.00021,0,0,1,1.11-8.46c1.73-5.34,5.76-8.19,11.38-8.19C356.3,16.16,359.14,17.69,360.67,20.12Zm-12.56,7.21a16.18953,16.18953,0,0,0-.76,5.48,15.70993,15.70993,0,0,0,.76,5.48,6.24,6.24,0,0,0,11.86,0,15.47991,15.47991,0,0,0,.76-5.48,15.9399,15.9399,0,0,0-.76-5.48,6.27,6.27,0,0,0-11.86,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M387.23,16.92a.65.65,0,0,1,.69.7V43.14a.37.37,0,0,0,.42.42h3a.66.66,0,0,1,.7.69v5.41a.66.66,0,0,1-.7.7H376.76a.66.66,0,0,1-.7-.7V44.25a.66.66,0,0,1,.7-.69h3a.37.37,0,0,0,.42-.42v-19a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.7-.69V17.62a.66.66,0,0,1,.7-.7Zm0-13.73a.65.65,0,0,1,.69.7v6a.65.65,0,0,1-.69.69h-6.38a.65.65,0,0,1-.69-.69v-6a.65.65,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M423.3,27.81V43.14a.37.37,0,0,0,.41.42h3a.66.66,0,0,1,.69.62857q.00142.03069,0,.06143v5.41a.66.66,0,0,1-.69.7h-9.92a.66.66,0,0,1-.7-.7V47.24H416c-1.59,2.28-4.64,3.88-9.29,3.88-6,0-11.17-3.26-11.17-10.27,0-7.28,5.14-10.68,13.32-10.68h6.66a.36.36,0,0,0,.41-.41V28.44c0-3.82-1.45-5.83-6.86-5.83a18.26961,18.26961,0,0,0-3.61.42c-.28.07-.35.21-.35.48v3a.65.65,0,0,1-.69.69h-6a.66.66,0,0,1-.7-.69V19.42a.9.9,0,0,1,.56-.9,26.50979,26.50979,0,0,1,11.16-2.36C419.62,16.16,423.3,19.63,423.3,27.81ZM410.12,36c-4.93,0-7.15,1.46-7.15,4.58,0,2.77,2,4.23,5.69,4.23,4.72,0,7.28-1.87,7.28-5.69v-2.7c0-.28-.13-.42-.41-.42Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M461.86,3.19a.65.65,0,0,1,.69.7V9.3a.65.65,0,0,1-.69.69h-3.33a.37.37,0,0,0-.42.41V43.14a.37.37,0,0,0,.42.42h3.33a.65.65,0,0,1,.69.69v5.41a.65.65,0,0,1-.69.7H446.18a.66.66,0,0,1-.69-.7V44.25a.66.66,0,0,1,.62857-.69q.03072-.00143.06143,0h3.33a.37.37,0,0,0,.42-.42V10.4a.37.37,0,0,0-.42-.41h-3.33a.66.66,0,0,1-.69-.62857q-.00142-.03069,0-.06143V3.89a.66.66,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M499.13,28.58V43.14a.37.37,0,0,0,.41.42h2.85a.66.66,0,0,1,.69.62857q.00145.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H488a.65.65,0,0,1-.69-.7V44.25a.65.65,0,0,1,.69-.69h3a.37.37,0,0,0,.42-.42V30.38c0-4.3-2.08-7.28-6.24-7.28s-6.25,3-6.25,7.28V43.14a.37.37,0,0,0,.42.42h3a.66.66,0,0,1,.7.69v5.41a.66.66,0,0,1-.7.7H467.71a.66.66,0,0,1-.7-.7V44.25a.66.66,0,0,1,.7-.69h3a.37.37,0,0,0,.42-.42v-19a.37.37,0,0,0-.42-.42h-3A.64993.64993,0,0,1,467,23V17.62a.66.66,0,0,1,.7-.7h10.47a.65.65,0,0,1,.69.7v2.43h.07c1.46-2.08,4.3-3.89,8.6-3.89C494.69,16.16,499.13,21.43,499.13,28.58Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M532.16,18.52a.94.94,0,0,1,.55,1v6.94a.66.66,0,0,1-.6286.69q-.03067.00143-.0614,0H526.4a.65.65,0,0,1-.69-.69v-2.6a.51.51,0,0,0-.35-.55,14.31023,14.31023,0,0,0-5-.77c-3.89,0-5.62,1.32-5.62,3.4s1.11,3.19,5.62,3.68L524,30c7.77.91,10.61,4.44,10.61,10.06,0,6.8-4.92,11-14.35,11a28.40012,28.40012,0,0,1-12.49-2.64.79.79,0,0,1-.48-.83V40.16a.65.65,0,0,1,.69-.69h5.9a.65.65,0,0,1,.69.69v3.05a.47.47,0,0,0,.35.49,16.19,16.19,0,0,0,5.82.9c4.3,0,6.24-1.39,6.24-3.88,0-2.22-1.24-3.4-5.75-3.89l-3.68-.41c-7.28-.84-10.33-4.3-10.33-9.92,0-6.25,4.57-10.34,13.18-10.34A28.30014,28.30014,0,0,1,532.16,18.52Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M548.16,6.66a.65975.65975,0,0,1,.7.69v9.16a.36.36,0,0,0,.41.41h4.44a.66.66,0,0,1,.7.7V23a.65.65,0,0,1-.7.69h-4.44a.37.37,0,0,0-.41.42v16.3c0,2.36,1,3.12,3.12,3.12h1.73a.65975.65975,0,0,1,.7.69v5.62a.66.66,0,0,1-.7.7h-3.33c-6.72,0-9.29-3.26-9.29-9.79V24.14a.37.37,0,0,0-.42-.42h-2.22a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7h2.22c.28,0,.42-.13.42-.41V7.35a.66.66,0,0,1,.62854-.69q.03075-.00143.06146,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M570,16.92a.66.66,0,0,1,.7.7V43.14a.37.37,0,0,0,.41.42h3a.66.66,0,0,1,.69.62857q.00146.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H559.54a.64994.64994,0,0,1-.69-.7V44.25a.65.65,0,0,1,.69-.69h3a.37.37,0,0,0,.42-.42v-19a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.69-.69V17.62a.65.65,0,0,1,.69-.7Zm0-13.73a.66.66,0,0,1,.7.7v6a.65.65,0,0,1-.7.69h-6.38a.65.65,0,0,1-.69-.69v-6a.66.66,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M587.19,6.66a.65967.65967,0,0,1,.7.69v9.16a.36.36,0,0,0,.41.41h4.44a.66.66,0,0,1,.7.7V23a.65.65,0,0,1-.7.69H588.3a.37.37,0,0,0-.41.42v16.3c0,2.36,1,3.12,3.12,3.12h1.73a.65975.65975,0,0,1,.7.69v5.62a.66.66,0,0,1-.7.7h-3.33c-6.72,0-9.29-3.26-9.29-9.79V24.14a.37.37,0,0,0-.42-.42h-2.22a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7h2.22c.28,0,.42-.13.42-.41V7.35a.66.66,0,0,1,.62854-.69q.03075-.00143.06146,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M628.92,16.92a.66033.66033,0,0,1,.69.7V43.14a.37.37,0,0,0,.42.42h3a.66.66,0,0,1,.69.62857q.00147.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H622.53a.66024.66024,0,0,1-.69-.7V47.24h-.07c-1.8,2.28-4.37,3.88-8.6,3.88-7.14,0-11.44-5.27-11.44-12.42V24.14a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.7-.69V17.62a.66.66,0,0,1,.7-.7H608.8a.65.65,0,0,1,.69.7V36.9c0,4.3,2,7.28,6.18,7.28,4,0,6.17-3,6.17-7.21V24.14a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M646.26,6.66a.65.65,0,0,1,.69.69v9.16c0,.28.14.41.42.41h4.44a.65.65,0,0,1,.69.7V23a.65.65,0,0,1-.69.69h-4.44a.37.37,0,0,0-.42.42v16.3c0,2.36,1,3.12,3.13,3.12h1.73a.65.65,0,0,1,.69.60738.64342.64342,0,0,1,0,.08262v5.62a.65.65,0,0,1-.69.7h-3.33c-6.73,0-9.29-3.26-9.29-9.79V24.14a.37.37,0,0,0-.42-.42h-2.22a.65.65,0,0,1-.69-.69V17.62a.65.65,0,0,1,.69-.7h2.22c.28,0,.42-.13.42-.41V7.35a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M685.76,25.39c.77,2.36,1.11,4.64,1.11,10a.68.68,0,0,1-.76.7h-20.6a.37.37,0,0,0-.42.41,7.29893,7.29893,0,0,0,.49,2.57c1.11,3.26,3.74,5.06,7.49,5.06A10.08,10.08,0,0,0,680.91,41a.72.72,0,0,1,1-.14l4.09,3.6a.62.62,0,0,1,.07,1c-2.84,3.33-7.56,5.69-13.73,5.69-7.08,0-12.07-3.47-14-9.29a26.05062,26.05062,0,0,1-1.18-8.19,26.71065,26.71065,0,0,1,1.11-8.25c1.88-5.83,7-9.23,13.67-9.23C678.9,16.16,683.89,19.7,685.76,25.39Zm-20.25,1.66a8.43959,8.43959,0,0,0-.42,2.85.37.37,0,0,0,.42.41h13.11a.36.36,0,0,0,.41-.41,8.4591,8.4591,0,0,0-.41-2.85,6.5,6.5,0,0,0-6.52-4.3C668.91,22.75,666.41,24.35,665.51,27.05Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M158,104.24h0a3.11,3.11,0,1,0,3.05962,3.15958q.00048-.02979.00038-.05958a3.08,3.08,0,0,0-3.05953-3.10034q-.03525-.00024-.07048.00034Zm0,5.73a2.63,2.63,0,0,1,0-5.25h0a2.63,2.63,0,0,1,0,5.25Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M158.5,107.45h0a.86.86,0,0,0,.67-.84.85.85,0,0,0-.31-.72,1.87,1.87,0,0,0-1.08-.26,6.44922,6.44922,0,0,0-1,.08v3.46h.55v-1.49h.39a.65.65,0,0,1,.7345.55274q.004.0285.00551.05725a2.3301,2.3301,0,0,0,.24.88h.58a2.55,2.55,0,0,1-.22-.85C159,107.78,158.8,107.5,158.5,107.45Zm-.75-.22h-.4v-1.18h.4c.62,0,.84.3.84.6S158.21,107.23,157.75,107.23Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M59.92,3.17Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M74.23,37.05v27h14.5L90.26,56h6.52C94.39,68.35,82.09,76.9,66.5,76.9a28.88359,28.88359,0,0,1-3.22-.12C54.64,76.11,46.7,73.33,40.92,69c-6.38-4.84-9.73-11.3-9.7-18.7a27.65,27.65,0,0,1,9.51-20.73,35.38993,35.38993,0,0,1,21.94-8.58h1.58a45.44,45.44,0,0,1,28,10.24,4.89981,4.89981,0,0,0,.58.46,5.36062,5.36062,0,0,1,.56.45l.22.19h16.65V3.16H93.37V11.5C86.26,6.95,74.11,2.36,59.92,2.36h-.24A58.5,58.5,0,0,0,18.46,19.68C9.67,28.61,4.91,39.53,5.05,50.43c.16,11.72,5.8,22.64,15.91,30.75,9.66,7.76,22.77,12.21,35.94,12.21,1.63,0,3.28-.07,4.9-.2,13-1.06,24.62-4,32.79-8.42v3.61h17.93V56h6.19V93.55h-9.34v16.89H151V93.55h-9.34V56h21.11l1.47,8.11h14.57v-27ZM59.92,3.17Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M234.6,85.46a24.81035,24.81035,0,0,1,1.11,8.26A24.78032,24.78032,0,0,1,234.6,102c-1.88,5.83-7,9.22-13.74,9.22s-11.93-3.39-13.8-9.22a24.77961,24.77961,0,0,1-1.11-8.25,24.80983,24.80983,0,0,1,1.11-8.26c1.87-5.82,7-9.22,13.8-9.22S232.72,79.64,234.6,85.46Zm-20,2.08a19.32994,19.32994,0,0,0-.69,6.18,18.99983,18.99983,0,0,0,.69,6.17,6.69736,6.69736,0,0,0,12.56,0,18.99983,18.99983,0,0,0,.69-6.17,19.32994,19.32994,0,0,0-.69-6.18,6.14,6.14,0,0,0-6.25-4.37,6.21,6.21,0,0,0-6.36,4.37Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M258,63.27a.65.65,0,0,1,.69.69v5.55a.65.65,0,0,1-.69.69h-2.15c-3.47,0-4.23.84-4.23,4.09v2.29a.37.37,0,0,0,.42.42h6a.65.65,0,0,1,.69.69V83.1a.65.65,0,0,1-.69.7h-6a.37.37,0,0,0-.42.41v19c0,.28.14.41.42.41h3.67a.66.66,0,0,1,.7.7v5.41a.66.66,0,0,1-.7.69H240.49a.66.66,0,0,1-.69-.62857q-.00141-.03069,0-.06143v-5.41a.66.66,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41v-19a.37.37,0,0,0-.42-.41h-2.21a.66.66,0,0,1-.7-.7V77.69a.66.66,0,0,1,.7-.69h2.21a.37.37,0,0,0,.42-.42V74.43c0-7.77,3.82-11.16,11.1-11.16Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M313.11,63.27a.65.65,0,0,1,.7.69v11.1a.66.66,0,0,1-.7.69h-6a.66.66,0,0,1-.7-.69V70.9c0-.28-.13-.42-.41-.42h-7a.37.37,0,0,0-.41.42v32.32a.36.36,0,0,0,.41.41h3.61a.65.65,0,0,1,.69.7v5.41a.65.65,0,0,1-.69.69H286.34a.65.65,0,0,1-.69-.69v-5.41a.65006.65006,0,0,1,.69-.7H290a.36.36,0,0,0,.41-.41V70.9a.37.37,0,0,0-.41-.42h-7.08c-.28,0-.41.14-.41.42v4.16a.66.66,0,0,1-.7.69h-6a.65993.65993,0,0,1-.7-.69V64a.65.65,0,0,1,.7-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M339.2,85.46c.76,2.36,1.11,4.65,1.11,10.06a.67.67,0,0,1-.76.69H319a.37.37,0,0,0-.42.42,7.35033,7.35033,0,0,0,.49,2.57c1.1,3.26,3.74,5.06,7.49,5.06a10.07,10.07,0,0,0,7.83-3.19c.35-.35.7-.42,1-.14l4.1,3.61a.63.63,0,0,1,.07,1c-2.85,3.33-7.56,5.68-13.74,5.68-7.07,0-12.07-3.46-13.94-9.29a25.99986,25.99986,0,0,1-1.18-8.18,26.78005,26.78005,0,0,1,1.11-8.26c1.87-5.82,7-9.22,13.67-9.22C332.33,76.24,337.33,79.77,339.2,85.46ZM319,87.13a8.37928,8.37928,0,0,0-.42,2.84.37.37,0,0,0,.42.42h13.11a.37.37,0,0,0,.41-.42,8.65984,8.65984,0,0,0-.41-2.84c-.91-2.71-3.4-4.3-6.53-4.3S319.85,84.42,319,87.13Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M371.29,78.87a.9.9,0,0,1,.55.9V87.4a.66.66,0,0,1-.69.7h-5.9a.66.66,0,0,1-.69-.7V84.35c0-.28-.07-.34-.35-.48a11.65962,11.65962,0,0,0-4.23-.7c-3.54,0-5.9,1.46-6.87,4.37a19.86007,19.86007,0,0,0-.69,6.18,20.30925,20.30925,0,0,0,.69,6.24c1,2.84,3.33,4.3,6.87,4.3a10.57992,10.57992,0,0,0,4.23-.63c.28-.13.35-.2.35-.48V100a.66.66,0,0,1,.69-.7h5.9a.66.66,0,0,1,.69.7v7.7a.9.9,0,0,1-.55.9,24.89,24.89,0,0,1-11.52,2.56c-7.28,0-12.27-3.05-14.22-9a27.87031,27.87031,0,0,1-1-8.46,26.41,26.41,0,0,1,1-8.26c1.95-6,7.15-9.22,14.22-9.22A23.99993,23.99993,0,0,1,371.29,78.87Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M387.18,63.27a.65.65,0,0,1,.7.69V80.12H388c1.45-2.08,4.3-3.88,8.67-3.88,7.07,0,11.51,5.27,11.51,12.41v14.57c0,.28.14.41.42.41h2.84a.65.65,0,0,1,.69.7v5.41a.65.65,0,0,1-.69.69H397a.66.66,0,0,1-.69-.62857q-.00142-.03069,0-.06143v-5.41a.66.66,0,0,1,.69-.7h3a.36.36,0,0,0,.41-.41V90.46c0-4.3-2.08-7.29-6.24-7.29s-6.24,3-6.24,7.29v12.76a.36.36,0,0,0,.41.41h3a.66.66,0,0,1,.69.7v5.41a.66.66,0,0,1-.62857.69q-.03072.00141-.06143,0H376.71a.65.65,0,0,1-.69-.69v-5.41a.65006.65006,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41V70.48a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.69-.69V64a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M447.68,88.65v14.57c0,.28.14.41.42.41h2.84a.64995.64995,0,0,1,.69.7v5.41a.65.65,0,0,1-.69.69H436.51a.66.66,0,0,1-.69-.62857q-.00143-.03069,0-.06143v-5.41a.66.66,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41V90.46c0-4.3-2.08-7.29-6.24-7.29s-6.24,3-6.24,7.29v12.76a.36.36,0,0,0,.41.41h3a.66.66,0,0,1,.7.7v5.41a.66.66,0,0,1-.7.69h-14.6a.65.65,0,0,1-.69-.69v-5.41a.65006.65006,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41v-19a.37.37,0,0,0-.42-.41h-3a.65.65,0,0,1-.69-.7V77.69a.65.65,0,0,1,.69-.69h10.47a.66.66,0,0,1,.7.69v2.43h.07c1.45-2.08,4.3-3.88,8.6-3.88C443.24,76.24,447.68,81.51,447.68,88.65Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M483.25,85.46a24.81034,24.81034,0,0,1,1.11,8.26,24.77986,24.77986,0,0,1-1.11,8.25c-1.88,5.83-7,9.22-13.74,9.22s-11.93-3.39-13.8-9.22a24.77985,24.77985,0,0,1-1.11-8.25,24.81007,24.81007,0,0,1,1.11-8.26c1.87-5.82,7-9.22,13.8-9.22S481.37,79.64,483.25,85.46ZM463.2,87.54a19.3305,19.3305,0,0,0-.69,6.18,19.00037,19.00037,0,0,0,.69,6.17,6.26,6.26,0,0,0,6.31,4.37,6.18,6.18,0,0,0,6.25-4.37,19.00037,19.00037,0,0,0,.69-6.17,19.3305,19.3305,0,0,0-.69-6.18,6.13,6.13,0,0,0-6.25-4.37A6.21,6.21,0,0,0,463.2,87.54Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M497.4,63.27a.65.65,0,0,1,.69.69v36.62c0,2.29.9,3,2.91,3h1.53a.65.65,0,0,1,.69.7V110a.65.65,0,0,1-.69.69h-3c-6.52,0-9.16-3.33-9.16-9.78V70.48a.37.37,0,0,0-.41-.42h-3a.65.65,0,0,1-.69-.69V64a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M534.6,85.46a24.81007,24.81007,0,0,1,1.11,8.26A24.77979,24.77979,0,0,1,534.6,102c-1.87,5.83-7,9.22-13.73,9.22s-11.93-3.39-13.81-9.22a24.80959,24.80959,0,0,1-1.1-8.25,24.83982,24.83982,0,0,1,1.1-8.26c1.88-5.82,7-9.22,13.81-9.22S532.73,79.64,534.6,85.46Zm-20,2.08a18.99879,18.99879,0,0,0-.7,6.18,18.73027,18.73027,0,0,0,.7,6.17,6.26,6.26,0,0,0,6.31,4.37,6.18,6.18,0,0,0,6.24-4.37,18.76975,18.76975,0,0,0,.69-6.17,19.00031,19.00031,0,0,0-.69-6.18,6.12,6.12,0,0,0-6.24-4.37,6.21,6.21,0,0,0-6.35,4.37Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M561.1,80.19h.07v-2.5a.66.66,0,0,1,.7-.69h10.47a.65975.65975,0,0,1,.7.69V83.1a.66.66,0,0,1-.7.7h-3a.37.37,0,0,0-.42.41v24.14c0,9.57-5.34,15.33-15.6,15.33-4.65,0-9.58-1.94-12.14-5a.63.63,0,0,1,.07-1l4.09-4.09a.66.66,0,0,1,.93078-.06918.65334.65334,0,0,1,.06922.06918,10.26,10.26,0,0,0,7.28,3.12c5.14,0,7.49-2.77,7.49-8v-3.12h-.07c-1.52,2.35-4.37,3.88-8.67,3.88-5.61,0-9.64-2.84-11.37-8.11a25.57957,25.57957,0,0,1-1.11-8.54,25.1192,25.1192,0,0,1,1.11-8.46c1.73-5.34,5.76-8.18,11.37-8.18C556.73,76.24,559.58,77.76,561.1,80.19ZM548.55,87.4a16.22975,16.22975,0,0,0-.76,5.48,15.67,15.67,0,0,0,.76,5.48,6.24,6.24,0,0,0,11.86,0,15.44026,15.44026,0,0,0,.76-5.48,15.99985,15.99985,0,0,0-.76-5.48,6.27,6.27,0,0,0-11.86,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M608.78,77a.66.66,0,0,1,.69.62857q.00147.03069,0,.06143V83.1a.66.66,0,0,1-.69.7H607c-.27,0-.41.07-.55.41l-11,28.3c-3,7.84-5.69,10.41-11.24,10.41H582a.66024.66024,0,0,1-.69-.7v-5.55a.66.66,0,0,1,.64923-.67061c.01361-.00022.02716,0,.04077.0006h1.25c2.64,0,4-1.18,5-3.95l1-2.85-10.41-25a.46.46,0,0,0-.48-.34h-1.88a.66024.66024,0,0,1-.69-.7V77.69a.66.66,0,0,1,.62854-.69q.03076-.00143.06146,0h13a.65967.65967,0,0,1,.7.69V83.1a.66.66,0,0,1-.7.7H587.2c-.34,0-.41.21-.34.48l6,15.75H593l5.9-15.75a.34.34,0,0,0-.35-.48h-2.22a.64994.64994,0,0,1-.69-.7V77.69a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M606.09,104h0a3.39,3.39,0,1,0,3.33966,3.43959q.00045-.02979.00036-.05959a3.35,3.35,0,0,0-3.31982-3.37988C606.0968,104,606.08344,104,606.07,104Zm0,6.25a2.86,2.86,0,0,1,0-5.72h0a2.86,2.86,0,0,1,0,5.72Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M606.69,107.45h0a1,1,0,0,0,.39-1.7,1.99993,1.99993,0,0,0-1.17-.28,6.28986,6.28986,0,0,0-1.07.09v3.77h.6v-1.62h.42a.7.7,0,0,1,.81.66,2.901,2.901,0,0,0,.26,1h.63a3.14936,3.14936,0,0,1-.24-.93C607.24,107.81,607,107.51,606.69,107.45Zm-.81-.24h-.44v-1.28a3.94284,3.94284,0,0,1,.44,0c.67,0,.91.33.91.67S606.37,107.21,605.88,107.21Z" transform="translate(-5.047 -2.36)"/></svg></a><span class="mast-tag"><a class="kit-link" href="index.html">← Course kit</a> · Day 3 outline · for the program owner</span></div>
+    <div style="display:grid;gap:12px">
+      <h1>Day 3 Outline: Advanced Agents with Copilot Studio</h1>
+      <p class="mast-sub">The third day of Applied AI at TIYA Services. Day 2 built agents that wait for a person to ask. Day 3 builds agents that start themselves: on an incoming email, on a schedule, and by handing work to other agents. It also covers how to run them safely once no one is watching.</p>
+    </div>
+    <div class="mast-meta">
+      <span><b>Day 3</b>[Date TBD]</span>
+      <span><b>Hours</b>8:00 AM – 4:00 PM</span>
+      <span><b>Tool</b>Microsoft Copilot Studio</span>
+      <span><b>Instructors</b>Alex Djalali, Alex Rhodeen</span>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+</header>
+
+<main class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <h4 class="sub">Contents</h4>
+    <ol>
+      <li><a href="#who"><span class="t">1</span><span>Audience and prerequisites</span></a></li>
+      <li><a href="#lo"><span class="t">2</span><span>Learning outcomes</span></a></li>
+      <li><a href="#plan"><span class="t">3</span><span>The day, 8:00 to 4:00</span></a></li>
+      <li><a href="#builds"><span class="t">4</span><span>The four builds</span></a></li>
+      <li><a href="#env"><span class="t">5</span><span>Environment requirements</span></a></li>
+      <li><a href="#assess"><span class="t">6</span><span>Assessment and certificate</span></a></li>
+      <li><a href="#mat"><span class="t">7</span><span>Materials</span></a></li>
+      <li><a href="#open"><span class="t">8</span><span>Decisions for the program owner</span></a></li>
+    </ol>
+  </nav>
+
+  <section class="part" id="who">
+    <div class="part-head"><p class="kicker">1</p><h2>Audience and prerequisites</h2></div>
+    <div class="prose"><ul>
+      <li><strong>Who:</strong> TIYA staff who completed Day 2 and will design or own agents for their team: facilities leads, the work order desk, business management, and supervisors. About 30 per cohort, with limited remote seats.</li>
+      <li><strong>Prerequisite:</strong> Day 2, Agentic AI with Microsoft Copilot. Day 3 assumes participants can write agent instructions from the template, write tests before building, and rate an agent's risk tier. It opens with a 15-minute Day 2 review and doesn't depend on any agent built on Day 2.</li>
+      <li><strong>Accounts:</strong> a Copilot Studio license and maker access to a training environment (section 5).</li>
+    </ul></div>
+  </section>
+
+  <section class="part" id="lo">
+    <div class="part-head"><p class="kicker">2</p><h2>Learning outcomes</h2><p class="lede">On completing Day 3, participants will be able to:</p></div>
+    <div class="scroll"><table>
+      <thead><tr><th></th><th>Outcome</th><th>Practiced in</th></tr></thead>
+      <tbody>
+        <tr><td><span class="lo">LO1</span></td><td>Decide whether an agent should run on demand, on an event, or on a schedule, and design its trigger, conditions, actions, and human check.</td><td>Builds 2 and 3</td></tr>
+        <tr><td><span class="lo">LO2</span></td><td>Build and test event-triggered and scheduled agents in Microsoft Copilot Studio that hand their output to a person for review.</td><td>Builds 1–3</td></tr>
+        <tr><td><span class="lo">LO3</span></td><td>Design and build a multi-agent solution with an orchestrator and specialist agents, and judge when one agent is enough.</td><td>Build 4 · One agent or many?</td></tr>
+        <tr><td><span class="lo">LO4</span></td><td>Operate autonomous agents safely, including untrusted input, credentials, cost, monitoring, and a documented off switch.</td><td>Red team · Runbook · Shutdown check</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="part" id="plan">
+    <div class="part-head"><p class="kicker">3</p><h2>The day, 8:00 to 4:00</h2><p class="lede">About 5¼ hours at the keyboard. Every build ends with a person checking what the agent produced.</p></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Time</th><th>Block</th><th>Topics</th><th>Activity</th><th>LO</th></tr></thead>
+      <tbody>
+        <tr><td class="tm">8:00 – 8:30</td><td><strong>Welcome &amp; Day 2 in Review</strong><br>30 min</td><td>Copilot Studio login check · the autonomy ladder, rungs 4 and 5 · what changes when no one is watching: untrusted input, real actions, real cost</td><td>Login check · show of hands on agents built since Day 2</td><td></td></tr>
+        <tr><td class="tm">8:30 – 9:45</td><td><strong>From Agent Builder to Copilot Studio</strong><br>75 min · hands-on</td><td>A tour of Copilot Studio · tools and connectors as the way an agent acts · general-knowledge and web settings as a lock · the activity view · publishing for other agents</td><td><strong>Build 1</strong> SOP Navigator, rebuilt and retested against the Day 2 tests, then published</td><td>LO2</td></tr>
+        <tr class="brk"><td class="tm">9:45 – 10:00</td><td colspan="4">Morning break</td></tr>
+        <tr><td class="tm">10:00 – 11:45</td><td><strong>Event-Triggered Agents</strong><br>105 min · hands-on</td><td>Trigger, condition, payload, action, human check · agent vs. payload instructions · the email is data, not instructions · fixed tool inputs · leaving out the send-email tool</td><td><strong>Build 2</strong> Work Order Intake: eight sample emails, triage cards posted to Teams for a Facilities Lead</td><td>LO1 · LO2 · LO4</td></tr>
+        <tr class="brk"><td class="tm">11:45 – 12:30</td><td colspan="4">Lunch</td></tr>
+        <tr><td class="tm">12:30 – 1:30</td><td><strong>Scheduled Agents</strong><br>60 min · hands-on</td><td>Scheduled prompts in Copilot Chat vs. recurrence triggers in Copilot Studio · let the flow count, let the agent write · testing on a short schedule, then turning it off</td><td><strong>Build 3</strong> Monday Backlog Briefing from an Excel table, checked against the answer key</td><td>LO1 · LO2</td></tr>
+        <tr><td class="tm">1:30 – 2:45</td><td><strong>Multi-Agent Orchestration</strong><br>75 min · hands-on</td><td>Orchestrators and specialists · child vs. connected agents · descriptions drive routing · the cost of a team of agents</td><td><strong>Build 4</strong> Facilities Desk with six routing tests · "One agent or many?" sort</td><td>LO3</td></tr>
+        <tr class="brk"><td class="tm">2:45 – 3:00</td><td colspan="4">Afternoon break</td></tr>
+        <tr><td class="tm">3:00 – 3:45</td><td><strong>Operating Autonomous Agents</strong><br>45 min</td><td>Five new risks: injection, credentials, silent failure, cost, chained errors · the off switch · risk tiers for triggered agents</td><td>Red-team the intake agent with three attack emails · write its runbook</td><td>LO4</td></tr>
+        <tr><td class="tm">3:45 – 4:00</td><td><strong>Closing &amp; Assessment</strong><br>15 min</td><td>What to propose at TIYA, and who approves it</td><td>Knowledge check · trigger shutdown check · evaluation · certificates</td><td></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="part" id="builds">
+    <div class="part-head"><p class="kicker">4</p><h2>The four builds</h2><p class="lede">Each build adds one capability on top of the last, using the same fictional SOPs and work order data as Day 2. Step-by-step instructions are in the Day 3 workbook.</p></div>
+    <div class="cards">
+      <div class="card"><span class="tag">Build 1 · 8:30</span><h4>SOP Navigator (Studio)</h4><ul>
+        <li><strong>Rung:</strong> 3, on-demand</li>
+        <li><strong>Knowledge:</strong> the four sandbox SOPs</li>
+        <li><strong>Teaches:</strong> the Copilot Studio workspace, settings as locks, publishing for reuse</li>
+        <li><strong>Human check:</strong> the person asking</li>
+      </ul></div>
+      <div class="card"><span class="tag">Build 2 · 10:00</span><h4>Work Order Intake</h4><ul>
+        <li><strong>Rung:</strong> 4, event-triggered</li>
+        <li><strong>Trigger:</strong> a new email with <code>[WO-TRAIN]</code> in the subject</li>
+        <li><strong>Tools:</strong> post to Teams, to the owner only; no send-email tool</li>
+        <li><strong>Teaches:</strong> payloads, untrusted input, tools as locks</li>
+        <li><strong>Human check:</strong> a Facilities Lead reads every card</li>
+      </ul></div>
+      <div class="card"><span class="tag">Build 3 · 12:30</span><h4>Monday Backlog Briefing</h4><ul>
+        <li><strong>Rung:</strong> 4, scheduled</li>
+        <li><strong>Trigger:</strong> recurrence; 5 minutes for testing, then Monday 7:00, then off</li>
+        <li><strong>Tools:</strong> read the Excel table, post to Teams</li>
+        <li><strong>Teaches:</strong> schedules, cost, checking AI arithmetic</li>
+        <li><strong>Human check:</strong> the lead verifies numbers before sharing</li>
+      </ul></div>
+      <div class="card"><span class="tag">Build 4 · 1:30</span><h4>Facilities Desk</h4><ul>
+        <li><strong>Rung:</strong> 5, orchestrated</li>
+        <li><strong>Agents:</strong> SOP Navigator (connected), Priority Advisor and Notice Drafter (child)</li>
+        <li><strong>Teaches:</strong> routing by description, child vs. connected, when not to split</li>
+        <li><strong>Human check:</strong> the person asking; notices are drafts</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="part" id="env">
+    <div class="part-head"><p class="kicker">5</p><h2>Environment requirements</h2><p class="lede">Day 3 needs more of TIYA's tenant than Days 1 and 2 did. Confirm each item with TIYA IT, in writing, at least 14 days before.</p></div>
+    <ul class="checks">
+      <li>A Copilot Studio license for every participant and both instructors, and maker access to one training environment.</li>
+      <li>Which cloud TIYA is on (commercial, GCC, or GCC High), and that event triggers, agent flows, and child and connected agents are available there.</li>
+      <li>Data policies allow the Office 365 Outlook, Microsoft Teams, Excel Online (Business), and SharePoint connectors in the training environment.</li>
+      <li>Enough Copilot Studio capacity for the day. Estimate: 30 participants × (8 inbox + 3 red-team emails + about 6 scheduled runs + about 20 test messages per build).</li>
+      <li>The AI Training Sandbox SharePoint site from Day 2, with the four SOPs, still in place with read access for every participant.</li>
+      <li>A plan to switch off or delete every training agent and trigger after the day.</li>
+    </ul>
+    <div class="flag"><b>If Copilot Studio isn't available</b><p>Run Builds 2–4 as instructor demos on screen. Participants complete the trigger canvas, triage log, routing tests, and runbook on paper from the demo output. Build 1 can run in the Copilot agent builder instead. The outcomes shift from "build" to "design and evaluate".</p></div>
+  </section>
+
+  <section class="part" id="assess">
+    <div class="part-head"><p class="kicker">6</p><h2>Assessment and certificate</h2></div>
+    <div class="prose"><ul>
+      <li><strong>Formative:</strong> an eight-question knowledge check, self-scored. Instructors collect anonymous per-question scores.</li>
+      <li><strong>Evidence of work:</strong> the triage log from Build 2, the red-team log, and the runbook.</li>
+      <li><strong>Certificate (proposed):</strong> full attendance (up to 30 minutes excused), Build 2 run against the sample inbox, a completed runbook, and every trigger shown turned off before leaving.</li>
+    </ul></div>
+  </section>
+
+  <section class="part" id="mat">
+    <div class="part-head"><p class="kicker">7</p><h2>Materials</h2></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Item</th><th>For</th></tr></thead>
+      <tbody>
+        <tr><td>Day 3 slides (HTML, PowerPoint, PDF)</td><td>Instructors · participants</td></tr>
+        <tr><td>Day 3 workbook: Day 2 review, four builds, sample inbox, red-team log, runbook, shutdown checklist</td><td>Participants</td></tr>
+        <tr><td>Day 3 agenda</td><td>Everyone</td></tr>
+        <tr><td>Day 3 assessment kit: certificate criteria, answer keys, knowledge check, exit checklist, evaluation</td><td>Instructors</td></tr>
+        <tr><td>Facilitator guide, Day 3 section: run sheet, talking points, demos, watch-fors, debriefs</td><td>Instructors</td></tr>
+        <tr><td>Sample inbox (Word): eight request emails and three red-team emails</td><td>Participants</td></tr>
+        <tr><td>Work order export as an Excel table (<code>WorkOrders</code>, 80 rows)</td><td>Participants</td></tr>
+        <tr><td>The four sandbox SOPs, also on one web page</td><td>Participants</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="part" id="open">
+    <div class="part-head"><p class="kicker">8</p><h2>Decisions for the program owner</h2></div>
+    <div class="prose"><ol>
+      <li><strong>Date.</strong> Day 3 has no date yet. Every Day 3 document shows "[Date TBD]".</li>
+      <li><strong>Copilot Studio access.</strong> Day 3 depends on it (section 5). If TIYA can't license participants, decide between instructor-demo delivery and postponing.</li>
+      <li><strong>Who attends.</strong> Day 3 suits people who will own agents, not everyone who took Day 2. Consider a smaller cohort of 15–20.</li>
+      <li><strong>Who approves triggered agents at TIYA.</strong> The closing asks participants to name the person who would approve a triggered agent. TIYA should name that role before the day.</li>
+      <li><strong>Certificate criteria.</strong> Confirm the proposal in section 6.</li>
+    </ol></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap"><svg class="gt-logo" role="img" aria-label="Georgia Tech" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 681.82346 121.32001"><defs><style>.gt-logo .cls-1{fill:currentColor;}</style></defs><path class="cls-1" d="M236.72,7a1.12,1.12,0,0,1,.48,1v8.3a.65.65,0,0,1-.69.69h-6.24a.65.65,0,0,1-.7-.69V12.21a.58.58,0,0,0-.27-.56A13.56005,13.56005,0,0,0,222,9.78c-5.82,0-8.46,2.5-9.78,6.31-.55,1.74-1.11,4.09-1.11,10.82s.35,9,.9,10.68c1.32,3.82,3.89,6.18,9.65,6.18,3.81,0,6.31-.77,7.69-1.67.56-.34.7-.55.7-1.11V31.77a.37.37,0,0,0-.42-.42h-7.49a.65.65,0,0,1-.69-.69V25.11a.65.65,0,0,1,.69-.69h15.12a.65005.65005,0,0,1,.7.69V45a1.62,1.62,0,0,1-.91,1.66c-3.74,2.71-9,4.44-15.53,4.44-9.51,0-15.12-3.54-17.55-11-1-2.91-1.18-5.76-1.18-13.18s.35-10.12,1.32-13c2.42-7.49,8.6-11.44,18.1-11.44C228.19,2.43,233.67,4.44,236.72,7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M272.51,25.39c.76,2.36,1.11,4.64,1.11,10a.68.68,0,0,1-.77.7h-20.6a.37.37,0,0,0-.41.41,7.3102,7.3102,0,0,0,.48,2.57c1.11,3.26,3.75,5.06,7.49,5.06A10,10,0,0,0,267.65,41a.72.72,0,0,1,1-.14l4.09,3.61a.62.62,0,0,1,.07,1c-2.84,3.33-7.56,5.69-13.73,5.69-7.08,0-12.07-3.47-13.94-9.29A25.76027,25.76027,0,0,1,244,33.64a26.70944,26.70944,0,0,1,1.11-8.25c1.87-5.83,7-9.23,13.66-9.23C265.64,16.16,270.63,19.7,272.51,25.39Zm-20.26,1.66a8.71987,8.71987,0,0,0-.41,2.85.37.37,0,0,0,.41.41h13.11a.37.37,0,0,0,.42-.41,8.44012,8.44012,0,0,0-.42-2.85,6.5,6.5,0,0,0-6.52-4.3C255.65,22.75,253.15,24.35,252.25,27.05Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M307,25.39a24.74007,24.74007,0,0,1,1.11,8.25A24.81037,24.81037,0,0,1,307,41.9c-1.87,5.82-7,9.22-13.73,9.22s-11.93-3.4-13.81-9.22a24.81011,24.81011,0,0,1-1.11-8.26,24.73981,24.73981,0,0,1,1.11-8.25c1.88-5.83,7-9.23,13.81-9.23S305.11,19.56,307,25.39Zm-20.05,2.08a19.26025,19.26025,0,0,0-.69,6.17,19.00043,19.00043,0,0,0,.69,6.17,6.26,6.26,0,0,0,6.32,4.37,6.17,6.17,0,0,0,6.24-4.37,19.00037,19.00037,0,0,0,.69-6.17,19.26,19.26,0,0,0-.69-6.17,6.11,6.11,0,0,0-6.24-4.37,6.21,6.21,0,0,0-6.34,4.37Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M335.76,16.79c.42.07.7.27.7.69v6c0,.49-.28.84-.83.7a23.20974,23.20974,0,0,0-4.1-.56c-4.92,0-7.49,2.64-7.49,8.6V43.14a.37.37,0,0,0,.42.42h3.26a.66.66,0,0,1,.69.62857q.00142.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H312.87a.66.66,0,0,1-.69-.7V44.25a.66.66,0,0,1,.62857-.69q.03072-.00143.06144,0h3a.37.37,0,0,0,.41-.42v-19a.37.37,0,0,0-.41-.42h-3a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7h10.48a.66.66,0,0,1,.69.7v3.47h.07a9.53,9.53,0,0,1,8.39-4.65A15.14957,15.14957,0,0,1,335.76,16.79Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M360.67,20.12h.06v-2.5a.66.66,0,0,1,.7-.7H371.9a.66.66,0,0,1,.7.7V23a.65.65,0,0,1-.7.69h-3a.37.37,0,0,0-.42.42V48.28c0,9.57-5.34,15.32-15.6,15.32-4.65,0-9.58-1.94-12.14-5a.62.62,0,0,1,.07-1l4.09-4.09a.64994.64994,0,0,1,1,0,10.26,10.26,0,0,0,7.28,3.12c5.14,0,7.49-2.78,7.49-8V45.57h-.06c-1.53,2.36-4.37,3.89-8.67,3.89-5.62,0-9.65-2.85-11.38-8.12a25.55011,25.55011,0,0,1-1.11-8.53,25.00021,25.00021,0,0,1,1.11-8.46c1.73-5.34,5.76-8.19,11.38-8.19C356.3,16.16,359.14,17.69,360.67,20.12Zm-12.56,7.21a16.18953,16.18953,0,0,0-.76,5.48,15.70993,15.70993,0,0,0,.76,5.48,6.24,6.24,0,0,0,11.86,0,15.47991,15.47991,0,0,0,.76-5.48,15.9399,15.9399,0,0,0-.76-5.48,6.27,6.27,0,0,0-11.86,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M387.23,16.92a.65.65,0,0,1,.69.7V43.14a.37.37,0,0,0,.42.42h3a.66.66,0,0,1,.7.69v5.41a.66.66,0,0,1-.7.7H376.76a.66.66,0,0,1-.7-.7V44.25a.66.66,0,0,1,.7-.69h3a.37.37,0,0,0,.42-.42v-19a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.7-.69V17.62a.66.66,0,0,1,.7-.7Zm0-13.73a.65.65,0,0,1,.69.7v6a.65.65,0,0,1-.69.69h-6.38a.65.65,0,0,1-.69-.69v-6a.65.65,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M423.3,27.81V43.14a.37.37,0,0,0,.41.42h3a.66.66,0,0,1,.69.62857q.00142.03069,0,.06143v5.41a.66.66,0,0,1-.69.7h-9.92a.66.66,0,0,1-.7-.7V47.24H416c-1.59,2.28-4.64,3.88-9.29,3.88-6,0-11.17-3.26-11.17-10.27,0-7.28,5.14-10.68,13.32-10.68h6.66a.36.36,0,0,0,.41-.41V28.44c0-3.82-1.45-5.83-6.86-5.83a18.26961,18.26961,0,0,0-3.61.42c-.28.07-.35.21-.35.48v3a.65.65,0,0,1-.69.69h-6a.66.66,0,0,1-.7-.69V19.42a.9.9,0,0,1,.56-.9,26.50979,26.50979,0,0,1,11.16-2.36C419.62,16.16,423.3,19.63,423.3,27.81ZM410.12,36c-4.93,0-7.15,1.46-7.15,4.58,0,2.77,2,4.23,5.69,4.23,4.72,0,7.28-1.87,7.28-5.69v-2.7c0-.28-.13-.42-.41-.42Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M461.86,3.19a.65.65,0,0,1,.69.7V9.3a.65.65,0,0,1-.69.69h-3.33a.37.37,0,0,0-.42.41V43.14a.37.37,0,0,0,.42.42h3.33a.65.65,0,0,1,.69.69v5.41a.65.65,0,0,1-.69.7H446.18a.66.66,0,0,1-.69-.7V44.25a.66.66,0,0,1,.62857-.69q.03072-.00143.06143,0h3.33a.37.37,0,0,0,.42-.42V10.4a.37.37,0,0,0-.42-.41h-3.33a.66.66,0,0,1-.69-.62857q-.00142-.03069,0-.06143V3.89a.66.66,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M499.13,28.58V43.14a.37.37,0,0,0,.41.42h2.85a.66.66,0,0,1,.69.62857q.00145.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H488a.65.65,0,0,1-.69-.7V44.25a.65.65,0,0,1,.69-.69h3a.37.37,0,0,0,.42-.42V30.38c0-4.3-2.08-7.28-6.24-7.28s-6.25,3-6.25,7.28V43.14a.37.37,0,0,0,.42.42h3a.66.66,0,0,1,.7.69v5.41a.66.66,0,0,1-.7.7H467.71a.66.66,0,0,1-.7-.7V44.25a.66.66,0,0,1,.7-.69h3a.37.37,0,0,0,.42-.42v-19a.37.37,0,0,0-.42-.42h-3A.64993.64993,0,0,1,467,23V17.62a.66.66,0,0,1,.7-.7h10.47a.65.65,0,0,1,.69.7v2.43h.07c1.46-2.08,4.3-3.89,8.6-3.89C494.69,16.16,499.13,21.43,499.13,28.58Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M532.16,18.52a.94.94,0,0,1,.55,1v6.94a.66.66,0,0,1-.6286.69q-.03067.00143-.0614,0H526.4a.65.65,0,0,1-.69-.69v-2.6a.51.51,0,0,0-.35-.55,14.31023,14.31023,0,0,0-5-.77c-3.89,0-5.62,1.32-5.62,3.4s1.11,3.19,5.62,3.68L524,30c7.77.91,10.61,4.44,10.61,10.06,0,6.8-4.92,11-14.35,11a28.40012,28.40012,0,0,1-12.49-2.64.79.79,0,0,1-.48-.83V40.16a.65.65,0,0,1,.69-.69h5.9a.65.65,0,0,1,.69.69v3.05a.47.47,0,0,0,.35.49,16.19,16.19,0,0,0,5.82.9c4.3,0,6.24-1.39,6.24-3.88,0-2.22-1.24-3.4-5.75-3.89l-3.68-.41c-7.28-.84-10.33-4.3-10.33-9.92,0-6.25,4.57-10.34,13.18-10.34A28.30014,28.30014,0,0,1,532.16,18.52Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M548.16,6.66a.65975.65975,0,0,1,.7.69v9.16a.36.36,0,0,0,.41.41h4.44a.66.66,0,0,1,.7.7V23a.65.65,0,0,1-.7.69h-4.44a.37.37,0,0,0-.41.42v16.3c0,2.36,1,3.12,3.12,3.12h1.73a.65975.65975,0,0,1,.7.69v5.62a.66.66,0,0,1-.7.7h-3.33c-6.72,0-9.29-3.26-9.29-9.79V24.14a.37.37,0,0,0-.42-.42h-2.22a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7h2.22c.28,0,.42-.13.42-.41V7.35a.66.66,0,0,1,.62854-.69q.03075-.00143.06146,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M570,16.92a.66.66,0,0,1,.7.7V43.14a.37.37,0,0,0,.41.42h3a.66.66,0,0,1,.69.62857q.00146.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H559.54a.64994.64994,0,0,1-.69-.7V44.25a.65.65,0,0,1,.69-.69h3a.37.37,0,0,0,.42-.42v-19a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.69-.69V17.62a.65.65,0,0,1,.69-.7Zm0-13.73a.66.66,0,0,1,.7.7v6a.65.65,0,0,1-.7.69h-6.38a.65.65,0,0,1-.69-.69v-6a.66.66,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M587.19,6.66a.65967.65967,0,0,1,.7.69v9.16a.36.36,0,0,0,.41.41h4.44a.66.66,0,0,1,.7.7V23a.65.65,0,0,1-.7.69H588.3a.37.37,0,0,0-.41.42v16.3c0,2.36,1,3.12,3.12,3.12h1.73a.65975.65975,0,0,1,.7.69v5.62a.66.66,0,0,1-.7.7h-3.33c-6.72,0-9.29-3.26-9.29-9.79V24.14a.37.37,0,0,0-.42-.42h-2.22a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7h2.22c.28,0,.42-.13.42-.41V7.35a.66.66,0,0,1,.62854-.69q.03075-.00143.06146,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M628.92,16.92a.66033.66033,0,0,1,.69.7V43.14a.37.37,0,0,0,.42.42h3a.66.66,0,0,1,.69.62857q.00147.03069,0,.06143v5.41a.66.66,0,0,1-.69.7H622.53a.66024.66024,0,0,1-.69-.7V47.24h-.07c-1.8,2.28-4.37,3.88-8.6,3.88-7.14,0-11.44-5.27-11.44-12.42V24.14a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.7-.69V17.62a.66.66,0,0,1,.7-.7H608.8a.65.65,0,0,1,.69.7V36.9c0,4.3,2,7.28,6.18,7.28,4,0,6.17-3,6.17-7.21V24.14a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.69-.69V17.62a.66.66,0,0,1,.69-.7Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M646.26,6.66a.65.65,0,0,1,.69.69v9.16c0,.28.14.41.42.41h4.44a.65.65,0,0,1,.69.7V23a.65.65,0,0,1-.69.69h-4.44a.37.37,0,0,0-.42.42v16.3c0,2.36,1,3.12,3.13,3.12h1.73a.65.65,0,0,1,.69.60738.64342.64342,0,0,1,0,.08262v5.62a.65.65,0,0,1-.69.7h-3.33c-6.73,0-9.29-3.26-9.29-9.79V24.14a.37.37,0,0,0-.42-.42h-2.22a.65.65,0,0,1-.69-.69V17.62a.65.65,0,0,1,.69-.7h2.22c.28,0,.42-.13.42-.41V7.35a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M685.76,25.39c.77,2.36,1.11,4.64,1.11,10a.68.68,0,0,1-.76.7h-20.6a.37.37,0,0,0-.42.41,7.29893,7.29893,0,0,0,.49,2.57c1.11,3.26,3.74,5.06,7.49,5.06A10.08,10.08,0,0,0,680.91,41a.72.72,0,0,1,1-.14l4.09,3.6a.62.62,0,0,1,.07,1c-2.84,3.33-7.56,5.69-13.73,5.69-7.08,0-12.07-3.47-14-9.29a26.05062,26.05062,0,0,1-1.18-8.19,26.71065,26.71065,0,0,1,1.11-8.25c1.88-5.83,7-9.23,13.67-9.23C678.9,16.16,683.89,19.7,685.76,25.39Zm-20.25,1.66a8.43959,8.43959,0,0,0-.42,2.85.37.37,0,0,0,.42.41h13.11a.36.36,0,0,0,.41-.41,8.4591,8.4591,0,0,0-.41-2.85,6.5,6.5,0,0,0-6.52-4.3C668.91,22.75,666.41,24.35,665.51,27.05Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M158,104.24h0a3.11,3.11,0,1,0,3.05962,3.15958q.00048-.02979.00038-.05958a3.08,3.08,0,0,0-3.05953-3.10034q-.03525-.00024-.07048.00034Zm0,5.73a2.63,2.63,0,0,1,0-5.25h0a2.63,2.63,0,0,1,0,5.25Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M158.5,107.45h0a.86.86,0,0,0,.67-.84.85.85,0,0,0-.31-.72,1.87,1.87,0,0,0-1.08-.26,6.44922,6.44922,0,0,0-1,.08v3.46h.55v-1.49h.39a.65.65,0,0,1,.7345.55274q.004.0285.00551.05725a2.3301,2.3301,0,0,0,.24.88h.58a2.55,2.55,0,0,1-.22-.85C159,107.78,158.8,107.5,158.5,107.45Zm-.75-.22h-.4v-1.18h.4c.62,0,.84.3.84.6S158.21,107.23,157.75,107.23Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M59.92,3.17Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M74.23,37.05v27h14.5L90.26,56h6.52C94.39,68.35,82.09,76.9,66.5,76.9a28.88359,28.88359,0,0,1-3.22-.12C54.64,76.11,46.7,73.33,40.92,69c-6.38-4.84-9.73-11.3-9.7-18.7a27.65,27.65,0,0,1,9.51-20.73,35.38993,35.38993,0,0,1,21.94-8.58h1.58a45.44,45.44,0,0,1,28,10.24,4.89981,4.89981,0,0,0,.58.46,5.36062,5.36062,0,0,1,.56.45l.22.19h16.65V3.16H93.37V11.5C86.26,6.95,74.11,2.36,59.92,2.36h-.24A58.5,58.5,0,0,0,18.46,19.68C9.67,28.61,4.91,39.53,5.05,50.43c.16,11.72,5.8,22.64,15.91,30.75,9.66,7.76,22.77,12.21,35.94,12.21,1.63,0,3.28-.07,4.9-.2,13-1.06,24.62-4,32.79-8.42v3.61h17.93V56h6.19V93.55h-9.34v16.89H151V93.55h-9.34V56h21.11l1.47,8.11h14.57v-27ZM59.92,3.17Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M234.6,85.46a24.81035,24.81035,0,0,1,1.11,8.26A24.78032,24.78032,0,0,1,234.6,102c-1.88,5.83-7,9.22-13.74,9.22s-11.93-3.39-13.8-9.22a24.77961,24.77961,0,0,1-1.11-8.25,24.80983,24.80983,0,0,1,1.11-8.26c1.87-5.82,7-9.22,13.8-9.22S232.72,79.64,234.6,85.46Zm-20,2.08a19.32994,19.32994,0,0,0-.69,6.18,18.99983,18.99983,0,0,0,.69,6.17,6.69736,6.69736,0,0,0,12.56,0,18.99983,18.99983,0,0,0,.69-6.17,19.32994,19.32994,0,0,0-.69-6.18,6.14,6.14,0,0,0-6.25-4.37,6.21,6.21,0,0,0-6.36,4.37Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M258,63.27a.65.65,0,0,1,.69.69v5.55a.65.65,0,0,1-.69.69h-2.15c-3.47,0-4.23.84-4.23,4.09v2.29a.37.37,0,0,0,.42.42h6a.65.65,0,0,1,.69.69V83.1a.65.65,0,0,1-.69.7h-6a.37.37,0,0,0-.42.41v19c0,.28.14.41.42.41h3.67a.66.66,0,0,1,.7.7v5.41a.66.66,0,0,1-.7.69H240.49a.66.66,0,0,1-.69-.62857q-.00141-.03069,0-.06143v-5.41a.66.66,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41v-19a.37.37,0,0,0-.42-.41h-2.21a.66.66,0,0,1-.7-.7V77.69a.66.66,0,0,1,.7-.69h2.21a.37.37,0,0,0,.42-.42V74.43c0-7.77,3.82-11.16,11.1-11.16Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M313.11,63.27a.65.65,0,0,1,.7.69v11.1a.66.66,0,0,1-.7.69h-6a.66.66,0,0,1-.7-.69V70.9c0-.28-.13-.42-.41-.42h-7a.37.37,0,0,0-.41.42v32.32a.36.36,0,0,0,.41.41h3.61a.65.65,0,0,1,.69.7v5.41a.65.65,0,0,1-.69.69H286.34a.65.65,0,0,1-.69-.69v-5.41a.65006.65006,0,0,1,.69-.7H290a.36.36,0,0,0,.41-.41V70.9a.37.37,0,0,0-.41-.42h-7.08c-.28,0-.41.14-.41.42v4.16a.66.66,0,0,1-.7.69h-6a.65993.65993,0,0,1-.7-.69V64a.65.65,0,0,1,.7-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M339.2,85.46c.76,2.36,1.11,4.65,1.11,10.06a.67.67,0,0,1-.76.69H319a.37.37,0,0,0-.42.42,7.35033,7.35033,0,0,0,.49,2.57c1.1,3.26,3.74,5.06,7.49,5.06a10.07,10.07,0,0,0,7.83-3.19c.35-.35.7-.42,1-.14l4.1,3.61a.63.63,0,0,1,.07,1c-2.85,3.33-7.56,5.68-13.74,5.68-7.07,0-12.07-3.46-13.94-9.29a25.99986,25.99986,0,0,1-1.18-8.18,26.78005,26.78005,0,0,1,1.11-8.26c1.87-5.82,7-9.22,13.67-9.22C332.33,76.24,337.33,79.77,339.2,85.46ZM319,87.13a8.37928,8.37928,0,0,0-.42,2.84.37.37,0,0,0,.42.42h13.11a.37.37,0,0,0,.41-.42,8.65984,8.65984,0,0,0-.41-2.84c-.91-2.71-3.4-4.3-6.53-4.3S319.85,84.42,319,87.13Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M371.29,78.87a.9.9,0,0,1,.55.9V87.4a.66.66,0,0,1-.69.7h-5.9a.66.66,0,0,1-.69-.7V84.35c0-.28-.07-.34-.35-.48a11.65962,11.65962,0,0,0-4.23-.7c-3.54,0-5.9,1.46-6.87,4.37a19.86007,19.86007,0,0,0-.69,6.18,20.30925,20.30925,0,0,0,.69,6.24c1,2.84,3.33,4.3,6.87,4.3a10.57992,10.57992,0,0,0,4.23-.63c.28-.13.35-.2.35-.48V100a.66.66,0,0,1,.69-.7h5.9a.66.66,0,0,1,.69.7v7.7a.9.9,0,0,1-.55.9,24.89,24.89,0,0,1-11.52,2.56c-7.28,0-12.27-3.05-14.22-9a27.87031,27.87031,0,0,1-1-8.46,26.41,26.41,0,0,1,1-8.26c1.95-6,7.15-9.22,14.22-9.22A23.99993,23.99993,0,0,1,371.29,78.87Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M387.18,63.27a.65.65,0,0,1,.7.69V80.12H388c1.45-2.08,4.3-3.88,8.67-3.88,7.07,0,11.51,5.27,11.51,12.41v14.57c0,.28.14.41.42.41h2.84a.65.65,0,0,1,.69.7v5.41a.65.65,0,0,1-.69.69H397a.66.66,0,0,1-.69-.62857q-.00142-.03069,0-.06143v-5.41a.66.66,0,0,1,.69-.7h3a.36.36,0,0,0,.41-.41V90.46c0-4.3-2.08-7.29-6.24-7.29s-6.24,3-6.24,7.29v12.76a.36.36,0,0,0,.41.41h3a.66.66,0,0,1,.69.7v5.41a.66.66,0,0,1-.62857.69q-.03072.00141-.06143,0H376.71a.65.65,0,0,1-.69-.69v-5.41a.65006.65006,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41V70.48a.37.37,0,0,0-.42-.42h-3a.65.65,0,0,1-.69-.69V64a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M447.68,88.65v14.57c0,.28.14.41.42.41h2.84a.64995.64995,0,0,1,.69.7v5.41a.65.65,0,0,1-.69.69H436.51a.66.66,0,0,1-.69-.62857q-.00143-.03069,0-.06143v-5.41a.66.66,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41V90.46c0-4.3-2.08-7.29-6.24-7.29s-6.24,3-6.24,7.29v12.76a.36.36,0,0,0,.41.41h3a.66.66,0,0,1,.7.7v5.41a.66.66,0,0,1-.7.69h-14.6a.65.65,0,0,1-.69-.69v-5.41a.65006.65006,0,0,1,.69-.7h3c.28,0,.42-.13.42-.41v-19a.37.37,0,0,0-.42-.41h-3a.65.65,0,0,1-.69-.7V77.69a.65.65,0,0,1,.69-.69h10.47a.66.66,0,0,1,.7.69v2.43h.07c1.45-2.08,4.3-3.88,8.6-3.88C443.24,76.24,447.68,81.51,447.68,88.65Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M483.25,85.46a24.81034,24.81034,0,0,1,1.11,8.26,24.77986,24.77986,0,0,1-1.11,8.25c-1.88,5.83-7,9.22-13.74,9.22s-11.93-3.39-13.8-9.22a24.77985,24.77985,0,0,1-1.11-8.25,24.81007,24.81007,0,0,1,1.11-8.26c1.87-5.82,7-9.22,13.8-9.22S481.37,79.64,483.25,85.46ZM463.2,87.54a19.3305,19.3305,0,0,0-.69,6.18,19.00037,19.00037,0,0,0,.69,6.17,6.26,6.26,0,0,0,6.31,4.37,6.18,6.18,0,0,0,6.25-4.37,19.00037,19.00037,0,0,0,.69-6.17,19.3305,19.3305,0,0,0-.69-6.18,6.13,6.13,0,0,0-6.25-4.37A6.21,6.21,0,0,0,463.2,87.54Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M497.4,63.27a.65.65,0,0,1,.69.69v36.62c0,2.29.9,3,2.91,3h1.53a.65.65,0,0,1,.69.7V110a.65.65,0,0,1-.69.69h-3c-6.52,0-9.16-3.33-9.16-9.78V70.48a.37.37,0,0,0-.41-.42h-3a.65.65,0,0,1-.69-.69V64a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M534.6,85.46a24.81007,24.81007,0,0,1,1.11,8.26A24.77979,24.77979,0,0,1,534.6,102c-1.87,5.83-7,9.22-13.73,9.22s-11.93-3.39-13.81-9.22a24.80959,24.80959,0,0,1-1.1-8.25,24.83982,24.83982,0,0,1,1.1-8.26c1.88-5.82,7-9.22,13.81-9.22S532.73,79.64,534.6,85.46Zm-20,2.08a18.99879,18.99879,0,0,0-.7,6.18,18.73027,18.73027,0,0,0,.7,6.17,6.26,6.26,0,0,0,6.31,4.37,6.18,6.18,0,0,0,6.24-4.37,18.76975,18.76975,0,0,0,.69-6.17,19.00031,19.00031,0,0,0-.69-6.18,6.12,6.12,0,0,0-6.24-4.37,6.21,6.21,0,0,0-6.35,4.37Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M561.1,80.19h.07v-2.5a.66.66,0,0,1,.7-.69h10.47a.65975.65975,0,0,1,.7.69V83.1a.66.66,0,0,1-.7.7h-3a.37.37,0,0,0-.42.41v24.14c0,9.57-5.34,15.33-15.6,15.33-4.65,0-9.58-1.94-12.14-5a.63.63,0,0,1,.07-1l4.09-4.09a.66.66,0,0,1,.93078-.06918.65334.65334,0,0,1,.06922.06918,10.26,10.26,0,0,0,7.28,3.12c5.14,0,7.49-2.77,7.49-8v-3.12h-.07c-1.52,2.35-4.37,3.88-8.67,3.88-5.61,0-9.64-2.84-11.37-8.11a25.57957,25.57957,0,0,1-1.11-8.54,25.1192,25.1192,0,0,1,1.11-8.46c1.73-5.34,5.76-8.18,11.37-8.18C556.73,76.24,559.58,77.76,561.1,80.19ZM548.55,87.4a16.22975,16.22975,0,0,0-.76,5.48,15.67,15.67,0,0,0,.76,5.48,6.24,6.24,0,0,0,11.86,0,15.44026,15.44026,0,0,0,.76-5.48,15.99985,15.99985,0,0,0-.76-5.48,6.27,6.27,0,0,0-11.86,0Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M608.78,77a.66.66,0,0,1,.69.62857q.00147.03069,0,.06143V83.1a.66.66,0,0,1-.69.7H607c-.27,0-.41.07-.55.41l-11,28.3c-3,7.84-5.69,10.41-11.24,10.41H582a.66024.66024,0,0,1-.69-.7v-5.55a.66.66,0,0,1,.64923-.67061c.01361-.00022.02716,0,.04077.0006h1.25c2.64,0,4-1.18,5-3.95l1-2.85-10.41-25a.46.46,0,0,0-.48-.34h-1.88a.66024.66024,0,0,1-.69-.7V77.69a.66.66,0,0,1,.62854-.69q.03076-.00143.06146,0h13a.65967.65967,0,0,1,.7.69V83.1a.66.66,0,0,1-.7.7H587.2c-.34,0-.41.21-.34.48l6,15.75H593l5.9-15.75a.34.34,0,0,0-.35-.48h-2.22a.64994.64994,0,0,1-.69-.7V77.69a.65.65,0,0,1,.69-.69Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M606.09,104h0a3.39,3.39,0,1,0,3.33966,3.43959q.00045-.02979.00036-.05959a3.35,3.35,0,0,0-3.31982-3.37988C606.0968,104,606.08344,104,606.07,104Zm0,6.25a2.86,2.86,0,0,1,0-5.72h0a2.86,2.86,0,0,1,0,5.72Z" transform="translate(-5.047 -2.36)"/><path class="cls-1" d="M606.69,107.45h0a1,1,0,0,0,.39-1.7,1.99993,1.99993,0,0,0-1.17-.28,6.28986,6.28986,0,0,0-1.07.09v3.77h.6v-1.62h.42a.7.7,0,0,1,.81.66,2.901,2.901,0,0,0,.26,1h.63a3.14936,3.14936,0,0,1-.24-.93C607.24,107.81,607,107.51,606.69,107.45Zm-.81-.24h-.44v-1.28a3.94284,3.94284,0,0,1,.44,0c.67,0,.91.33.91.67S606.37,107.21,605.88,107.21Z" transform="translate(-5.047 -2.36)"/></svg><p>Applied AI at TIYA Services · Day 3 outline · Advanced Agents with Copilot Studio</p></div>
+</footer>
