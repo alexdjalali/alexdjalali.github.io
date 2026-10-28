@@ -30,7 +30,53 @@
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11.12.3/dist/mermaid.min.js"
     integrity="sha256-cdxU5IF3m1Jt5eYVwusAyZ+lrLddqcVSTQLjM9L9qJo=" crossorigin="anonymous"></script>
   <script>
-    mermaid.initialize({ startOnLoad: true });
+    (function() {
+      var body = document.body;
+      var dark = body.classList.contains('colorscheme-dark') ||
+        (body.classList.contains('colorscheme-auto') &&
+         window.matchMedia('(prefers-color-scheme: dark)').matches);
+      var palette = ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f'];
+      var text = dark ? '#e6e6e6' : '#222222';
+      var muted = dark ? '#9a9a9a' : '#666666';
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+          darkMode: dark,
+          background: 'transparent',
+          primaryColor: dark ? '#2f3b4a' : '#dce6f2',
+          primaryTextColor: text,
+          primaryBorderColor: palette[0],
+          lineColor: muted,
+          textColor: text,
+          pie1: palette[0], pie2: palette[1], pie3: palette[2], pie4: palette[3], pie5: palette[4],
+          pieStrokeColor: dark ? '#212121' : '#ffffff',
+          pieOuterStrokeColor: 'transparent',
+          pieTitleTextColor: text,
+          pieLegendTextColor: text,
+          pieSectionTextColor: '#ffffff',
+          pieOpacity: '1',
+          xyChart: {
+            backgroundColor: 'transparent',
+            titleColor: text,
+            xAxisLabelColor: text, yAxisLabelColor: text,
+            xAxisTitleColor: text, yAxisTitleColor: text,
+            xAxisLineColor: muted, yAxisLineColor: muted,
+            xAxisTickColor: muted, yAxisTickColor: muted,
+            plotColorPalette: palette.join(', ')
+          },
+          quadrant1Fill: dark ? '#3a2f2f' : '#f6e3e3',
+          quadrant2Fill: dark ? '#3a352a' : '#f8eedc',
+          quadrant3Fill: dark ? '#2a3530' : '#e3f1e8',
+          quadrant4Fill: dark ? '#2b3340' : '#e2eaf5',
+          quadrant1TextFill: text, quadrant2TextFill: text, quadrant3TextFill: text, quadrant4TextFill: text,
+          quadrantPointFill: palette[1],
+          quadrantPointTextFill: text,
+          quadrantXAxisTextFill: text, quadrantYAxisTextFill: text,
+          quadrantTitleFill: text
+        }
+      });
+    })();
   </script>
   {{ end }}
 
