@@ -1,7 +1,7 @@
 ---
 title: "Six Months of Enterprise Development with AI"
-date: 2026-10-27
-draft: true
+date: 2026-10-28T12:00:00-04:00
+draft: false
 description: "AI is here. Six months, 1,200 commits, and 594 stories of building a production AI platform with agents — what held, what broke, and what the data says about where AI still falls down."
 images:
   - "images/og-default.png"

@@ -1,7 +1,7 @@
 ---
 title: "Rethinking Agile in the Age of AI"
-date: 2026-10-28
-draft: true
+date: 2026-10-28T12:30:00-04:00
+draft: false
 description: "Agile's values still hold, but its practices were tuned for expensive code. What six months of AI-driven development says about roles, design, review, estimation, and the Definition of Done."
 images:
   - "images/og-default.png"
