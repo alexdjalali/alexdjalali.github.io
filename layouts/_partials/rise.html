@@ -1,0 +1,5 @@
+{{- /* Split a string into words that rise in sequence: partial "rise.html" "Headline text". */ -}}
+{{- range $i, $word := split (. | string) " " -}}
+  {{- if $i }} {{ end -}}
+  <span class="rise" style="animation-delay: {{ printf "%.2f" (add 0.15 (mul 0.06 (float $i))) }}s">{{ $word }}</span>
+{{- end -}}

@@ -1,0 +1,55 @@
+/* Motion (ADR-0009 §5). Figure parts wait in their "from" state until reveal.js adds .is-revealed;
+   without JS, after the 4 s guard, or under reduced motion, nothing animates and figures render fully drawn. */
+
+@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes bloom { 0% { opacity: 0; transform: scale(.5); } 60% { opacity: 1; } 100% { opacity: 1; transform: scale(1); } }
+@keyframes pop { 0% { opacity: 0; transform: scale(0); } 70% { opacity: 1; transform: scale(1.18); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes growy { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rise { from { opacity: 0; transform: translateY(.55em); } to { opacity: 1; transform: none; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+/* Static geometry: how each part draws, regardless of motion. */
+.an-draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.an-bloom, .an-pop, .an-spin, .an-sweep { transform-box: fill-box; transform-origin: center; }
+.an-grow { transform-box: fill-box; transform-origin: left center; }
+.an-growy { transform-box: fill-box; transform-origin: center bottom; }
+.rise { display: inline-block; }
+
+/* Animation: only with JS, paused until the figure or word is revealed. */
+.js .fig .an-draw { animation: draw 1s cubic-bezier(.65, 0, .35, 1) both paused; }
+.js .fig .an-bloom { animation: bloom 1.2s cubic-bezier(.2, .8, .2, 1) both paused; }
+.js .fig .an-pop { animation: pop .55s cubic-bezier(.3, 1.5, .5, 1) both paused; }
+.js .fig .an-grow { animation: grow 1s cubic-bezier(.2, .8, .2, 1) both paused; }
+.js .fig .an-growy { animation: growy 1s cubic-bezier(.2, .8, .2, 1) both paused; }
+.js .fig .an-fade { animation: fade .7s ease both paused; }
+.js .rise { animation: rise .9s cubic-bezier(.2, .8, .2, 1) both paused; }
+
+.js .fig.is-revealed .an-draw,
+.js .fig.is-revealed .an-bloom,
+.js .fig.is-revealed .an-pop,
+.js .fig.is-revealed .an-grow,
+.js .fig.is-revealed .an-growy,
+.js .fig.is-revealed .an-fade,
+.js .rise.is-revealed { animation-play-state: running; }
+
+/* Ambient motion: drafting-mark gears, the compass sweep, the terminal cursor. */
+.js .fig .an-spin { animation: spin 24s linear infinite; }
+.js .an-sweep { animation: spin 60s linear infinite; }
+.js .fig .an-blink { animation: blink 1.1s steps(1) infinite; }
+
+/* Fallbacks: no JS, reveal.js never ran, or reduced motion → every part is fully drawn and still. */
+html:not(.js) .an-draw, html:not(.js) .an-bloom, html:not(.js) .an-pop, html:not(.js) .an-grow,
+html:not(.js) .an-growy, html:not(.js) .an-fade, html:not(.js) .an-spin, html:not(.js) .an-sweep,
+html:not(.js) .an-blink, html:not(.js) .rise,
+html.no-reveal .an-draw, html.no-reveal .an-bloom, html.no-reveal .an-pop, html.no-reveal .an-grow,
+html.no-reveal .an-growy, html.no-reveal .an-fade, html.no-reveal .an-spin, html.no-reveal .an-sweep,
+html.no-reveal .an-blink, html.no-reveal .rise { animation: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .an-draw, .an-bloom, .an-pop, .an-grow, .an-growy, .an-fade, .an-spin, .an-sweep, .an-blink, .rise {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,55 @@
+/* Prose elements and small content components: tables, blockquote, footnotes, hr, figures, KaTeX,
+   mermaid, the giscus wrapper, the contents list and the AI badge. Light only. */
+
+.post-content img, .prose img { height: auto; }
+.post-content figure, .prose figure { margin: 2rem 0; }
+.post-content figcaption, .prose figcaption { margin-top: .5rem; font-family: var(--font-label); font-size: .75rem; letter-spacing: .06em; color: var(--ink-3); }
+
+.post-content table, .prose table { width: 100%; margin: 1.5rem 0; border-collapse: collapse; font-family: var(--font-display); font-size: .9375rem; }
+.post-content th, .post-content td, .prose th, .prose td { padding: .6rem .8rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+.post-content th, .prose th { border-bottom: 1px solid var(--black); font-family: var(--font-label); font-size: .75rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; }
+.post-content .table-wrap, .prose .table-wrap { overflow-x: auto; }
+
+.post-content blockquote, .prose blockquote { margin: 2rem 0; padding: 1rem 1.5rem; border: 1px solid var(--black); border-left: 6px solid var(--red); background: var(--white); font-style: italic; }
+.post-content blockquote p:first-child, .prose blockquote p:first-child { margin-top: 0; }
+.post-content blockquote p:last-child, .prose blockquote p:last-child { margin-bottom: 0; }
+
+.post-content hr, .prose hr { margin: 2.5rem 0; border: 0; border-top: 1px solid var(--black); }
+.footnotes { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-size: .9375rem; color: var(--ink-2); }
+.footnote-ref, .footnote-backref { text-decoration: none; }
+
+.post-content a, .prose a { color: var(--black); border-bottom: 1px solid var(--red); }
+.post-content a:hover, .prose a:hover { color: var(--red); }
+.heading-link { margin-left: .4em; font-size: .6em; opacity: 0; color: var(--ink-3); border-bottom: 0; }
+h2:hover .heading-link, h3:hover .heading-link, .heading-link:focus-visible { opacity: 1; }
+
+.katex-display { overflow-x: auto; overflow-y: hidden; }
+.mermaid { margin: 2rem 0; text-align: center; }
+.mermaid svg { max-width: 100%; height: auto; }
+
+.comments { width: 100%; margin-top: 3rem; }
+.giscus, .giscus-frame { width: 100%; }
+
+.toc { margin: 1.5em 0; padding: 1em 1.5em; border: 1px solid var(--black); background: var(--white); }
+.toc summary { cursor: pointer; font-family: var(--font-label); font-size: .75rem; letter-spacing: .18em; text-transform: uppercase; list-style: none; }
+.toc summary::-webkit-details-marker { display: none; }
+.toc nav { margin-top: .8em; }
+.toc nav ul { margin: 0; padding-left: 0; list-style: none; }
+.toc nav ul ul { padding-left: 1.2em; }
+.toc nav li { margin: .3em 0; }
+.toc nav a { font-size: .9em; color: var(--ink-2); transition: color .2s; }
+.toc nav a:hover { color: var(--red); }
+
+.last-updated { font-size: .85em; color: var(--ink-3); }
+.claude-badge { position: relative; margin-left: .25em; font-size: .85em; cursor: help; }
+.claude-badge-yes { color: var(--blue); }
+.claude-badge-no { color: var(--ink-3); }
+.claude-badge::after {
+  content: ""; position: absolute; bottom: calc(100% + .4em); left: 50%; transform: translateX(-50%);
+  width: max-content; max-width: 18rem; padding: .5em .8em; z-index: 100; pointer-events: none; opacity: 0;
+  background: var(--black); color: var(--white); font-family: var(--font-label); font-size: .75rem; line-height: 1.4; text-align: center; white-space: normal;
+  transition: opacity .15s;
+}
+.claude-badge-yes::after { content: "Written with AI assistance — ideas and direction are the author's, AI helped with drafting. See AI Disclaimer for details."; }
+.claude-badge-no::after { content: "Written without AI assistance. See AI Disclaimer for details."; }
+.claude-badge:hover::after, .claude-badge:focus-visible::after { opacity: 1; }

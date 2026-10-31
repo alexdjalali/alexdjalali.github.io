@@ -42,3 +42,10 @@ def test_head_links_one_site_bundle(built_site: Path) -> None:
     """The home ``<head>`` links exactly one ``site.*.css`` stylesheet."""
     html = read_html(built_site, "index.html")
     assert len(re.findall(r'href="?/css/site\.[^"\s>]+\.css', html)) == 1
+
+
+def test_bundle_contains_shared_component_rules(built_site: Path) -> None:
+    """The built bundle defines the card hover lift and the topic-filter chip."""
+    css = next((built_site / "css").glob("site.*.css")).read_text()
+    assert ".card:hover.frame" in css.replace(" ", "")
+    assert ".chip{" in css.replace(" ", "")

@@ -1,0 +1,105 @@
+/* Styles for behaviour the redesign keeps: elements that scripts in assets/js query or create.
+   Ported from the legacy stylesheet and re-expressed in tokens (light only). */
+
+/* reading-progress.js */
+.reading-progress { position: fixed; top: 0; left: 0; width: 0; height: 3px; background: var(--red); z-index: 9998; transition: none; }
+
+/* back-to-top.js */
+.back-to-top {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  width: 2.75rem; height: 2.75rem;
+  border: 1px solid var(--black); border-radius: 0;
+  background: var(--white); color: var(--black);
+  font-size: 1rem; cursor: pointer;
+  opacity: 0; visibility: hidden;
+  transition: opacity .3s, visibility .3s, transform .3s;
+}
+.back-to-top.visible { opacity: .85; visibility: visible; }
+.back-to-top:hover { opacity: 1; transform: translateY(-2px); }
+
+/* collapsible-code.js */
+.code-collapse { margin-bottom: 1em; overflow: hidden; }
+.code-collapse-header {
+  display: flex; justify-content: space-between; align-items: center;
+  width: 100%; padding: .4em .8em;
+  background: var(--ink-2); border: 1px solid var(--black);
+  font-family: var(--font-label); font-size: .8125rem; color: var(--white);
+}
+.code-collapse-toggle { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; transition: color .15s; }
+.code-collapse-toggle:hover { color: var(--yellow); }
+.code-collapse-arrow { display: inline-block; width: 1em; transition: transform .2s ease; }
+.code-collapse-arrow.collapsed { transform: rotate(-90deg); }
+.code-copy-btn {
+  padding: .1em .6em; border: 1px solid var(--white); background: transparent;
+  font: inherit; color: var(--white); cursor: pointer; transition: color .15s, border-color .15s;
+}
+.code-copy-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+.code-collapse pre { margin-top: 0; }
+
+/* share.js */
+.share-buttons { display: flex; flex-wrap: wrap; gap: .8em; margin-top: 2em; padding-top: 1.5em; border-top: 1px solid var(--rule); }
+.share-btn {
+  display: inline-flex; align-items: center; gap: .5em; min-height: 2.75rem; padding: .5em 1.2em;
+  border: 1px solid var(--black); background: var(--white); color: var(--black);
+  font: inherit; font-size: .9em; cursor: pointer; transition: transform .2s, box-shadow .2s;
+}
+.share-btn:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--black); color: var(--black); }
+
+/* card-deck.js */
+.card-deck { position: relative; overflow: hidden; }
+.card-deck .card-deck-item { transition: transform .4s var(--ease), opacity .4s var(--ease); }
+.card-deck .card-deck-item:not(.is-current) { position: absolute; top: 0; left: 0; right: 0; opacity: 0; pointer-events: none; }
+.card-deck .card-deck-item.is-current { position: relative; opacity: 1; pointer-events: auto; transform: translateX(0); }
+.card-deck-nav { display: flex; align-items: center; justify-content: center; gap: .8em; margin-top: 1em; padding-bottom: 12px; }
+.card-deck-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.75rem; height: 2.75rem; padding: 0; line-height: 1;
+  border: 1px solid var(--black); background: var(--white); color: var(--black);
+  font: inherit; cursor: pointer; transition: border-color .2s, color .2s;
+}
+.card-deck-btn:hover:not(:disabled) { border-color: var(--red); color: var(--red); }
+.card-deck-btn:disabled { opacity: .35; cursor: default; }
+.card-deck-counter { min-width: 3em; text-align: center; font-family: var(--font-label); font-size: .75rem; color: var(--ink-3); }
+
+/* search.js */
+.search-input-wrap { position: relative; margin-bottom: 2em; }
+.search-input-wrap .search-icon { position: absolute; left: 1em; top: 50%; transform: translateY(-50%); color: var(--ink-3); pointer-events: none; }
+.search-input {
+  width: 100%; min-height: 2.75rem; padding: .8em 1em .8em 2.8em;
+  border: 0; border-bottom: 1px solid var(--black); border-radius: 0;
+  background: var(--white); color: var(--black); font: inherit; font-weight: 200; font-size: 1.5rem;
+}
+.search-input:focus { outline: 2px solid var(--red); outline-offset: 2px; }
+.search-results { list-style: none; margin: 0; padding: 0; }
+.search-result-item { margin-bottom: 1.5em; padding-bottom: 1.5em; border-bottom: 1px solid var(--rule); }
+.search-result-item:last-child { border-bottom: 0; }
+.search-result-title { margin-bottom: .3em; font-size: 1.25rem; font-weight: 300; }
+.search-result-title a:hover { color: var(--red); }
+.search-result-meta { margin-bottom: .4em; font-family: var(--font-label); font-size: .75rem; color: var(--ink-3); }
+.search-result-desc { font-family: var(--font-body); font-size: 1rem; line-height: 1.5; color: var(--ink-2); }
+.search-no-results { font-style: italic; color: var(--ink-3); }
+mark { background: var(--yellow); color: var(--black); }
+
+/* publication-abstract.js */
+.cv-list .pub-abstract {
+  display: block; margin: .35em 0 .4em; padding-left: .5em;
+  border-left: 2px solid var(--red); font-style: italic; font-size: .92em; line-height: 1.5; color: var(--ink-2);
+}
+.cv-list .pub-abstract.collapsed {
+  max-height: 0; overflow: hidden; opacity: 0; margin: 0; padding-left: 0; border-left-width: 0;
+  transition: max-height .35s ease, opacity .25s ease, margin .3s ease, border-left-width .2s ease;
+}
+.cv-list .pub-abstract:not(.collapsed) { max-height: 600px; opacity: 1; transition: max-height .4s ease, opacity .3s ease .1s; }
+.bib-link, .abstract-toggle {
+  display: inline-flex; align-items: center; min-height: 2.75rem; margin-left: .4em; padding: .2em .8em;
+  border: 1px solid var(--black); background: var(--white); color: var(--black);
+  font-family: var(--font-label); font-size: .6875rem; letter-spacing: .14em; text-transform: uppercase; cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+.bib-link:hover, .abstract-toggle:hover { transform: translate(-2px, -2px); box-shadow: 3px 3px 0 var(--black); color: var(--black); }
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top, .card-deck .card-deck-item, .code-collapse-arrow, .cv-list .pub-abstract { transition: none !important; }
+}
+@media print { .back-to-top, .reading-progress, .share-buttons { display: none; } }
