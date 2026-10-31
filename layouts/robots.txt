@@ -15,4 +15,4 @@ User-agent: Bytespider
 Disallow: /
 
 Sitemap: {{ .Site.BaseURL }}sitemap.xml
-Llms-txt: {{ .Site.BaseURL }}llms.txt
+# llms.txt: {{ .Site.BaseURL }}llms.txt

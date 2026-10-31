@@ -77,12 +77,12 @@ loading = "lazy"
 
 [params.csp]
 childsrc = ["'self'"]
-fontsrc = ["'self'", "https://fonts.gstatic.com"]
+fontsrc = ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"]
 formaction = ["'self'"]
 framesrc = ["'self'", "https://giscus.app"]
 imgsrc = ["'self'", "data:", "https://img.shields.io"]
 objectsrc = ["'none'"]
-stylesrc = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
+stylesrc = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net", "https://giscus.app"]
 scriptsrc = ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://www.googletagmanager.com", "https://giscus.app"]
 connectsrc = ["'self'", "https://www.google-analytics.com", "https://www.googletagmanager.com"]
 
