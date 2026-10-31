@@ -153,3 +153,29 @@ def not_found(_ctx: FigureContext) -> Figure:
     f.text(26, 76, "70°", 3.8).text(74, 76, "60°", 3.8).text(50, 32, "60°", 3.8)
     f.text(50, 92, "Σ = 190° ⊥", 4.4, italic=False, fill=R)
     return Figure(f.svg(), "A triangle with angles of 70, 60 and 60 degrees summing to 190: a contradiction")
+
+
+def scout(_ctx: FigureContext) -> Figure:
+    """Draw the 2015 Indian Scout as Euclid would: two wheels, a low frame, a tank and a V-twin."""
+    f = Fig(LEAD)
+    for cx in (22, 80):
+        f.wash(circ(cx, 66, 13, B), 0.35).ring(cx, 66, 13, w=0.9).pop(circ(cx, 66, 1.4, K))
+    f.wash(f'<polygon points="22,66 38,48 64,48 68,66" fill="{R}"></polygon>', 0.85)
+    f.wash(f'<path d="M44 47 Q52 36 66 42 L64 49 L46 49 Z" fill="{Y}"></path>', 0.95)
+    f.grow(rect(46, 52, 7, 9, K), dt=0.05).grow(rect(55, 52, 7, 9, K), dt=0.05)
+    f.path("M28 47 Q35 51 44 46", w=2.2).path("M66 40 L80 66", w=1).path("M62 37 L68 35 L71 40", w=0.9)
+    f.path("M40 63 L76 61", w=1.1).pop(circ(70, 44, 2, Y))
+    f.text(50, 92, "two wheels and an open road", 3.4)
+    return Figure(
+        f.svg(), "A cruiser motorcycle drawn as two wheels, a red frame, a yellow tank and a V-twin"
+    )
+
+
+def definition(_ctx: FigureContext) -> Figure:
+    """Draw the site's first definition: a triangle, a circle and a square, one per primary."""
+    f = Fig(LEAD)
+    f.wash(f'<polygon points="14,82 50,82 14,30" fill="{R}"></polygon>', 0.9)
+    f.wash(circ(62, 40, 18, Y), 0.9).ring(62, 40, 18, w=0.4)
+    f.wash(rect(52, 58, 28, 28, B), 0.85)
+    f.dashed((14, 30), (80, 86))
+    return Figure(f.svg(), "A red triangle, a yellow circle and a blue square: the site's three primaries")

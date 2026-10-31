@@ -6,7 +6,7 @@
     <h1 class="display">{{ partial "rise.html" (printf "About: %d homes, a few obsessions, one author." (len hugo.Data.locations)) }}</h1>
     {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
   </div>
-  <span class="about-portrait"><img src="{{ "images/headshot.png" | relURL }}" alt="{{ .Site.Params.displayName }}" width="300" height="300" fetchpriority="high"></span>
+  <span class="about-portrait"><img src="{{ "images/portrait.png" | relURL }}" alt="{{ .Site.Params.displayName }}" width="300" height="300" fetchpriority="high"></span>
 </section>
 
 <article class="about-content prose">

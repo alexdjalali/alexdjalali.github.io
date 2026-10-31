@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from figures.content import OrphanFigureError, post_slugs, validate_registry
+from figures.content import OrphanFigureError, post_slugs, post_titles, validate_registry
 
 pytestmark = pytest.mark.unit
 
@@ -33,3 +33,11 @@ def test_orphan_registration_raises_naming_the_slug() -> None:
 def test_unregistered_post_is_accepted() -> None:
     """A post with no registry entry is fine; the default applies."""
     validate_registry(["alpha", "new-post"], {"alpha": object()})
+
+
+def test_titles_are_read_from_front_matter(tmp_path: Path) -> None:
+    """``post_titles`` returns each non-draft post's quoted or bare ``title``."""
+    _post(tmp_path, "a.md", 'title: "Quoted: yes"')
+    _post(tmp_path, "b.md", "title: Bare")
+    _post(tmp_path, "c.md", "title: Draft\ndraft: true")
+    assert post_titles(tmp_path) == {"a": "Quoted: yes", "b": "Bare"}

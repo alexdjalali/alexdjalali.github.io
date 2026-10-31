@@ -98,6 +98,8 @@ PAGE_FIGURES: dict[str, FigureBuilder] = {
     "pages/career-lanes": career_lanes,
     "pages/ai-venn": c.ai_venn,
     "pages/not-found": c.not_found,
+    "pages/scout": c.scout,
+    "pages/definition": c.definition,
     "talks/enforcing-engineering-discipline": c.ratchet,
     "talks/tiya-applied-ai": c.three_days,
     "projects/conversational-document-intelligence": c.nine_formats,

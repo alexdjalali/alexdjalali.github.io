@@ -77,7 +77,7 @@ def test_deleted_post_makes_its_partial_stale(repo: Path) -> None:
     """Removing a post leaves its partial behind as drift; ``generate`` deletes it."""
     cli.main(["generate", "--root", str(repo)])
     (repo / "content" / "posts" / "beta.md").unlink()
-    assert build.drift(repo) == [build.PARTIALS / "posts" / "beta.html"]
+    assert build.drift(repo) == [build.PARTIALS / "posts" / "beta.html", build.OG_DIR / "beta.png"]
     cli.main(["generate", "--root", str(repo)])
     assert not (repo / build.PARTIALS / "posts" / "beta.html").exists()
     assert build.drift(repo) == []
@@ -104,3 +104,22 @@ def test_wrap_adds_role_and_a_matching_caption() -> None:
 def test_find_root_walks_up_to_hugo_toml(repo: Path) -> None:
     """The root is the nearest ancestor holding hugo.toml."""
     assert cli.find_root(repo / "content" / "posts") == repo
+
+
+def test_generate_writes_social_cards_and_icons(repo: Path) -> None:
+    """Each post gets a PNG social card; the default card, favicons and ``favicon.ico`` are written."""
+    cli.main(["generate", "--root", str(repo)])
+    cards = {p.name for p in (repo / build.OG_DIR).glob("*.png")}
+    assert {"alpha.png", "beta.png"} <= cards and "wip.png" not in cards
+    for rel in build.RASTER_FILES:
+        assert (repo / rel).read_bytes()[:4] in (b"\x89PNG", b"\x00\x00\x01\x00")
+
+
+def test_deleted_post_makes_its_card_stale(repo: Path) -> None:
+    """A card whose post is gone is drift until ``generate`` removes it; a missing card is drift."""
+    cli.main(["generate", "--root", str(repo)])
+    (repo / "content" / "posts" / "beta.md").unlink()
+    assert build.OG_DIR / "beta.png" in build.drift(repo)
+    cli.main(["generate", "--root", str(repo)])
+    (repo / build.OG_DIR / "alpha.png").unlink()
+    assert build.drift(repo) == [build.OG_DIR / "alpha.png"]

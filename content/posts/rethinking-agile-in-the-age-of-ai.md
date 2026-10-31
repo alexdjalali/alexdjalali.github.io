@@ -4,7 +4,7 @@ date: 2026-10-28T12:30:00-04:00
 draft: false
 description: "Agile's values still hold, but its practices were tuned for expensive code. What six months of AI-driven development says about roles, design, review, estimation, and the Definition of Done."
 images:
-  - "images/og-default.png"
+  - "images/og/rethinking-agile-in-the-age-of-ai.png"
 tags: ["ai", "agile", "software-engineering", "estimation", "process"]
 keywords: ["agile and ai", "rethinking agile", "story points", "ai estimation", "definition of done", "code review sampling", "agile manifesto"]
 series: ["Software Architecture"]

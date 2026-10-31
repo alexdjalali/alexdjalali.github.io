@@ -4,7 +4,7 @@ date: 2026-07-13
 draft: false
 description: "A field guide to the fifty techniques that show up in nearly every distributed system — sharding, quorums, idempotency, backpressure, circuit breakers, and more — each with a Go or Python implementation and a diagram of how it fits together."
 images:
-  - "images/og-default.png"
+  - "images/og/top-50-techniques-for-distributed-engineering.png"
 tags: ["distributed-systems", "system-design", "architecture", "go", "python"]
 keywords: ["distributed systems", "system design", "sharding", "consistent hashing", "caching", "idempotency", "saga pattern", "circuit breaker", "backpressure", "quorum", "CAP theorem", "rate limiting", "event sourcing", "go", "python"]
 series: ["Software Architecture"]

@@ -29,10 +29,10 @@ def _entries(html: str, var: str) -> int:
     return len(re.findall(r'"?startdate"?\s*:', m.group(1)))
 
 
-def test_about_has_headshot_static_lifeline_and_location_data(built_site: Path, repo_root: Path) -> None:
+def test_about_has_portrait_static_lifeline_and_location_data(built_site: Path, repo_root: Path) -> None:
     """The About page shows the portrait, a generated lifeline inside the container, and all locations."""
     html = read_html(built_site, "about/index.html")
-    assert "headshot" in html
+    assert "images/portrait.png" in html
     assert "<svg" in _inside(html, "about-timeline")
     expected = len(json.loads((repo_root / "data" / "locations.json").read_text(encoding="utf-8")))
     assert _entries(html, "locationData") == expected

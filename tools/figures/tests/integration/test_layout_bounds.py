@@ -49,11 +49,15 @@ def test_no_compass_ring_overflows_the_hero_figures(built_site: Path) -> None:
     ] == []
 
 
-def test_post_cover_images_are_height_capped(built_site: Path) -> None:
-    """A post's featured image carries the ``post-cover`` class and the stylesheet caps its height."""
-    html = read_html(built_site, "posts/how-i-learned-to-love-the-bomb/index.html")
-    assert re.search(r'<img class="?post-cover"?', html)
-    assert "max-height:24rem" in _rule(site_stylesheet(built_site), ".post-cover")
+def test_posts_share_their_generated_card_and_no_ai_image_remains(built_site: Path, repo_root: Path) -> None:
+    """Every post's social image is its generated card, and the retired AI images are gone."""
+    for md in sorted((repo_root / "content" / "posts").glob("*.md")):
+        html = read_html(built_site, f"posts/{md.stem}/index.html")
+        assert f"images/og/{md.stem}.png" in html, md.stem
+        assert (repo_root / "static" / "images" / "og" / f"{md.stem}.png").exists()
+        assert "images/posts/" not in html
+    retired = ["headshot.png", "suspenders.png", "motorcyle.jpeg", "posts"]
+    assert [n for n in retired if (repo_root / "static" / "images" / n).exists()] == []
 
 
 def test_display_headlines_are_capped_and_narrow_header_stays_compact(built_site: Path) -> None:

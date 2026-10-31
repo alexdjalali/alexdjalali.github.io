@@ -4,8 +4,7 @@ date: 2026-01-31
 draft: false
 description: "Exploring how Universal Dependencies parse trees, Montague-style typed lambda calculus, and vector-derived concept bases fit together into a compositional semantics pipeline."
 images:
-  - "images/posts/dependency-to-lambda.jpg"
-featuredImage: "images/posts/dependency-to-lambda.jpg"
+  - "images/og/dependency-to-lambda.png"
 tags: ["nlp", "formal-semantics", "lambda-calculus", "dependency-parsing"]
 keywords: ["natural language processing", "formal semantics", "lambda calculus", "dependency parsing", "computational linguistics"]
 ---

@@ -40,9 +40,6 @@
     </aside>
     {{ end }}
     <div class="post-content{{ if findRE `^\s*[A-Z][a-z]` .Plain 1 }} post-content--dropcap{{ end }}">
-      {{ if .Params.featuredImage }}
-        <img class="post-cover" src="{{ .Params.featuredImage | relURL }}" alt="{{ .Title }}" loading="lazy" decoding="async" width="1168" height="784">
-      {{ end }}
       {{ .Content }}
       <p class="qed qed--end">Q.E.D. &nbsp;∎</p>
     </div>

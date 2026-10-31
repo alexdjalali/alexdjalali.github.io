@@ -4,7 +4,6 @@
 .article-hero__fig { flex: 0 1 30rem; width: 30rem; max-width: 100%; }
 .article-hero__text { flex: 1 1 24rem; min-width: 0; }
 .article-hero .display { font-size: clamp(2rem, 4vw, 3.25rem); }
-.post-cover { display: block; width: 100%; height: auto; max-height: 24rem; margin: 0 0 2.5rem; object-fit: cover; object-position: 50% 25%; border: 1px solid var(--black); }
 @media (max-width: 63.99rem) {
   .article-hero { gap: 2rem; padding-bottom: 2.5rem; }
   .article-hero__text { order: -1; }

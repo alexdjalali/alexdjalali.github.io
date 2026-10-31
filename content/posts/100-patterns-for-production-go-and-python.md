@@ -4,7 +4,7 @@ date: 2026-05-06
 draft: false
 description: "A catalog of the design patterns, concurrency idioms, resilience strategies, and architectural practices that separate production-grade Go and Python systems from prototypes."
 images:
-  - "images/og-default.png"
+  - "images/og/100-patterns-for-production-go-and-python.png"
 tags: ["architecture", "design-patterns", "go", "python", "distributed-systems"]
 keywords: ["go patterns", "python patterns", "design patterns", "concurrency", "resilience", "production systems", "distributed systems", "software architecture"]
 series: ["Software Architecture"]

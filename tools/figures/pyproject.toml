@@ -3,7 +3,9 @@ name = "figures"
 version = "0.1.0"
 description = "Deterministic SVG figure generator for the blog theme"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "resvg-py>=0.5.0",
+]
 
 [project.scripts]
 figures = "figures.cli:main"

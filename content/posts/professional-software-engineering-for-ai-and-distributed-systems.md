@@ -4,8 +4,7 @@ date: 2026-03-01
 draft: false
 description: "A graduate course designed to bridge the gap between writing code and engineering production-grade distributed systems — with intentional technical debt, architecture defense, and AI as a force multiplier."
 images:
-  - "images/posts/professional-software-engineering-for-ai-and-distributed-systems.jpg"
-featuredImage: "images/posts/professional-software-engineering-for-ai-and-distributed-systems.jpg"
+  - "images/og/professional-software-engineering-for-ai-and-distributed-systems.png"
 tags: ["software-engineering", "education", "distributed-systems", "ai", "architecture"]
 keywords: ["software engineering course", "distributed systems", "AI engineering", "production systems", "graduate course", "architecture decision records", "trunk-based development", "clean architecture"]
 series: ["Software Architecture"]
