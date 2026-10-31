@@ -524,17 +524,7 @@ body.colorscheme-dark .nav-signature {
   color: var(--accent-red) !important;
 }
 
-/* Links — no underline, inherit color */
-a {
-  color: inherit !important;
-  text-decoration: none !important;
-}
-
-a:focus,
-a:hover {
-  color: inherit !important;
-  text-decoration: none !important;
-}
+/* (global link reset removed: base.css owns link colour) */
 
 /* Page content headings — consistent sizing with underline */
 .content .page h1.title {

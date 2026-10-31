@@ -1,0 +1,6 @@
+{{- /* A palette shape: partial "glyph.html" (dict "shape" "circle|square|triangle" "color" "red|yellow|blue|black"). */ -}}
+<svg aria-hidden="true" focusable="false" viewBox="0 0 100 100" class="glyph" style="fill:var(--{{ .color }})">
+{{- if eq .shape "circle" }}<circle cx="50" cy="50" r="42"/>
+{{- else if eq .shape "square" }}<rect x="10" y="10" width="80" height="80"/>
+{{- else }}<polygon points="50,8 92,88 8,88"/>{{ end -}}
+</svg>

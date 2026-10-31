@@ -1,33 +1,41 @@
-{{ define "title" }}
-  {{ title (i18n (lower .Title)) | default .Title }} · {{ .Site.Title }}
-{{ end }}
+{{ define "title" }}Writing · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
-  <section class="container page">
-    <header>
-      <h1 class="title">
-        <a class="title-link" href="{{ .Permalink | safeURL }}">
-          {{ title (i18n (lower .Title)) | default .Title }}
-        </a>
-      </h1>
-    </header>
-    {{ .Content }}
+{{- /* Same ordering as numeral.html (date, then path) so numerals descend down the page. */ -}}
+{{- $posts := (sort .Pages "File.Path").ByDate.Reverse -}}
+{{- $count := len $posts -}}
+{{- $words := slice "zero" "one" "two" "three" "four" "five" "six" "seven" "eight" "nine" "ten" "eleven" "twelve" "thirteen" "fourteen" "fifteen" "sixteen" "seventeen" "eighteen" "nineteen" "twenty" -}}
+{{- $topics := hugo.Data.topics -}}
+<section class="page-hero">
+  <p class="kicker">Book I.</p>
+  <h1 class="display">{{ partial "rise.html" (printf "Writing: %s propositions, in order of proof." (cond (le $count 20) (index $words $count) (string $count))) }}</h1>
+  <p class="lede">Essays and field guides on engineering with AI, software architecture, distributed systems, and the semantics of natural language. Each carries a figure drawn from its own argument.</p>
+</section>
 
-    {{/* Group posts by year, then by month within each year */}}
-    {{ range .Pages.GroupByDate "2006" }}
-      <h2>{{ .Key }}</h2>
-      {{ range .Pages.GroupByDate "January" }}
-        <h3 class="posts-month">{{ .Key }}</h3>
-        <ul class="cv-list">
-          {{ range .Pages }}
-            <li class="has-link" onclick="window.location='{{ .RelPermalink }}'">
-              <strong>{{ .Title }}</strong>
-              {{ with .Description }}
-                <span class="pub-abstract">{{ . }}</span>
-              {{ end }}
-            </li>
-          {{ end }}
-        </ul>
-      {{ end }}
-    {{ end }}
-  </section>
+<div class="chips" role="group" aria-label="Filter by topic">
+  {{- range $i, $topic := $topics }}
+  <button type="button" class="chip" data-topic="{{ $topic.key }}" aria-pressed="{{ if eq $i 0 }}true{{ else }}false{{ end }}">{{ $topic.name }}</button>
+  {{- end }}
+  <span class="label chips__count" id="topic-count" aria-live="polite">{{ partial "roman.html" $count }} of {{ partial "roman.html" $count }} shown</span>
+</div>
+
+<ol class="post-list">
+  {{- range $posts }}
+  {{- $tags := .Params.tags | default slice -}}
+  {{- $keys := slice -}}
+  {{- $names := slice -}}
+  {{- range $topics }}{{ if and .tags (intersect .tags $tags) }}{{ $keys = $keys | append .key }}{{ $names = $names | append .name }}{{ end }}{{ end }}
+  <li class="post-item" data-topics="{{ delimit $keys " " }}">
+    <a href="{{ .RelPermalink }}" class="card row post-row">
+      <span class="post-row__num">{{ partial "numeral.html" . }}</span>
+      <span class="frame post-row__fig">{{ partial "figure.html" (dict "kind" "posts" "key" .File.ContentBaseName) }}</span>
+      <span class="post-row__body">
+        <span class="ttl post-row__title">{{ .Title }}</span>
+        {{ with .Description }}<span class="prove"><em>To prove:</em> {{ . }}</span>{{ end }}
+        <span class="label post-row__tags">{{ delimit $names " · " }}</span>
+      </span>
+      <span class="label post-row__meta">{{ .Date.Format "Jan 2, 2006" }}<br>{{ .ReadingTime }} min</span>
+    </a>
+  </li>
+  {{- end }}
+</ol>
 {{ end }}

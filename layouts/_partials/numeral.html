@@ -7,12 +7,4 @@
 {{- range $i, $p := $sorted -}}
   {{- if eq $p.File.Path $page.File.Path }}{{ $rank = add $i 1 }}{{ end -}}
 {{- end -}}
-{{- $values := slice 1000 900 500 400 100 90 50 40 10 9 5 4 1 -}}
-{{- $symbols := slice "M" "CM" "D" "CD" "C" "XC" "L" "XL" "X" "IX" "V" "IV" "I" -}}
-{{- $out := "" -}}
-{{- range $k, $v := $values -}}
-  {{- range seq 1 12 -}}
-    {{- if ge $rank $v }}{{ $out = printf "%s%s" $out (index $symbols $k) }}{{ $rank = sub $rank $v }}{{ end -}}
-  {{- end -}}
-{{- end -}}
-{{- return $out -}}
+{{- return partial "roman.html" $rank -}}

@@ -1,26 +1,19 @@
-{{ define "title" }}
-  Series: {{ .Title | title }} · {{ .Site.Title }}
-{{ end }}
+{{ define "title" }}Series: {{ .Title | title }} · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
-  <section class="container page">
-    <header>
-      <h1 class="title">
-        <a class="title-link" href="{{ .Permalink | safeURL }}">
-          {{ .Title | title }}
-        </a>
-      </h1>
-    </header>
-    {{ .Content }}
-    <ol class="series-post-list">
-      {{ range .Pages.ByDate }}
-        <li class="series-post-item has-link" onclick="window.location='{{ .RelPermalink }}'">
-          <strong><a href="{{ .Permalink }}">{{ .Title }}</a></strong>
-          <time>{{ .Date.Format "January 2, 2006" }}</time>
-          {{ with .Description }}
-            <span class="pub-abstract">{{ . }}</span>
-          {{ end }}
-        </li>
-      {{ end }}
-    </ol>
-  </section>
+<section class="page-hero list-page">
+  <p class="kicker">Book I. · Series</p>
+  <h1 class="display">{{ partial "rise.html" (.Title | title) }}</h1>
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+  <ol class="series-post-list">
+    {{ range .Pages.ByDate }}
+    <li class="series-post-item row">
+      <a href="{{ .Permalink }}" class="series-post-link">
+        <strong class="ttl">{{ .Title }}</strong>
+        <time class="label" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+        {{ with .Description }}<span class="series-post-desc">{{ . }}</span>{{ end }}
+      </a>
+    </li>
+    {{ end }}
+  </ol>
+</section>
 {{ end }}

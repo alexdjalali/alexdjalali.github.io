@@ -1,0 +1,8 @@
+{{- /* A proposition card: figure, numeral, title, "To prove", meta. Usage: partial "prop-card.html" .Page */ -}}
+<a href="{{ .RelPermalink }}" class="card prop-card">
+  <div class="frame">{{ partial "figure.html" (dict "kind" "posts" "key" .File.ContentBaseName) }}</div>
+  <span class="label prop-card__num">Proposition {{ partial "numeral.html" . }}.</span>
+  <span class="ttl prop-card__title">{{ .Title }}</span>
+  {{ with .Description }}<span class="prove"><em>To prove:</em> {{ . }}</span>{{ end }}
+  <span class="label prop-card__meta">{{ .Date.Format "Jan 2, 2006" }} · {{ .ReadingTime }} min</span>
+</a>

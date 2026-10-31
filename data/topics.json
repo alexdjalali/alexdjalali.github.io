@@ -1,0 +1,10 @@
+[
+  {"key": "all", "name": "All", "tags": []},
+  {"key": "ai", "name": "AI", "tags": ["ai", "claude", "cursor", "agile", "estimation", "process"]},
+  {"key": "architecture", "name": "Architecture", "tags": ["architecture", "software-engineering", "monorepo", "infrastructure", "static-analysis"]},
+  {"key": "distributed", "name": "Distributed systems", "tags": ["distributed-systems", "system-design", "resilience", "observability"]},
+  {"key": "patterns", "name": "Patterns", "tags": ["design-patterns", "go", "python"]},
+  {"key": "semantics", "name": "Semantics", "tags": ["nlp", "formal-semantics", "lambda-calculus", "dependency-parsing"]},
+  {"key": "tools", "name": "Tools", "tags": ["developer-tools", "dotfiles", "neovim", "tmux", "macos"]},
+  {"key": "teaching", "name": "Teaching", "tags": ["education"]}
+]

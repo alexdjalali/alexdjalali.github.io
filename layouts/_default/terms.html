@@ -1,31 +1,26 @@
-{{ define "title" }}
-  {{ .Title | title }} · {{ .Site.Title }}
-{{ end }}
+{{ define "title" }}{{ .Title | title }} · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
-  <section class="container page">
-    <header>
-      <h1 class="title">
-        <a class="title-link" href="{{ .Permalink | safeURL }}">
-          {{ .Title | title }}
-        </a>
-      </h1>
-    </header>
-    {{ .Content }}
-    {{ $type := .Type }}
-    {{ range $key, $value := .Data.Terms.Alphabetical }}
-      {{ $name := .Name }}
-      {{ $count := .Count }}
-      {{ with site.GetPage (printf "/%s/%s" $type $name) }}
-        <div class="series-card">
-          <h2><a href="{{ .Permalink }}">{{ .Name | title }}</a></h2>
-          <span class="series-card-count">{{ $count }} {{ if eq $count 1 }}post{{ else }}posts{{ end }}</span>
-          <ul class="series-card-posts">
-            {{ range .Pages.ByDate }}
-              <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-            {{ end }}
-          </ul>
-        </div>
-      {{ end }}
+<section class="page-hero list-page">
+  <p class="kicker">Book I. · {{ .Title | title }}</p>
+  <h1 class="display">{{ partial "rise.html" (.Title | title) }}</h1>
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+  {{ $type := .Type }}
+  <div class="series-cards">
+  {{ range $key, $value := .Data.Terms.Alphabetical }}
+    {{ $name := .Name }}
+    {{ $count := .Count }}
+    {{ with site.GetPage (printf "/%s/%s" $type $name) }}
+    <div class="series-card frame">
+      <h2><a href="{{ .Permalink }}" class="ul">{{ .Name | title }}</a></h2>
+      <span class="series-card-count label">{{ $count }} {{ if eq $count 1 }}post{{ else }}posts{{ end }}</span>
+      <ul class="series-card-posts">
+        {{ range .Pages.ByDate }}
+        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+        {{ end }}
+      </ul>
+    </div>
     {{ end }}
-  </section>
+  {{ end }}
+  </div>
+</section>
 {{ end }}

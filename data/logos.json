@@ -1,0 +1,10 @@
+[
+  {"name": "Stanford", "url": "https://www.stanford.edu/", "file": "images/logos/standford.png"},
+  {"name": "Georgia Tech", "url": "https://www.gatech.edu/", "file": "images/logos/georgiatech.png"},
+  {"name": "Zapier", "url": "https://zapier.com/", "file": "images/logos/zapier.png"},
+  {"name": "Salesforce", "url": "https://www.salesforce.com/", "file": "images/logos/salesforce.png"},
+  {"name": "Tableau", "url": "https://www.tableau.com/", "file": "images/logos/tableau.png"},
+  {"name": "StartX", "url": "https://startx.com/", "file": "images/logos/startx.png"},
+  {"name": "Northwestern", "url": "https://www.northwestern.edu/", "file": "images/logos/northwestern.png"},
+  {"name": "Nuance", "url": "https://www.nuance.com/", "file": "images/logos/nuance.png"}
+]

@@ -1,0 +1,17 @@
+/* Writing index: hero, topic chips, and the list of propositions. */
+
+.page-hero { padding: clamp(3rem, 7vw, 5rem) 0 2.5rem; }
+
+.chips { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; padding: 1.25rem 0; border-top: 1px solid var(--black); border-bottom: 1px solid var(--black); }
+.chips__count { margin-left: auto; color: var(--ink-3); }
+html:not(.js) .chips .chip { display: none; }
+
+.post-list { margin: 0; padding: 0 0 4rem; list-style: none; }
+.post-item[hidden] { display: none; }
+.post-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 2rem; padding: 1.75rem 0; border-bottom: 1px solid var(--rule); }
+.post-row__num { flex: 0 0 5rem; font-size: 2.75rem; font-weight: 200; line-height: 1; color: var(--red); }
+.post-row__fig { flex: 0 0 7.5rem; }
+.post-row__body { display: flex; flex: 1 1 22rem; flex-direction: column; gap: .5rem; min-width: 0; }
+.post-row__title { font-size: 1.625rem; font-weight: 300; line-height: 1.15; }
+.post-row__tags { color: var(--ink-3); }
+.post-row__meta { flex: 0 0 auto; line-height: 1.8; text-align: right; color: var(--ink-3); }

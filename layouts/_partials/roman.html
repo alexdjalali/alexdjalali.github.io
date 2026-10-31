@@ -1,0 +1,11 @@
+{{- /* Integer → roman numeral: partial "roman.html" 11 → "XI". */ -}}
+{{- $n := . -}}
+{{- $values := slice 1000 900 500 400 100 90 50 40 10 9 5 4 1 -}}
+{{- $symbols := slice "M" "CM" "D" "CD" "C" "XC" "L" "XL" "X" "IX" "V" "IV" "I" -}}
+{{- $out := "" -}}
+{{- range $k, $v := $values -}}
+  {{- range seq 1 12 -}}
+    {{- if ge $n $v }}{{ $out = printf "%s%s" $out (index $symbols $k) }}{{ $n = sub $n $v }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}
