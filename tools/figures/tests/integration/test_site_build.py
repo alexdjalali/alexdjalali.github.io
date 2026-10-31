@@ -69,9 +69,7 @@ def test_primary_nav_has_four_books(built_site: Path) -> None:
         ),
     ],
 )
-def test_research_and_about_show_subnav(
-    built_site: Path, page: str, label: str, expected: list[str]
-) -> None:
+def test_research_and_about_show_subnav(built_site: Path, page: str, label: str, expected: list[str]) -> None:
     """Pages under Research and About render their Book's sub-navigation."""
     assert nav_links(read_html(built_site, page)).get(label) == expected
 

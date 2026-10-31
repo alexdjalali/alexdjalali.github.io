@@ -26,7 +26,7 @@ markers = [
 ]
 
 [tool.ruff]
-line-length = 100
+line-length = 110
 src = ["src", "tests"]
 
 [tool.ruff.lint]

@@ -1,0 +1,7 @@
+{{- /* Include a generated figure: partial "figure.html" (dict "kind" "posts" "key" "<slug>"). Falls back to figures/default.html when the generator has not produced it. */ -}}
+{{- $path := printf "figures/%s/%s.html" .kind .key -}}
+{{- if templates.Exists (printf "_partials/%s" $path) -}}
+  {{- partial $path . -}}
+{{- else -}}
+  {{- partial "figures/default.html" . -}}
+{{- end -}}
