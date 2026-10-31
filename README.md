@@ -1,6 +1,6 @@
 # a.j.djalali
 
-Personal academic blog built with [Hugo](https://gohugo.io/) and the [Coder](https://github.com/luizdepra/hugo-coder) theme. Deployed to GitHub Pages at [alexdjalali.github.io](https://alexdjalali.github.io/).
+Personal academic blog built with [Hugo](https://gohugo.io/) on an in-repo theme ("Byrne's Euclid", [ADR-0009](docs/adr/0009-byrne-euclid-redesign-in-repo-theme.md)). Deployed to GitHub Pages at [alexdjalali.github.io](https://alexdjalali.github.io/).
 
 ## Structure
 
@@ -17,14 +17,16 @@ content/
   posts/                    Blog posts (LaTeX math via KaTeX, collapsible code blocks)
   search/                   Site search index
 assets/
-  css/custom.css            Site-wide custom styles (cards, timeline, code blocks, dark mode)
+  css/tokens.css            Design tokens: palette, IBM Plex fonts (the only file with colour literals)
+  css/base.css              Reset, typography, shell (header, Books nav, footer)
+  css/custom.css            Legacy styles, removed as each page type is restyled
   js/clickable-list.js      Clickable list item handler
   js/collapsible-code.js    Expandable code blocks with copy-to-clipboard
 layouts/
   posts/list.html           Posts index with year/month timeline grouping
   cv/single.html            CV page layout
   presentations/single.html Reveal.js presentation embed layout
-  _partials/                Head extensions, JSON-LD, custom icons
+  _partials/                Head, header (four Books), footer, JSON-LD, custom icons
 presentations/              Presentation source files (Markdown, demos)
 static/
   bib/                      25 individual BibTeX files (publications, dissertation, patents)
@@ -43,7 +45,7 @@ hugo.toml                   Site configuration, nav, social links, KaTeX, Google
 - **Downloadable BibTeX** for all publications and patents
 - **Reveal.js presentations** embedded via custom layout
 - **Card-deck navigation** for Media and Gear pages
-- **Dark mode** with `prefers-color-scheme` auto-detection
+- **Light only**: five-colour palette (red, yellow, blue, black, white); no dark mode
 - **JSON-LD** structured data for SEO
 - **Google Analytics** (G-R50JVPX7MP)
 

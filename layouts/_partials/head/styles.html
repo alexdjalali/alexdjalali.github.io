@@ -1,0 +1,16 @@
+{{- /* One stylesheet: tokens → base → icons → motion → components → syntax → per-page → legacy (customCSS, removed at the end of the redesign). */ -}}
+{{- $parts := slice -}}
+{{- range slice "css/tokens.css" "css/base.css" "css/fontawesome.css" "css/motion.css" "css/components.css" "css/components-js.css" "css/content.css" "css/syntax.css" -}}
+  {{- with resources.Get . }}{{ $parts = $parts | append . }}{{ end -}}
+{{- end -}}
+{{- range resources.Match "css/pages/*.css" }}{{ $parts = $parts | append . }}{{ end -}}
+{{- range site.Params.customCSS -}}
+  {{- with resources.Get . }}{{ $parts = $parts | append . }}{{ end -}}
+{{- end -}}
+{{- $site := $parts | resources.Concat "css/site.css" -}}
+{{- if hugo.IsServer -}}
+<link rel="stylesheet" href="{{ $site.RelPermalink }}">
+{{- else -}}
+{{- $site = $site | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $site.RelPermalink }}" integrity="{{ $site.Data.Integrity }}" crossorigin="anonymous">
+{{- end }}

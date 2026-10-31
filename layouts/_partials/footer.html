@@ -1,36 +1,21 @@
-<footer class="footer">
-  <section class="container">
-    {{ with .Site.Params.social }}
-    <div class="footer-social">
-      {{ range sort . "weight" }}
-        {{ if .icon }}
-          <a href="{{ .url | safeURL }}" aria-label="{{ .name }}" target="_blank" rel="noopener noreferrer"{{ if .rel }} rel="{{ .rel }}"{{ end }}{{ if .type }} type="{{ .type }}"{{ end }}>
-            <i class="{{ .icon }}" aria-hidden="true"></i>
-          </a>
-        {{ end }}
-      {{ end }}
-    </div>
-    {{ end }}
-    <div class="footer-badges">
-      <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.shields.io/badge/Built%20with-Hugo-ff4088?style=flat-square&logo=hugo&logoColor=white" alt="Built with Hugo">
-      </a>
-      <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey?style=flat-square&logo=creative-commons&logoColor=white" alt="CC BY-SA 4.0">
-      </a>
-    </div>
-    <div class="footer-copy">
+<footer class="site-footer">
+  <div class="container site-footer__inner label">
+    <span>
       ©
-      {{ if (and .Site.Params.since (lt .Site.Params.since now.Year)) }}
-        {{ .Site.Params.since }} -
+      {{ if (and .Site.Params.since (lt .Site.Params.since now.Year)) }}{{ .Site.Params.since }}–{{ end }}{{ now.Year }}
+      {{ with .Site.Params.author }}{{ . }}{{ end }}
+      · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
+    </span>
+    <span class="qed">Q.E.D.&nbsp; ∎</span>
+    <span class="site-footer__links">
+      {{ range sort .Site.Params.social "weight" }}
+        {{ if .icon }}<a href="{{ .url | safeURL }}" aria-label="{{ .name }}" target="_blank" rel="noopener noreferrer"{{ if .rel }} rel="{{ .rel }}"{{ end }}{{ if .type }} type="{{ .type }}"{{ end }}><i class="{{ replace .icon " fa-2x" "" }}" aria-hidden="true"></i></a>{{ end }}
       {{ end }}
-      {{ now.Year }}
-      {{ with .Site.Params.author }} {{ . }} {{ end }}
-      · <a href="{{ "ai-disclaimer/" | relURL }}">AI Disclaimer</a>
-      · <a href="{{ "archives/" | relURL }}">Archive</a>
-      · <a href="https://calendly.com/alex-djalali/30min" target="_blank" rel="noopener noreferrer"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Book a Call</a>
-    </div>
-  </section>
+      <a href="{{ "archives/" | relURL }}" class="ul">Archive</a>
+      <a href="{{ "ai-disclaimer/" | relURL }}" class="ul">AI disclosure</a>
+      <a href="https://calendly.com/alex-djalali/30min" target="_blank" rel="noopener noreferrer" class="ul">Book a Call</a>
+    </span>
+  </div>
   <button class="back-to-top" id="back-to-top" aria-label="Back to top">
     <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
   </button>

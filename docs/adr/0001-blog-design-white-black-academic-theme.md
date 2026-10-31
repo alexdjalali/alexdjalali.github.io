@@ -1,7 +1,8 @@
 # ADR-0001: Blog Design — White/Black Academic Theme Following blog.martisak.se
 
 **Date**: 2026-02-22
-**Status**: Accepted
+**Status**: Superseded by [ADR-0009](0009-byrne-euclid-redesign-in-repo-theme.md)
+**Status history**: Accepted 2026-02-22 → Superseded 2026-10-30
 **Deciders**: Alex Djalali
 
 ## Context

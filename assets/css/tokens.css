@@ -1,0 +1,23 @@
+/* Design tokens (ADR-0009 §2). The only file that holds colour literals. */
+:root {
+  --red: #D62718;
+  --yellow: #F5C400; /* fills only: fails text contrast on white */
+  --blue: #1F4E9E;
+  --black: #111111;
+  --white: #FFFFFF;
+
+  --ink-2: #3A3A3A;
+  --ink-3: #4A4A4A;
+  --rule: #D9D9D9;
+  --wash: #F7F7F5;
+  --code-comment: #A8A8A8; /* comments on black */
+
+  --font-display: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-body: 'IBM Plex Serif', Georgia, serif;
+  --font-label: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --measure: 40rem;
+  --page: 80rem;
+  --gutter: clamp(1.25rem, 4vw, 2rem);
+  --ease: cubic-bezier(.2, .8, .2, 1);
+}

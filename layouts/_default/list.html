@@ -1,0 +1,10 @@
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
+{{ define "content" }}
+<section class="container">
+  <h1>{{ .Title }}</h1>
+  <div class="prose">{{ .Content }}</div>
+  <ul class="plain-list">
+    {{ range .Pages }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+  </ul>
+</section>
+{{ end }}

@@ -1,6 +1,5 @@
 baseURL = "https://alexdjalali.github.io/"
 title = "a.j.djalali"
-theme = "coder"
 languageCode = "en"
 defaultContentLanguage = "en"
 enableEmoji = true
@@ -49,8 +48,6 @@ avatarURL = "images/headshot.png"
 info = ["AI Strategy Advisor"]
 dateFormat = "January 2, 2006"
 since = 2026
-colorScheme = "auto"
-hideColorSchemeToggle = false
 customCSS = ["css/custom.css"]
 customJS = ["js/clickable-list.js", "js/collapsible-code.js", "js/reading-progress.js", "js/share.js", "js/search.js", "js/publication-abstract.js", "js/back-to-top.js", "js/card-deck.js"]
 math = true
@@ -69,7 +66,7 @@ strict = "1"
 reactionsEnabled = "1"
 emitMetadata = "0"
 inputPosition = "top"
-theme = "preferred_color_scheme"
+theme = "light"
 lang = "en"
 loading = "lazy"
 
@@ -87,45 +84,88 @@ connectsrc = ["'self'", "https://www.google-analytics.com", "https://www.googlet
 [languages.en]
 languageName = "English"
 
+# Primary navigation: four Books; `match` lists the URL prefixes that mark a Book active.
+
 [[languages.en.menu.main]]
-name = "Posts"
+identifier = "writing"
+name = "Writing"
 weight = 1
 url = "posts/"
+[languages.en.menu.main.params]
+match = ["/posts/", "/tags/", "/series/", "/archives/"]
 
 [[languages.en.menu.main]]
-name = "Projects"
+identifier = "research"
+name = "Research"
 weight = 2
+url = "publications/"
+[languages.en.menu.main.params]
+match = ["/publications/", "/presentations/"]
+
+[[languages.en.menu.main]]
+identifier = "projects"
+name = "Projects"
+weight = 3
 url = "projects/"
+[languages.en.menu.main.params]
+match = ["/projects/"]
 
 [[languages.en.menu.main]]
-name = "Resume"
+identifier = "about"
+name = "About"
 weight = 4
-url = "cv/"
+url = "about/"
+[languages.en.menu.main.params]
+match = ["/about/", "/cv/", "/media/", "/gear/", "/ai-disclaimer/"]
 
 [[languages.en.menu.main]]
+identifier = "publications"
+parent = "research"
 name = "Publications"
-weight = 5
+weight = 1
 url = "publications/"
 
 [[languages.en.menu.main]]
+identifier = "talks"
+parent = "research"
 name = "Talks"
-weight = 6
+weight = 2
 url = "presentations/"
 
 [[languages.en.menu.main]]
+identifier = "about-me"
+parent = "about"
+name = "About"
+weight = 1
+url = "about/"
+
+[[languages.en.menu.main]]
+identifier = "resume"
+parent = "about"
+name = "Resume"
+weight = 2
+url = "cv/"
+
+[[languages.en.menu.main]]
+identifier = "media"
+parent = "about"
 name = "Media"
-weight = 7
+weight = 3
 url = "media/"
 
 [[languages.en.menu.main]]
+identifier = "gear"
+parent = "about"
 name = "Gear"
-weight = 8
+weight = 4
 url = "gear/"
 
 [[languages.en.menu.main]]
-name = "About"
-weight = 9
-url = "about/"
+identifier = "ai"
+parent = "about"
+name = "AI disclosure"
+weight = 5
+url = "ai-disclaimer/"
 
 [[params.social]]
 name = "GitHub"

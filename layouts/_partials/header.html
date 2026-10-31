@@ -1,44 +1,44 @@
-<nav class="navigation">
-  <section class="container">
-    {{ with .Site }}
-    <a class="navigation-title" href="{{ absLangURL "" }}">
-      <img class="nav-signature" src="{{ "images/signature.png" | relURL }}" alt="{{ .Title }}" width="600" height="288" fetchpriority="high">
+{{- /* Header: text mark, four Books (numbered I.–IV.), search, and the active Book's sub-nav. */ -}}
+{{- $path := .RelPermalink -}}
+{{- $active := "" -}}
+{{- range .Site.Menus.main -}}
+  {{- range .Params.match -}}
+    {{- if hasPrefix $path . }}{{ $active = . }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- $numerals := slice "I." "II." "III." "IV." -}}
+<header class="site-header">
+  <div class="container site-header__bar">
+    <a class="site-mark" href="{{ "/" | relLangURL }}">
+      <svg aria-hidden="true" viewBox="0 0 100 100" class="site-mark__tri"><polygon points="8,92 92,92 8,8" fill="var(--red)" class="an-pop"/></svg>
+      {{ .Site.Title }}
     </a>
-    {{ end }}
-    {{ if or .Site.Menus.main hugo.IsMultilingual }}
-      <input type="checkbox" id="menu-toggle" />
-      <label class="menu-button float-right" for="menu-toggle" aria-label="Toggle navigation menu" role="button">
-        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
-      </label>
-      <ul class="navigation-list">
-        {{ with .Site.Menus.main}}
-          {{ range sort . }}
-            <li class="navigation-item">
-              <a class="navigation-link {{ .Params.class }}" href="{{ index (apply (slice .URL) (.Params.urlFunc | default "relLangURL") ".") 0 }}">{{ .Name }}</a>
-            </li>
-          {{ end }}
-        {{ end }}
-        <li class="navigation-item">
-          <a class="navigation-link nav-search-link" href="{{ "search/" | relLangURL }}" aria-label="Search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></a>
-        </li>
-        {{ if hugo.IsMultilingual }}
-          {{ $node := . }}
-          {{ .Scratch.Set "separator" true }}
-          {{ range (default .Site.Home.AllTranslations .Translations) }}
-            {{ if ne $.Site.Language .Language }}
-              {{ if $node.Scratch.Get "separator" }}
-                <li class="navigation-item menu-separator">
-                  <span>|</span>
-                </li>
-                {{ $node.Scratch.Set "separator" false }}
-              {{ end }}
-              <li class="navigation-item">
-                <a href="{{ .RelPermalink }}">{{ .Language.LanguageName | emojify }}</a>
-              </li>
-            {{ end }}
-          {{ end }}
-        {{ end }}
-      </ul>
-    {{ end }}
-  </section>
-</nav>
+    <div class="site-header__right">
+      <nav aria-label="Primary" class="books label">
+        {{- range $i, $book := .Site.Menus.main -}}
+          {{- $on := false -}}
+          {{- range $book.Params.match }}{{ if hasPrefix $path . }}{{ $on = true }}{{ end }}{{ end -}}
+          <a href="{{ $book.URL | relLangURL }}" class="ul{{ if $on }} on{{ end }}"{{ if $on }} aria-current="true"{{ end }}><span class="books__num">{{ index $numerals $i }}</span> {{ $book.Name }}</a>
+        {{- end -}}
+      </nav>
+      <a href="{{ "search/" | relLangURL }}" aria-label="Search" class="btn btn--icon nav-search-link">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
+      </a>
+    </div>
+  </div>
+  {{- range .Site.Menus.main -}}
+    {{- $book := . -}}
+    {{- $on := false -}}
+    {{- range $book.Params.match }}{{ if hasPrefix $path . }}{{ $on = true }}{{ end }}{{ end -}}
+    {{- if and $on $book.HasChildren }}
+  <nav aria-label="{{ $book.Name }} sections" class="subnav label">
+    <div class="container subnav__inner">
+      {{- range $book.Children -}}
+        {{- $here := eq $path (.URL | relLangURL) -}}
+        <a href="{{ .URL | relLangURL }}" class="ul{{ if $here }} on{{ end }}"{{ if $here }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{- end -}}
+    </div>
+  </nav>
+    {{- end -}}
+  {{- end }}
+</header>
