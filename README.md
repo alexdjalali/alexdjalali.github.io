@@ -17,7 +17,7 @@ assets/
   css/tokens.css            Design tokens: palette, IBM Plex fonts (the only file with colour literals)
   css/*.css, css/pages/     Base, motion, components, content, syntax; one stylesheet per page type
   js/                       reveal.js (scroll reveal), topic-filter, search, timelines, card-deck, share, abstract toggle
-data/                       topics.json, logos.json, locations.json, timeline.json; figures/research.json is generated
+data/                       topics.json, logos.json, locations.json, timeline.json, technologies.json; figures/research.json is generated
 tools/figures/              Python figure generator (uv, ruff, basedpyright, pytest)
 static/
   bib/                      25 individual BibTeX files (publications, dissertation, patents)
@@ -36,6 +36,7 @@ hugo.toml                   Site configuration, Books menu, social links, KaTeX,
 - **Generated figures**: every post and data page has an SVG drawn from its own argument or data (see below)
 - **Motion**: figures draw themselves and headlines rise word by word as they scroll into view; `prefers-reduced-motion` and no-JS show everything fully drawn
 - **Timelines**: static lanes generated from `data/timeline.json`, replaced by the interactive D3 timelines when JS is on
+- **Technologies** (Resume): the `{{< technologies >}}` shortcode renders `data/technologies.json`; every icon is vendored in `static/images/tech/` and its entry records the URL it was copied from (Devicon, Simple Icons, LobeHub, or the project's own repo)
 - **LaTeX math rendering** via KaTeX with Goldmark passthrough delimiters (`$...$` inline, `$$...$$` display)
 - **Collapsible code blocks** with language headers and copy-to-clipboard
 - **Topic filter and search** on the Writing index; publication abstract toggles; downloadable BibTeX

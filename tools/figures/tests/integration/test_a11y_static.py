@@ -41,7 +41,7 @@ class _Audit(HTMLParser):
             if (a.get("href") or "").startswith("#main") and "skip" in (a.get("class") or ""):
                 self.skip_link = True
         elif tag == "img":
-            if a.get("alt") is None:
+            if "alt" not in a:
                 self.imgs_without_alt += 1
             if self._link is not None:
                 self._link_has_img = bool(a.get("alt"))

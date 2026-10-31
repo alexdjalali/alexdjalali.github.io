@@ -1,0 +1,369 @@
+{
+  "groups": [
+    {
+      "name": "Languages",
+      "items": [
+        {
+          "name": "Python",
+          "url": "https://www.python.org/",
+          "icon": "python.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/python/python-original.svg"
+        },
+        {
+          "name": "Go",
+          "url": "https://go.dev/",
+          "icon": "go.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/go/go-original.svg"
+        },
+        {
+          "name": "TypeScript",
+          "url": "https://www.typescriptlang.org/",
+          "icon": "typescript.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/typescript/typescript-original.svg"
+        },
+        {
+          "name": "JavaScript",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+          "icon": "javascript.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/javascript/javascript-original.svg"
+        },
+        {
+          "name": "Bash",
+          "url": "https://www.gnu.org/software/bash/",
+          "icon": "bash.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/bash/bash-original.svg"
+        },
+        {
+          "name": "Lua",
+          "url": "https://www.lua.org/",
+          "icon": "lua.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/lua/lua-original.svg"
+        },
+        {
+          "name": "HTML",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "icon": "html.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/html5/html5-original.svg"
+        },
+        {
+          "name": "CSS",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "icon": "css.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/css3/css3-original.svg"
+        }
+      ]
+    },
+    {
+      "name": "Frameworks",
+      "items": [
+        {
+          "name": "React",
+          "url": "https://react.dev/",
+          "icon": "react.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/react/react-original.svg"
+        },
+        {
+          "name": "Next.js",
+          "url": "https://nextjs.org/",
+          "icon": "next-js.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/nextjs/nextjs-original.svg"
+        },
+        {
+          "name": "FastAPI",
+          "url": "https://fastapi.tiangolo.com/",
+          "icon": "fastapi.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/fastapi/fastapi-original.svg"
+        },
+        {
+          "name": "Tailwind",
+          "url": "https://tailwindcss.com/",
+          "icon": "tailwind.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/tailwindcss/tailwindcss-original.svg"
+        },
+        {
+          "name": "Hugo",
+          "url": "https://gohugo.io/",
+          "icon": "hugo.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/hugo/hugo-original.svg"
+        },
+        {
+          "name": "GraphQL",
+          "url": "https://graphql.org/",
+          "icon": "graphql.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/graphql/graphql-plain.svg"
+        },
+        {
+          "name": "Node.js",
+          "url": "https://nodejs.org/",
+          "icon": "node-js.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/nodejs/nodejs-original.svg"
+        },
+        {
+          "name": "Vite",
+          "url": "https://vite.dev/",
+          "icon": "vite.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/vitejs/vitejs-original.svg"
+        },
+        {
+          "name": "Storybook",
+          "url": "https://storybook.js.org/",
+          "icon": "storybook.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/storybook/storybook-original.svg"
+        },
+        {
+          "name": "TanStack Query",
+          "url": "https://tanstack.com/query",
+          "icon": "tanstack-query.svg",
+          "source": "https://cdn.simpleicons.org/tanstack"
+        },
+        {
+          "name": "Pydantic",
+          "url": "https://docs.pydantic.dev/",
+          "icon": "pydantic.svg",
+          "source": "https://cdn.simpleicons.org/pydantic"
+        },
+        {
+          "name": "Ray",
+          "url": "https://www.ray.io/",
+          "icon": "ray.svg",
+          "source": "https://cdn.simpleicons.org/ray"
+        },
+        {
+          "name": "gRPC",
+          "url": "https://grpc.io/",
+          "icon": "grpc.svg",
+          "source": "https://raw.githubusercontent.com/cncf/artwork/main/projects/grpc/icon/color/grpc-icon-color.svg"
+        }
+      ]
+    },
+    {
+      "name": "Data",
+      "items": [
+        {
+          "name": "PostgreSQL",
+          "url": "https://www.postgresql.org/",
+          "icon": "postgresql.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/postgresql/postgresql-original.svg"
+        },
+        {
+          "name": "MongoDB",
+          "url": "https://www.mongodb.com/",
+          "icon": "mongodb.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/mongodb/mongodb-original.svg"
+        },
+        {
+          "name": "Redis",
+          "url": "https://redis.io/",
+          "icon": "redis.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/redis/redis-original.svg"
+        },
+        {
+          "name": "Elasticsearch",
+          "url": "https://www.elastic.co/elasticsearch",
+          "icon": "elasticsearch.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/elasticsearch/elasticsearch-original.svg"
+        },
+        {
+          "name": "Neo4j",
+          "url": "https://neo4j.com/",
+          "icon": "neo4j.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/neo4j/neo4j-original.svg"
+        },
+        {
+          "name": "Kafka",
+          "url": "https://kafka.apache.org/",
+          "icon": "kafka.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/apachekafka/apachekafka-original.svg"
+        },
+        {
+          "name": "Qdrant",
+          "url": "https://qdrant.tech/",
+          "icon": "qdrant.svg",
+          "source": "https://cdn.simpleicons.org/qdrant"
+        },
+        {
+          "name": "Cassandra",
+          "url": "https://cassandra.apache.org/",
+          "icon": "cassandra.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/cassandra/cassandra-original.svg"
+        },
+        {
+          "name": "OpenSearch",
+          "url": "https://opensearch.org/",
+          "icon": "opensearch.svg",
+          "source": "https://cdn.simpleicons.org/opensearch"
+        },
+        {
+          "name": "MinIO",
+          "url": "https://min.io/",
+          "icon": "minio.svg",
+          "source": "https://cdn.simpleicons.org/minio"
+        },
+        {
+          "name": "Valkey",
+          "url": "https://valkey.io/",
+          "icon": "valkey.svg",
+          "source": "https://raw.githubusercontent.com/valkey-io/valkey-io.github.io/main/static/img/Valkey-logo.svg"
+        }
+      ]
+    },
+    {
+      "name": "AI",
+      "items": [
+        {
+          "name": "Ollama",
+          "url": "https://ollama.com/",
+          "icon": "ollama.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/ollama/ollama-original.svg"
+        },
+        {
+          "name": "MCP",
+          "url": "https://modelcontextprotocol.io/",
+          "icon": "mcp.svg",
+          "source": "https://cdn.simpleicons.org/modelcontextprotocol"
+        },
+        {
+          "name": "Amazon Bedrock",
+          "url": "https://aws.amazon.com/bedrock/",
+          "icon": "amazon-bedrock.svg",
+          "source": "https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg/icons/bedrock-color.svg"
+        }
+      ]
+    },
+    {
+      "name": "Infrastructure",
+      "items": [
+        {
+          "name": "Docker",
+          "url": "https://www.docker.com/",
+          "icon": "docker.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/docker/docker-original.svg"
+        },
+        {
+          "name": "Kubernetes",
+          "url": "https://kubernetes.io/",
+          "icon": "kubernetes.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/kubernetes/kubernetes-original.svg"
+        },
+        {
+          "name": "Helm",
+          "url": "https://helm.sh/",
+          "icon": "helm.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/helm/helm-original.svg"
+        },
+        {
+          "name": "Terraform",
+          "url": "https://www.terraform.io/",
+          "icon": "terraform.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/terraform/terraform-original.svg"
+        },
+        {
+          "name": "AWS",
+          "url": "https://aws.amazon.com/",
+          "icon": "aws.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/amazonwebservices/amazonwebservices-original.svg"
+        },
+        {
+          "name": "Nginx",
+          "url": "https://nginx.org/",
+          "icon": "nginx.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/nginx/nginx-original.svg"
+        },
+        {
+          "name": "Actions",
+          "url": "https://github.com/features/actions",
+          "icon": "actions.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/githubactions/githubactions-original.svg"
+        },
+        {
+          "name": "Linux",
+          "url": "https://www.kernel.org/",
+          "icon": "linux.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/linux/linux-plain.svg"
+        },
+        {
+          "name": "Kong",
+          "url": "https://konghq.com/",
+          "icon": "kong.svg",
+          "source": "https://cdn.simpleicons.org/kong"
+        }
+      ]
+    },
+    {
+      "name": "Observability",
+      "items": [
+        {
+          "name": "Prometheus",
+          "url": "https://prometheus.io/",
+          "icon": "prometheus.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/prometheus/prometheus-original.svg"
+        },
+        {
+          "name": "Grafana",
+          "url": "https://grafana.com/",
+          "icon": "grafana.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/grafana/grafana-original.svg"
+        },
+        {
+          "name": "OpenTelemetry",
+          "url": "https://opentelemetry.io/",
+          "icon": "opentelemetry.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/opentelemetry/opentelemetry-original.svg"
+        },
+        {
+          "name": "Loki",
+          "url": "https://grafana.com/oss/loki/",
+          "icon": "loki.png",
+          "source": "https://raw.githubusercontent.com/grafana/loki/main/docs/sources/logo.png"
+        },
+        {
+          "name": "Tempo",
+          "url": "https://grafana.com/oss/tempo/",
+          "icon": "tempo.png",
+          "source": "https://raw.githubusercontent.com/grafana/tempo/main/cmd/tempo/app/static/tempo-icon.png"
+        }
+      ]
+    },
+    {
+      "name": "Tools",
+      "items": [
+        {
+          "name": "Git",
+          "url": "https://git-scm.com/",
+          "icon": "git.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/git/git-original.svg"
+        },
+        {
+          "name": "Neovim",
+          "url": "https://neovim.io/",
+          "icon": "neovim.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/neovim/neovim-original.svg"
+        },
+        {
+          "name": "uv",
+          "url": "https://docs.astral.sh/uv/",
+          "icon": "uv.svg",
+          "source": "https://cdn.simpleicons.org/uv"
+        },
+        {
+          "name": "Ruff",
+          "url": "https://docs.astral.sh/ruff/",
+          "icon": "ruff.svg",
+          "source": "https://cdn.simpleicons.org/ruff"
+        },
+        {
+          "name": "pytest",
+          "url": "https://docs.pytest.org/",
+          "icon": "pytest.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/pytest/pytest-original.svg"
+        },
+        {
+          "name": "Vitest",
+          "url": "https://vitest.dev/",
+          "icon": "vitest.svg",
+          "source": "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/icons/vitest/vitest-original.svg"
+        }
+      ]
+    }
+  ]
+}

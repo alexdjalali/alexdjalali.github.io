@@ -1,0 +1,12 @@
+{{- /* Resume Technologies: one grid per group in data/technologies.json; icons are vendored in static/images/tech/. */ -}}
+<div class="tech-section">
+<h2>Technologies</h2>
+{{- range hugo.Data.technologies.groups }}
+<h3>{{ .name }}</h3>
+<div class="tech-grid">
+  {{- range .items }}
+  <a class="tech-icon" href="{{ .url }}" target="_blank" rel="noopener noreferrer"><img src="{{ printf "images/tech/%s" .icon | relURL }}" alt="" width="36" height="36" loading="lazy"><span>{{ .name }}</span></a>
+  {{- end }}
+</div>
+{{- end }}
+</div>
