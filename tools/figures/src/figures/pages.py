@@ -62,7 +62,7 @@ def lifeline(ctx: FigureContext) -> Figure:
         f.grow(rect(x0, 46, x1 - x0, 8, PRIMARIES[i % 4]), dt=0.08)
         f.line((mid, 46 if up else 54), (mid, 40 if up else 60), w=0.2, dt=0.01)
         f.text(mid, 37 if up else 64.5, place.short, 2.6, dt=0.02)
-    for yr in (1984, 1994, 2004, 2014, 2024):
+    for yr in range(1984, int(HORIZON) + 1, 10):
         f.text(xs(yr), 74, str(yr), 2.6, italic=False, dt=0.01)
     svg = f.svg(ratio="3 / 1", view="0 25 100 55", marks=False)
     return Figure(
@@ -84,7 +84,7 @@ def career_lanes(ctx: FigureContext) -> Figure:
         ly, colour, _ = _LANES[e.lane]
         width = max(0.8, xs(e.end) - xs(e.start))
         f.grow(rect(xs(e.start), ly + (i % 2) * 4, width, 3.4, colour), dt=0.06)
-    for yr in range(2000, 2027, 5):
+    for yr in range(2000, int(HORIZON) + 1, 5):
         f.line((xs(yr), 88), (xs(yr), 90), w=0.2, dt=0.01).text(
             xs(yr), 95, str(yr), 2.6, italic=False, dt=0.01
         )

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -9,6 +10,13 @@ from pathlib import Path
 def read_html(site: Path, rel: str) -> str:
     """Return the text of ``rel`` inside the built site."""
     return (site / rel).read_text(encoding="utf-8")
+
+
+def site_stylesheet(site: Path) -> str:
+    """Return the text of the one bundled stylesheet the built home page links."""
+    match = re.search(r'href="?(/css/site[^"\s>]*\.css)', read_html(site, "index.html"))
+    assert match, "built home page does not link the site stylesheet"
+    return (site / match.group(1).lstrip("/")).read_text(encoding="utf-8")
 
 
 class _NavLinks(HTMLParser):

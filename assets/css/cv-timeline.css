@@ -164,7 +164,6 @@
     90deg,
     var(--black) 0%, var(--red) 50%, var(--black) 100%
   );
-  background-size: 200% 100%;
 }
 
 .cv-section h2 {
@@ -185,7 +184,6 @@
     90deg,
     var(--black) 0%, var(--red) 50%, var(--black) 100%
   );
-  background-size: 200% 100%;
 }
 
 /* Entry cards */
@@ -457,7 +455,6 @@
     90deg,
     var(--black) 0%, var(--red) 50%, var(--black) 100%
   );
-  background-size: 200% 100%;
 }
 
 .cv-skills h3 {
@@ -529,7 +526,6 @@
     90deg,
     var(--black) 0%, var(--red) 50%, var(--black) 100%
   );
-  background-size: 200% 100%;
 }
 
 /* Print styles */

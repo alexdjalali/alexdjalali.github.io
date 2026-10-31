@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 import re
+from collections.abc import Callable
 from pathlib import Path
 
 import pytest
 
 from figures.bib import load_entries
 from figures.data import load_locations, load_timeline
-from figures.model import FigureContext
+from figures.model import Figure, FigureContext
 from figures.pages import PAGE_FIGURES, career_lanes, lifeline, research_output
 
 pytestmark = pytest.mark.unit
@@ -78,7 +79,9 @@ def test_every_page_figure_is_deterministic_and_captioned(key: str, ctx: FigureC
 
 
 @pytest.mark.parametrize("builder", [lifeline, career_lanes])
-def test_axis_end_follows_the_horizon(builder, ctx: FigureContext, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_axis_end_follows_the_horizon(
+    builder: Callable[[FigureContext], Figure], ctx: FigureContext, monkeypatch: pytest.MonkeyPatch
+) -> None:
     """The time axis ends at ``HORIZON``, so bumping it moves the axis with the ongoing bars."""
     before = builder(ctx).svg
     monkeypatch.setattr("figures.pages.HORIZON", 2030.0)
@@ -90,3 +93,13 @@ def test_research_output_with_no_bibliography_names_the_cause() -> None:
     empty = FigureContext(slug="page", bib=(), locations=(), timeline=())
     with pytest.raises(ValueError, match="no bibliography"):
         research_output(empty)
+
+
+@pytest.mark.parametrize(("builder", "tick"), [(lifeline, "2034"), (career_lanes, "2035")])
+def test_ticks_extend_with_the_horizon(
+    builder: Callable[[FigureContext], Figure], tick: str, ctx: FigureContext, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Raising ``HORIZON`` adds the next tick label, so the axis never outruns its ticks."""
+    assert f">{tick}<" not in builder(ctx).svg
+    monkeypatch.setattr("figures.pages.HORIZON", 2036.0)
+    assert f">{tick}<" in builder(ctx).svg

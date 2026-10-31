@@ -8,18 +8,11 @@ from pathlib import Path
 
 import pytest
 
-from tests.helpers import read_html
+from tests.helpers import read_html, site_stylesheet
 
 pytestmark = pytest.mark.integration
 
 DARK_MODE = re.compile(r"colorscheme|prefers-color-scheme\s*:\s*dark|isDarkMode", re.IGNORECASE)
-
-
-def _stylesheet(built_site: Path) -> str:
-    html = read_html(built_site, "index.html")
-    match = re.search(r'href="?(/css/site[^"\s>]*\.css)', html)
-    assert match, "built home page does not link the site stylesheet"
-    return (built_site / match.group(1).lstrip("/")).read_text()
 
 
 def test_legacy_stylesheet_is_removed(repo_root: Path) -> None:
@@ -32,7 +25,7 @@ def test_legacy_stylesheet_is_removed(repo_root: Path) -> None:
 def test_dark_mode_is_absent_from_css_html_and_scripts(built_site: Path, repo_root: Path) -> None:
     """Dark mode was removed by decision; neither CSS, HTML nor scripts may mention it."""
     offenders = [
-        name for name, text in {"site.css": _stylesheet(built_site)}.items() if DARK_MODE.search(text)
+        name for name, text in {"site.css": site_stylesheet(built_site)}.items() if DARK_MODE.search(text)
     ]
     for page in ("index.html", "posts/index.html", "about/index.html", "cv/index.html"):
         if DARK_MODE.search(read_html(built_site, page)):
@@ -55,3 +48,11 @@ def test_every_configured_script_is_present_and_used(repo_root: Path) -> None:
     }
     assert configured <= on_disk
     assert on_disk - configured - templated == set()
+
+
+def test_stylesheet_has_no_dead_animation_and_one_owner_for_the_lemma_box(built_site: Path) -> None:
+    """No ``gradient-slide`` reference survives, and one rule styles ``.post-content blockquote``."""
+    css = site_stylesheet(built_site)
+    assert "gradient-slide" not in css
+    assert re.search(r"background-size:\s*200%\s*100%", css) is None
+    assert len(re.findall(r"\.post-content blockquote[,{]", css)) == 1

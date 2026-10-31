@@ -63,3 +63,10 @@ def test_missing_year_names_the_file(tmp_path: Path) -> None:
     bib = _write_bib(tmp_path, "@article{k,\n  title={T},\n  journal={J}\n}\n")
     with pytest.raises(ValueError, match=r"x\.bib: no year"):
         load_entries(bib)
+
+
+def test_non_integer_year_names_the_file(tmp_path: Path) -> None:
+    """A year such as ``in press`` fails with the file name, not a bare ``int()`` error."""
+    bib = _write_bib(tmp_path, "@article{k,\n  title={T},\n  year={in press}\n}\n")
+    with pytest.raises(ValueError, match=r"x\.bib: year is not an integer"):
+        load_entries(bib)

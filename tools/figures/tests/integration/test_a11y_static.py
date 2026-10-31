@@ -9,6 +9,8 @@ from pathlib import Path
 
 import pytest
 
+from tests.helpers import site_stylesheet
+
 pytestmark = pytest.mark.integration
 
 ICON_ONLY = re.compile(r"^\s*$")
@@ -36,7 +38,7 @@ class _Audit(HTMLParser):
         self.tags[tag] += 1
         if tag == "a":
             self._link, self._link_text, self._link_has_img = a, "", False
-            if a.get("href", "").startswith("#main") and "skip" in (a.get("class") or ""):
+            if (a.get("href") or "").startswith("#main") and "skip" in (a.get("class") or ""):
                 self.skip_link = True
         elif tag == "img":
             if a.get("alt") is None:
@@ -45,9 +47,10 @@ class _Audit(HTMLParser):
                 self._link_has_img = bool(a.get("alt"))
         elif tag == "svg" and "fig" in (a.get("class") or "").split():
             self.figs.append(a)
-        if a.get("id"):
-            self._cap_id = a["id"] if tag == "figcaption" else None
-            self.ids[a["id"]] = ""
+        ident = a.get("id")
+        if ident:
+            self._cap_id = ident if tag == "figcaption" else None
+            self.ids[ident] = ""
 
     def handle_data(self, data: str) -> None:
         if self._link is not None:
@@ -120,10 +123,7 @@ def test_every_figure_is_labelled_by_a_captioned_figcaption(audits: dict[str, _A
 
 def test_yellow_is_never_text_colour_on_white(built_site: Path) -> None:
     """Yellow fails contrast on white: ``color`` may use it only in code blocks and their dark headers."""
-    html = (built_site / "index.html").read_text(encoding="utf-8")
-    href = re.search(r'href="?(/css/site[^"\s>]*\.css)', html)
-    assert href
-    css = (built_site / href.group(1).lstrip("/")).read_text()
+    css = site_stylesheet(built_site)
     offenders = []
     for selector, body in re.findall(r"([^{}]+)\{([^{}]*)\}", css):
         if YELLOW_TEXT.search(body) and not re.search(r"\bpre\b|\.chroma|\.code-", selector):

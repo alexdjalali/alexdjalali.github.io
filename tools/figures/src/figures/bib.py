@@ -11,6 +11,7 @@ from figures.model import BibEntry, BibKind
 
 _HEAD = re.compile(r"@\w+\s*\{\s*([^,\s]+)\s*,")
 _FIELD = re.compile(r"(\w+)\s*=\s*")
+_BARE_END = re.compile(r"[,}\n]")
 _VENUE_FIELDS = ("journal", "booktitle", "school", "note", "publisher")
 
 
@@ -39,10 +40,19 @@ def _fields(body: str) -> dict[str, str]:
         if body[start] in '{"':
             raw, pos = _value(body, start)
         else:
-            end = next((i for i, ch in enumerate(body[start:], start) if ch in ",}\n"), len(body))
-            raw, pos = body[start:end], end
+            end = _BARE_END.search(body, start)
+            pos = end.start() if end else len(body)
+            raw = body[start:pos]
         out[m.group(1).lower()] = " ".join(raw.replace("{", "").replace("}", "").split())
     return out
+
+
+def _year(path: Path, raw: str) -> int:
+    """Parse a ``year`` field, naming the file when it is not an integer."""
+    try:
+        return int(raw)
+    except ValueError:
+        raise ValueError(f"{path.name}: year is not an integer: {raw!r}") from None
 
 
 def _kind(key: str) -> BibKind:
@@ -68,7 +78,7 @@ def load_entries(bib_dir: Path) -> list[BibEntry]:
         entries.append(
             BibEntry(
                 key=head.group(1),
-                year=int(fields["year"]),
+                year=_year(path, fields["year"]),
                 title=fields.get("title", ""),
                 venue=venue,
                 authors=fields.get("author", ""),
