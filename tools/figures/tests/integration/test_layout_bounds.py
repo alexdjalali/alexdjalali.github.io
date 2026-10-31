@@ -33,7 +33,8 @@ def test_narrow_hero_figures_shrink_after_their_base_rule(built_site: Path, fig:
     css = site_stylesheet(built_site)
     base = css.rfind(fig + "{flex:0 1")
     narrow = [
-        m.start() for m in re.finditer(re.escape(fig) + r"\{flex:(?:none|0 0 auto);width:min\(20rem,100%\)", css)
+        m.start()
+        for m in re.finditer(re.escape(fig) + r"\{flex:(?:none|0 0 auto);width:min\(20rem,100%\)", css)
     ]
     assert base != -1 and narrow and max(narrow) > base
 
