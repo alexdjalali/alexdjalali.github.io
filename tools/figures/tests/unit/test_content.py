@@ -73,6 +73,14 @@ def test_string_true_draft_is_excluded(tmp_path: Path) -> None:
     assert post_slugs(tmp_path) == ["b"]
 
 
+@pytest.mark.parametrize("front", ["draft: 1", "draft: 't'", "draft: TRUE", "published: false"])
+def test_drafts_follow_hugo_casting(tmp_path: Path, front: str) -> None:
+    """Values Hugo casts to a draft (``1``, ``t``, ``TRUE``, ``published: false``) exclude the post."""
+    _post(tmp_path, "a.md", f"title: A\n{front}")
+    _post(tmp_path, "b.md", "title: B\npublished: true")
+    assert post_slugs(tmp_path) == ["b"]
+
+
 def test_post_without_front_matter_fails_naming_the_file(tmp_path: Path) -> None:
     """A post with no front matter block at all is an error, not a slug-titled card."""
     (tmp_path / "bare.md").write_text("just text\n", encoding="utf-8")
@@ -147,5 +155,42 @@ def test_posts_book_without_a_name_is_named(tmp_path: Path) -> None:
     (tmp_path / "hugo.toml").write_text(
         _SITE + '[[languages.en.menu.main]]\nweight = 1\nurl = "posts/"\n', encoding="utf-8"
     )
-    with pytest.raises(ValueError, match="hugo.toml"):
+    with pytest.raises(ValueError, match="no name"):
+        load_site(tmp_path)
+
+
+def _book(name: str, url: str, weight: int | None = None, ident: str = "") -> str:
+    """Return one top-level main-menu entry as TOML."""
+    lines = [f'name = "{name}"', f'url = "{url}"']
+    lines += [f"weight = {weight}"] if weight is not None else []
+    lines += [f'identifier = "{ident}"'] if ident else []
+    return "[[languages.en.menu.main]]\n" + "\n".join(lines) + "\n"
+
+
+@pytest.mark.parametrize(
+    ("books", "expected"),
+    [
+        ([_book("Extra", "x/"), _book("Writing", "posts/", 1)], "Book I · Writing"),
+        ([_book("apple", "a/", 1), _book("Writing", "posts/", 1)], "Book II · Writing"),
+        ([_book("Writing", "posts/", 1, "b"), _book("Writing", "w/", 1, "a")], "Book II · Writing"),
+    ],
+    ids=["unweighted-last", "name-case-folded", "identifier-tiebreak"],
+)
+def test_posts_book_numbering_matches_hugo_menu_sort(tmp_path: Path, books: list[str], expected: str) -> None:
+    """Books number in Hugo's menu order: weight (0 or none last), case-folded name, identifier."""
+    (tmp_path / "hugo.toml").write_text(_SITE + "".join(books), encoding="utf-8")
+    assert load_site(tmp_path).posts_book == expected
+
+
+def test_posts_book_found_by_page_ref(tmp_path: Path) -> None:
+    """A Book that points at the posts section with ``pageRef`` is found like one with ``url``."""
+    toml = _SITE + '[[languages.en.menu.main]]\nname = "Writing"\nweight = 1\npageRef = "/posts"\n'
+    (tmp_path / "hugo.toml").write_text(toml, encoding="utf-8")
+    assert load_site(tmp_path).posts_book == "Book I · Writing"
+
+
+def test_non_string_site_value_is_named(tmp_path: Path) -> None:
+    """A site value of the wrong type fails naming its key, not deep inside card drawing."""
+    (tmp_path / "hugo.toml").write_text(_SITE.replace('title = "T"', "title = 1") + _MENU, encoding="utf-8")
+    with pytest.raises(ValueError, match="title"):
         load_site(tmp_path)

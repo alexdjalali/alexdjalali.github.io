@@ -20,7 +20,7 @@ from pathlib import Path
 import figures.posts  # noqa: F401  (importing registers the post builders)
 from figures import raster
 from figures.bib import load_entries, research_summary
-from figures.content import load_site, post_slugs, post_titles, validate_registry
+from figures.content import load_site, post_titles, validate_registry
 from figures.data import load_locations, load_timeline
 from figures.default import default_construction
 from figures.model import Figure, FigureContext
@@ -55,10 +55,11 @@ def wrap(kind: str, key: str, figure: Figure) -> str:
     )
 
 
-def _rasters(root: Path, post_figures: Mapping[str, Figure], definition: Figure) -> dict[Path, raster.Raster]:
+def _rasters(
+    root: Path, titles: Mapping[str, str], post_figures: Mapping[str, Figure], definition: Figure
+) -> dict[Path, raster.Raster]:
     """Return the per-post social cards, the default card and the icons, not yet drawn."""
     site = load_site(root)
-    titles = post_titles(root / "content" / "posts")
     og = (raster.OG_SIZE,)
     out: dict[Path, raster.Raster] = {}
     for slug, fig in post_figures.items():
@@ -85,7 +86,8 @@ def render_all(root: Path, builders: Mapping[str, FigureBuilder] | None = None) 
     that has no post.
     """
     registry = dict(registered() if builders is None else builders)
-    slugs = post_slugs(root / "content" / "posts")
+    titles = post_titles(root / "content" / "posts")
+    slugs = list(titles)
     validate_registry(slugs, registry)
     bib = load_entries(root / "static" / "bib")
     base = FigureContext(
@@ -107,7 +109,7 @@ def render_all(root: Path, builders: Mapping[str, FigureBuilder] | None = None) 
         out[PARTIALS / kind / f"{key}.html"] = wrap(kind, key, page_figures[page_key])
     out[RESEARCH_JSON] = json.dumps(research_summary(bib), indent=2, sort_keys=True) + "\n"
     definition = CARD_FIGURES["definition"](replace(base, slug="definition"))
-    out.update(_rasters(root, post_figures, definition))
+    out.update(_rasters(root, titles, post_figures, definition))
     return out
 
 

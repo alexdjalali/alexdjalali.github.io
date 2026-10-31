@@ -28,6 +28,14 @@ from figures.raster import (
 pytestmark = pytest.mark.unit
 
 
+@pytest.fixture
+def fresh_fingerprint() -> Iterator[None]:
+    """Clear the cached renderer fingerprint before and after, so a patched one never leaks."""
+    renderer_fingerprint.cache_clear()
+    yield
+    renderer_fingerprint.cache_clear()
+
+
 def _png_size(data: bytes) -> tuple[int, int]:
     """Return the width and height stored in a PNG's IHDR chunk."""
     assert data[:8] == b"\x89PNG\r\n\x1a\n"
@@ -139,14 +147,6 @@ def test_long_title_shrinks_before_it_is_truncated() -> None:
     )
     assert lines and all(float(size) < 54 for size, _ in lines)
     assert " ".join(text for _, text in lines) == title
-
-
-@pytest.fixture
-def fresh_fingerprint() -> Iterator[None]:
-    """Clear the cached renderer fingerprint before and after, so a patched one never leaks."""
-    renderer_fingerprint.cache_clear()
-    yield
-    renderer_fingerprint.cache_clear()
 
 
 @pytest.mark.usefixtures("fresh_fingerprint")

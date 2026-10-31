@@ -61,11 +61,16 @@ def png(svg: str, width: int, height: int) -> bytes:
 
 def wrap_title(title: str, width: int, max_lines: int = 4) -> list[str]:
     """Wrap ``title`` at ``width`` characters; past ``max_lines`` the last line ends in an ellipsis."""
-    lines = textwrap.wrap(title, width) or [""]
-    if len(lines) > max_lines:
-        lines = lines[:max_lines]
-        lines[-1] = lines[-1].rstrip(" ,.;:") + "…"
-    return lines
+    return _truncate(textwrap.wrap(title, width) or [""], max_lines)
+
+
+def _truncate(lines: list[str], max_lines: int) -> list[str]:
+    """Keep the first ``max_lines`` lines; when any are dropped, the last kept one ends in an ellipsis."""
+    if len(lines) <= max_lines:
+        return lines
+    kept = lines[:max_lines]
+    kept[-1] = kept[-1].rstrip(" ,.;:") + "…"
+    return kept
 
 
 def flatten(fig_svg: str) -> str:
@@ -105,11 +110,12 @@ def _fit(title: str, size: float, wrap: int) -> tuple[float, list[str]]:
 
     Each step wraps proportionally wider; past the last step the title is cut by ``wrap_title``.
     """
+    lines: list[str] = []
     for step in _SHRINK:
         lines = textwrap.wrap(title, int(wrap / step)) or [""]
         if len(lines) <= _TITLE_LINES:
             return round(size * step, 1), lines
-    return round(size * _SHRINK[-1], 1), wrap_title(title, int(wrap / _SHRINK[-1]), _TITLE_LINES)
+    return round(size * _SHRINK[-1], 1), _truncate(lines, _TITLE_LINES)
 
 
 def card_svg(
