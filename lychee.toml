@@ -2,25 +2,20 @@
 # (internal links only, blocking) and weekly against the web (external links).
 
 no_progress = true
-max_retries = 2
-timeout = 20
+max_retries = 3
+retry_wait_time = 5
+timeout = 30
 max_concurrency = 16
-# Rate-limited is not broken.
-accept = ["100..=103", "200..=299", "429"]
 
-# Hosts that refuse automated requests (403/999) even though the pages exist.
+# Rate-limited (429) is not broken, and neither is forbidden (403): many sites refuse requests
+# from data-centre IPs such as GitHub's runners while serving the same page to browsers.
+# Rot shows up as 404/410, DNS failures and timeouts, which still fail the check.
+accept = ["100..=103", "200..=299", "403", "429"]
+
 exclude = [
+  # LinkedIn answers every automated request with a non-standard 999.
   '^https://www\.linkedin\.com/',
-  '^https://www\.researchgate\.net/',
-  '^https://dl\.acm\.org/',
-  '^https://queue\.acm\.org/',
-  '^https://www\.tableau\.com/',
-  '^https://www\.crunchbase\.com/',
-  '^https://www\.dell\.com/',
-  '^https://www\.oreilly\.com/',
-  '^https://www\.fxnetworks\.com/',
-  '^https://www\.vans\.com/',
-  '^https://www\.marriott\.com/',
-  '^https://www\.levi\.com/',
+  # Serves browsers, but fails the TLS handshake with GitHub's runners.
+  '^https://(www\.)?ginew\.com/',
   '^mailto:',
 ]
