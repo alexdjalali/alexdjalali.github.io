@@ -48,6 +48,9 @@
   {{ partial "posts/share.html" . }}
   {{ partial "posts/related.html" . }}
   {{ partial "posts/author-bio.html" . }}
+  {{ with site.Home.OutputFormats.Get "rss" }}
+  <p class="follow-along label">Follow along: new propositions arrive by <a href="{{ .RelPermalink }}" class="ul">RSS <i class="fa-solid fa-rss" aria-hidden="true"></i></a></p>
+  {{ end }}
   {{ partial "posts/post-nav.html" . }}
 
   <footer>

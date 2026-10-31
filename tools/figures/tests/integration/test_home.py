@@ -79,3 +79,12 @@ def test_projects_corollary_names_both_sections(built_site: Path) -> None:
     assert card
     text = re.sub(r"<[^>]+>", " ", card.group(1))
     assert "Systems" in text and "courses" in text.lower()
+
+
+def test_consulting_block_carries_its_proof_line(built_site: Path) -> None:
+    """The consulting pitch is backed by one line of evidence: built Ask Data, sold PerceptivePanda."""
+    html = read_html(built_site, "index.html")
+    proof = re.search(r'class="?consulting__proof"?>(.*?)</p>', html, re.DOTALL)
+    assert proof
+    text = unescape(re.sub(r"<[^>]+>", "", proof.group(1)))
+    assert "Ask Data" in text and "PerceptivePanda" in text and "Zapier" in text

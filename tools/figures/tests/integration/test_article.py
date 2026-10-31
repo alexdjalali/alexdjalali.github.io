@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from tests.helpers import read_html
+from tests.helpers import published_posts, read_html
 
 pytestmark = pytest.mark.integration
 
@@ -48,3 +48,12 @@ def test_retained_article_features_remain(built_site: Path) -> None:
     html = read_html(built_site, POST)
     for needle in ("reading-progress", "copy-link-btn", "author-bio", "post-nav", "giscus"):
         assert needle in html, needle
+
+
+def test_every_post_ends_with_a_feed_prompt(built_site: Path, repo_root: Path) -> None:
+    """Each published post invites readers to follow along, linking the site's RSS feed."""
+    for post in published_posts(repo_root):
+        html = read_html(built_site, f"posts/{post.stem}/index.html")
+        follow = re.search(r'class="?follow-along"?[^>]*>(.*?)</', html, re.DOTALL)
+        feed = re.search(r'href="?(?:https://alexdjalali\.github\.io)?/index\.xml"?', html)
+        assert follow and feed, post.stem
