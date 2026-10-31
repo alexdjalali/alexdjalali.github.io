@@ -1,18 +1,10 @@
-{{ define "title" }}
-  {{ .Title }} · {{ .Site.Title }}
-{{ end }}
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
-  <section class="container page">
-    <article>
-      <header>
-        <h1 class="title">
-          <a class="title-link" href="{{ .Permalink | safeURL }}">
-            {{ .Title }}
-          </a>
-        </h1>
-      </header>
-
-      {{ .Content }}
-    </article>
-  </section>
+<section class="page-hero">
+  <p class="kicker">Book II. · Talks</p>
+  <h1 class="display">{{ partial "rise.html" "Talks and courses: the same argument, said out loud." }}</h1>
+</section>
+<article class="research-content talks-content">
+  {{ .Content }}
+</article>
 {{ end }}
