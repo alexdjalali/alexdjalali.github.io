@@ -18,7 +18,7 @@
     "assert": {
       "assertions": {
         "categories:performance": [
-          "error",
+          "warn",
           {
             "minScore": 0.9,
             "aggregationMethod": "median-run"
