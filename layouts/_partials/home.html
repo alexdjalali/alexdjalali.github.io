@@ -3,7 +3,7 @@
 {{- $research := hugo.Data.figures.research -}}
 <section class="home-hero">
   <div class="home-hero__text">
-    <p class="kicker">Definition 1.</p>
+    <p class="kicker">{{ site.Params.definitionLabel }}</p>
     <h1 class="display">{{ partial "rise.html" site.Params.definition }}</h1>
     <ol class="postulates">
       <li><span class="label">Postulate 1.</span><span>The author is a linguist: Stanford PhD, formal semantics.</span></li>

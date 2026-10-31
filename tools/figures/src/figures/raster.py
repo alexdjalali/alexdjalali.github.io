@@ -27,14 +27,16 @@ FONT_DIR = Path(__file__).resolve().parents[2] / "fonts"
 """Vendored IBM Plex and Noto Sans Math TTFs (SIL OFL; ``OFL-IBMPlex.txt``, ``OFL-NotoSansMath.txt``)."""
 OG_SIZE = (1200, 630)
 """Open Graph card size in pixels."""
-ICON_SIZES = (16, 32, 180)
-"""Favicon sizes: two for ``favicon.ico`` and the browser tab, 180 for the apple-touch icon."""
 _STAMP_KEY = b"figures-digest"
+_TITLE_LINES = 4
+_SHRINK = (1.0, 8 / 9, 7 / 9)
+"""Card title size steps, tried largest first before a title is truncated."""
 
 _SANS = 'font-family="IBM Plex Sans" font-weight="300"'
 _MONO = 'font-family="IBM Plex Mono"'
 _FIG_OPEN = re.compile(r'<svg class="fig" viewBox="([^"]+)"[^>]*>')
-_BLEED = re.compile(r'<g filter="url\(#bleed\)"[^>]*>.*?</g>', re.DOTALL)
+_BLEED_OPEN = '<g filter="url(#bleed)"'
+_G_TAG = re.compile(r"<(/?)g[\s>]")
 _FILTER_REF = re.compile(r' filter="url\(#[a-z]+\)"')
 
 
@@ -72,7 +74,21 @@ def flatten(fig_svg: str) -> str:
     The site's displacement filters depend on the browser's filter-region rules; resvg resolves
     them differently, so cards draw the washes flat, as Byrne's plates do.
     """
-    return _FILTER_REF.sub("", _BLEED.sub("", fig_svg))
+    return _FILTER_REF.sub("", _drop_halos(fig_svg))
+
+
+def _drop_halos(svg: str) -> str:
+    """Remove every ``<g filter="url(#bleed)">`` group through its own matching ``</g>``."""
+    while (start := svg.find(_BLEED_OPEN)) != -1:
+        depth = 0
+        for tag in _G_TAG.finditer(svg, start):
+            depth += -1 if tag.group(1) else 1
+            if depth == 0:
+                svg = svg[:start] + svg[svg.index(">", tag.start()) + 1 :]
+                break
+        else:
+            raise ValueError("flatten: unclosed bleed group")
+    return svg
 
 
 def _place(fig_svg: str, x: float, y: float, size: float) -> str:
@@ -84,20 +100,30 @@ def _place(fig_svg: str, x: float, y: float, size: float) -> str:
     return head + flatten(fig_svg[match.end() :])
 
 
+def _fit(title: str, size: float, wrap: int) -> tuple[float, int]:
+    """Return the largest ``_SHRINK`` step of ``size`` (and its scaled ``wrap``) that fits ``title`` whole."""
+    steps = [(round(size * step, 1), int(wrap / step)) for step in _SHRINK]
+    return next((s for s in steps if len(textwrap.wrap(title, s[1])) <= _TITLE_LINES), steps[-1])
+
+
 def card_svg(
-    kicker: str, title: str, fig_svg: str, site_name: str, site_url: str, size: int = 54, wrap: int = 19
+    kicker: str, title: str, fig_svg: str, site_name: str, site_url: str, size: float = 54, wrap: int = 19
 ) -> str:
     """Return a 1200x630 card: mark and name, kicker, wrapped title, and the figure in a frame.
 
-    ``kicker``, ``title``, ``site_name`` and ``site_url`` are plain text; they are escaped here,
-    after wrapping, so entities never count toward or split across a line.
+    ``size`` and ``wrap`` are the title's font size and characters per line; a title that needs
+    more than ``_TITLE_LINES`` lines steps down through ``_SHRINK`` (wrapping wider to match)
+    before it is cut with an ellipsis. ``kicker``, ``title``, ``site_name`` and ``site_url`` are
+    plain text; they are escaped here, after wrapping, so entities never count toward or split
+    across a line.
     """
     w, h = OG_SIZE
-    lines = [html.escape(line) for line in wrap_title(title, wrap)]
+    size, wrap = _fit(title, size, wrap)
+    lines = [html.escape(line) for line in wrap_title(title, wrap, _TITLE_LINES)]
     lead = size * 1.18
     top = 300 - (len(lines) - 1) * lead / 2
     text = "".join(
-        f'<text x="72" y="{top + i * lead:.1f}" font-size="{size}" {_SANS} fill="{K}">{line}</text>'
+        f'<text x="72" y="{top + i * lead:.1f}" font-size="{size:g}" {_SANS} fill="{K}">{line}</text>'
         for i, line in enumerate(lines)
     )
     return (

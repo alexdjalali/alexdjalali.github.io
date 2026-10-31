@@ -20,15 +20,16 @@ def _rule(css: str, selector: str) -> str:
     return match.group(1)
 
 
-def _media_block(css: str, width: str) -> str:
-    """Return the body of the first ``@media (max-width: <width>)`` block in minified ``css``."""
-    start = re.search(r"@media\s*\(max-width:\s*" + re.escape(width) + r"\)\{", css)
-    assert start, f"no @media (max-width: {width}) block"
-    end = css.index("}}", start.end())
-    return css[start.end() : end + 1]
+def _media_blocks(css: str, width: str) -> str:
+    """Return the bodies of every ``@media (max-width: <width>)`` block in minified ``css``, joined."""
+    starts = list(re.finditer(r"@media\s*\(max-width:\s*" + re.escape(width) + r"\)\{", css))
+    assert starts, f"no @media (max-width: {width}) block"
+    return "".join(css[m.end() : css.index("}}", m.end()) + 1] for m in starts)
 
 
-@pytest.mark.parametrize("fig", [".research-hero__fig", ".disclosure-hero__fig", ".notfound__fig"])
+@pytest.mark.parametrize(
+    "fig", [".article-hero__fig", ".research-hero__fig", ".disclosure-hero__fig", ".notfound__fig"]
+)
 def test_narrow_hero_figures_shrink_after_their_base_rule(built_site: Path, fig: str) -> None:
     """Below 64rem each hero figure's 20rem rule comes after its base width rule, so it wins the cascade."""
     css = site_stylesheet(built_site)
@@ -65,6 +66,6 @@ def test_display_headlines_are_capped_and_narrow_header_stays_compact(built_site
     """Headlines top out at 3.75rem, and below 48rem the Books sit on one row under the mark and search."""
     css = site_stylesheet(built_site)
     assert "clamp(2.25rem,4.5vw,3.75rem)" in _rule(css, ".display")
-    narrow = _media_block(css, "47.99rem")
+    narrow = _media_blocks(css, "47.99rem")
     assert ".site-header__right{display:contents}" in narrow
     assert ".books__num{display:none}" in narrow

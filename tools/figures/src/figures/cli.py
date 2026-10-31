@@ -19,7 +19,10 @@ def main(argv: list[str] | None = None) -> int:
     """Run the CLI; ``check`` returns 1 when any generated file has drifted."""
     from figures import build
 
-    parser = argparse.ArgumentParser(prog="figures", description="Generate the theme's SVG figures.")
+    parser = argparse.ArgumentParser(
+        prog="figures",
+        description="Generate the theme's SVG figures, research data, PNG social cards and favicons.",
+    )
     parser.add_argument("command", choices=["generate", "check"])
     parser.add_argument("--root", type=Path, default=None, help="repo root (default: nearest hugo.toml)")
     args = parser.parse_args(argv)

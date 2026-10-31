@@ -35,11 +35,13 @@ OG_DIR = Path("static/images/og")
 """One social card per post, ``<slug>.png``."""
 OG_DEFAULT = Path("static/images/og-default.png")
 FAVICON_ICO = Path("static/favicon.ico")
+ICO_SIZES = (16, 32)
+"""Tab-icon sizes: each is a ``favicon-<s>x<s>.png`` and both are packed into ``favicon.ico``."""
 ICONS = {
-    16: Path("static/images/favicon-16x16.png"),
-    32: Path("static/images/favicon-32x32.png"),
+    **{s: Path(f"static/images/favicon-{s}x{s}.png") for s in ICO_SIZES},
     180: Path("static/images/apple-touch-icon.png"),
 }
+"""Square PNG icons by edge length: the tab icons and the 180 px apple-touch icon."""
 
 
 def wrap(kind: str, key: str, figure: Figure) -> str:
@@ -55,18 +57,20 @@ def wrap(kind: str, key: str, figure: Figure) -> str:
 
 def _rasters(root: Path, post_figures: Mapping[str, Figure], definition: Figure) -> dict[Path, raster.Raster]:
     """Return the per-post social cards, the default card and the icons, not yet drawn."""
-    name, host, sentence = load_site(root)
+    site = load_site(root)
     titles = post_titles(root / "content" / "posts")
     og = (raster.OG_SIZE,)
     out: dict[Path, raster.Raster] = {}
     for slug, fig in post_figures.items():
-        card = raster.card_svg("Book I · Writing", titles.get(slug, slug), fig.svg, name, host)
+        card = raster.card_svg(site.posts_book, titles[slug], fig.svg, site.name, site.host)
         out[OG_DIR / f"{slug}.png"] = raster.Raster(card, og)
-    card = raster.card_svg("Definition 1.", sentence, definition.svg, name, host, size=42, wrap=26)
+    card = raster.card_svg(
+        site.definition_label, site.definition, definition.svg, site.name, site.host, size=42, wrap=26
+    )
     out[OG_DEFAULT] = raster.Raster(card, og)
     mark = raster.mark_svg()
     out.update({path: raster.Raster(mark, ((s, s),)) for s, path in ICONS.items()})
-    out[FAVICON_ICO] = raster.Raster(mark, ((16, 16), (32, 32)))
+    out[FAVICON_ICO] = raster.Raster(mark, tuple((s, s) for s in ICO_SIZES))
     return out
 
 

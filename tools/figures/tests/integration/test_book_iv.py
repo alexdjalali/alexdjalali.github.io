@@ -40,3 +40,12 @@ def test_disclosure_has_the_venn_figure_and_both_badges(built_site: Path) -> Non
     assert "fig-pages-ai-venn-cap" in html
     assert "badge-ai" in html and "badge-no-ai" in html
     assert "#2980b9" not in html
+
+
+def test_about_shows_the_scout_construction_in_its_content(built_site: Path) -> None:
+    """The Scout figure that replaced the motorcycle photo renders inside the About article body."""
+    html = read_html(built_site, "about/index.html")
+    start = re.search(r'<article class="?about-content', html)
+    assert start
+    body = html[start.end() : html.index("</article>", start.end())]
+    assert "fig-pages-scout-cap" in body

@@ -12,6 +12,7 @@ import pytest
 from figures import build, cli
 from figures.content import OrphanFigureError
 from figures.model import Figure, FigureContext
+from figures.raster import Raster
 from figures.registry import registered
 
 pytestmark = pytest.mark.unit
@@ -23,7 +24,9 @@ BIB = "@article{a2020x,\n  title = {T},\n  author = {A},\n  journal = {J},\n  ye
 def repo(tmp_path: Path) -> Path:
     """Build a minimal repo skeleton: posts (one a draft), one bib file, and the data files."""
     (tmp_path / "hugo.toml").write_text(
-        'baseURL = "https://example.org/"\ntitle = "site"\n[params]\ndefinition = "A test site."\n',
+        'baseURL = "https://example.org/"\ntitle = "site"\n[params]\ndefinition = "A test site."\n'
+        'definitionLabel = "Definition 1."\n'
+        '[[languages.en.menu.main]]\nname = "Writing"\nweight = 1\nurl = "posts/"\n',
         encoding="utf-8",
     )
     posts = tmp_path / "content" / "posts"
@@ -152,8 +155,9 @@ def test_every_figure_glyph_is_in_a_vendored_font(repo_root: Path) -> None:
     labels = [
         html.unescape(t)
         for content in build.render_all(repo_root).values()
-        if isinstance(content, str)
-        for t in re.findall(r"<text[^>]*>(.*?)</text>", content)
+        for t in re.findall(
+            r"<text[^>]*>(.*?)</text>", content.svg if isinstance(content, Raster) else content
+        )
     ]
     missing = sorted(
         {ch for label in labels for ch in re.sub(r"<[^>]+>", "", label) if ord(ch) not in covered}

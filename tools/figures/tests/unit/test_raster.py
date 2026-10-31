@@ -4,12 +4,13 @@ from __future__ import annotations
 
 import re
 import struct
+from pathlib import Path
 
 import pytest
 
+from figures.build import ICONS
 from figures.raster import (
     FONT_DIR,
-    ICON_SIZES,
     OG_SIZE,
     Raster,
     card_svg,
@@ -18,6 +19,7 @@ from figures.raster import (
     mark_svg,
     png,
     read_stamp,
+    renderer_fingerprint,
     stamp,
     wrap_title,
 )
@@ -50,11 +52,11 @@ def test_card_renders_at_social_card_size() -> None:
 
 def test_mark_and_icon_container() -> None:
     """The mark renders at each icon size, and ``ico`` packs PNGs behind a valid ICO directory."""
-    pngs = [png(mark_svg(), s, s) for s in ICON_SIZES]
-    assert [_png_size(p) for p in pngs] == [(s, s) for s in ICON_SIZES]
-    data = ico(dict(zip(ICON_SIZES, pngs, strict=True)))
+    pngs = [png(mark_svg(), s, s) for s in ICONS]
+    assert [_png_size(p) for p in pngs] == [(s, s) for s in ICONS]
+    data = ico(dict(zip(ICONS, pngs, strict=True)))
     reserved, kind, count = struct.unpack("<HHH", data[:6])
-    assert (reserved, kind, count) == (0, 1, len(ICON_SIZES))
+    assert (reserved, kind, count) == (0, 1, len(ICONS))
     first_size, first_offset = struct.unpack("<II", data[14:22])
     assert data[first_offset : first_offset + first_size] == pngs[0]
 
@@ -63,9 +65,24 @@ def test_fonts_are_vendored() -> None:
     """The raster fonts ship with the generator, so cards render the same on every machine."""
     assert {p.name for p in FONT_DIR.glob("*.ttf")} >= {
         "IBMPlexSans-Light.ttf",
+        "IBMPlexSerif-Regular.ttf",
         "IBMPlexSerif-Italic.ttf",
         "IBMPlexMono-Regular.ttf",
+        "NotoSansMath-Regular.ttf",
     }
+
+
+def test_upright_labels_render_in_the_upright_serif() -> None:
+    """A label without ``font-style="italic"`` draws in the upright face, not the italic one."""
+
+    def label(style: str) -> bytes:
+        svg = (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">'
+            f'<text x="10" y="45"{style} font-size="40">nvim</text></svg>'
+        )
+        return png(svg, 200, 60)
+
+    assert label("") != label(' font-style="italic"')
 
 
 def test_flatten_drops_halos_and_filter_references() -> None:
@@ -75,6 +92,16 @@ def test_flatten_drops_halos_and_filter_references() -> None:
         '<g filter="url(#wc)" opacity="0.9"><rect fill="#D62718"></rect></g>'
     )
     assert flatten(fig) == '<g opacity="0.9"><rect fill="#D62718"></rect></g>'
+
+
+def test_flatten_drops_a_halo_whose_shape_has_nested_groups() -> None:
+    """A halo is removed up to its own closing tag, so a grouped shape never unbalances the figure."""
+    shape = '<g><rect fill="#1F4E9E"></rect></g>'
+    fig = (
+        f'<g class="an-bloom"><g filter="url(#bleed)" opacity="0.48">{shape}</g>'
+        f'<g filter="url(#wc)" opacity="0.9">{shape}</g></g>'
+    )
+    assert flatten(fig) == f'<g class="an-bloom"><g opacity="0.9">{shape}</g></g>'
 
 
 def test_stamp_round_trips_and_keeps_the_png_valid() -> None:
@@ -102,11 +129,32 @@ def test_title_is_wrapped_before_it_is_escaped() -> None:
     assert lines and all(line.endswith("Q&amp;A") for line in lines) and "…" not in svg
 
 
-def test_digest_covers_the_fonts_and_renderer(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Swapping a vendored font or the resvg version changes every raster's digest."""
+def test_long_title_shrinks_before_it_is_truncated() -> None:
+    """A title too long for four lines at the default size is set smaller, whole, before any ellipsis."""
+    title = "Professional Software Engineering for AI and Distributed Systems"
+    svg = card_svg("K", title, '<svg class="fig" viewBox="0 0 1 1"></svg>', "n", "u")
+    lines = re.findall(
+        r'<text x="72" y="[\d.]+" font-size="([\d.]+)" font-family="IBM Plex Sans"[^>]*>([^<]*)</text>', svg
+    )
+    assert lines and all(float(size) < 54 for size, _ in lines)
+    assert " ".join(text for _, text in lines) == title
+
+
+def test_digest_covers_the_fonts_and_renderer(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    """Changing a vendored font's bytes, or the resvg version, changes every raster's digest."""
+    font = tmp_path / "Face.ttf"
+    font.write_bytes(b"one")
+    monkeypatch.setattr("figures.raster.FONT_DIR", tmp_path)
+    renderer_fingerprint.cache_clear()
     before = Raster(mark_svg(), ((16, 16),)).digest
-    monkeypatch.setattr("figures.raster.renderer_fingerprint", lambda: "different")
-    assert Raster(mark_svg(), ((16, 16),)).digest != before
+    font.write_bytes(b"two")
+    renderer_fingerprint.cache_clear()
+    after_font = Raster(mark_svg(), ((16, 16),)).digest
+    monkeypatch.setattr("figures.raster.importlib.metadata.version", lambda _: "0.0.0")
+    renderer_fingerprint.cache_clear()
+    after_version = Raster(mark_svg(), ((16, 16),)).digest
+    renderer_fingerprint.cache_clear()
+    assert len({before, after_font, after_version}) == 3
 
 
 def test_stamp_refuses_non_png_data() -> None:

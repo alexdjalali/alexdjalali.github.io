@@ -45,7 +45,8 @@ Three things block implementing this on the current stack:
    - The lifeline and career lanes are the no-JS and reduced-motion view of the About and Resume timelines; the interactive D3 timelines (ADR-0003) replace them when JS is on.
    - Media keeps its real cover images; the canvas's hashed covers were placeholders.
    - A post without a registry entry gets a default construction derived from its slug.
-   - Output is committed. CI runs `uv run figures check`, which regenerates in memory and fails when any committed partial differs from, or is missing from, the generator's output.
+   - It also renders the raster outputs: one PNG social card per post (`static/images/og/<slug>.png`), `og-default.png`, the favicon PNGs and `favicon.ico`, all drawn from the same figures and the red-triangle mark. Rendering uses `resvg-py` with only the fonts vendored in `tools/figures/fonts/` (IBM Plex Sans, Serif and Mono, and Noto Sans Math for logic symbols, under the SIL OFL), so a card looks the same on every machine. Card text (site name, host, the definition and its label, and the posts Book's kicker) comes from `hugo.toml`; post titles come from front matter.
+   - Output is committed. CI runs `uv run figures check`, which regenerates in memory and fails when any committed file differs from, or is missing from, the generator's output, or when a stale card has no post. Text files are compared byte for byte; each PNG is compared by a digest stamped into it, covering its SVG, sizes, the vendored fonts and the resvg version, because resvg output can differ by a few pixels between CPUs.
 5. **Motion.**
    - Figure parts carry animation classes (draw, bloom, pop, grow, fade); headlines rise word by word.
    - A small script adds an `is-revealed` class through `IntersectionObserver`, so figures assemble as they scroll into view.
@@ -112,6 +113,7 @@ graph TD
 ### Negative
 - Publishing a post now has a second step: add a registry entry and run the generator, or accept the default construction.
 - The build gains a Python toolchain (uv) in CI alongside Hugo.
+- The repo carries about 1.6 MB of vendored fonts for the raster cards, and bumping `resvg-py` or a font marks every card stale until it is regenerated.
 - Every page template is rewritten. Coder's own fixes and features no longer arrive by updating the submodule.
 
 ### Risks
