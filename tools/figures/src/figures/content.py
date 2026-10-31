@@ -20,21 +20,35 @@ class OrphanFigureError(ValueError):
 
 
 def _front_matter(path: Path) -> dict[str, Any] | None:
-    """Return the YAML front matter of ``path`` as a mapping, or ``None`` when it has none."""
+    """Return the YAML front matter of ``path`` as a mapping, or ``None`` when it has none.
+
+    Raises ``ValueError`` naming the file when the YAML does not parse.
+    """
     match = _FRONT_MATTER.match(path.read_text(encoding="utf-8"))
-    data = yaml.safe_load(match.group(1)) if match else None
+    try:
+        data = yaml.safe_load(match.group(1)) if match else None
+    except yaml.YAMLError as err:
+        raise ValueError(f"{path.name}: front matter is not valid YAML: {err}") from err
     return data if isinstance(data, dict) else None
+
+
+def _posts(content_dir: Path) -> dict[str, dict[str, Any] | None]:
+    """Return ``{slug: front matter}`` for the non-draft ``*.md`` files in ``content_dir``, sorted.
+
+    ``draft`` counts when it is ``true`` or the string ``"true"``, as Hugo casts it.
+    """
+    posts: dict[str, dict[str, Any] | None] = {}
+    for path in sorted(content_dir.glob("*.md")):
+        front = _front_matter(path)
+        if front and str(front.get("draft")).lower() == "true":
+            continue
+        posts[path.stem] = front
+    return posts
 
 
 def post_slugs(content_dir: Path) -> list[str]:
     """Return the sorted stems of non-draft ``*.md`` files in ``content_dir``."""
-    slugs: list[str] = []
-    for path in sorted(content_dir.glob("*.md")):
-        front = _front_matter(path)
-        if front and front.get("draft") is True:
-            continue
-        slugs.append(path.stem)
-    return slugs
+    return list(_posts(content_dir))
 
 
 def post_titles(content_dir: Path) -> dict[str, str]:
@@ -44,11 +58,10 @@ def post_titles(content_dir: Path) -> dict[str, str]:
     ``title``, so generation fails rather than drawing a card headlined by the slug.
     """
     titles: dict[str, str] = {}
-    for slug in post_slugs(content_dir):
-        path = content_dir / f"{slug}.md"
-        title = (_front_matter(path) or {}).get("title")
+    for slug, front in _posts(content_dir).items():
+        title = (front or {}).get("title")
         if not isinstance(title, str) or not title.strip():
-            raise ValueError(f"{path.name}: front matter has no string title")
+            raise ValueError(f"{slug}.md: front matter has no string title")
         titles[slug] = title.strip()
     return titles
 
@@ -95,15 +108,21 @@ class Site:
 def _posts_book(config: Mapping[str, Any]) -> str:
     """Return ``Book <numeral> · <name>`` for the top-level main-menu entry whose url is ``posts/``.
 
-    Books are numbered by weight among the top-level entries, as the header numbers them.
+    Books are numbered among the top-level entries by weight, then name, as Hugo orders the menu
+    the header numbers.
     """
     lang = config.get("defaultContentLanguage", "en")
+    where = f"hugo.toml: languages.{lang}.menu.main"
     entries = config.get("languages", {}).get(lang, {}).get("menu", {}).get("main", [])
-    books = sorted((e for e in entries if "parent" not in e), key=lambda e: e.get("weight", 0))
+    books = sorted(
+        (e for e in entries if "parent" not in e), key=lambda e: (e.get("weight", 0), e.get("name", ""))
+    )
     for i, book in enumerate(books, start=1):
-        if book.get("url") == "posts/":
+        if str(book.get("url", "")).strip("/") == "posts":
+            if not book.get("name"):
+                raise ValueError(f"{where}: the posts/ entry has no name")
             return f"Book {_roman(i)} · {book['name']}"
-    raise ValueError(f"hugo.toml: no top-level languages.{lang}.menu.main entry with url posts/")
+    raise ValueError(f"{where}: no top-level entry with url posts/")
 
 
 def load_site(root: Path) -> Site:
@@ -123,4 +142,10 @@ def load_site(root: Path) -> Site:
     missing = [key for key, value in values.items() if not value]
     if missing:
         raise ValueError(f"hugo.toml: missing {missing[0]}")
-    return Site(*values.values(), posts_book=_posts_book(config))
+    return Site(
+        name=values["title"],
+        host=values["baseURL"],
+        definition=values["params.definition"],
+        definition_label=values["params.definitionLabel"],
+        posts_book=_posts_book(config),
+    )

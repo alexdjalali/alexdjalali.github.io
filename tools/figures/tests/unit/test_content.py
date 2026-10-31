@@ -59,6 +59,20 @@ def test_post_without_a_usable_title_fails_naming_the_file(tmp_path: Path, front
         post_titles(tmp_path)
 
 
+def test_malformed_front_matter_fails_naming_the_file(tmp_path: Path) -> None:
+    """Unparseable YAML fails with the file's name, not a context-free scanner error."""
+    _post(tmp_path, "broken.md", 'title: "unterminated')
+    with pytest.raises(ValueError, match="broken.md"):
+        post_slugs(tmp_path)
+
+
+def test_string_true_draft_is_excluded(tmp_path: Path) -> None:
+    """``draft: "true"`` is a draft, as Hugo casts it; ``draft: "false"`` is not."""
+    _post(tmp_path, "a.md", 'title: A\ndraft: "true"')
+    _post(tmp_path, "b.md", 'title: B\ndraft: "false"')
+    assert post_slugs(tmp_path) == ["b"]
+
+
 def test_post_without_front_matter_fails_naming_the_file(tmp_path: Path) -> None:
     """A post with no front matter block at all is an error, not a slug-titled card."""
     (tmp_path / "bare.md").write_text("just text\n", encoding="utf-8")
@@ -115,4 +129,23 @@ def test_menu_without_a_posts_book_is_named(tmp_path: Path) -> None:
         _SITE + _MENU.replace('url = "posts/"', 'url = "blog/"'), encoding="utf-8"
     )
     with pytest.raises(ValueError, match="posts/"):
+        load_site(tmp_path)
+
+
+def test_posts_book_matches_hugo_menu_rules(tmp_path: Path) -> None:
+    """A ``/posts/`` url matches, and tied weights are numbered by name as Hugo's menu sorts them."""
+    menu = (
+        '[[languages.en.menu.main]]\nname = "Zeta"\nweight = 1\nurl = "zeta/"\n'
+        '[[languages.en.menu.main]]\nname = "Writing"\nweight = 1\nurl = "/posts/"\n'
+    )
+    (tmp_path / "hugo.toml").write_text(_SITE + menu, encoding="utf-8")
+    assert load_site(tmp_path).posts_book == "Book I · Writing"
+
+
+def test_posts_book_without_a_name_is_named(tmp_path: Path) -> None:
+    """A ``posts/`` menu entry with no ``name`` fails naming ``hugo.toml``, not with a bare KeyError."""
+    (tmp_path / "hugo.toml").write_text(
+        _SITE + '[[languages.en.menu.main]]\nweight = 1\nurl = "posts/"\n', encoding="utf-8"
+    )
+    with pytest.raises(ValueError, match="hugo.toml"):
         load_site(tmp_path)

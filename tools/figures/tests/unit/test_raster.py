@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import struct
+from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
@@ -140,12 +141,20 @@ def test_long_title_shrinks_before_it_is_truncated() -> None:
     assert " ".join(text for _, text in lines) == title
 
 
+@pytest.fixture
+def fresh_fingerprint() -> Iterator[None]:
+    """Clear the cached renderer fingerprint before and after, so a patched one never leaks."""
+    renderer_fingerprint.cache_clear()
+    yield
+    renderer_fingerprint.cache_clear()
+
+
+@pytest.mark.usefixtures("fresh_fingerprint")
 def test_digest_covers_the_fonts_and_renderer(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     """Changing a vendored font's bytes, or the resvg version, changes every raster's digest."""
     font = tmp_path / "Face.ttf"
     font.write_bytes(b"one")
     monkeypatch.setattr("figures.raster.FONT_DIR", tmp_path)
-    renderer_fingerprint.cache_clear()
     before = Raster(mark_svg(), ((16, 16),)).digest
     font.write_bytes(b"two")
     renderer_fingerprint.cache_clear()
@@ -153,7 +162,6 @@ def test_digest_covers_the_fonts_and_renderer(monkeypatch: pytest.MonkeyPatch, t
     monkeypatch.setattr("figures.raster.importlib.metadata.version", lambda _: "0.0.0")
     renderer_fingerprint.cache_clear()
     after_version = Raster(mark_svg(), ((16, 16),)).digest
-    renderer_fingerprint.cache_clear()
     assert len({before, after_font, after_version}) == 3
 
 

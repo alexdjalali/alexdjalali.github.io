@@ -100,10 +100,16 @@ def _place(fig_svg: str, x: float, y: float, size: float) -> str:
     return head + flatten(fig_svg[match.end() :])
 
 
-def _fit(title: str, size: float, wrap: int) -> tuple[float, int]:
-    """Return the largest ``_SHRINK`` step of ``size`` (and its scaled ``wrap``) that fits ``title`` whole."""
-    steps = [(round(size * step, 1), int(wrap / step)) for step in _SHRINK]
-    return next((s for s in steps if len(textwrap.wrap(title, s[1])) <= _TITLE_LINES), steps[-1])
+def _fit(title: str, size: float, wrap: int) -> tuple[float, list[str]]:
+    """Return the largest ``_SHRINK`` step of ``size`` that fits ``title`` whole, and its lines.
+
+    Each step wraps proportionally wider; past the last step the title is cut by ``wrap_title``.
+    """
+    for step in _SHRINK:
+        lines = textwrap.wrap(title, int(wrap / step)) or [""]
+        if len(lines) <= _TITLE_LINES:
+            return round(size * step, 1), lines
+    return round(size * _SHRINK[-1], 1), wrap_title(title, int(wrap / _SHRINK[-1]), _TITLE_LINES)
 
 
 def card_svg(
@@ -118,8 +124,8 @@ def card_svg(
     across a line.
     """
     w, h = OG_SIZE
-    size, wrap = _fit(title, size, wrap)
-    lines = [html.escape(line) for line in wrap_title(title, wrap, _TITLE_LINES)]
+    size, fitted = _fit(title, size, wrap)
+    lines = [html.escape(line) for line in fitted]
     lead = size * 1.18
     top = 300 - (len(lines) - 1) * lead / 2
     text = "".join(
