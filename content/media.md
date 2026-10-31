@@ -5,7 +5,10 @@ draft: false
 type: "media"
 description: "Books, music, and shows I'm currently into."
 images:
-  - "images/og-default.png"
+  - "images/og/pages/media.png"
+kicker: "Book IV. · Media"
+headline: "Media: what I read, hear and watch."
+card: "definition"
 ---
 
 ## Books

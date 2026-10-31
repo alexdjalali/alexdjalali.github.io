@@ -3,8 +3,8 @@
 {{- $r := hugo.Data.figures.research -}}
 <section class="page-hero research-hero">
   <div class="research-hero__text">
-    <p class="kicker">Book II.</p>
-    <h1 class="display">{{ partial "rise.html" "Research: formal semantics, natural logic, and language interfaces for data." }}</h1>
+    <p class="kicker">{{ .Params.kicker }}</p>
+    <h1 class="display">{{ partial "rise.html" .Params.headline }}</h1>
     <p class="lede">{{ $r.papers }} papers, {{ $r.patents }} patents and a doctoral dissertation, from natural logic and discourse to natural language interfaces for data visualization.</p>
   </div>
   <div class="research-hero__fig frame">{{ partial "figure.html" (dict "kind" "pages" "key" "research-output") }}</div>

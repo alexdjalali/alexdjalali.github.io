@@ -7,7 +7,15 @@ from pathlib import Path
 
 import pytest
 
-from figures.content import OrphanFigureError, Site, load_site, post_titles, validate_registry
+from figures.content import (
+    OrphanFigureError,
+    PageCard,
+    Site,
+    load_site,
+    page_cards,
+    post_titles,
+    validate_registry,
+)
 
 pytestmark = pytest.mark.unit
 
@@ -238,3 +246,25 @@ def test_card_host_drops_userinfo_and_port(tmp_path: Path) -> None:
     toml = _SITE.replace('"https://example.org/"', '"https://user:pw@Example.org:8443/"') + _MENU
     (tmp_path / "hugo.toml").write_text(toml, encoding="utf-8")
     assert load_site(tmp_path).host == "example.org"
+
+
+def test_page_cards_read_kicker_headline_and_figure_from_front_matter(tmp_path: Path) -> None:
+    """A top-level page with a ``card`` figure gets a social card from its own kicker and headline."""
+    (tmp_path / "about.md").write_text(
+        '---\ntitle: About\nkicker: "Book IV."\nheadline: "About: {homes} homes."\n'
+        "card: pages/lifeline\n---\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "search.md").write_text("---\ntitle: Search\n---\n", encoding="utf-8")
+    assert page_cards(tmp_path) == {
+        "about": PageCard(kicker="Book IV.", headline="About: {homes} homes.", figure="pages/lifeline")
+    }
+
+
+def test_page_card_without_a_headline_is_an_error(tmp_path: Path) -> None:
+    """A page that asks for a card but gives no headline fails generation, naming the file."""
+    (tmp_path / "gear.md").write_text(
+        '---\ntitle: Gear\nkicker: "K"\ncard: pages/scout\n---\n', encoding="utf-8"
+    )
+    with pytest.raises(ValueError, match="gear.md"):
+        page_cards(tmp_path)

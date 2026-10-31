@@ -5,7 +5,7 @@ draft: false
 type: "gear"
 description: "Hardware, software, and tools I use daily for research, engineering, and writing."
 images:
-  - "images/og-default.png"
+  - "images/og/pages/gear.png"
 categories:
   - title: "Hardware"
     icon: "fa-solid fa-desktop"
@@ -81,4 +81,7 @@ categories:
       - "**[Raycast](https://www.raycast.com/)**: Spotlight replacement with 28 custom script commands"
       - "**[Rectangle](https://rectangleapp.com/)**: Keyboard-driven window tiling"
       - "**[1Password](https://1password.com/)**: Password manager"
+kicker: "Book IV. · Gear"
+headline: "Gear: the instruments of the work."
+card: "pages/scout"
 ---

@@ -20,7 +20,7 @@ from pathlib import Path
 import figures.posts  # noqa: F401  (importing registers the post builders)
 from figures import raster
 from figures.bib import load_entries, research_summary
-from figures.content import load_site, post_titles, validate_registry
+from figures.content import PageCard, load_site, page_cards, post_titles, validate_registry
 from figures.data import load_locations, load_timeline
 from figures.default import default_construction
 from figures.model import Figure, FigureContext
@@ -29,10 +29,12 @@ from figures.registry import FigureBuilder, registered
 
 PARTIALS = Path("layouts/_partials/figures")
 """Where generated partials live, relative to the repo root."""
-KINDS = ("posts", "projects", "talks", "pages")
+KINDS = ("posts", "projects", "courses", "talks", "pages")
 RESEARCH_JSON = Path("data/figures/research.json")
 OG_DIR = Path("static/images/og")
 """One social card per post, ``<slug>.png``."""
+OG_PAGES_DIR = OG_DIR / "pages"
+"""One social card per Book page that sets ``card`` in its front matter, ``<page>.png``."""
 OG_DEFAULT = Path("static/images/og-default.png")
 FAVICON_ICO = Path("static/favicon.ico")
 ICO_SIZES = (16, 32)
@@ -53,6 +55,22 @@ def wrap(kind: str, key: str, figure: Figure) -> str:
         f'<figure class="fig-frame">{svg}'
         f'<figcaption id="{cap_id}" class="visually-hidden">{caption}</figcaption></figure>\n'
     )
+
+
+def _page_rasters(
+    root: Path, cards: Mapping[str, PageCard], figures_by_key: Mapping[str, Figure], homes: int
+) -> dict[Path, raster.Raster]:
+    """Return one social card per Book page; raises ``ValueError`` for a card naming no known figure."""
+    site = load_site(root)
+    out: dict[Path, raster.Raster] = {}
+    for name, card in cards.items():
+        fig = figures_by_key.get(card.figure)
+        if fig is None:
+            raise ValueError(f"{name}.md: card names unknown figure {card.figure!r}")
+        headline = card.headline.replace("{homes}", str(homes))
+        svg = raster.card_svg(card.kicker, headline, fig.svg, site.name, site.host, size=46, wrap=24)
+        out[OG_PAGES_DIR / f"{name}.png"] = raster.Raster(svg, (raster.OG_SIZE,))
+    return out
 
 
 def _rasters(
@@ -110,13 +128,15 @@ def render_all(root: Path, builders: Mapping[str, FigureBuilder] | None = None) 
     out[RESEARCH_JSON] = json.dumps(research_summary(bib), indent=2, sort_keys=True) + "\n"
     definition = CARD_FIGURES["definition"](replace(base, slug="definition"))
     out.update(_rasters(root, titles, post_figures, definition))
+    cards = page_cards(root / "content")
+    out.update(_page_rasters(root, cards, {**page_figures, "definition": definition}, len(base.locations)))
     return out
 
 
 def _stale(root: Path, expected: Mapping[Path, Output]) -> list[Path]:
     """Return generated-looking files (figure partials, social cards) that nothing produces."""
     found = [p.relative_to(root) for kind in KINDS for p in sorted((root / PARTIALS / kind).glob("*.html"))]
-    found += [p.relative_to(root) for p in sorted((root / OG_DIR).glob("*.png"))]
+    found += [p.relative_to(root) for d in (OG_DIR, OG_PAGES_DIR) for p in sorted((root / d).glob("*.png"))]
     return [p for p in found if p not in expected]
 
 

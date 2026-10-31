@@ -5,7 +5,10 @@ draft: false
 type: "publications"
 description: "Academic publications, conference presentations, and patents by AJ Djalali covering NLP, formal semantics, natural logic, and natural language interfaces for data visualization."
 images:
-  - "images/og-default.png"
+  - "images/og/pages/publications.png"
+kicker: "Book II."
+headline: "Research: formal semantics, natural logic, and language interfaces for data."
+card: "pages/research-output"
 ---
 
 <div class="pub-badges">

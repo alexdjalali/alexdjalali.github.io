@@ -163,3 +163,25 @@ def test_every_figure_glyph_is_in_a_vendored_font(repo_root: Path) -> None:
         {ch for label in labels for ch in re.sub(r"<[^>]+>", "", label) if ord(ch) not in covered}
     )
     assert missing == []
+
+
+def test_pages_with_a_card_get_their_own_social_card(repo: Path) -> None:
+    """A page naming a ``card`` figure gets ``og/pages/<name>.png``; dropping the card makes it stale."""
+    page = repo / "content" / "gear.md"
+    page.write_text(
+        '---\ntitle: Gear\nkicker: "Book IV."\nheadline: "Gear."\ncard: pages/scout\n---\n', encoding="utf-8"
+    )
+    cli.main(["generate", "--root", str(repo)])
+    card = repo / build.OG_PAGES_DIR / "gear.png"
+    assert card.read_bytes()[:4] == b"\x89PNG"
+    page.write_text("---\ntitle: Gear\n---\n", encoding="utf-8")
+    assert build.drift(repo) == [build.OG_PAGES_DIR / "gear.png"]
+
+
+def test_a_card_naming_an_unknown_figure_fails_generation(repo: Path) -> None:
+    """A typo in a page's ``card`` figure is an error, not a silently blank card."""
+    (repo / "content" / "gear.md").write_text(
+        '---\ntitle: Gear\nkicker: "K"\nheadline: "H"\ncard: pages/nope\n---\n', encoding="utf-8"
+    )
+    with pytest.raises(ValueError, match="pages/nope"):
+        build.render_all(repo)

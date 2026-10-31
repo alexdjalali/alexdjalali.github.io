@@ -2,8 +2,8 @@
 {{ define "content" }}
 <section class="page-hero about-hero-section">
   <div class="about-hero-section__text">
-    <p class="kicker">Book IV.</p>
-    <h1 class="display">{{ partial "rise.html" (printf "About: %d homes, a few obsessions, one author." (len hugo.Data.locations)) }}</h1>
+    <p class="kicker">{{ .Params.kicker }}</p>
+    <h1 class="display">{{ partial "rise.html" (replace .Params.headline "{homes}" (string (len hugo.Data.locations))) }}</h1>
     {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
   </div>
   <span class="about-portrait"><img src="{{ "images/portrait.png" | relURL }}" alt="{{ .Site.Params.displayName }}" width="300" height="300" fetchpriority="high"></span>

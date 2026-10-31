@@ -1,4 +1,4 @@
-"""Read the site: post slugs and titles from ``content/posts``, site values from ``hugo.toml``."""
+"""Read the site: post titles (``content/posts``), page cards (``content/*.md``) and ``hugo.toml`` values."""
 
 from __future__ import annotations
 
@@ -74,6 +74,38 @@ def post_titles(content_dir: Path) -> dict[str, str]:
             raise ValueError(f"{slug}.md: front matter has no string title")
         titles[slug] = title.strip()
     return titles
+
+
+@dataclass(frozen=True, slots=True)
+class PageCard:
+    """A Book page's social card: the same kicker and headline its hero shows, over one page figure."""
+
+    kicker: str
+    """The label above the headline, e.g. ``Book III. · Systems``."""
+
+    headline: str
+    """The hero headline; ``{homes}`` stands for the number of locations, filled in by the caller."""
+
+    figure: str
+    """The ``<kind>/<key>`` of a page figure, or ``definition`` for the site's default figure."""
+
+
+def page_cards(content_dir: Path) -> dict[str, PageCard]:
+    """Return ``{page name: PageCard}`` for the top-level pages in ``content_dir`` that set ``card``.
+
+    Raises ``ValueError`` naming the file when such a page lacks a string ``kicker`` or ``headline``.
+    """
+    cards: dict[str, PageCard] = {}
+    for name, front in _posts(content_dir).items():
+        if not front or "card" not in front:
+            continue
+        fields = {k: front.get(k) for k in ("kicker", "headline", "card")}
+        values = {k: v.strip() for k, v in fields.items() if isinstance(v, str) and v.strip()}
+        missing = [k for k in fields if k not in values]
+        if missing:
+            raise ValueError(f"{name}.md: card needs a string {', '.join(missing)}")
+        cards[name] = PageCard(kicker=values["kicker"], headline=values["headline"], figure=values["card"])
+    return cards
 
 
 def validate_registry(slugs: Iterable[str], registered: Mapping[str, object]) -> None:

@@ -2,8 +2,8 @@
 {{ define "content" }}
 <section class="page-hero disclosure-hero">
   <div class="disclosure-hero__text">
-    <p class="kicker">Book IV. · AI disclosure</p>
-    <h1 class="display">{{ partial "rise.html" "AI disclosure: the author and Claude overlap." }}</h1>
+    <p class="kicker">{{ .Params.kicker }}</p>
+    <h1 class="display">{{ partial "rise.html" .Params.headline }}</h1>
     {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
   </div>
   <div class="disclosure-hero__fig frame">{{ partial "figure.html" (dict "kind" "pages" "key" "ai-venn") }}</div>

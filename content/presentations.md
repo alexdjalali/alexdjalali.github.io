@@ -5,7 +5,10 @@ draft: false
 type: "presentations"
 description: "Conference talks and presentations by AJ Djalali on AI-assisted software engineering, enforcing engineering discipline, and the software development lifecycle."
 images:
-  - "images/og-default.png"
+  - "images/og/pages/presentations.png"
+kicker: "Book II. · Talks"
+headline: "Talks: the same argument, said out loud."
+card: "talks/enforcing-engineering-discipline"
 ---
 
 <ul class="cv-list">

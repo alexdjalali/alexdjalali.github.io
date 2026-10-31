@@ -1,8 +1,8 @@
 {{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
 <section class="page-hero">
-  <p class="kicker">Book IV. · Media</p>
-  <h1 class="display">{{ partial "rise.html" "Media: what I read, hear and watch." }}</h1>
+  <p class="kicker">{{ .Params.kicker }}</p>
+  <h1 class="display">{{ partial "rise.html" .Params.headline }}</h1>
   {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
 </section>
 <article class="media-content">

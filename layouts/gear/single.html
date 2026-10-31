@@ -3,8 +3,8 @@
 {{- $shapes := slice "circle" "square" "triangle" -}}
 {{- $colors := slice "red" "yellow" "blue" "black" -}}
 <section class="page-hero">
-  <p class="kicker">Book IV. · Gear</p>
-  <h1 class="display">{{ partial "rise.html" "Gear: the instruments of the work." }}</h1>
+  <p class="kicker">{{ .Params.kicker }}</p>
+  <h1 class="display">{{ partial "rise.html" .Params.headline }}</h1>
   {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
 </section>
 <div class="gear-grid">

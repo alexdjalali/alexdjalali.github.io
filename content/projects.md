@@ -5,7 +5,10 @@ draft: false
 type: "projects"
 description: "Systems built by AJ Djalali spanning distributed search, NLP pipelines, and large-scale data infrastructure."
 images:
-  - "images/og-default.png"
+  - "images/og/pages/projects.png"
+kicker: "Book III. · Systems"
+headline: "Systems: eight constructions, present and past."
+card: "projects/knowledge-engine-toolkit"
 ---
 
 ## Present

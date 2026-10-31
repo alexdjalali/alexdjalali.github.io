@@ -6,7 +6,10 @@ type: "page"
 layout: "page-avatar"
 description: "Transparency about AI usage on this site."
 images:
-  - "images/og-default.png"
+  - "images/og/pages/ai-disclaimer.png"
+kicker: "Book IV. · AI disclosure"
+headline: "AI disclosure: the author and Claude overlap."
+card: "pages/ai-venn"
 ---
 
 ## AI Transparency

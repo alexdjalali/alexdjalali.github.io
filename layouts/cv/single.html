@@ -1,8 +1,8 @@
 {{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
 <section class="page-hero">
-  <p class="kicker">Book IV. · Resume</p>
-  <h1 class="display">{{ partial "rise.html" "Resume: a career in three lanes." }}</h1>
+  <p class="kicker">{{ .Params.kicker }}</p>
+  <h1 class="display">{{ partial "rise.html" .Params.headline }}</h1>
   {{ with .Params.tagline }}<p class="lede cv-tagline">{{ . | safeHTML }}</p>{{ end }}
   <p class="resume-actions">
     <a href="{{ "pdf/djalali-resume.pdf" | relURL }}" class="btn btn--solid read-more-btn" download>

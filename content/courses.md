@@ -5,7 +5,10 @@ draft: false
 type: "courses"
 description: "Courses taught by AJ Djalali on applied AI: generative AI, agents, and agent platforms for daily work."
 images:
-  - "images/og-default.png"
+  - "images/og/pages/courses.png"
+kicker: "Book III. · Courses"
+headline: "Courses: the same tools, taught hands-on."
+card: "courses/tiya-applied-ai"
 ---
 
 <div class="project-card">

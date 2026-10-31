@@ -5,7 +5,10 @@ draft: false
 type: "about"
 description: "Research Faculty at Georgia Tech, Stanford PhD in Linguistics, and former CTO of PerceptivePanda (acquired by Zapier). NLP, AI, and software engineering."
 images:
-  - "images/og-default.png"
+  - "images/og/pages/about.png"
+kicker: "Book IV."
+headline: "About: {homes} homes, a few obsessions, one author."
+card: "definition"
 ---
 
 **Hi, I'm a.j.djalali**
