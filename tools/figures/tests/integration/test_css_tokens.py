@@ -14,7 +14,7 @@ pytestmark = pytest.mark.integration
 PALETTE = {"#D62718", "#F5C400", "#1F4E9E", "#111111", "#FFFFFF"}
 GREYS = {"#3A3A3A", "#4A4A4A", "#D9D9D9", "#F7F7F5", "#A8A8A8"}
 # Files still carrying literals: legacy bundles removed by later tasks, and vendored icon CSS.
-EXEMPT = {"tokens.css", "custom.css", "cv-timeline.css", "fontawesome.css"}
+EXEMPT = {"tokens.css", "custom.css", "fontawesome.css"}
 LITERAL = re.compile(r"#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b|rgba?\(")
 
 

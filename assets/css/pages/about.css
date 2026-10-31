@@ -1,0 +1,17 @@
+/* About: hero with the portrait on a yellow disc, then the prose column. */
+
+.about-hero-section { display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem 4rem; }
+.about-hero-section__text { flex: 1 1 26rem; min-width: 0; }
+.about-hero-section .display { font-size: clamp(2.25rem, 4.5vw, 3.75rem); }
+.about-portrait { flex: 0 0 auto; display: block; width: 15rem; height: 15rem; border-radius: 50%; background: var(--yellow); overflow: hidden; }
+.about-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; filter: grayscale(1) contrast(1.1); }
+
+.about-content { padding: 2rem 0 4rem; border-top: 1px solid var(--black); }
+.about-content > * { max-width: var(--measure); }
+.about-content h3 { margin: 3rem 0 1rem; font-size: 2rem; font-weight: 300; }
+.about-content a { color: var(--black); border-bottom: 1px solid var(--red); }
+.about-content a:hover { color: var(--red); }
+.about-content #about-timeline { max-width: none; margin: 2rem 0; }
+.about-content .about-hero { margin-top: 2rem; border: 1px solid var(--black); }
+.about-content .about-hero img, .about-content .about-hero-img { display: block; width: 100%; height: auto; border-radius: 0; }
+.about-content .about-signature { max-width: 12rem; height: auto; }

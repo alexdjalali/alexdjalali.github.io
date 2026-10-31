@@ -1,65 +1,45 @@
-{{ define "title" }}
-  {{ .Title }} · {{ .Site.Title }}
-{{ end }}
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
-  {{/* CV-specific stylesheet */}}
-  {{ $style := resources.Get "css/cv-timeline.css" }}
-  {{ if hugo.IsServer }}
-  <style>{{ $style.Content | safeCSS }}</style>
-  {{ else }}
-  {{ $style = $style | resources.Minify }}
-  <style>{{ $style.Content | safeCSS }}</style>
-  {{ end }}
+<section class="page-hero">
+  <p class="kicker">Book IV. · Resume</p>
+  <h1 class="display">{{ partial "rise.html" "Resume: a career in three lanes." }}</h1>
+  {{ with .Params.tagline }}<p class="lede cv-tagline">{{ . | safeHTML }}</p>{{ end }}
+  <p class="resume-actions">
+    <a href="{{ "pdf/djalali-resume.pdf" | relURL }}" class="btn btn--solid read-more-btn" download>
+      <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Download Resume (PDF)
+    </a>
+  </p>
+</section>
 
-  <section class="container page cv-page">
-    <article>
-      <h2>Resume</h2>
-      {{ with .Params.tagline }}
-      <p class="cv-tagline">{{ . | safeHTML }}</p>
-      {{ end }}
+<article class="resume-content cv-page">
+  <h2>Timeline</h2>
+  <div id="timeline">{{ partial "figure.html" (dict "kind" "pages" "key" "career-lanes") }}</div>
 
-      <p style="margin-top: 0.8em;">
-        <a href="{{ "pdf/djalali-resume.pdf" | relURL }}" class="read-more-btn" download>
-          <i class="fa-solid fa-file-pdf"></i>&ensp;Download Resume (PDF)
-        </a>
-      </p>
+  <div class="cv-columns">
+    <div id="experience" class="cv-section cv-col">
+      <h2>Experience</h2>
+    </div>
+    <div id="education" class="cv-section cv-col">
+      <h2>Education</h2>
+    </div>
+  </div>
 
-      {{/* Timeline visualization */}}
-      <h2>Timeline</h2>
-      <div id="timeline"></div>
+  {{ .Content }}
+</article>
 
-      {{/* Experience + Education — two-column layout */}}
-      <div class="cv-columns">
-        <div id="experience" class="cv-section cv-col">
-          <h2>Experience</h2>
-        </div>
-        <div id="education" class="cv-section cv-col">
-          <h2>Education</h2>
-        </div>
-      </div>
-
-      {{/* Remaining content from markdown (skills, research, etc.) */}}
-      {{ .Content }}
-    </article>
-  </section>
-
-  {{ if $.Site.Data.timeline }}
-  {{/* D3.js v7 from CDN */}}
-  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"
-    integrity="sha256-8glLv2FBs1lyLE/kVOtsSw8OQswQzHr5IfwVj864ZTk=" crossorigin="anonymous"></script>
-
-  {{/* Embed timeline data from Hugo data directory */}}
-  <script>
-    var timelineData = {{ $.Site.Data.timeline | jsonify | safeJS }};
-  </script>
-
-  {{/* Timeline script */}}
-  {{ $script := resources.Get "js/cv-timeline.js" }}
-  {{ if hugo.IsServer }}
-  <script>{{ $script.Content | safeJS }}</script>
-  {{ else }}
-  {{ $script = $script | resources.Minify }}
-  <script>{{ $script.Content | safeJS }}</script>
-  {{ end }}
-  {{ end }}
+{{ if hugo.Data.timeline }}
+{{/* D3.js v7 from CDN */}}
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"
+  integrity="sha256-8glLv2FBs1lyLE/kVOtsSw8OQswQzHr5IfwVj864ZTk=" crossorigin="anonymous"></script>
+<script>
+  var timelineData = {{ hugo.Data.timeline | jsonify | safeJS }};
+</script>
+{{ $script := resources.Get "js/cv-timeline.js" }}
+{{ if hugo.IsServer }}
+<script>{{ $script.Content | safeJS }}</script>
+{{ else }}
+{{ $script = $script | resources.Minify }}
+<script>{{ $script.Content | safeJS }}</script>
+{{ end }}
+{{ end }}
 {{ end }}

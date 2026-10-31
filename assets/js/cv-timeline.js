@@ -26,19 +26,18 @@
   var x, svg, tooltip;
   var PRESENT = new Date(new Date().getFullYear() + 1, 0, 1); // Jan 1 next year = "Present"
 
-  /* ---- Color gradient ---- */
-  function isDarkMode() {
-    return document.body.classList.contains("colorscheme-dark") ||
-      (document.body.classList.contains("colorscheme-auto") &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches);
-  }
+  /* ---- Palette: read once from the design tokens (tokens.css) ---- */
+  var tokens = getComputedStyle(document.documentElement);
+  function token(name) { return tokens.getPropertyValue(name).trim(); }
+  var RED = token("--red"), YELLOW = token("--yellow"), BLUE = token("--blue");
+  var BLACK = token("--black"), WHITE = token("--white");
 
-  function getColorScale() {
-    var start = isDarkMode() ? "#ef9a9a" : "#f4a5a5";
-    var end = isDarkMode() ? "#c0392b" : "#7b1a1a";
-    return d3.scaleSequential()
-      .domain([0, dataset.length - 1])
-      .interpolator(d3.interpolateHsl(start, end));
+  /* Label ink: black on yellow, white on everything else, so text stays legible. */
+  function inkOn(fill) { return fill === YELLOW ? BLACK : WHITE; }
+  /* Education is blue, work red, side work (writing, advising, tutoring) yellow. */
+  function laneColor(d) {
+    if (d.type === "education") return BLUE;
+    return d.lane === "side" ? YELLOW : RED;
   }
 
   /* ---- Assign swim lanes so overlapping bars stack ---- */
@@ -99,7 +98,6 @@
   /* ---- Draw ---- */
   function draw() {
     var numLanes = assignLanes();
-    var colorScale = getColorScale();
     var containerNode = container.node();
     var containerWidth = containerNode.parentElement.clientWidth || containerNode.clientWidth || 600;
     var svgWidth = containerWidth;
@@ -169,7 +167,7 @@
 
     bars.append("rect")
       .attr("class", "bar-rect")
-      .style("fill", function (d, i) { return colorScale(i); })
+      .style("fill", function (d) { return laneColor(d); })
       .attr("y", function (d) { return d._lane * (LANE_HEIGHT + LANE_PAD); })
       .attr("height", LANE_HEIGHT)
       .attr("rx", 4)
@@ -352,7 +350,6 @@
 
     // Render expanded timeline
     var numLanes = assignLanes();
-    var colorScale = getColorScale();
     var modalNode = modal.node();
     var modalWidth = modalNode.clientWidth - MODAL_MARGIN.left - MODAL_MARGIN.right;
     var modalSvgWidth = modalNode.clientWidth;
@@ -421,7 +418,7 @@
 
     mbars.append("rect")
       .attr("class", "bar-rect")
-      .style("fill", function (d, i) { return colorScale(i); })
+      .style("fill", function (d) { return laneColor(d); })
       .attr("y", function (d) { return d._lane * (MODAL_LANE_HEIGHT + MODAL_LANE_PAD); })
       .attr("height", MODAL_LANE_HEIGHT)
       .attr("rx", 4)
@@ -458,7 +455,7 @@
       .attr("y", function (d) { return d._lane * (MODAL_LANE_HEIGHT + MODAL_LANE_PAD) + MODAL_LANE_HEIGHT / 2; })
       .attr("dy", "0.35em")
       .style("font-size", "12px")
-      .style("fill", "#fff")
+      .style("fill", function (d) { return inkOn(laneColor(d)); })
       .style("pointer-events", "none")
       .style("user-select", "none")
       .text(function (d) { return d.shorttitle; });
@@ -486,7 +483,6 @@
     if (tooltip) tooltip.remove();
 
     var numLanes = assignLanes();
-    var colorScale = getColorScale();
     var containerNode = container.node();
     var containerWidth = containerNode.parentElement.clientWidth || containerNode.clientWidth || 600;
     var svgWidth = containerWidth;
@@ -546,7 +542,7 @@
 
     bars.append("rect")
       .attr("class", "bar-rect")
-      .style("fill", function (d, i) { return colorScale(i); })
+      .style("fill", function (d) { return laneColor(d); })
       .attr("y", function (d) { return d._lane * (LANE_HEIGHT + LANE_PAD); })
       .attr("height", LANE_HEIGHT)
       .attr("rx", 4)
@@ -585,6 +581,7 @@
   }
 
   /* ---- Init ---- */
+  container.html(""); // replaces the generated static lanes
   draw();
   var resizeTimer;
   d3.select(window).on("resize", function () {

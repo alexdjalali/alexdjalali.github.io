@@ -1,40 +1,31 @@
-{{ define "title" }}
-  {{ .Title }} · {{ .Site.Title }}
-{{ end }}
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
-  {{/* Reuse CV timeline stylesheet for shared SVG styles */}}
-  {{ $style := resources.Get "css/cv-timeline.css" }}
-  {{ if hugo.IsServer }}
-  <style>{{ $style.Content | safeCSS }}</style>
-  {{ else }}
-  {{ $style = $style | resources.Minify }}
-  <style>{{ $style.Content | safeCSS }}</style>
-  {{ end }}
+<section class="page-hero about-hero-section">
+  <div class="about-hero-section__text">
+    <p class="kicker">Book IV.</p>
+    <h1 class="display">{{ partial "rise.html" (printf "About: %d homes, a few obsessions, one author." (len hugo.Data.locations)) }}</h1>
+    {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+  </div>
+  <span class="about-portrait"><img src="{{ "images/headshot.png" | relURL }}" alt="{{ .Site.Params.displayName }}" width="300" height="300" fetchpriority="high"></span>
+</section>
 
-  <section class="container page about-page">
-    <article>
-      <h2>{{ .Title }}</h2>
-      {{ .Content }}
-    </article>
-  </section>
+<article class="about-content prose">
+  {{ .Content }}
+</article>
 
-  {{ if $.Site.Data.locations }}
-  {{/* D3.js v7 from CDN */}}
-  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"
-    integrity="sha256-8glLv2FBs1lyLE/kVOtsSw8OQswQzHr5IfwVj864ZTk=" crossorigin="anonymous"></script>
-
-  {{/* Embed location data from Hugo data directory */}}
-  <script>
-    var locationData = {{ $.Site.Data.locations | jsonify | safeJS }};
-  </script>
-
-  {{/* About timeline script */}}
-  {{ $script := resources.Get "js/about-timeline.js" }}
-  {{ if hugo.IsServer }}
-  <script>{{ $script.Content | safeJS }}</script>
-  {{ else }}
-  {{ $script = $script | resources.Minify }}
-  <script>{{ $script.Content | safeJS }}</script>
-  {{ end }}
-  {{ end }}
+{{ if hugo.Data.locations }}
+{{/* D3.js v7 from CDN */}}
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"
+  integrity="sha256-8glLv2FBs1lyLE/kVOtsSw8OQswQzHr5IfwVj864ZTk=" crossorigin="anonymous"></script>
+<script>
+  var locationData = {{ hugo.Data.locations | jsonify | safeJS }};
+</script>
+{{ $script := resources.Get "js/about-timeline.js" }}
+{{ if hugo.IsServer }}
+<script>{{ $script.Content | safeJS }}</script>
+{{ else }}
+{{ $script = $script | resources.Minify }}
+<script>{{ $script.Content | safeJS }}</script>
+{{ end }}
+{{ end }}
 {{ end }}

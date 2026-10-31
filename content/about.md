@@ -12,7 +12,7 @@ images:
 
 I was born in El Paso, Texas. My father worked for [Marriott Hotels](https://www.marriott.com/), which meant our family moved — a lot. Growing up, home was never one place. It was wherever we unpacked next:
 
-<div id="about-timeline"></div>
+<div id="about-timeline">{{< construction "pages/lifeline" >}}</div>
 
 All that moving meant I attended three different high schools: [Western Albemarle](https://wah.k12albemarle.org/) in Virginia, [St. John's School](https://www.stjohnsguam.com/) in Guam, and [Hopkins High School](https://www.hopkinsschools.org/hopkins-high-school) in Minnesota, where I graduated. Each one dropped me into a completely different world — new people, new culture, new everything. You learn to adapt fast, or you don't adapt at all.
 

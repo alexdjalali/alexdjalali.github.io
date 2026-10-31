@@ -16,14 +16,14 @@
 
 /* Year grid lines */
 .grid-line {
-  stroke: #e0e0e0;
+  stroke: var(--rule);
   stroke-width: 1;
   shape-rendering: crispEdges;
 }
 
 /* Present marker */
 .present-line {
-  stroke: #000;
+  stroke: var(--black);
   stroke-width: 1.5;
   stroke-dasharray: 4 3;
   opacity: 0.4;
@@ -32,11 +32,11 @@
 /* Time axis */
 .time-axis path,
 .time-axis line {
-  stroke: #999;
+  stroke: var(--ink-3);
 }
 
 .time-axis text {
-  fill: var(--text-dim);
+  fill: var(--ink-3);
   font-size: 11px;
 }
 
@@ -56,39 +56,39 @@
   display: block;
   margin: 0.5em 0 0 auto;
   padding: 0.3em 1em;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-label);
   font-size: 0.75em;
-  color: #777;
+  color: var(--ink-3);
   background: transparent;
-  border: 1px solid #ccc;
+  border: 1px solid var(--rule);
   border-radius: 3px;
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s;
 }
 .timeline-expand-btn:hover {
-  color: #c0392b;
-  border-color: #c0392b;
+  color: var(--red);
+  border-color: var(--red);
 }
 
 /* Modal overlay */
 .timeline-modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: color-mix(in srgb, var(--black) 60%, transparent);
   z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .timeline-modal {
-  background: var(--bg-primary);
+  background: var(--white);
   border-radius: 8px;
   padding: 2em;
   width: 90vw;
   max-height: 80vh;
   overflow: auto;
   position: relative;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--black) 30%, transparent);
 }
 .timeline-modal-close {
   position: absolute;
@@ -97,16 +97,16 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--text-dim);
+  color: var(--ink-3);
   line-height: 1;
 }
-.timeline-modal-close:hover { color: #c0392b; }
+.timeline-modal-close:hover { color: var(--red); }
 
 /* Tooltip — appended to body so it's never clipped */
 .tl-tooltip {
   position: absolute;
-  background: #000;
-  color: #fff;
+  background: var(--black);
+  color: var(--white);
   padding: 8px 12px;
   border-radius: 4px;
   font-size: 0.85em;
@@ -117,7 +117,7 @@
   z-index: 10001;
   max-width: 360px;
   white-space: normal;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--black) 20%, transparent);
 }
 
 
@@ -162,8 +162,7 @@
   height: 2px;
   background: linear-gradient(
     90deg,
-    var(--grad-edge) 0%, var(--grad-mid1) 20%, var(--grad-mid2) 35%, var(--grad-center) 50%,
-    var(--grad-mid2) 65%, var(--grad-mid1) 80%, var(--grad-edge) 100%
+    var(--black) 0%, var(--red) 50%, var(--black) 100%
   );
   background-size: 200% 100%;
   animation: gradient-slide 3s linear infinite;
@@ -185,8 +184,7 @@
   height: 2px;
   background: linear-gradient(
     90deg,
-    var(--grad-edge) 0%, var(--grad-mid1) 20%, var(--grad-mid2) 35%, var(--grad-center) 50%,
-    var(--grad-mid2) 65%, var(--grad-mid1) 80%, var(--grad-edge) 100%
+    var(--black) 0%, var(--red) 50%, var(--black) 100%
   );
   background-size: 200% 100%;
   animation: gradient-slide 3s linear infinite;
@@ -198,7 +196,7 @@
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease, border-left-color 0.2s ease, background-color 0.2s ease;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   font-weight: 300;
   border-left: 3px solid transparent;
   border-radius: 2px;
@@ -211,8 +209,8 @@
 }
 
 .cv-entry:hover {
-  border-left-color: #c0392b;
-  background: var(--bg-hover);
+  border-left-color: var(--red);
+  background: var(--wash);
 }
 
 .cv-entry h3 {
@@ -241,14 +239,14 @@
 
 .cv-entry h3 b {
   font-size: 1em;
-  color: var(--text-dim);
+  color: var(--ink-3);
   font-weight: 400;
   margin-right: 0.5em;
 }
 
 .cv-summary {
   padding-left: 0;
-  color: var(--text-body);
+  color: var(--black);
   font-size: 0.82em;
   line-height: 1.4;
   margin: 0 0 0.05em 0;
@@ -256,7 +254,7 @@
 
 .cv-entry .description {
   padding-left: 0;
-  color: var(--text-body);
+  color: var(--black);
   font-size: 0.82em;
   line-height: 1.5;
 }
@@ -279,32 +277,31 @@
 
 .learn-more {
   display: inline-block;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-label);
   font-size: 0.58em;
-  color: #777;
+  color: var(--ink-3);
   text-decoration: none;
   margin-left: 0;
   margin-top: 0.1em;
   cursor: pointer;
-  border: 1px solid var(--border-code);
+  border: 1px solid var(--rule);
   border-radius: 3px;
   padding: 0.12em 0.55em;
-  background: var(--bg-secondary);
+  background: var(--wash);
   transition: color 0.2s, border-color 0.2s, background-color 0.2s, transform 0.2s;
 }
 
 .learn-more:hover {
-  color: #c0392b;
-  border-color: #c0392b;
+  color: var(--red);
+  border-color: var(--red);
   background-color: transparent;
   transform: translateX(2px);
 }
 
 .learn-more:active {
-  background-color: var(--active-overlay);
+  background-color: color-mix(in srgb, var(--black) 8%, transparent);
 }
 
-body.colorscheme-dark .learn-more { color: #aaa; }
 
 .cv-entry .description ul {
   list-style: none;
@@ -325,13 +322,13 @@ body.colorscheme-dark .learn-more { color: #aaa; }
   top: 0.55em;
   width: 7px;
   height: 7px;
-  background: var(--bullet);
+  background: var(--rule);
   border-radius: 50%;
   transition: background 0.2s, transform 0.2s;
 }
 
 .cv-entry .description li:hover::before {
-  background: #c0392b !important;
+  background: var(--red) !important;
   transform: scale(1.5);
 }
 
@@ -342,7 +339,7 @@ body.colorscheme-dark .learn-more { color: #aaa; }
   top: calc(0.55em + 7px);
   width: 1.5px;
   bottom: -0.2em;
-  background: var(--bullet-line);
+  background: var(--rule);
 }
 
 .cv-entry .description li:last-child::after {
@@ -366,7 +363,7 @@ body.colorscheme-dark .learn-more { color: #aaa; }
 /* Honors groups */
 .honors-group {
   margin-bottom: 0.1em;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   font-weight: 300;
 }
 
@@ -399,7 +396,7 @@ body.colorscheme-dark .learn-more { color: #aaa; }
   margin-bottom: 0.4em;
   font-size: 0.82em;
   line-height: 1.3;
-  color: var(--text-body);
+  color: var(--black);
 }
 
 .cv-list li::before {
@@ -409,13 +406,13 @@ body.colorscheme-dark .learn-more { color: #aaa; }
   top: 0.55em;
   width: 7px;
   height: 7px;
-  background: var(--bullet);
+  background: var(--rule);
   border-radius: 50%;
   transition: background 0.2s, transform 0.2s;
 }
 
 .cv-list li:hover::before {
-  background: #c0392b !important;
+  background: var(--red) !important;
   transform: scale(1.5);
 }
 
@@ -426,7 +423,7 @@ body.colorscheme-dark .learn-more { color: #aaa; }
   top: calc(0.55em + 7px);
   width: 1.5px;
   bottom: -0.2em;
-  background: var(--bullet-line);
+  background: var(--rule);
 }
 
 .cv-list li:last-child::after {
@@ -460,8 +457,7 @@ body.colorscheme-dark .learn-more { color: #aaa; }
   height: 2px;
   background: linear-gradient(
     90deg,
-    var(--grad-edge) 0%, var(--grad-mid1) 20%, var(--grad-mid2) 35%, var(--grad-center) 50%,
-    var(--grad-mid2) 65%, var(--grad-mid1) 80%, var(--grad-edge) 100%
+    var(--black) 0%, var(--red) 50%, var(--black) 100%
   );
   background-size: 200% 100%;
   animation: gradient-slide 3s linear infinite;
@@ -482,25 +478,25 @@ body.colorscheme-dark .learn-more { color: #aaa; }
 
 .skill-tag {
   display: inline-block;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--black);
+  color: var(--white);
   padding: 0.25em 0.8em;
   border-radius: 20px;
   font-size: 0.85em;
-  border: 1px solid #333;
+  border: 1px solid var(--ink-2);
   transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .skill-tag:hover {
   transform: scale(1.08);
-  background-color: #333;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  border-color: #c0392b;
+  background-color: var(--ink-2);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--black) 20%, transparent);
+  border-color: var(--red);
 }
 
 /* CV header */
 .cv-tagline {
-  color: var(--text-body);
+  color: var(--black);
   font-size: 0.92em;
   font-weight: 300;
   line-height: 1.6;
@@ -509,7 +505,7 @@ body.colorscheme-dark .learn-more { color: #aaa; }
 
 .cv-subtitle {
   font-size: 1.1em;
-  color: #333;
+  color: var(--ink-2);
   margin: 0 0 0.5em 0;
 }
 
@@ -534,8 +530,7 @@ body.colorscheme-dark .learn-more { color: #aaa; }
   height: 2px;
   background: linear-gradient(
     90deg,
-    var(--grad-edge) 0%, var(--grad-mid1) 20%, var(--grad-mid2) 35%, var(--grad-center) 50%,
-    var(--grad-mid2) 65%, var(--grad-mid1) 80%, var(--grad-edge) 100%
+    var(--black) 0%, var(--red) 50%, var(--black) 100%
   );
   background-size: 200% 100%;
   animation: gradient-slide 3s linear infinite;
@@ -548,13 +543,13 @@ body.colorscheme-dark .learn-more { color: #aaa; }
   .cv-section h2::after,
   .cv-skills h2::after,
   .cv-research h2::after {
-    background: #000 !important;
+    background: var(--black) !important;
     animation: none !important;
   }
 
   .bar-rect {
-    fill: #fff !important;
-    stroke: #000;
+    fill: var(--white) !important;
+    stroke: var(--black);
     stroke-width: 1;
   }
   .present-line {
@@ -580,31 +575,9 @@ body.colorscheme-dark .learn-more { color: #aaa; }
     display: none !important;
   }
   .cv-entry .description li::before {
-    background: #000;
+    background: var(--black);
   }
   .cv-entry .description li::after {
-    background: #aaa;
+    background: var(--ink-3);
   }
-}
-
-/* Dark mode — only properties not handled by CSS custom properties */
-body.colorscheme-dark .timeline-expand-btn { color: #aaa; }
-body.colorscheme-dark .grid-line { stroke: #444; }
-body.colorscheme-dark .present-line { stroke: #ddd; }
-body.colorscheme-dark .time-axis path,
-body.colorscheme-dark .time-axis line { stroke: #666; }
-body.colorscheme-dark .tl-tooltip { background: #eee; color: #111; }
-body.colorscheme-dark .skill-tag { background-color: #ddd; color: #212121; border-color: #bbb; }
-body.colorscheme-dark .skill-tag:hover { border-color: #c0392b; }
-
-@media (prefers-color-scheme: dark) {
-  body.colorscheme-auto .timeline-expand-btn { color: #aaa; }
-  body.colorscheme-auto .learn-more { color: #aaa; }
-  body.colorscheme-auto .grid-line { stroke: #444; }
-  body.colorscheme-auto .present-line { stroke: #ddd; }
-  body.colorscheme-auto .time-axis path,
-  body.colorscheme-auto .time-axis line { stroke: #666; }
-  body.colorscheme-auto .tl-tooltip { background: #eee; color: #111; }
-  body.colorscheme-auto .skill-tag { background-color: #ddd; color: #212121; border-color: #bbb; }
-  body.colorscheme-auto .skill-tag:hover { border-color: #c0392b; }
 }
