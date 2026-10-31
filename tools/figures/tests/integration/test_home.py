@@ -44,4 +44,4 @@ def test_home_kicker_is_the_definition_label(built_site: Path, repo_root: Path) 
     config = tomllib.loads((repo_root / "hugo.toml").read_text(encoding="utf-8"))
     label = config["params"]["definitionLabel"]
     html = read_html(built_site, "index.html")
-    assert label and re.search(r'<p class="?kicker"?>' + re.escape(escape(label)) + "</p>", html)
+    assert label and re.search(r'<p class="?kicker"?>' + re.escape(escape(label, quote=False)) + "</p>", html)

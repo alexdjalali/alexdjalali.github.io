@@ -22,7 +22,6 @@ from figures.raster import (
     read_stamp,
     renderer_fingerprint,
     stamp,
-    wrap_title,
 )
 
 pytestmark = pytest.mark.unit
@@ -42,12 +41,19 @@ def _png_size(data: bytes) -> tuple[int, int]:
     return struct.unpack(">II", data[16:24])
 
 
-def test_title_wraps_to_at_most_four_lines() -> None:
-    """Long titles wrap on word boundaries and are cut with an ellipsis after four lines."""
-    lines = wrap_title("one two three four five six seven eight nine ten eleven twelve thirteen", 12)
-    assert 1 < len(lines) <= 4
-    assert all(len(line) <= 13 for line in lines)
-    assert lines[-1].endswith("…")
+_TITLE_LINE = re.compile(
+    r'<text x="72" y="[\d.]+" font-size="([\d.]+)" font-family="IBM Plex Sans"[^>]*>([^<]*)</text>'
+)
+
+
+def test_title_too_long_at_every_size_is_cut_after_four_lines() -> None:
+    """Past the smallest size a title keeps four word-wrapped lines and the last ends in an ellipsis."""
+    title = " ".join(f"word{i}" for i in range(40))
+    svg = card_svg("K", title, '<svg class="fig" viewBox="0 0 1 1"></svg>', "n", "u")
+    lines = [text for _, text in _TITLE_LINE.findall(svg)]
+    words = " ".join(lines).removesuffix("…").split()
+    assert len(lines) == 4 and lines[-1].endswith("…")
+    assert words == title.split()[: len(words)]
 
 
 def test_card_renders_at_social_card_size() -> None:
@@ -142,9 +148,7 @@ def test_long_title_shrinks_before_it_is_truncated() -> None:
     """A title too long for four lines at the default size is set smaller, whole, before any ellipsis."""
     title = "Professional Software Engineering for AI and Distributed Systems"
     svg = card_svg("K", title, '<svg class="fig" viewBox="0 0 1 1"></svg>', "n", "u")
-    lines = re.findall(
-        r'<text x="72" y="[\d.]+" font-size="([\d.]+)" font-family="IBM Plex Sans"[^>]*>([^<]*)</text>', svg
-    )
+    lines = _TITLE_LINE.findall(svg)
     assert lines and all(float(size) < 54 for size, _ in lines)
     assert " ".join(text for _, text in lines) == title
 

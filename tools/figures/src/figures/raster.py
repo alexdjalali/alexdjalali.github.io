@@ -59,11 +59,6 @@ def png(svg: str, width: int, height: int) -> bytes:
     )
 
 
-def wrap_title(title: str, width: int, max_lines: int = 4) -> list[str]:
-    """Wrap ``title`` at ``width`` characters; past ``max_lines`` the last line ends in an ellipsis."""
-    return _truncate(textwrap.wrap(title, width) or [""], max_lines)
-
-
 def _truncate(lines: list[str], max_lines: int) -> list[str]:
     """Keep the first ``max_lines`` lines; when any are dropped, the last kept one ends in an ellipsis."""
     if len(lines) <= max_lines:
@@ -108,7 +103,7 @@ def _place(fig_svg: str, x: float, y: float, size: float) -> str:
 def _fit(title: str, size: float, wrap: int) -> tuple[float, list[str]]:
     """Return the largest ``_SHRINK`` step of ``size`` that fits ``title`` whole, and its lines.
 
-    Each step wraps proportionally wider; past the last step the title is cut by ``wrap_title``.
+    Each step wraps proportionally wider; past the last step the lines are cut by ``_truncate``.
     """
     lines: list[str] = []
     for step in _SHRINK:

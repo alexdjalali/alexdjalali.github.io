@@ -32,16 +32,22 @@ def _front_matter(path: Path) -> dict[str, Any] | None:
     return data if isinstance(data, dict) else None
 
 
+_TRUE_STRINGS = frozenset({"1", "t", "T", "TRUE", "true", "True"})
+"""The strings Go's ``strconv.ParseBool`` (behind Hugo's ``cast.ToBool``) reads as true."""
+
+
 def _to_bool(value: object) -> bool:
-    """Cast a front-matter value as Hugo's ``cast.ToBool``: ``1``/``t``/``true`` strings, non-zero numbers."""
+    """Cast a front-matter value as Hugo's ``cast.ToBool``: ``_TRUE_STRINGS``, or a non-zero number."""
     if isinstance(value, bool | int | float):
         return bool(value)
-    return isinstance(value, str) and value.lower() in {"1", "t", "true"}
+    return isinstance(value, str) and value in _TRUE_STRINGS
 
 
 def _is_draft(front: Mapping[str, Any]) -> bool:
-    """Return whether Hugo treats the page as a draft: ``draft`` true, or ``published`` false."""
-    return _to_bool(front.get("draft")) or ("published" in front and not _to_bool(front["published"]))
+    """Return whether Hugo treats the page as a draft: ``draft`` when set, else ``published`` false."""
+    if "draft" in front:
+        return _to_bool(front["draft"])
+    return "published" in front and not _to_bool(front["published"])
 
 
 def _posts(content_dir: Path) -> dict[str, dict[str, Any] | None]:
@@ -53,11 +59,6 @@ def _posts(content_dir: Path) -> dict[str, dict[str, Any] | None]:
             continue
         posts[path.stem] = front
     return posts
-
-
-def post_slugs(content_dir: Path) -> list[str]:
-    """Return the sorted stems of non-draft ``*.md`` files in ``content_dir``."""
-    return list(_posts(content_dir))
 
 
 def post_titles(content_dir: Path) -> dict[str, str]:
@@ -116,8 +117,10 @@ class Site:
 
 def _menu_order(entry: Mapping[str, Any]) -> tuple[bool, int, str, str, str]:
     """Sort key matching Hugo's menu order: weight (0 or unset last), case-folded name, identifier."""
-    weight, name = int(entry.get("weight", 0)), str(entry.get("name", ""))
-    return (weight == 0, weight, name.casefold(), name, str(entry.get("identifier", name)))
+    weight, name = entry.get("weight", 0), str(entry.get("name", ""))
+    if not isinstance(weight, int) or isinstance(weight, bool):
+        raise ValueError(f"hugo.toml: menu entry {name or '(unnamed)'} has a non-integer weight {weight!r}")
+    return (weight == 0, weight, name.casefold(), name, str(entry.get("identifier", "")))
 
 
 def _posts_book(config: Mapping[str, Any]) -> str:
@@ -135,7 +138,7 @@ def _posts_book(config: Mapping[str, Any]) -> str:
             if not book.get("name"):
                 raise ValueError(f"{where}: the posts/ entry has no name")
             return f"Book {_roman(i)} · {book['name']}"
-    raise ValueError(f"{where}: no top-level entry with url posts/")
+    raise ValueError(f"{where}: no top-level entry with url or pageRef posts/")
 
 
 def load_site(root: Path) -> Site:
@@ -148,10 +151,12 @@ def load_site(root: Path) -> Site:
     params = config.get("params", {})
     values = {
         "title": config.get("title"),
-        "baseURL": urlparse(config.get("baseURL") or "").netloc,
+        "baseURL": config.get("baseURL"),
         "params.definition": params.get("definition"),
         "params.definitionLabel": params.get("definitionLabel"),
     }
+    if isinstance(values["baseURL"], str):
+        values["baseURL"] = urlparse(values["baseURL"]).netloc
     missing = [key for key, value in values.items() if not isinstance(value, str) or not value]
     if missing:
         raise ValueError(f"hugo.toml: missing or not a string: {missing[0]}")

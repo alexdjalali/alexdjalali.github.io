@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import pytest
 
-from figures.content import OrphanFigureError, Site, load_site, post_slugs, post_titles, validate_registry
+from figures.content import OrphanFigureError, Site, load_site, post_titles, validate_registry
 
 pytestmark = pytest.mark.unit
 
@@ -21,7 +22,7 @@ def test_drafts_are_excluded_and_slugs_are_filename_stems(tmp_path: Path) -> Non
     _post(tmp_path, "beta.md", 'title: "Beta"\ndraft: true')
     _post(tmp_path, "gamma.md", 'title: "Gamma"')
     (tmp_path / "notes.txt").write_text("x", encoding="utf-8")
-    assert post_slugs(tmp_path) == ["alpha", "gamma"]
+    assert list(post_titles(tmp_path)) == ["alpha", "gamma"]
 
 
 def test_orphan_registration_raises_naming_the_slug() -> None:
@@ -63,22 +64,27 @@ def test_malformed_front_matter_fails_naming_the_file(tmp_path: Path) -> None:
     """Unparseable YAML fails with the file's name, not a context-free scanner error."""
     _post(tmp_path, "broken.md", 'title: "unterminated')
     with pytest.raises(ValueError, match="broken.md"):
-        post_slugs(tmp_path)
+        post_titles(tmp_path)
 
 
-def test_string_true_draft_is_excluded(tmp_path: Path) -> None:
-    """``draft: "true"`` is a draft, as Hugo casts it; ``draft: "false"`` is not."""
-    _post(tmp_path, "a.md", 'title: A\ndraft: "true"')
-    _post(tmp_path, "b.md", 'title: B\ndraft: "false"')
-    assert post_slugs(tmp_path) == ["b"]
-
-
-@pytest.mark.parametrize("front", ["draft: 1", "draft: 't'", "draft: TRUE", "published: false"])
-def test_drafts_follow_hugo_casting(tmp_path: Path, front: str) -> None:
-    """Values Hugo casts to a draft (``1``, ``t``, ``TRUE``, ``published: false``) exclude the post."""
+@pytest.mark.parametrize(
+    ("front", "is_post"),
+    [
+        ('draft: "true"', False),
+        ("draft: 1", False),
+        ("draft: 't'", False),
+        ("draft: TRUE", False),
+        ("published: false", False),
+        ('draft: "false"', True),
+        ("draft: tRuE", True),
+        ("draft: false\npublished: false", True),
+        ("draft: true\npublished: true", False),
+    ],
+)
+def test_drafts_follow_hugo(tmp_path: Path, front: str, is_post: bool) -> None:
+    """``draft`` is cast like ``strconv.ParseBool`` and wins over ``published``, which counts only alone."""
     _post(tmp_path, "a.md", f"title: A\n{front}")
-    _post(tmp_path, "b.md", "title: B\npublished: true")
-    assert post_slugs(tmp_path) == ["b"]
+    assert ("a" in post_titles(tmp_path)) is is_post
 
 
 def test_post_without_front_matter_fails_naming_the_file(tmp_path: Path) -> None:
@@ -189,8 +195,27 @@ def test_posts_book_found_by_page_ref(tmp_path: Path) -> None:
     assert load_site(tmp_path).posts_book == "Book I · Writing"
 
 
-def test_non_string_site_value_is_named(tmp_path: Path) -> None:
-    """A site value of the wrong type fails naming its key, not deep inside card drawing."""
-    (tmp_path / "hugo.toml").write_text(_SITE.replace('title = "T"', "title = 1") + _MENU, encoding="utf-8")
-    with pytest.raises(ValueError, match="title"):
+@pytest.mark.parametrize(
+    ("line", "bad", "key"),
+    [
+        ('title = "T"', "title = 1", "title"),
+        ('baseURL = "https://example.org/"', "baseURL = 1", "baseURL"),
+        ('definition = "D."', "definition = true", "params.definition"),
+        ('definitionLabel = "Def 1."', "definitionLabel = 2", "params.definitionLabel"),
+    ],
+)
+def test_non_string_site_value_is_named(tmp_path: Path, line: str, bad: str, key: str) -> None:
+    """A site value of the wrong type fails naming its key, not deep inside parsing or card drawing."""
+    (tmp_path / "hugo.toml").write_text(_SITE.replace(line, bad) + _MENU, encoding="utf-8")
+    with pytest.raises(ValueError, match=f"not a string: {re.escape(key)}$"):
+        load_site(tmp_path)
+
+
+def test_non_integer_menu_weight_is_named(tmp_path: Path) -> None:
+    """A Book with a non-integer weight fails naming ``hugo.toml`` and the entry, not a bare cast error."""
+    (tmp_path / "hugo.toml").write_text(
+        _SITE + _book("Writing", "posts/").replace('url = "posts/"', 'url = "posts/"\nweight = "first"'),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="hugo.toml: menu entry Writing has a non-integer weight"):
         load_site(tmp_path)
