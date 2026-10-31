@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import itertools
 import re
 from collections.abc import Callable
 from pathlib import Path
@@ -25,6 +26,7 @@ EXPECTED_KEYS = {
     "talks/enforcing-engineering-discipline",
     "talks/tiya-applied-ai",
     "courses/tiya-applied-ai",
+    "courses/professional-software-engineering",
     "projects/conversational-document-intelligence",
     "projects/knowledge-engine-toolkit",
     "projects/house-proceedings-corpus",
@@ -120,3 +122,16 @@ def test_toolkit_draws_eight_layers_in_go_and_python(ctx: FigureContext) -> None
     for layer in TOOLKIT_LAYERS:
         assert f">{layer}<" in svg
     assert ">Go<" in svg and ">Python<" in svg
+
+
+def test_semester_draws_fifteen_week_cells_in_seven_pillar_groups(ctx: FigureContext) -> None:
+    """One cell per week, coloured by pillar: runs of 3, 2, 2, 2, 2, 2, 2 weeks, labelled with Orion."""
+    from figures.constructions import SEMESTER_GROUPS, semester
+
+    assert SEMESTER_GROUPS == (3, 2, 2, 2, 2, 2, 2)
+    svg = semester(ctx).svg
+    cells = re.findall(r'<g class="an-pop"[^>]*><rect[^>]*fill="([^"]+)"', svg)
+    assert len(cells) == 15
+    runs = [len(list(group)) for _, group in itertools.groupby(cells)]
+    assert runs == list(SEMESTER_GROUPS)
+    assert ">Orion<" in svg

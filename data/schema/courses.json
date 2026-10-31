@@ -37,5 +37,14 @@
         }
       ]
     }
+  },
+  {
+    "@type": "Course",
+    "name": "Professional Software Engineering for AI and Distributed Systems",
+    "description": "A graduate course in fifteen weeks on engineering production AI and distributed systems: environments, typing, architecture, testing, delivery, resilience, migrations, observability, performance, security, evaluation, and a final architecture defense. Students inherit and evolve Orion, a deliberately broken Python platform.",
+    "provider": {
+      "@type": "Person",
+      "name": "AJ Djalali"
+    }
   }
 ]
