@@ -76,3 +76,11 @@ def test_resume_technology_logos_are_icon_sized(built_site: Path) -> None:
     assert read_html(built_site, "cv/index.html").count("tech-icon") > 0
     rule = _rule(site_stylesheet(built_site), ".tech-icon img")
     assert "width:2.25rem" in rule and "height:2.25rem" in rule
+
+
+def test_resume_lists_do_not_inherit_the_publications_list_style(built_site: Path) -> None:
+    """On the Resume, award items drop the publications page's padding, rules and timeline dots."""
+    css = site_stylesheet(built_site)
+    rule = _rule(css, ".cv-page .cv-list>li")
+    assert "padding:0" in rule and "border-bottom:0" in rule
+    assert ".cv-page .cv-list>li::before,.cv-page .cv-list>li::after{content:none}" in css

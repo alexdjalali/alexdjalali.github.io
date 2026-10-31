@@ -573,3 +573,18 @@
     background: var(--ink-3);
   }
 }
+
+/* Honors and Selected Publications sit in the Education column (moved there by cv-timeline.js):
+   inset them like the entry cards, and undo the publications-page list styling (padding, rules, dots). */
+.cv-page #honors > :not(h2),
+.cv-page #publications > :not(h2) { padding-left: calc(.8em + 3px); padding-right: .8em; }
+.cv-page #honors { margin-bottom: 2rem; }
+.cv-page .honors-group { margin: 0 0 .9rem; }
+.cv-page .honors-group h3 { display: flex; align-items: center; margin: 0 0 .2rem; }
+.cv-page .honors-group h3 .cv-entry-logo { flex: none; }
+.cv-page .honors-group .cv-list { margin: 0; padding-left: calc(20px + .5em); }
+.cv-page .cv-list > li { padding: 0; margin: 0 0 .25rem; border-bottom: 0; font-size: .9rem; line-height: 1.45; }
+.cv-page .cv-list > li:hover { background: none; }
+.cv-page .cv-list > li::before, .cv-page .cv-list > li::after { content: none; }
+.cv-page #publications .cv-list > li { padding: .75rem 0; border-bottom: 1px solid var(--rule); }
+.cv-page #publications .cv-list > li:last-child { border-bottom: 0; }
