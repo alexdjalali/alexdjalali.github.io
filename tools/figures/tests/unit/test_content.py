@@ -86,7 +86,7 @@ def test_malformed_front_matter_fails_naming_the_file(tmp_path: Path) -> None:
     ],
 )
 def test_drafts_follow_hugo(tmp_path: Path, front: str, is_post: bool) -> None:
-    """``draft`` is cast like ``strconv.ParseBool`` and wins over ``published``, which counts only alone."""
+    """``draft`` is cast like ``strconv.ParseBool`` and wins over ``published``; keys are case-insensitive."""
     _post(tmp_path, "a.md", f"title: A\n{front}")
     assert ("a" in post_titles(tmp_path)) is is_post
 
@@ -231,3 +231,10 @@ def test_base_url_without_a_host_is_named(tmp_path: Path) -> None:
     (tmp_path / "hugo.toml").write_text(toml, encoding="utf-8")
     with pytest.raises(ValueError, match="baseURL has no host"):
         load_site(tmp_path)
+
+
+def test_card_host_drops_userinfo_and_port(tmp_path: Path) -> None:
+    """The card prints the bare host, never credentials or a port from ``baseURL``."""
+    toml = _SITE.replace('"https://example.org/"', '"https://user:pw@Example.org:8443/"') + _MENU
+    (tmp_path / "hugo.toml").write_text(toml, encoding="utf-8")
+    assert load_site(tmp_path).host == "example.org"

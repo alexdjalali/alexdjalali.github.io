@@ -106,7 +106,7 @@ class Site:
     name: str
     """The site ``title``."""
     host: str
-    """The ``baseURL`` host."""
+    """The ``baseURL`` host name, without userinfo or port."""
     definition: str
     """``params.definition``: the Home headline and the default card's title."""
     definition_label: str
@@ -160,7 +160,7 @@ def load_site(root: Path) -> Site:
     missing = [key for key, value in values.items() if not isinstance(value, str) or not value]
     if missing:
         raise ValueError(f"hugo.toml: missing or not a string: {missing[0]}")
-    values["baseURL"] = urlparse(values["baseURL"]).netloc
+    values["baseURL"] = urlparse(values["baseURL"]).hostname or ""
     if not values["baseURL"]:
         raise ValueError("hugo.toml: baseURL has no host (it needs a scheme, e.g. https://)")
     return Site(
