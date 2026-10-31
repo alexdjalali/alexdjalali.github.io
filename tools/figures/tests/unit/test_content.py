@@ -74,6 +74,10 @@ def test_malformed_front_matter_fails_naming_the_file(tmp_path: Path) -> None:
         ("draft: 1", False),
         ("draft: 't'", False),
         ("draft: TRUE", False),
+        ('draft: "True"', False),
+        ('draft: "T"', False),
+        ("published: true", True),
+        ("Draft: true", False),
         ("published: false", False),
         ('draft: "false"', True),
         ("draft: tRuE", True),
@@ -217,5 +221,13 @@ def test_non_integer_menu_weight_is_named(tmp_path: Path) -> None:
         _SITE + _book("Writing", "posts/").replace('url = "posts/"', 'url = "posts/"\nweight = "first"'),
         encoding="utf-8",
     )
-    with pytest.raises(ValueError, match="hugo.toml: menu entry Writing has a non-integer weight"):
+    with pytest.raises(ValueError, match="hugo.toml: menu entry Writing weight must be a TOML integer"):
+        load_site(tmp_path)
+
+
+def test_base_url_without_a_host_is_named(tmp_path: Path) -> None:
+    """A scheme-less ``baseURL`` is a string with no host; the error says so rather than "missing"."""
+    toml = _SITE.replace('"https://example.org/"', '"example.org/"') + _MENU
+    (tmp_path / "hugo.toml").write_text(toml, encoding="utf-8")
+    with pytest.raises(ValueError, match="baseURL has no host"):
         load_site(tmp_path)

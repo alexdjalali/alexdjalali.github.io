@@ -20,7 +20,7 @@ class OrphanFigureError(ValueError):
 
 
 def _front_matter(path: Path) -> dict[str, Any] | None:
-    """Return the YAML front matter of ``path`` as a mapping, or ``None`` when it has none.
+    """Return the YAML front matter of ``path`` with lower-cased keys (as Hugo reads them), or ``None``.
 
     Raises ``ValueError`` naming the file when the YAML does not parse.
     """
@@ -29,7 +29,7 @@ def _front_matter(path: Path) -> dict[str, Any] | None:
         data = yaml.safe_load(match.group(1)) if match else None
     except yaml.YAMLError as err:
         raise ValueError(f"{path.name}: front matter is not valid YAML: {err}") from err
-    return data if isinstance(data, dict) else None
+    return {str(k).lower(): v for k, v in data.items()} if isinstance(data, dict) else None
 
 
 _TRUE_STRINGS = frozenset({"1", "t", "T", "TRUE", "true", "True"})
@@ -119,7 +119,9 @@ def _menu_order(entry: Mapping[str, Any]) -> tuple[bool, int, str, str, str]:
     """Sort key matching Hugo's menu order: weight (0 or unset last), case-folded name, identifier."""
     weight, name = entry.get("weight", 0), str(entry.get("name", ""))
     if not isinstance(weight, int) or isinstance(weight, bool):
-        raise ValueError(f"hugo.toml: menu entry {name or '(unnamed)'} has a non-integer weight {weight!r}")
+        raise ValueError(
+            f"hugo.toml: menu entry {name or '(unnamed)'} weight must be a TOML integer, got {weight!r}"
+        )
     return (weight == 0, weight, name.casefold(), name, str(entry.get("identifier", "")))
 
 
@@ -144,8 +146,8 @@ def _posts_book(config: Mapping[str, Any]) -> str:
 def load_site(root: Path) -> Site:
     """Return the card's site values from ``hugo.toml``.
 
-    Raises ``ValueError`` naming the first missing key, so a renamed key fails generation rather
-    than drawing a blank card.
+    Raises ``ValueError`` naming the first key that is missing or not a string, or a ``baseURL``
+    with no host, so a renamed or mistyped key fails generation rather than drawing a blank card.
     """
     config = tomllib.loads((root / "hugo.toml").read_text(encoding="utf-8"))
     params = config.get("params", {})
@@ -155,11 +157,12 @@ def load_site(root: Path) -> Site:
         "params.definition": params.get("definition"),
         "params.definitionLabel": params.get("definitionLabel"),
     }
-    if isinstance(values["baseURL"], str):
-        values["baseURL"] = urlparse(values["baseURL"]).netloc
     missing = [key for key, value in values.items() if not isinstance(value, str) or not value]
     if missing:
         raise ValueError(f"hugo.toml: missing or not a string: {missing[0]}")
+    values["baseURL"] = urlparse(values["baseURL"]).netloc
+    if not values["baseURL"]:
+        raise ValueError("hugo.toml: baseURL has no host (it needs a scheme, e.g. https://)")
     return Site(
         name=values["title"],
         host=values["baseURL"],

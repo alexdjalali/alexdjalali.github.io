@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import re
 import tomllib
-from html import escape
+from html import unescape
 from pathlib import Path
 
 import pytest
@@ -44,4 +44,5 @@ def test_home_kicker_is_the_definition_label(built_site: Path, repo_root: Path) 
     config = tomllib.loads((repo_root / "hugo.toml").read_text(encoding="utf-8"))
     label = config["params"]["definitionLabel"]
     html = read_html(built_site, "index.html")
-    assert label and re.search(r'<p class="?kicker"?>' + re.escape(escape(label, quote=False)) + "</p>", html)
+    kicker = re.search(r'<p class="?kicker"?>([^<]*)</p>', html)
+    assert label and kicker and unescape(kicker.group(1)) == label

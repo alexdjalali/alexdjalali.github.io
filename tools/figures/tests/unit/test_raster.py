@@ -54,6 +54,7 @@ def test_title_too_long_at_every_size_is_cut_after_four_lines() -> None:
     words = " ".join(lines).removesuffix("…").split()
     assert len(lines) == 4 and lines[-1].endswith("…")
     assert words == title.split()[: len(words)]
+    assert {size for size, _ in _TITLE_LINE.findall(svg)} == {f"{round(54 * 7 / 9, 1):g}"}
 
 
 def test_card_renders_at_social_card_size() -> None:
