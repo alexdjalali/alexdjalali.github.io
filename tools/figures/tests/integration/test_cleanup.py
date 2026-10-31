@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from tests.helpers import read_html, site_stylesheet
+from tests.helpers import site_stylesheet
 
 pytestmark = pytest.mark.integration
 
@@ -23,15 +23,15 @@ def test_legacy_stylesheet_is_removed(repo_root: Path) -> None:
 
 
 def test_dark_mode_is_absent_from_css_html_and_scripts(built_site: Path, repo_root: Path) -> None:
-    """Dark mode was removed by decision; neither CSS, HTML nor scripts may mention it."""
+    """Dark mode was removed by decision; no layout, script, config or built stylesheet may mention it."""
     offenders = ["site.css"] if DARK_MODE.search(site_stylesheet(built_site)) else []
-    for page in ("index.html", "posts/index.html", "about/index.html", "cv/index.html"):
-        if DARK_MODE.search(read_html(built_site, page)):
-            offenders.append(page)
+    sources = [
+        *(repo_root / "layouts").rglob("*.html"),
+        *(repo_root / "assets" / "js").glob("*.js"),
+        repo_root / "hugo.toml",
+    ]
     offenders += [
-        p.name
-        for p in (repo_root / "assets" / "js").glob("*.js")
-        if DARK_MODE.search(p.read_text(encoding="utf-8"))
+        str(p.relative_to(repo_root)) for p in sources if DARK_MODE.search(p.read_text(encoding="utf-8"))
     ]
     assert offenders == []
 

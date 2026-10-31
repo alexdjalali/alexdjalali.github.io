@@ -21,22 +21,24 @@ BIB = "@article{a2020x,\n  title = {T},\n  author = {A},\n  journal = {J},\n  ye
 @pytest.fixture
 def repo(tmp_path: Path) -> Path:
     """Build a minimal repo skeleton: posts (one a draft), one bib file, and the data files."""
-    (tmp_path / "hugo.toml").write_text("")
+    (tmp_path / "hugo.toml").write_text("", encoding="utf-8")
     posts = tmp_path / "content" / "posts"
     posts.mkdir(parents=True)
-    (posts / "alpha.md").write_text("---\ntitle: A\n---\nx\n")
-    (posts / "beta.md").write_text("---\ntitle: B\n---\nx\n")
-    (posts / "wip.md").write_text("---\ntitle: W\ndraft: true\n---\nx\n")
+    (posts / "alpha.md").write_text("---\ntitle: A\n---\nx\n", encoding="utf-8")
+    (posts / "beta.md").write_text("---\ntitle: B\n---\nx\n", encoding="utf-8")
+    (posts / "wip.md").write_text("---\ntitle: W\ndraft: true\n---\nx\n", encoding="utf-8")
     for slug in registered():  # the real registry is global, so give every registered slug a post
-        (posts / f"{slug}.md").write_text("---\ntitle: R\n---\nx\n")
+        (posts / f"{slug}.md").write_text("---\ntitle: R\n---\nx\n", encoding="utf-8")
     (tmp_path / "static" / "bib").mkdir(parents=True)
-    (tmp_path / "static" / "bib" / "a2020x.bib").write_text(BIB)
+    (tmp_path / "static" / "bib" / "a2020x.bib").write_text(BIB, encoding="utf-8")
     (tmp_path / "data").mkdir()
     (tmp_path / "data" / "locations.json").write_text(
-        json.dumps([{"startdate": "1990-01-01", "enddate": "", "title": "X", "shorttitle": "X"}])
+        json.dumps([{"startdate": "1990-01-01", "enddate": "", "title": "X", "shorttitle": "X"}]),
+        encoding="utf-8",
     )
     (tmp_path / "data" / "timeline.json").write_text(
-        json.dumps([{"startdate": "2000-01-01", "enddate": "2001-01-01", "title": "S", "type": "education"}])
+        json.dumps([{"startdate": "2000-01-01", "enddate": "2001-01-01", "title": "S", "type": "education"}]),
+        encoding="utf-8",
     )
     return tmp_path
 
@@ -50,7 +52,7 @@ def test_generate_writes_one_partial_per_post_plus_page_figures(repo: Path) -> N
     assert "wip.html" not in names
     assert (figs / "pages" / "lifeline.html").exists()
     assert (figs / "projects" / "poot.html").exists()
-    summary = json.loads((repo / build.RESEARCH_JSON).read_text())
+    summary = json.loads((repo / build.RESEARCH_JSON).read_text(encoding="utf-8"))
     assert summary["papers"] == 1
 
 
@@ -59,7 +61,7 @@ def test_check_is_clean_after_generate_and_names_an_edited_file(repo: Path) -> N
     cli.main(["generate", "--root", str(repo)])
     assert cli.main(["check", "--root", str(repo)]) == 0
     target = repo / build.PARTIALS / "posts" / "alpha.html"
-    target.write_text(target.read_text() + "<!-- hand edit -->")
+    target.write_text(target.read_text(encoding="utf-8") + "<!-- hand edit -->")
     assert build.drift(repo) == [build.PARTIALS / "posts" / "alpha.html"]
     assert cli.main(["check", "--root", str(repo)]) == 1
 

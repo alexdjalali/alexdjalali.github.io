@@ -34,7 +34,7 @@ def test_about_has_headshot_static_lifeline_and_location_data(built_site: Path, 
     html = read_html(built_site, "about/index.html")
     assert "headshot" in html
     assert "<svg" in _inside(html, "about-timeline")
-    expected = len(json.loads((repo_root / "data" / "locations.json").read_text()))
+    expected = len(json.loads((repo_root / "data" / "locations.json").read_text(encoding="utf-8")))
     assert _entries(html, "locationData") == expected
 
 
@@ -44,14 +44,14 @@ def test_resume_has_sections_pdf_and_static_lanes(built_site: Path, repo_root: P
     for needle in ("id=experience", "id=education", "djalali-resume.pdf"):
         assert needle in html.replace('"', "")
     assert "<svg" in _inside(html, "timeline")
-    expected = len(json.loads((repo_root / "data" / "timeline.json").read_text()))
+    expected = len(json.loads((repo_root / "data" / "timeline.json").read_text(encoding="utf-8")))
     assert _entries(html, "timelineData") == expected
 
 
 @pytest.mark.parametrize("path", TIMELINE_ASSETS)
 def test_timeline_assets_have_no_dark_mode_or_hex(repo_root: Path, path: str) -> None:
     """Timeline code reads the palette at runtime: no colour-scheme branches, no hex literals."""
-    text = (repo_root / path).read_text()
+    text = (repo_root / path).read_text(encoding="utf-8")
     assert not re.search(r"colorscheme|isDarkMode|prefers-color-scheme", text)
     assert not re.search(r"#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b", text)
 
@@ -59,4 +59,4 @@ def test_timeline_assets_have_no_dark_mode_or_hex(repo_root: Path, path: str) ->
 @pytest.mark.parametrize("path", TIMELINE_ASSETS[:2])
 def test_timeline_scripts_clear_their_container(repo_root: Path, path: str) -> None:
     """Each script empties its container before drawing, replacing the static lanes."""
-    assert 'container.html("")' in (repo_root / path).read_text()
+    assert 'container.html("")' in (repo_root / path).read_text(encoding="utf-8")

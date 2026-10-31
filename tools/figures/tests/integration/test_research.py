@@ -39,7 +39,7 @@ def test_every_bib_link_resolves(built_site: Path) -> None:
 
 def test_abstract_toggle_selector_matches_each_abstract(built_site: Path, repo_root: Path) -> None:
     """Each source ``<li>`` with an abstract still yields one ``.pub-abstract`` for the toggle."""
-    source = (repo_root / "content" / "publications.md").read_text()
+    source = (repo_root / "content" / "publications.md").read_text(encoding="utf-8")
     expected = len(re.findall(r'class="pub-abstract"', source))
     html = read_html(built_site, "publications/index.html")
     assert expected > 0
@@ -49,7 +49,7 @@ def test_abstract_toggle_selector_matches_each_abstract(built_site: Path, repo_r
 def test_talks_has_two_figures_and_all_links(built_site: Path, repo_root: Path) -> None:
     """Two talk figures render and every bib-link href from the source is present."""
     html = read_html(built_site, "presentations/index.html")
-    source = (repo_root / "content" / "presentations.md").read_text()
+    source = (repo_root / "content" / "presentations.md").read_text(encoding="utf-8")
     assert html.count("<svg role=") == 2
     for href in set(re.findall(r'href="([^"]+)" class="bib-link"', source)):
         assert href in html, href

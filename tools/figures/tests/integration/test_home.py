@@ -17,7 +17,7 @@ def test_home_contains_definition_figures_cta_and_logos(built_site: Path, repo_r
     """Definition text, latest + up to six cards, both CTAs with original hrefs, one img per logo."""
     html = read_html(built_site, "index.html")
     n_posts = len(list((repo_root / "content" / "posts").glob("*.md")))
-    logos = json.loads((repo_root / "data" / "logos.json").read_text())
+    logos = json.loads((repo_root / "data" / "logos.json").read_text(encoding="utf-8"))
     text = re.sub(r"<[^>]+>", "", html)
     assert (
         "A blog is a set of propositions about language, machines, and the systems between them."
@@ -32,6 +32,6 @@ def test_home_contains_definition_figures_cta_and_logos(built_site: Path, repo_r
 
 def test_home_counts_come_from_generated_data(built_site: Path, repo_root: Path) -> None:
     """The Research corollary quotes the generated research.json totals."""
-    research = json.loads((repo_root / "data" / "figures" / "research.json").read_text())
+    research = json.loads((repo_root / "data" / "figures" / "research.json").read_text(encoding="utf-8"))
     html = read_html(built_site, "index.html")
     assert f"{research['papers']} papers, a dissertation, {research['patents']} patents" in html

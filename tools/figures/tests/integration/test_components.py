@@ -58,8 +58,10 @@ def test_script_selectors_have_rules(repo_root: Path, script: str) -> None:
     if not path.exists():
         pytest.skip(f"{script}.js is added by a later task")
     css = "\n".join(
-        p.read_text() for p in (repo_root / "assets" / "css").rglob("*.css") if p.name != "custom.css"
+        p.read_text(encoding="utf-8")
+        for p in (repo_root / "assets" / "css").rglob("*.css")
+        if p.name != "custom.css"
     )
-    classes, _ids = _names(path.read_text())
+    classes, _ids = _names(path.read_text(encoding="utf-8"))
     missing = sorted(f".{c}" for c in classes if not re.search(rf"\.{re.escape(c)}(?![\w-])", css))
     assert missing == [], f"{script}.js uses selectors with no non-legacy rule"

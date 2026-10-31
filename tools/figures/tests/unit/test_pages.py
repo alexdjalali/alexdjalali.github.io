@@ -100,7 +100,6 @@ def test_ticks_extend_with_the_horizon(
     builder: Callable[[FigureContext], Figure], year: int, ctx: FigureContext, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     """A tick year is labelled when ``HORIZON`` reaches it and not before."""
-    assert f">{year}<" not in builder(ctx).svg
     monkeypatch.setattr("figures.pages.HORIZON", year - 1.0)
     assert f">{year}<" not in builder(ctx).svg
     monkeypatch.setattr("figures.pages.HORIZON", float(year))

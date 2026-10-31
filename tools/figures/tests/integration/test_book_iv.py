@@ -14,18 +14,18 @@ pytestmark = pytest.mark.integration
 
 def test_media_renders_every_card_with_a_cover(built_site: Path, repo_root: Path) -> None:
     """One card-deck item and one real cover image per entry in content/media.md."""
-    source = (repo_root / "content" / "media.md").read_text()
+    source = (repo_root / "content" / "media.md").read_text(encoding="utf-8")
     expected = source.count("card-deck-item")
     html = read_html(built_site, "media/index.html")
     items = re.findall(r'class="?project-card card-deck-item"?', html)
     assert expected > 0 and len(items) == expected
     assert len(re.findall(r'<img src="?/images/[^"\s>]+', html)) >= expected
-    assert "card-deck" in (repo_root / "assets" / "js" / "card-deck.js").read_text()
+    assert "card-deck" in (repo_root / "assets" / "js" / "card-deck.js").read_text(encoding="utf-8")
 
 
 def test_gear_renders_every_category_and_item(built_site: Path, repo_root: Path) -> None:
     """One block per ``categories`` entry in the front matter and one list item per ``items`` entry."""
-    front = (repo_root / "content" / "gear.md").read_text().split("---")[1]
+    front = (repo_root / "content" / "gear.md").read_text(encoding="utf-8").split("---")[1]
     categories = len(re.findall(r"^  - title:", front, re.MULTILINE))
     items = len(re.findall(r"^      - ", front, re.MULTILINE))
     html = read_html(built_site, "gear/index.html")

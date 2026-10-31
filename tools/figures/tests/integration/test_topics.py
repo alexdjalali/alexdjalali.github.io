@@ -16,14 +16,14 @@ pytestmark = pytest.mark.integration
 def _post_tags(repo_root: Path) -> dict[str, list[str]]:
     tags: dict[str, list[str]] = {}
     for path in (repo_root / "content" / "posts").glob("*.md"):
-        m = re.search(r"^tags:\s*\[(.*?)\]", path.read_text(), re.MULTILINE)
+        m = re.search(r"^tags:\s*\[(.*?)\]", path.read_text(encoding="utf-8"), re.MULTILINE)
         tags[path.stem] = re.findall(r'"([^"]+)"', m.group(1)) if m else []
     return tags
 
 
 def test_every_post_tag_maps_to_a_topic(repo_root: Path) -> None:
     """No tag is orphaned, so every post can be reached through at least one topic chip."""
-    topics = json.loads((repo_root / "data" / "topics.json").read_text())
+    topics = json.loads((repo_root / "data" / "topics.json").read_text(encoding="utf-8"))
     mapped = {t for topic in topics for t in topic["tags"]}
     unmapped = {
         slug: sorted(set(tags) - mapped) for slug, tags in _post_tags(repo_root).items() if set(tags) - mapped
@@ -33,14 +33,14 @@ def test_every_post_tag_maps_to_a_topic(repo_root: Path) -> None:
 
 def test_every_post_has_at_least_one_topic(repo_root: Path) -> None:
     """A post whose tags match no topic would be hidden by every chip except All."""
-    topics = json.loads((repo_root / "data" / "topics.json").read_text())
+    topics = json.loads((repo_root / "data" / "topics.json").read_text(encoding="utf-8"))
     for slug, tags in _post_tags(repo_root).items():
         assert any(set(tags) & set(t["tags"]) for t in topics), slug
 
 
 def test_writing_index_renders_one_chip_per_topic(built_site: Path, repo_root: Path) -> None:
     """The list page has a chip for each entry in ``data/topics.json``."""
-    topics = json.loads((repo_root / "data" / "topics.json").read_text())
+    topics = json.loads((repo_root / "data" / "topics.json").read_text(encoding="utf-8"))
     html = read_html(built_site, "posts/index.html")
     assert len(re.findall(r'<button[^>]*class="?chip"?[^>]*data-topic=', html)) == len(topics)
 

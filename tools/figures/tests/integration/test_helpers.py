@@ -38,12 +38,16 @@ def probe(repo_root: Path, tmp_path_factory: pytest.TempPathFactory) -> str:
     work = tmp_path_factory.mktemp("probe")
     for name in ("layouts", "assets", "data", "i18n"):
         shutil.copytree(repo_root / name, work / name)
-    config = (repo_root / "hugo.toml").read_text().replace("enableGitInfo = true", "enableGitInfo = false")
-    (work / "hugo.toml").write_text(config)  # the scratch copy is not a git repository
+    config = (
+        (repo_root / "hugo.toml")
+        .read_text(encoding="utf-8")
+        .replace("enableGitInfo = true", "enableGitInfo = false")
+    )
+    (work / "hugo.toml").write_text(config, encoding="utf-8")  # the scratch copy is not a git repository
     shutil.copytree(repo_root / "content" / "posts", work / "content" / "posts")
-    (work / "content" / "probe.md").write_text(PROBE_PAGE)
+    (work / "content" / "probe.md").write_text(PROBE_PAGE, encoding="utf-8")
     (work / "layouts" / "probe").mkdir()
-    (work / "layouts" / "probe" / "single.html").write_text(PROBE_LAYOUT)
+    (work / "layouts" / "probe" / "single.html").write_text(PROBE_LAYOUT, encoding="utf-8")
     out = work / "public"
     hugo = shutil.which("hugo")
     assert hugo, "hugo is required"
@@ -51,7 +55,7 @@ def probe(repo_root: Path, tmp_path_factory: pytest.TempPathFactory) -> str:
         [hugo, "-s", str(work), "-d", str(out)], capture_output=True, text=True, check=False
     )
     assert proc.returncode == 0, proc.stderr
-    return (out / "probe" / "index.html").read_text()
+    return (out / "probe" / "index.html").read_text(encoding="utf-8")
 
 
 def test_numerals_are_distinct_and_form_one_to_n(probe: str, repo_root: Path) -> None:

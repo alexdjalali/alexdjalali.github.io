@@ -24,7 +24,7 @@ def test_no_hex_literals_outside_tokens(repo_root: Path) -> None:
     for css in (repo_root / "assets" / "css").rglob("*.css"):
         if css.name in EXEMPT:
             continue
-        hits = LITERAL.findall(css.read_text())
+        hits = LITERAL.findall(css.read_text(encoding="utf-8"))
         if hits:
             offenders[str(css.relative_to(repo_root))] = hits
     assert not offenders
@@ -32,7 +32,7 @@ def test_no_hex_literals_outside_tokens(repo_root: Path) -> None:
 
 def test_tokens_hexes_are_the_palette(repo_root: Path) -> None:
     """``tokens.css`` defines only the five palette colours and the documented greys."""
-    text = (repo_root / "assets" / "css" / "tokens.css").read_text()
+    text = (repo_root / "assets" / "css" / "tokens.css").read_text(encoding="utf-8")
     found = {h.upper() for h in re.findall(r"#[0-9a-fA-F]{6}\b", text)}
     assert PALETTE <= found
     assert found <= PALETTE | GREYS
@@ -46,6 +46,6 @@ def test_head_links_one_site_bundle(built_site: Path) -> None:
 
 def test_bundle_contains_shared_component_rules(built_site: Path) -> None:
     """The built bundle defines the card hover lift and the topic-filter chip."""
-    css = next((built_site / "css").glob("site.*.css")).read_text()
+    css = next((built_site / "css").glob("site.*.css")).read_text(encoding="utf-8")
     assert ".card:hover.frame" in css.replace(" ", "")
     assert ".chip{" in css.replace(" ", "")

@@ -12,7 +12,7 @@ pytestmark = pytest.mark.unit
 
 
 def _post(d: Path, name: str, front: str) -> None:
-    (d / name).write_text(f"---\n{front}\n---\nbody\n")
+    (d / name).write_text(f"---\n{front}\n---\nbody\n", encoding="utf-8")
 
 
 def test_drafts_are_excluded_and_slugs_are_filename_stems(tmp_path: Path) -> None:
@@ -20,7 +20,7 @@ def test_drafts_are_excluded_and_slugs_are_filename_stems(tmp_path: Path) -> Non
     _post(tmp_path, "alpha.md", 'title: "Alpha"\ndraft: false')
     _post(tmp_path, "beta.md", 'title: "Beta"\ndraft: true')
     _post(tmp_path, "gamma.md", 'title: "Gamma"')
-    (tmp_path / "notes.txt").write_text("x")
+    (tmp_path / "notes.txt").write_text("x", encoding="utf-8")
     assert post_slugs(tmp_path) == ["alpha", "gamma"]
 
 

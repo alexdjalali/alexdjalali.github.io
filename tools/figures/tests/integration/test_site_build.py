@@ -35,7 +35,7 @@ PAGES = [
 
 def test_hugo_config_has_no_theme_and_coder_is_gone(repo_root: Path) -> None:
     """The root ``theme`` key, ``themes/coder`` and ``.gitmodules`` are all absent."""
-    config = tomllib.loads((repo_root / "hugo.toml").read_text())
+    config = tomllib.loads((repo_root / "hugo.toml").read_text(encoding="utf-8"))
     assert "theme" not in config  # [params.giscus] theme is a nested key and allowed
     assert not (repo_root / "themes" / "coder").exists()
     assert not (repo_root / ".gitmodules").exists()

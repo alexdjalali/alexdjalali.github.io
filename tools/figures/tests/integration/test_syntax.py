@@ -22,6 +22,6 @@ def test_code_blocks_use_chroma_classes(built_site: Path) -> None:
 
 def test_stylesheet_defines_token_rules_without_blue(built_site: Path, repo_root: Path) -> None:
     """The built CSS has the keyword rule and the syntax source never colours a token blue."""
-    css = next((built_site / "css").glob("site.*.css")).read_text()
+    css = next((built_site / "css").glob("site.*.css")).read_text(encoding="utf-8")
     assert ".chroma .k," in css or ".chroma .k{" in css
-    assert "var(--blue)" not in (repo_root / "assets" / "css" / "syntax.css").read_text()
+    assert "var(--blue)" not in (repo_root / "assets" / "css" / "syntax.css").read_text(encoding="utf-8")

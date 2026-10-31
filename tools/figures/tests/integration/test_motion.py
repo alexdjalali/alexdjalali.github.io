@@ -14,7 +14,7 @@ ANIMATES = re.compile(r"animation(?:-name)?\s*:\s*(?!none)[a-z]", re.IGNORECASE)
 
 
 def _bundle(built_site: Path) -> str:
-    return next((built_site / "css").glob("site.*.css")).read_text()
+    return next((built_site / "css").glob("site.*.css")).read_text(encoding="utf-8")
 
 
 def test_bundle_has_keyframes_and_a_reduced_motion_block(built_site: Path) -> None:
@@ -27,7 +27,7 @@ def test_bundle_has_keyframes_and_a_reduced_motion_block(built_site: Path) -> No
 
 def test_no_animation_rule_applies_outside_js(repo_root: Path) -> None:
     """Every rule that starts an animation is scoped under ``.js`` (no-JS pages stay static)."""
-    css = (repo_root / "assets" / "css" / "motion.css").read_text()
+    css = (repo_root / "assets" / "css" / "motion.css").read_text(encoding="utf-8")
     css = re.sub(r"/\*.*?\*/", "", css, flags=re.DOTALL)
     offenders = [
         sel.strip()

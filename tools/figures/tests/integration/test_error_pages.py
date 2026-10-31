@@ -32,7 +32,7 @@ def test_search_page_keeps_script_hooks(built_site: Path) -> None:
 
 def test_no_dark_mode_remains_in_the_base_layout(repo_root: Path, built_site: Path) -> None:
     """The shell has no colour-scheme branches and the mermaid loader reads palette variables."""
-    source = (repo_root / "layouts" / "baseof.html").read_text()
+    source = (repo_root / "layouts" / "baseof.html").read_text(encoding="utf-8")
     assert "colorscheme" not in source
     assert "prefers-color-scheme" not in source
     assert "getPropertyValue" in source

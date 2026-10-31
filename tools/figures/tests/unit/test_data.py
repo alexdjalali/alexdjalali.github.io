@@ -22,14 +22,14 @@ def test_locations_match_the_data_file(repo_root: Path) -> None:
     """One place per row, with a positive span."""
     path = repo_root / "data" / "locations.json"
     places = load_locations(path)
-    assert len(places) == len(json.loads(path.read_text()))
+    assert len(places) == len(json.loads(path.read_text(encoding="utf-8")))
     assert all(p.end > p.start for p in places)
 
 
 def test_timeline_lanes(repo_root: Path) -> None:
     """Education is its own lane; the entries tagged ``side`` land in the side lane; the rest are work."""
     path = repo_root / "data" / "timeline.json"
-    rows = json.loads(path.read_text())
+    rows = json.loads(path.read_text(encoding="utf-8"))
     entries = load_timeline(path)
     assert len(entries) == len(rows)
     for row, entry in zip(rows, entries, strict=True):
