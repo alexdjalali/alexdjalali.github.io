@@ -83,3 +83,7 @@ Data-driven figures (research histogram, homes line, career lanes) regenerate fr
 ## Deployment
 
 Pushes to `main` deploy automatically via GitHub Pages. The site is served from the `public/` directory at `https://alexdjalali.github.io/`.
+
+The deploy fails on a broken internal link: [lychee](https://lychee.cli.rs/) checks the built `public/` offline with `lychee.toml`. A weekly workflow (`.github/workflows/links.yml`, also runnable by hand) checks external links; `lychee.toml` skips hosts that refuse automated requests. Run either locally with `lychee --config lychee.toml [--offline] --root-dir "$PWD/public" 'public/**/*.html'` after `hugo --minify`.
+
+The course kit's generator sources (`static/presentations/tiya-applied-ai/build/`) live beside the kit they write but are excluded from publishing by the `static` mount in `hugo.toml`.

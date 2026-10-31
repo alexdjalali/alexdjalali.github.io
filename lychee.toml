@@ -1,0 +1,26 @@
+# Link checking for the built site (public/). CI runs it two ways: offline on every deploy
+# (internal links only, blocking) and weekly against the web (external links).
+
+no_progress = true
+max_retries = 2
+timeout = 20
+max_concurrency = 16
+# Rate-limited is not broken.
+accept = ["100..=103", "200..=299", "429"]
+
+# Hosts that refuse automated requests (403/999) even though the pages exist.
+exclude = [
+  '^https://www\.linkedin\.com/',
+  '^https://www\.researchgate\.net/',
+  '^https://dl\.acm\.org/',
+  '^https://queue\.acm\.org/',
+  '^https://www\.tableau\.com/',
+  '^https://www\.crunchbase\.com/',
+  '^https://www\.dell\.com/',
+  '^https://www\.oreilly\.com/',
+  '^https://www\.fxnetworks\.com/',
+  '^https://www\.vans\.com/',
+  '^https://www\.marriott\.com/',
+  '^https://www\.levi\.com/',
+  '^mailto:',
+]

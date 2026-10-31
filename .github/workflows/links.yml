@@ -1,0 +1,29 @@
+name: Check external links
+
+# Weekly, and on demand: build the site and check every external link it carries.
+# Internal links are checked offline on every deploy (hugo.yml); this catches link rot outside.
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.156.0
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Hugo CLI
+        run: |
+          wget -O "${{ runner.temp }}/hugo.deb" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i "${{ runner.temp }}/hugo.deb"
+      - name: Build with Hugo
+        run: hugo --minify --baseURL "https://alexdjalali.github.io/"
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2.9.0
+        with:
+          args: --config lychee.toml --root-dir ${{ github.workspace }}/public 'public/**/*.html'
