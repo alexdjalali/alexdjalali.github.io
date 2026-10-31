@@ -86,4 +86,6 @@ Pushes to `main` deploy automatically via GitHub Pages. The site is served from 
 
 The deploy fails on a broken internal link: [lychee](https://lychee.cli.rs/) checks the built `public/` offline with `lychee.toml`. A weekly workflow (`.github/workflows/links.yml`, also runnable by hand) checks external links; `lychee.toml` skips hosts that refuse automated requests. Run either locally with `lychee --config lychee.toml [--offline] --root-dir "$PWD/public" 'public/**/*.html'` after `hugo --minify`.
 
+The deploy also fails when Lighthouse (desktop, median of three runs over six representative pages in `lighthouserc.json`) scores below 0.9 performance, 1.0 accessibility, 0.95 best practices or 0.9 SEO; the reports are attached to the run as `lighthouse-reports`. Run it locally with `npx -y @lhci/cli@0.15.1 autorun` after `hugo --minify`.
+
 The course kit's generator sources (`static/presentations/tiya-applied-ai/build/`) live beside the kit they write but are excluded from publishing by the `static` mount in `hugo.toml`.
