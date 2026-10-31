@@ -3,7 +3,7 @@ title: "Courses"
 date: 2026-10-31
 draft: false
 type: "courses"
-description: "Courses taught by AJ Djalali on applied AI: generative AI, agents, and agent platforms for daily work."
+description: "Courses by AJ Djalali: applied AI for daily work with Microsoft Copilot, and a graduate course in professional software engineering for AI and distributed systems."
 images:
   - "images/og/pages/courses.png"
 kicker: "Book III. · Courses"

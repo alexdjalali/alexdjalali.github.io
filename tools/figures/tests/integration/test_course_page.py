@@ -13,48 +13,41 @@ from tests.helpers import read_html
 pytestmark = pytest.mark.integration
 
 NAME = "Professional Software Engineering for AI and Distributed Systems"
-POST = "content/posts/professional-software-engineering-for-ai-and-distributed-systems.md"
+POST_SLUG = "professional-software-engineering-for-ai-and-distributed-systems"
+POST = f"content/posts/{POST_SLUG}.md"
 COURSE_REPO = "https://github.com/alexdjalali/professional-software-engineering"
 ORION_REPO = "https://github.com/alexdjalali/orion"
 
 
+def _cards(built_site: Path) -> list[str]:
+    """Return the HTML of each ``.project-card`` on the Courses page, cut at the next card or the footer."""
+    html = read_html(built_site, "courses/index.html")
+    return [part.split("<footer", 1)[0] for part in re.split(r'<div class="?project-card"?>', html)[1:]]
+
+
 def test_the_post_names_no_institution_and_links_both_public_repositories(repo_root: Path) -> None:
-    """The course stands on its own: no school named, and the two public repositories linked."""
+    """The course stands on its own: no school named, two public repositories linked, solutions private."""
     text = (repo_root / POST).read_text(encoding="utf-8")
     assert not re.search(r"georgia tech|gatech", text, re.IGNORECASE)
     assert COURSE_REPO in text
     assert ORION_REPO in text
-    assert "solutions" in text.lower()  # says plainly that the solutions are not public
+    assert "The solutions are not public." in text
 
 
-def test_courses_page_has_two_cards_each_with_one_figure(built_site: Path) -> None:
-    """The existing course keeps its card; the new one sits beside it with its own figure."""
-    html = read_html(built_site, "courses/index.html")
-    cards = re.split(r'<div class="?project-card"?>', html)[1:]
+def test_the_new_course_card_follows_the_existing_one_and_is_neutral_and_linked(built_site: Path) -> None:
+    """TIYA keeps the first card; the new card is second, names no school, and links repos and post."""
+    cards = _cards(built_site)
     assert len(cards) == 2
-    assert all(len(re.findall(r"<svg\b", card)) == 1 for card in cards)
     assert "Applied AI at TIYA Services" in cards[0]
-    assert NAME in cards[1]
+    new = cards[1]
+    assert NAME in new
+    assert len(re.findall(r"<svg\b", new)) == 1
+    assert not re.search(r"georgia tech|gatech", new, re.IGNORECASE)
+    for href in (COURSE_REPO, ORION_REPO, f"/posts/{POST_SLUG}/"):
+        assert href in new
 
 
-def test_the_new_card_links_the_repositories_and_the_post(built_site: Path) -> None:
-    """A visitor can reach the course, the template and the explanation from the card."""
-    card = re.split(r'<div class="?project-card"?>', read_html(built_site, "courses/index.html"))[2]
-    for href in (
-        COURSE_REPO,
-        ORION_REPO,
-        "/posts/professional-software-engineering-for-ai-and-distributed-systems/",
-    ):
-        assert href in card
-
-
-def test_the_course_page_names_no_institution_for_the_new_course(built_site: Path) -> None:
-    """The new card carries no school name."""
-    card = re.split(r'<div class="?project-card"?>', read_html(built_site, "courses/index.html"))[2]
-    assert not re.search(r"georgia tech|gatech", card, re.IGNORECASE)
-
-
-def test_the_course_has_structured_data_with_an_instructor_and_no_institution(repo_root: Path) -> None:
+def test_the_course_has_structured_data_with_a_provider_and_no_institution(repo_root: Path) -> None:
     """The Course object names the course and its provider and invents no offering or venue."""
     courses = json.loads((repo_root / "data" / "schema" / "courses.json").read_text(encoding="utf-8"))
     mine = next(c for c in courses if c["name"] == NAME)

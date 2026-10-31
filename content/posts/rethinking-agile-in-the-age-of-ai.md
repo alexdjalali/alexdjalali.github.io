@@ -24,7 +24,7 @@ In [Anatomy of an AI Engineering System](/posts/anatomy-of-an-ai-engineering-sys
 
 **Product owners become spec writers.** An acceptance criterion like "users can manage their settings" was fine when a developer would walk over and ask. An agent won't ask; it will guess. Acceptance criteria have to be precise enough for a machine to check, which means they increasingly look like test cases.
 
-**Juniors need a new path.** The obvious objection: if engineers must be architects, how does anyone build architectural judgment without years of implementation? I don't think the answer is to keep juniors typing. It is to teach architecture directly — inheriting real systems, reading them through their types and boundaries, writing ADRs, and defending decisions in front of peers. That is the premise of [the course I'm building at Georgia Tech](/posts/professional-software-engineering-for-ai-and-distributed-systems/): students inherit a deliberately broken system and end the semester with an architecture defense.
+**Juniors need a new path.** The obvious objection: if engineers must be architects, how does anyone build architectural judgment without years of implementation? I don't think the answer is to keep juniors typing. It is to teach architecture directly — inheriting real systems, reading them through their types and boundaries, writing ADRs, and defending decisions in front of peers. That is the premise of [the course I designed](/posts/professional-software-engineering-for-ai-and-distributed-systems/): students inherit a deliberately broken system and end the semester with an architecture defense.
 
 ## Design: Emergent Architecture Doesn't Survive Machine Speed
 

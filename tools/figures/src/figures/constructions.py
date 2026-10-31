@@ -43,7 +43,8 @@ def semester(_ctx: FigureContext) -> Figure:
     """Professional software engineering: fifteen weeks in seven pillars, all worked on one system."""
     f = Fig(LEAD)
     cell, gap, wide, y = 5.2, 0.5, 1.6, 40.0
-    x = (100 - (15 * cell + 8 * gap + 6 * wide)) / 2
+    total, groups = sum(SEMESTER_GROUPS), len(SEMESTER_GROUPS)
+    x = (100 - (total * cell + (total - groups) * gap + (groups - 1) * wide)) / 2
     first = x
     week = 0
     for group, (weeks, fill) in enumerate(zip(SEMESTER_GROUPS, _SEMESTER_FILL, strict=True)):

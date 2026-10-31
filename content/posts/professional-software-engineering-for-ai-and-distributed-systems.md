@@ -2,7 +2,6 @@
 title: "Professional Software Engineering for AI and Distributed Systems"
 date: 2026-03-01
 draft: false
-lastmod: 2026-10-31
 description: "A graduate course designed to bridge the gap between writing code and engineering production-grade distributed systems — with intentional technical debt, architecture defense, and AI as a force multiplier."
 images:
   - "images/og/professional-software-engineering-for-ai-and-distributed-systems.png"
@@ -171,7 +170,7 @@ The course is published so that anyone can teach it or work through it alone.
 - <a href="https://github.com/alexdjalali/professional-software-engineering" target="_blank" rel="noopener noreferrer">The course repository</a> holds the syllabus, thirty slide decks (two per week), a lab, handout and homework with a grading rubric for every week, the reading list, and the guidance for the final architecture defense.
 - <a href="https://github.com/alexdjalali/orion" target="_blank" rel="noopener noreferrer">Orion</a> is the deliberately broken system the students inherit, published as a GitHub template repository. Use it as a template and evolve your own copy.
 
-The solutions are not public. The answer keys, the catalog of defects planted in Orion, and a reference Orion that has been taken through all fifteen weeks are kept in a private repository, so the labs stay worth doing. If you teach the course and want them, <a href="/about/">get in touch</a>.
+The solutions are not public. The answer keys, the catalog of defects planted in Orion, and a reference Orion that has been taken through all fifteen weeks are kept in a private repository, so the labs stay worth doing. If you teach the course and want them, <a href="https://calendly.com/alex-djalali/30min" target="_blank" rel="noopener noreferrer">book a call</a>.
 
 ## The Guiding Principle
 
