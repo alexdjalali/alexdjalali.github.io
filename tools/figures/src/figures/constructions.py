@@ -34,6 +34,40 @@ def three_days(_ctx: FigureContext) -> Figure:
     return Figure(f.svg(), "Three squares for the three course days: generative AI, agentic AI, advanced")
 
 
+SEMESTER_GROUPS = (3, 2, 2, 2, 2, 2, 2)
+"""Weeks per pillar of the course, in order; fifteen weeks in seven groups."""
+_SEMESTER_FILL = (B, Y, R, K, B, Y, R)
+
+
+def semester(_ctx: FigureContext) -> Figure:
+    """Professional software engineering: fifteen weeks in seven pillars, all worked on one system."""
+    f = Fig(LEAD)
+    cell, gap, wide, y = 5.2, 0.5, 1.6, 40.0
+    total, groups = sum(SEMESTER_GROUPS), len(SEMESTER_GROUPS)
+    x = (100 - (total * cell + (total - groups) * gap + (groups - 1) * wide)) / 2
+    first = x
+    week = 0
+    for group, (weeks, fill) in enumerate(zip(SEMESTER_GROUPS, _SEMESTER_FILL, strict=True)):
+        for _ in range(weeks):
+            week += 1
+            f.pop(rect(x, y, cell, 16, fill), dt=0.06)
+            f.text(x + cell / 2, y + 10, str(week), 2.4, fill=K if fill == Y else W, italic=False, dt=0.01)
+            x += cell + gap
+        x += wide - gap if group < len(SEMESTER_GROUPS) - 1 else 0
+    last = x - gap - cell / 2
+    f.path(f"M{first + cell / 2:.2f} 33 L{last - 1.4:.2f} 33", w=0.5, color=R, dt=0.2)
+    f.pop(
+        f'<polygon points="{last - 2.6:.2f},30.6 {last:.2f},33 {last - 2.6:.2f},35.4" fill="{R}"></polygon>'
+    )
+    f.line((first, 62), (x - gap, 62), w=0.4, dt=0.1).text(50, 70, "Orion", 4, italic=False)
+    f.text(50, 90, "15 weeks, one inherited system", 3.2)
+    caption = (
+        "Fifteen weekly cells in seven coloured groups, one colour per pillar of the course, with a red "
+        "arrow from the first week to the last and the word Orion under the row for the system they use"
+    )
+    return Figure(f.svg(), caption)
+
+
 def nine_formats(_ctx: FigureContext) -> Figure:
     """Conversational document intelligence: nine formats feed one index that answers questions."""
     f = Fig(LEAD)
