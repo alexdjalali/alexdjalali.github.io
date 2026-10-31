@@ -95,11 +95,11 @@ def test_research_output_with_no_bibliography_names_the_cause() -> None:
         research_output(empty)
 
 
-@pytest.mark.parametrize(("builder", "tick"), [(lifeline, "2034"), (career_lanes, "2035")])
+@pytest.mark.parametrize(("builder", "year"), [(lifeline, 2034), (career_lanes, 2035)])
 def test_ticks_extend_with_the_horizon(
-    builder: Callable[[FigureContext], Figure], tick: str, ctx: FigureContext, monkeypatch: pytest.MonkeyPatch
+    builder: Callable[[FigureContext], Figure], year: int, ctx: FigureContext, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    """Raising ``HORIZON`` adds the next tick label, so the axis never outruns its ticks."""
-    assert f">{tick}<" not in builder(ctx).svg
-    monkeypatch.setattr("figures.pages.HORIZON", 2036.0)
-    assert f">{tick}<" in builder(ctx).svg
+    """A tick year equal to ``HORIZON`` is labelled, so the axis end always carries its tick."""
+    assert f">{year}<" not in builder(ctx).svg
+    monkeypatch.setattr("figures.pages.HORIZON", float(year))
+    assert f">{year}<" in builder(ctx).svg

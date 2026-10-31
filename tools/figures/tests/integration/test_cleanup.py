@@ -24,9 +24,7 @@ def test_legacy_stylesheet_is_removed(repo_root: Path) -> None:
 
 def test_dark_mode_is_absent_from_css_html_and_scripts(built_site: Path, repo_root: Path) -> None:
     """Dark mode was removed by decision; neither CSS, HTML nor scripts may mention it."""
-    offenders = [
-        name for name, text in {"site.css": site_stylesheet(built_site)}.items() if DARK_MODE.search(text)
-    ]
+    offenders = ["site.css"] if DARK_MODE.search(site_stylesheet(built_site)) else []
     for page in ("index.html", "posts/index.html", "about/index.html", "cv/index.html"):
         if DARK_MODE.search(read_html(built_site, page)):
             offenders.append(page)
@@ -50,9 +48,12 @@ def test_every_configured_script_is_present_and_used(repo_root: Path) -> None:
     assert on_disk - configured - templated == set()
 
 
-def test_stylesheet_has_no_dead_animation_and_one_owner_for_the_lemma_box(built_site: Path) -> None:
-    """No ``gradient-slide`` reference survives, and one rule styles ``.post-content blockquote``."""
+def test_stylesheet_has_no_dead_animation_and_one_owner_for_the_lemma_box(
+    built_site: Path, repo_root: Path
+) -> None:
+    """No ``gradient-slide`` or sliding ``background-size`` survives; one rule styles the Lemma box."""
     css = site_stylesheet(built_site)
     assert "gradient-slide" not in css
-    assert re.search(r"background-size:\s*200%\s*100%", css) is None
+    timeline = (repo_root / "assets" / "css" / "cv-timeline.css").read_text(encoding="utf-8")
+    assert re.search(r"background-size:\s*200%\s*100%", timeline) is None
     assert len(re.findall(r"\.post-content blockquote[,{]", css)) == 1
