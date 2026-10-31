@@ -7,14 +7,14 @@ from pathlib import Path
 
 import pytest
 
-from tests.helpers import read_html
+from tests.helpers import published_posts, read_html
 
 pytestmark = pytest.mark.integration
 
 
 def test_archive_lists_every_post(built_site: Path, repo_root: Path) -> None:
     """The archive has one row per post in ``content/posts``, each with a numeral."""
-    n = len(list((repo_root / "content" / "posts").glob("*.md")))
+    n = len(published_posts(repo_root))
     html = read_html(built_site, "archives/index.html")
     assert len(re.findall(r'class="?archive-item', html)) == n
     assert len(re.findall(r'class="?archive-num"?>[IVXLCDM]+<', html)) == n

@@ -9,6 +9,8 @@ from pathlib import Path
 
 import pytest
 
+from tests.helpers import published_posts
+
 pytestmark = pytest.mark.integration
 
 PROBE_LAYOUT = """{{ define "content" }}
@@ -60,7 +62,7 @@ def probe(repo_root: Path, tmp_path_factory: pytest.TempPathFactory) -> str:
 
 def test_numerals_are_distinct_and_form_one_to_n(probe: str, repo_root: Path) -> None:
     """Post numerals are 1..N with no repeats, where N is the number of posts."""
-    n = len(list((repo_root / "content" / "posts").glob("*.md")))
+    n = len(published_posts(repo_root))
     pairs = re.findall(r'<li data-slug="([^"]+)">([IVXLCDM]+)</li>', probe)
     assert len(pairs) == n
     assert sorted(_roman_to_int(r) for _, r in pairs) == list(range(1, n + 1))

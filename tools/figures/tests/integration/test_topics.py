@@ -8,14 +8,14 @@ from pathlib import Path
 
 import pytest
 
-from tests.helpers import read_html
+from tests.helpers import published_posts, read_html
 
 pytestmark = pytest.mark.integration
 
 
 def _post_tags(repo_root: Path) -> dict[str, list[str]]:
     tags: dict[str, list[str]] = {}
-    for path in (repo_root / "content" / "posts").glob("*.md"):
+    for path in published_posts(repo_root):
         m = re.search(r"^tags:\s*\[(.*?)\]", path.read_text(encoding="utf-8"), re.MULTILINE)
         tags[path.stem] = re.findall(r'"([^"]+)"', m.group(1)) if m else []
     return tags
@@ -47,7 +47,7 @@ def test_writing_index_renders_one_chip_per_topic(built_site: Path, repo_root: P
 
 def test_writing_index_lists_every_post_newest_first(built_site: Path, repo_root: Path) -> None:
     """One item and one figure per post, numerals descending, count text in roman numerals."""
-    n = len(list((repo_root / "content" / "posts").glob("*.md")))
+    n = len(published_posts(repo_root))
     html = read_html(built_site, "posts/index.html")
     assert len(re.findall(r"<li class=\"?post-item\"?", html)) == n
     assert html.count("<svg role=") == n

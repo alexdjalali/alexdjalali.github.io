@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from tests.helpers import read_html
+from tests.helpers import published_posts, read_html
 
 pytestmark = pytest.mark.integration
 
@@ -18,7 +18,7 @@ pytestmark = pytest.mark.integration
 def test_home_contains_definition_figures_cta_and_logos(built_site: Path, repo_root: Path) -> None:
     """Definition text, latest + up to six cards, both CTAs with original hrefs, one img per logo."""
     html = read_html(built_site, "index.html")
-    n_posts = len(list((repo_root / "content" / "posts").glob("*.md")))
+    n_posts = len(published_posts(repo_root))
     logos = json.loads((repo_root / "data" / "logos.json").read_text(encoding="utf-8"))
     text = re.sub(r"<[^>]+>", "", html)
     assert (

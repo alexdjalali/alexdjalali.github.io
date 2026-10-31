@@ -6,6 +6,14 @@ import re
 from html.parser import HTMLParser
 from pathlib import Path
 
+from figures.content import post_titles
+
+
+def published_posts(repo_root: Path) -> list[Path]:
+    """Return the post files Hugo publishes (drafts excluded, by the generator's own rule), sorted."""
+    posts = repo_root / "content" / "posts"
+    return [posts / f"{slug}.md" for slug in post_titles(posts)]
+
 
 def read_html(site: Path, rel: str) -> str:
     """Return the text of ``rel`` inside the built site."""

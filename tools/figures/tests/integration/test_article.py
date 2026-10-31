@@ -22,8 +22,9 @@ def test_article_has_figure_numeral_prove_toc_and_qed(built_site: Path) -> None:
     )
     numeral = re.search(r"Proposition ([IVXLCDM]+)\.", html)
     index = read_html(built_site, "posts/index.html")
-    first_row = re.search(r'post-row__num"?>([IVXLCDM]+)<', index)
-    assert numeral and first_row and numeral.group(1) == first_row.group(1)  # newest post
+    slug = POST.split("/")[1]
+    row = re.search(rf'href="?/posts/{slug}/"?[^>]*>\s*<span class="?post-row__num"?>([IVXLCDM]+)<', index)
+    assert numeral and row and numeral.group(1) == row.group(1)  # same numeral as its index row
     assert "To prove:" in html
     assert "Q.E.D." in html
 

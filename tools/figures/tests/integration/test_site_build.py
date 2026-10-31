@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from tests.helpers import nav_links, read_html
+from tests.helpers import nav_links, published_posts, read_html
 
 pytestmark = pytest.mark.integration
 
@@ -43,7 +43,7 @@ def test_hugo_config_has_no_theme_and_coder_is_gone(repo_root: Path) -> None:
 
 def test_every_pre_redesign_url_still_renders(built_site: Path, repo_root: Path) -> None:
     """Every URL that existed before the redesign has a non-empty built file."""
-    posts = sorted(p.stem for p in (repo_root / "content" / "posts").glob("*.md"))
+    posts = sorted(p.stem for p in published_posts(repo_root))
     assert posts, "expected posts in content/posts"
     for rel in [*PAGES, *(f"posts/{slug}/index.html" for slug in posts)]:
         path = built_site / rel
