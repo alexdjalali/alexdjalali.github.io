@@ -35,7 +35,7 @@ That distinction mattered to me. It was the difference between "replace your jud
 
 ## Georgia Tech
 
-I didn't start using AI tools seriously until I joined [Georgia Tech](https://www.gatech.edu/) as Research Faculty. Through ClearGraph, Tableau, Salesforce, co-founding [PerceptivePanda](https://www.perceptivepanda.com/), the [Zapier](https://zapier.com/) acquisition — all of that was done the old way. Every line written by hand.
+I didn't start using AI tools seriously until I joined [Georgia Tech](https://www.gatech.edu/) as Research Faculty. Through ClearGraph, Tableau, Salesforce, co-founding [PerceptivePanda](https://web.archive.org/web/20250119063219/https://www.perceptivepanda.com/), the [Zapier](https://zapier.com/) acquisition — all of that was done the old way. Every line written by hand.
 
 At Georgia Tech, the context shifted. I was working across multiple codebases, multiple languages, moving between research and engineering. The surface area was broader than anything I'd dealt with at a single company. Bill's words kept echoing: *force multiplier for engineers who already know what good looks like.*
 

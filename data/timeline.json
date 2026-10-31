@@ -6,7 +6,7 @@
     "shorttitle": "Western Albemarle",
     "type": "education",
     "logo": "images/logos/western-albemarle.png",
-    "url": "https://wah.k12albemarle.org/",
+    "url": "https://wahs.k12albemarle.org/",
     "summary": "Attended Western Albemarle High School in Crozet, Virginia.",
     "description": "<ul><li>Crozet, Virginia</li></ul>"
   },
@@ -28,7 +28,7 @@
     "shorttitle": "Hopkins",
     "type": "education",
     "logo": "images/logos/hopkins.png",
-    "url": "https://www.hopkinsschools.org/hopkins-high-school",
+    "url": "https://highschool.hopkinsschools.org/",
     "summary": "Graduated early from Hopkins High School in Minnetonka, Minnesota.",
     "description": "<ul><li>Minnetonka, Minnesota</li><li>Graduated early</li></ul>"
   },
@@ -176,7 +176,7 @@
     "shorttitle": "PerceptivePanda",
     "type": "job",
     "logo": "images/logos/panda.png",
-    "url": "https://www.perceptivepanda.com/",
+    "url": "https://web.archive.org/web/20250119063219/https://www.perceptivepanda.com/",
     "summary": "Co-founded an AI-powered enterprise feedback platform that was acquired by Zapier. Raised institutional pre-seed funding and was accepted into the StartX '24 fall cohort. Designed and built the platform from the ground up using Go, Python, and Kubernetes on AWS.",
     "description": "<ul><li>Co-founded AI-powered enterprise feedback platform; acquired by <a href=\"https://zapier.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Zapier</a></li><li>Raised institutional pre-seed funding</li><li>Accepted into <a href=\"https://startx.com/\" target=\"_blank\" rel=\"noopener noreferrer\">StartX</a> &rsquo;24 fall cohort</li><li>Designed and built platform in Go, Python, and Kubernetes on AWS</li></ul>"
   },

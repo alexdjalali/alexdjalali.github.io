@@ -17,7 +17,7 @@ I was born in El Paso, Texas. My father worked for [Marriott Hotels](https://www
 
 <div id="about-timeline">{{< construction "pages/lifeline" >}}</div>
 
-All that moving meant I attended three different high schools: [Western Albemarle](https://wah.k12albemarle.org/) in Virginia, [St. John's School](https://www.stjohnsguam.com/) in Guam, and [Hopkins High School](https://www.hopkinsschools.org/hopkins-high-school) in Minnesota, where I graduated. Each one dropped me into a completely different world — new people, new culture, new everything. You learn to adapt fast, or you don't adapt at all.
+All that moving meant I attended three different high schools: [Western Albemarle](https://wahs.k12albemarle.org/) in Virginia, [St. John's School](https://www.stjohnsguam.com/) in Guam, and [Hopkins High School](https://highschool.hopkinsschools.org/) in Minnesota, where I graduated. Each one dropped me into a completely different world — new people, new culture, new everything. You learn to adapt fast, or you don't adapt at all.
 
 ### The Academic Road
 
@@ -37,7 +37,7 @@ Before all the tech and academia, I cut my teeth as a writer. In high school I f
 
 I later served as Director of Operations & Content Strategy at [Style at a Certain Age](https://www.styleatacertainage.com/), a nationally recognized fashion and lifestyle brand, where I led editorial strategy, doubled site traffic, and drove substantial revenue growth.
 
-In 2023 I co-founded [PerceptivePanda](https://www.perceptivepanda.com/), an AI startup that was accepted into [StartX](https://startx.com/) '24. PerceptivePanda was [acquired by Zapier](https://zapier.com/) in 2025.
+In 2023 I co-founded [PerceptivePanda](https://web.archive.org/web/20250119063219/https://www.perceptivepanda.com/), an AI startup that was accepted into [StartX](https://startx.com/) '24. PerceptivePanda was [acquired by Zapier](https://zapier.com/) in 2025.
 
 Today I'm **Research Faculty and Senior Research Engineer** at the [Georgia Institute of Technology](https://www.gatech.edu/), where I get to combine everything — linguistics, AI, and software engineering — under one roof.
 
@@ -59,7 +59,7 @@ When I'm not writing code or reading papers, I'm usually deep in one of a few ob
 
 I ride a 2015 [Indian Scout](https://www.indianmotorcycle.com/) — there's nothing like two wheels and an open road to clear your head.
 
-I'm a workwear and Japanese denim enthusiast. [Iron Heart](https://www.ironheart.co.uk/), [Momotaro](https://momotarojeans.net/), [Sugar Cane](https://www.sugarcanejeans.com/), [The Flat Head](https://www.theflathead.com/), [Studio D'Artisan](https://www.dartisan.co.jp/), [Samurai Jeans](https://samurai-j.com/) on the Japanese denim side; [Levi's](https://www.levi.com/), [Lee](https://www.lee.com/), [Wrangler](https://www.wrangler.com/), and [Dickies](https://www.dickies.com/) for the American classics; [Filson](https://www.filson.com/), [Pendleton](https://www.pendleton-usa.com/), [Ginew](https://ginew.com/), [Schott NYC](https://www.schottnyc.com/), [Buzz Rickson's](https://www.buzzricksons.com/), [Red Wing](https://www.redwingshoes.com/), [Master Supply Co](https://mastersupplyco.com/), and [Vans](https://www.vans.com/) for heritage workwear and everyday staples. If it's built to last and gets better with age, I'm interested.
+I'm a workwear and Japanese denim enthusiast. [Iron Heart](https://www.ironheart.co.uk/), [Momotaro](https://www.momotaro-jeans.com/), [Sugar Cane](https://www.sugarcanejeans.com/), [The Flat Head](https://www.flat-head.com/), [Studio D'Artisan](https://shopdartisan.com/), [Samurai Jeans](https://samurai-j.com/) on the Japanese denim side; [Levi's](https://www.levi.com/), [Lee](https://www.lee.com/), [Wrangler](https://www.wrangler.com/), and [Dickies](https://www.dickies.com/) for the American classics; [Filson](https://www.filson.com/), [Pendleton](https://www.pendleton-usa.com/), [Ginew](https://ginew.com/), [Schott NYC](https://www.schottnyc.com/), [Buzz Rickson's](https://www.buzzricksons.com/), [Red Wing](https://www.redwingshoes.com/), [Master Supply Co](https://mastersupplyco.com/), and [Vans](https://www.vans.com/) for heritage workwear and everyday staples. If it's built to last and gets better with age, I'm interested.
 
 I collect guitars — electrics and acoustics, old and new. And I'm an audiophile and vinyl collector, always hunting for the right pressing of the right record to play through the right setup.
 

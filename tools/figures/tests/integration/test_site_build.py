@@ -82,3 +82,12 @@ def test_no_coder_artifacts_in_output(built_site: Path) -> None:
     assert "coder" not in " ".join(re.findall(r'href="([^"]+\.css)"', html))
     assert "colorscheme" not in html
     assert not list(built_site.glob("css/coder*.css"))
+
+
+def test_no_build_tooling_is_published(built_site: Path) -> None:
+    """Course-kit generator sources under ``static/`` (scripts, partial templates) stay out of the site."""
+    kit_build = built_site / "presentations" / "tiya-applied-ai" / "build"
+    assert [p for p in kit_build.rglob("*") if p.is_file()] == []  # Hugo may leave the empty folder
+    scripts = [p.relative_to(built_site) for p in built_site.rglob("*") if p.suffix in {".py", ".sh"}]
+    assert scripts == []
+    assert (built_site / "presentations" / "tiya-applied-ai" / "index.html").exists()

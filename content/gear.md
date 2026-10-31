@@ -47,7 +47,7 @@ categories:
       - "**[git](https://git-scm.com/)** + **git-lfs** with GPG commit signing via gnupg + pinentry-mac"
       - "**[lazygit](https://github.com/jesseduffield/lazygit)**: Terminal UI for git"
       - "**[gh](https://cli.github.com/)**: GitHub CLI"
-      - "**[delta](https://github.com/dandavies/delta)**: Diff pager with Catppuccin syntax theme"
+      - "**[delta](https://github.com/dandavison/delta)**: Diff pager with Catppuccin syntax theme"
       - "**[gitleaks](https://github.com/gitleaks/gitleaks)**: Secret scanning for repos"
   - title: "Dev Tools"
     icon: "fa-solid fa-screwdriver-wrench"

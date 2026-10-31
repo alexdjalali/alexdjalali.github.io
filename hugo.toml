@@ -228,3 +228,10 @@ type = "application/rss+xml"
   [[related.indices]]
     name = "date"
     weight = 30
+
+# Publish static/ except the course kit's generator sources (scripts and page templates); the kit
+# builds into its parent folder, so its sources live beside the output but must not be served.
+[[module.mounts]]
+source = "static"
+target = "static"
+files = ["! presentations/tiya-applied-ai/build/**"]
