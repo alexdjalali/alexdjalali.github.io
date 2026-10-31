@@ -15,7 +15,8 @@
   opacity: 0; visibility: hidden;
   transition: opacity .3s, visibility .3s, transform .3s;
 }
-.back-to-top.visible { opacity: .85; visibility: visible; }
+.back-to-top.visible { opacity: 1; visibility: visible; }
+@media (max-width: 47.99rem) { .back-to-top { bottom: 1rem; right: 1rem; width: 2.5rem; height: 2.5rem; } }
 .back-to-top:hover { opacity: 1; transform: translateY(-2px); }
 
 /* collapsible-code.js */

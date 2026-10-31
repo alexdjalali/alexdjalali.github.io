@@ -42,12 +42,16 @@ svg.fig { display: block; width: 100%; height: auto; font-family: var(--font-bod
 }
 .chip[aria-pressed="true"] { background: var(--black); color: var(--white); }
 
-/* Kicker, lede, headline words, compass */
+/* Kicker, lede, headline words */
 .kicker { margin: 0 0 1.25rem; font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); }
-.lede { margin: 1.5rem 0 0; max-width: var(--measure); font-family: var(--font-body); font-weight: 300; font-size: 1.25rem; line-height: 1.6; }
-.display { margin: 0; font-weight: 200; font-size: clamp(2.75rem, 6vw, 5rem); line-height: 1.04; letter-spacing: -0.02em; }
-.compass { position: absolute; left: -9%; top: -9%; width: 118%; aspect-ratio: 1; pointer-events: none; }
+.lede { margin: 1.75rem 0 0; max-width: var(--measure); font-family: var(--font-body); font-weight: 300; font-size: 1.25rem; line-height: 1.6; }
+.display { margin: 0; font-weight: 200; font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 1.1; letter-spacing: -0.02em; }
 
 @media (prefers-reduced-motion: reduce) {
   .card .frame, .ul, .row { transition: none; }
+}
+
+/* Narrow screens: hero figures shrink and centre so the headline stays the first thing read. */
+@media (max-width: 63.99rem) {
+  .research-hero__fig, .disclosure-hero__fig, .notfound__fig { flex: 0 0 auto; width: min(20rem, 100%); margin: 0 auto; }
 }

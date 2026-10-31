@@ -5,7 +5,6 @@
 <article class="article">
   <header class="article-hero">
     <div class="article-hero__fig">
-      {{ partial "compass.html" . }}
       <div class="frame">{{ partial "figure.html" (dict "kind" "posts" "key" .File.ContentBaseName) }}</div>
     </div>
     <div class="article-hero__text">
@@ -42,7 +41,7 @@
     {{ end }}
     <div class="post-content{{ if findRE `^\s*[A-Z][a-z]` .Plain 1 }} post-content--dropcap{{ end }}">
       {{ if .Params.featuredImage }}
-        <img src="{{ .Params.featuredImage | relURL }}" alt="{{ .Title }}" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 720px" width="1168" height="784" style="width:100%;height:auto;"/>
+        <img class="post-cover" src="{{ .Params.featuredImage | relURL }}" alt="{{ .Title }}" loading="lazy" decoding="async" width="1168" height="784">
       {{ end }}
       {{ .Content }}
       <p class="qed qed--end">Q.E.D. &nbsp;∎</p>

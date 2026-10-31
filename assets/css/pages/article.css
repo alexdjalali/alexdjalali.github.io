@@ -2,9 +2,14 @@
 
 .article-hero { display: flex; flex-wrap: wrap; align-items: center; gap: 3rem 5rem; padding: clamp(3rem, 7vw, 5rem) 0 4rem; border-bottom: 1px solid var(--black); }
 .article-hero__fig { position: relative; flex: 0 1 30rem; width: 30rem; max-width: 100%; }
-.article-hero__fig .compass { left: -8%; top: -8%; width: 116%; }
 .article-hero__text { flex: 1 1 24rem; min-width: 0; }
-.article-hero .display { font-size: clamp(2.25rem, 5vw, 4.25rem); }
+.article-hero .display { font-size: clamp(2rem, 4vw, 3.25rem); }
+.post-cover { display: block; width: 100%; height: auto; max-height: 24rem; margin: 0 0 2.5rem; object-fit: cover; object-position: 50% 25%; border: 1px solid var(--black); }
+@media (max-width: 63.99rem) {
+  .article-hero { gap: 2rem; padding-bottom: 2.5rem; }
+  .article-hero__text { order: -1; }
+  .article-hero__fig { flex: 0 0 auto; width: min(20rem, 100%); margin: 0 auto; }
+}
 .article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.25rem; margin: 1.5rem 0 0; color: var(--ink-3); }
 .article-terms { margin-top: 1rem; font-family: var(--font-label); font-size: .75rem; letter-spacing: .06em; color: var(--ink-3); }
 .article-terms .tags, .article-terms .categories, .article-terms .authors { display: flex; flex-wrap: wrap; gap: .25rem .5rem; align-items: center; }

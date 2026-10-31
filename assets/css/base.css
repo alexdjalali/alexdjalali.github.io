@@ -100,6 +100,18 @@ main.container { padding-bottom: 4rem; }
 .subnav a { padding: 0.75rem 0; }
 .subnav a.on { color: var(--red); }
 
+/* Narrow screens: mark and search share the first row; Books and sub-nav each scroll on one row. */
+@media (max-width: 47.99rem) {
+  .site-header__bar { gap: 0 1rem; padding-top: 1rem; padding-bottom: 0.25rem; }
+  .site-mark { font-size: 1.375rem; }
+  .site-header__right { display: contents; }
+  .books, .subnav__inner { flex: 1 0 100%; flex-wrap: nowrap; gap: 1.5rem; overflow-x: auto; scrollbar-width: none; }
+  .books { order: 3; justify-content: space-between; gap: 1rem; }
+  .books__num { display: none; }
+  .subnav__inner { gap: 1.25rem; }
+  .books a, .subnav a { flex: 0 0 auto; }
+}
+
 .site-footer { border-top: 1px solid var(--black); margin-top: 2rem; }
 .site-footer__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 2rem; padding-bottom: 3rem; }
 .site-footer__links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; }

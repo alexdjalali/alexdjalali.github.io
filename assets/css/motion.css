@@ -35,7 +35,7 @@
 .js .fig.is-revealed .an-fade,
 .js .rise.is-revealed { animation-play-state: running; }
 
-/* Ambient motion: drafting-mark gears, the compass sweep, the terminal cursor. */
+/* Ambient motion: drafting-mark gears, the terminal cursor. */
 .js .fig .an-spin { animation: spin 24s linear infinite; }
 .js .an-sweep { animation: spin 60s linear infinite; }
 .js .fig .an-blink { animation: blink 1.1s steps(1) infinite; }

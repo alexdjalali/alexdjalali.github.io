@@ -13,7 +13,6 @@
     <p class="therefore">∴ &nbsp;Read on.</p>
   </div>
   <a href="{{ $latest.RelPermalink }}" class="card home-latest" aria-label="Latest: Proposition {{ partial "numeral.html" $latest }}, {{ $latest.Title }}">
-    {{ partial "compass.html" . }}
     <div class="frame">{{ partial "figure.html" (dict "kind" "posts" "key" $latest.File.ContentBaseName) }}</div>
     <span class="label home-latest__row"><span class="home-latest__num">Proposition {{ partial "numeral.html" $latest }}. · Latest</span></span>
     <span class="ttl home-latest__title">{{ $latest.Title }}</span>

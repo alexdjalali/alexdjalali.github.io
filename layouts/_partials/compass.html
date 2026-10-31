@@ -1,8 +1,0 @@
-{{- /* A slow-turning compass ring behind a hero figure. */ -}}
-<svg aria-hidden="true" focusable="false" viewBox="0 0 100 100" class="compass"><g class="an-sweep">
-<circle cx="50" cy="50" r="49" fill="none" stroke-width="0.2" stroke-dasharray="0.6 1.2" style="stroke:var(--black)"/>
-{{- range seq 0 35 }}
-<line x1="50" y1="1" x2="50" y2="{{ if mod . 6 }}3.5{{ else }}6{{ end }}" stroke-width="0.25" transform="rotate({{ mul . 10 }} 50 50)" style="stroke:var(--black)"/>
-{{- end }}
-<circle cx="50" cy="1" r="1.2" style="fill:var(--red)"/>
-</g></svg>

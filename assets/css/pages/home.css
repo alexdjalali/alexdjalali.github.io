@@ -2,7 +2,7 @@
 
 .home-hero { display: flex; flex-wrap: wrap; align-items: center; gap: 3rem 5rem; padding: clamp(3rem, 7vw, 5rem) 0; }
 .home-hero__text { flex: 1 1 26rem; min-width: 0; }
-.home-hero .display { font-size: clamp(2.5rem, 5.5vw, 4.75rem); }
+.home-hero .display { font-size: clamp(2.25rem, 4.75vw, 4rem); }
 
 .postulates { max-width: 36rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
 .postulates li { display: flex; flex-wrap: wrap; gap: .25rem 1rem; padding: .75rem 0; border-top: 1px solid var(--rule); font-family: var(--font-body); font-size: 1.125rem; line-height: 1.55; }
