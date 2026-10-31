@@ -62,6 +62,8 @@ def test_primary_nav_has_four_books(built_site: Path) -> None:
     [
         ("publications/index.html", "Research sections", ["Publications", "Talks"]),
         ("presentations/index.html", "Research sections", ["Publications", "Talks"]),
+        ("projects/index.html", "Projects sections", ["Systems", "Courses"]),
+        ("courses/index.html", "Projects sections", ["Systems", "Courses"]),
         (
             "gear/index.html",
             "About sections",
@@ -69,8 +71,8 @@ def test_primary_nav_has_four_books(built_site: Path) -> None:
         ),
     ],
 )
-def test_research_and_about_show_subnav(built_site: Path, page: str, label: str, expected: list[str]) -> None:
-    """Pages under Research and About render their Book's sub-navigation."""
+def test_book_pages_show_subnav(built_site: Path, page: str, label: str, expected: list[str]) -> None:
+    """Pages under Research, Projects and About render their Book's sub-navigation."""
     assert nav_links(read_html(built_site, page)).get(label) == expected
 
 

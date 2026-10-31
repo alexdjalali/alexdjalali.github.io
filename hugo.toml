@@ -112,7 +112,7 @@ name = "Projects"
 weight = 3
 url = "projects/"
 [languages.en.menu.main.params]
-match = ["/projects/"]
+match = ["/projects/", "/courses/"]
 
 [[languages.en.menu.main]]
 identifier = "about"
@@ -135,6 +135,20 @@ parent = "research"
 name = "Talks"
 weight = 2
 url = "presentations/"
+
+[[languages.en.menu.main]]
+identifier = "systems"
+parent = "projects"
+name = "Systems"
+weight = 1
+url = "projects/"
+
+[[languages.en.menu.main]]
+identifier = "courses"
+parent = "projects"
+name = "Courses"
+weight = 2
+url = "courses/"
 
 [[languages.en.menu.main]]
 identifier = "about-me"

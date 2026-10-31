@@ -1,4 +1,4 @@
-/* Projects: Present / Past sections, each project a figure beside its text, alternating sides. */
+/* Projects (Systems: Present / Past) and Courses pages, each project a figure beside its text, alternating sides. */
 
 .projects-content { padding: 1rem 0 4rem; }
 .projects-content > h2 { margin: 3.5rem 0 1rem; padding-bottom: .5rem; border-bottom: 1px solid var(--black); font-size: clamp(2.25rem, 4vw, 3.25rem); font-weight: 200; }
@@ -11,7 +11,7 @@
 .projects-content .project-card > .fig-frame { align-self: start; }
 .projects-content .project-card h2 { margin: 0; padding: 0; border: 0; font-size: 1.875rem; font-weight: 300; line-height: 1.15; }
 .projects-content .project-card p { margin: 0; max-width: var(--measure); font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.65; color: var(--ink-2); }
-.projects-content .project-card a { border-bottom: 1px solid var(--red); }
+.projects-content .project-card a:not(.bib-link) { border-bottom: 1px solid var(--red); }
 .projects-content .project-card > :not(.fig-frame) { grid-column: 1; }
 @media (min-width: 56rem) {
   .projects-content .project-card { grid-template-columns: minmax(0, 24rem) minmax(0, 1fr); align-items: start; }

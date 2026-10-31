@@ -3,7 +3,7 @@ title: "Projects"
 date: 2026-03-05
 draft: false
 type: "projects"
-description: "Active engineering projects by AJ Djalali spanning distributed search systems, NLP pipelines, and large-scale data infrastructure."
+description: "Systems built by AJ Djalali spanning distributed search, NLP pipelines, and large-scale data infrastructure."
 images:
   - "images/og-default.png"
 ---
@@ -38,6 +38,30 @@ images:
   </p>
   <p>
     <strong>Phase 2: AI operations and economics (in progress).</strong> Phase 2 makes the AI stack observable, measurable, affordable, and auditable: every production AI call is traced, sample-evaluated, budget-enforced, cache-eligible, and audited, and prompts and models are promoted only through evaluation gates. Its scope is an evaluation platform with graders, a versioned prompt registry, an AI audit trail that produces SOC&nbsp;2 and HIPAA evidence, a token ledger with per-tenant budgets, a model gateway with semantic routing and cost controls, a semantic response cache, quality and drift monitoring, and an AI-operations console. It adds no new architectural layer: each capability is a new interface with a configuration-selected implementation and a no-op default, or a new decorator in the existing stacks, enabled per concern and per environment. LLM and agent tracing and the first AI-operations console and analytics screens have shipped.
+  </p>
+</div>
+
+<div class="project-card">
+  {{< construction "projects/knowledge-engine-toolkit" >}}
+  <h2>Knowledge Engine Toolkit</h2>
+  <div class="project-tech-list">
+    <span class="project-tech">Go</span>
+    <span class="project-tech">Python</span>
+    <span class="project-tech">gRPC</span>
+    <span class="project-tech">Connect</span>
+    <span class="project-tech">MCP</span>
+    <span class="project-tech">OpenTelemetry</span>
+    <span class="project-tech">Prometheus</span>
+    <span class="project-tech">Testcontainers</span>
+  </div>
+  <p>
+    An open-source (MIT) service substrate for building multi-language backend systems in Go and Python: the reusable &ldquo;how we build services&rdquo; library, carrying no product logic. I am its lead author, and I open-sourced it with Georgia Tech. Every service is assembled from eight layers&mdash;core interfaces, foundation, clients, repositories, services, pipelines, workflows, and transport&mdash;and imports only flow downward, enforced by lint rules rather than convention. Every swappable component is an interface with a <code>Kind</code>, a typed config, and a factory, selected by configuration and injected at one composition root, with a stub default so a service boots with zero infrastructure. Logging, metrics, tracing, retry, circuit breaking, and timeouts are decorators applied at that root, never inlined.
+  </p>
+  <p>
+    The library ships the parts every service rebuilds: layered config, structured logging, metrics and tracing, resilience, caching, and backpressured streams; clients for databases, caches, queues, object storage, locks, and cloud and deployment tooling; HTTP, gRPC, Connect, JSON:API, MCP, CLI, and cron front-ends; a batch fan-out execution engine; the typed list-query and chart-spec languages; and code generators and scaffolds. The Python half mirrors the Go half and is published to PyPI as <code>techai-webutils</code>. Integration tests run against real dependencies in throwaway containers&mdash;never fakes.
+  </p>
+  <p>
+    <a href="https://github.com/gt-tech-ai/knowledge-engine-toolkit" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> View on GitHub</a>
   </p>
 </div>
 

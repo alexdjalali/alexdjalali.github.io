@@ -24,7 +24,9 @@ EXPECTED_KEYS = {
     "pages/scout",
     "talks/enforcing-engineering-discipline",
     "talks/tiya-applied-ai",
+    "courses/tiya-applied-ai",
     "projects/conversational-document-intelligence",
+    "projects/knowledge-engine-toolkit",
     "projects/house-proceedings-corpus",
     "projects/enterprise-search-ingestion",
     "projects/perceptivepanda",
@@ -105,3 +107,16 @@ def test_ticks_extend_with_the_horizon(
     assert f">{year}<" not in builder(ctx).svg
     monkeypatch.setattr("figures.pages.HORIZON", float(year))
     assert f">{year}<" in builder(ctx).svg
+
+
+def test_toolkit_draws_eight_layers_in_go_and_python(ctx: FigureContext) -> None:
+    """Both language columns carry the same eight layers, core to transport, joined by downward arrows."""
+    from figures.constructions import TOOLKIT_LAYERS, toolkit
+
+    assert TOOLKIT_LAYERS == (
+        "core", "foundation", "clients", "repos", "services", "pipelines", "workflows", "transport",
+    )  # fmt: skip
+    svg = toolkit(ctx).svg
+    for layer in TOOLKIT_LAYERS:
+        assert f">{layer}<" in svg
+    assert ">Go<" in svg and ">Python<" in svg

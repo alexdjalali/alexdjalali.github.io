@@ -59,6 +59,30 @@ def corpus(_ctx: FigureContext) -> Figure:
     return Figure(f.svg(), "A field of dots for 2,700 transcripts condensed into 181 million tokens")
 
 
+TOOLKIT_LAYERS = ("core", "foundation", "clients", "repos", "services", "pipelines", "workflows", "transport")
+"""The toolkit's layers, 0 to 7; each imports only from the layers below it."""
+_LAYER_FILL = (K, B, Y, R, B, Y, R, K)
+
+
+def toolkit(_ctx: FigureContext) -> Figure:
+    """Knowledge engine toolkit: eight layers, mirrored in Go and Python, imports flowing down."""
+    f = Fig(LEAD)
+    for i, (name, fill) in enumerate(zip(reversed(TOOLKIT_LAYERS), reversed(_LAYER_FILL), strict=True)):
+        y = 8 + i * 10
+        for x in (14, 54):
+            f.wash(rect(x, y, 32, 8, fill), dt=0.04)
+            f.text(x + 16, y + 5.4, name, 3.1, fill=K if fill == Y else W, italic=False, dt=0.02)
+    f.line((8, 10), (8, 82), w=0.5, color=R).pop(
+        f'<polygon points="5.6,81 10.4,81 8,86" fill="{R}"></polygon>'
+    )
+    f.text(30, 96, "Go", 3.6, italic=False).text(70, 96, "Python", 3.6, italic=False)
+    caption = (
+        "Eight layers from transport down to core, drawn twice side by side for Go and Python, "
+        "with an arrow showing that imports only flow downward"
+    )
+    return Figure(f.svg(), caption)
+
+
 _KNN_POINTS = [
     (18, 22), (30, 70), (72, 18), (84, 66), (60, 82), (24, 44), (78, 40),
     (40, 18), (88, 86), (14, 84), (50, 60), (56, 40), (44, 52), (62, 56),

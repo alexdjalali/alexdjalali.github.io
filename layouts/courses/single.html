@@ -1,0 +1,11 @@
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
+{{ define "content" }}
+<section class="page-hero">
+  <p class="kicker">Book III. · Courses</p>
+  <h1 class="display">{{ partial "rise.html" "Courses: the same tools, taught hands-on." }}</h1>
+  {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+</section>
+<article class="projects-content courses-content">
+  {{ .Content }}
+</article>
+{{ end }}

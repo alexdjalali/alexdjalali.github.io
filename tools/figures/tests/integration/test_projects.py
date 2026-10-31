@@ -30,3 +30,20 @@ def test_projects_page_has_no_mermaid_and_keeps_github_links(built_site: Path, r
     assert links
     for href in links:
         assert href in html
+
+
+def test_courses_page_carries_the_tiya_course_with_one_figure(built_site: Path, repo_root: Path) -> None:
+    """Courses is its own page: one figure per course card, and the TIYA kit links live there."""
+    source = (repo_root / "content" / "courses.md").read_text(encoding="utf-8")
+    html = read_html(built_site, "courses/index.html")
+    assert html.count("<svg role=") == source.count('class="project-card"') > 0
+    assert "/presentations/tiya-applied-ai/participants.html" in html
+    assert "tiya-applied-ai" not in read_html(built_site, "projects/index.html")
+
+
+def test_talks_list_the_tiya_course_and_link_to_it(built_site: Path) -> None:
+    """Talks names the TIYA course but links to the Courses page instead of carrying its materials."""
+    html = read_html(built_site, "presentations/index.html")
+    assert "Applied AI at TIYA Services" in html
+    assert re.search(r'href="?/courses/"?', html)
+    assert "participant-workbook-day1.html" not in html
