@@ -21,6 +21,7 @@ PAGES = [
     "about/index.html",
     "cv/index.html",
     "media/index.html",
+    "consulting/index.html",
     "gear/index.html",
     "ai-disclaimer/index.html",
     "search/index.html",
@@ -67,7 +68,7 @@ def test_primary_nav_has_four_books(built_site: Path) -> None:
         (
             "gear/index.html",
             "About sections",
-            ["About", "Resume", "Media", "Gear", "AI disclosure"],
+            ["About", "Consulting", "Resume", "Media", "Gear", "AI disclosure"],
         ),
     ],
 )

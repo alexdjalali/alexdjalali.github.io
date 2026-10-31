@@ -31,13 +31,16 @@ hugo.toml                   Site configuration, Books menu, social links, KaTeX,
 ## Features
 
 - **Byrne's Euclid design**: five-colour palette (red, yellow, blue, black, white), thin IBM Plex, light only (no dark mode)
-- **Four Books**: I Writing, II Research (Talks), III Projects, IV About (Resume, Media, Gear, AI disclosure)
+- **Four Books**: I Writing, II Research (Talks), III Projects, IV About (Consulting, Resume, Media, Gear, AI disclosure)
 - **Propositions**: each post is numbered by chronological rank, its description is the "To prove:" line, and it ends with Q.E.D.
 - **Generated figures**: every post and data page has an SVG drawn from its own argument or data (see below)
 - **Motion**: figures draw themselves and headlines rise word by word as they scroll into view; `prefers-reduced-motion` and no-JS show everything fully drawn
 - **Timelines**: static lanes generated from `data/timeline.json`, replaced by the interactive D3 timelines when JS is on
 - **Technologies** (Resume): the `{{< technologies >}}` shortcode renders `data/technologies.json`; every icon is vendored in `static/images/tech/` and its entry records the URL it was copied from (Devicon, Simple Icons, LobeHub, or the project's own repo)
-- **LaTeX math rendering** via KaTeX with Goldmark passthrough delimiters (`$...$` inline, `$$...$$` display)
+- **LaTeX math rendering** via KaTeX with Goldmark passthrough delimiters (`$...$` inline, `$$...$$` display); a post opts in with `math: true` in its front matter, so pages without math load no KaTeX
+- **Tags and series**: front matter uses tag slugs; each tag's display name (and the aliases of tags merged into it) lives in `content/tags/<slug>/_index.md`, and every tag groups at least two posts unless it is a topic's first post. Series are `Software Architecture` and `AI-Assisted Engineering`
+- **Scripts**: the `customJS` files in `hugo.toml` are concatenated into one deferred, fingerprinted `js/site.js`; Mermaid loads deferred, only on pages using the `mermaid` shortcode, and is configured by `assets/js/mermaid-init.js`
+- **Feeds**: `index.xml` carries every post in full; tag and series feeds list only their own posts, as summaries
 - **Collapsible code blocks** with language headers and copy-to-clipboard
 - **Topic filter and search** on the Writing index; publication abstract toggles; downloadable BibTeX
 - **Reveal.js presentations** embedded via custom layout; card-deck navigation on Media
@@ -82,7 +85,7 @@ Data-driven figures (research histogram, homes line, career lanes) regenerate fr
 
 ## Deployment
 
-Pushes to `main` deploy automatically via GitHub Pages. The site is served from the `public/` directory at `https://alexdjalali.github.io/`.
+Pushes to `main` deploy automatically via GitHub Pages. Pull requests run the same checks (figures, tests, build, links, Lighthouse) without uploading or deploying. The site is served from the `public/` directory at `https://alexdjalali.github.io/`.
 
 The deploy fails on a broken internal link: [lychee](https://lychee.cli.rs/) checks the built `public/` offline with `lychee.toml`. A weekly workflow (`.github/workflows/links.yml`, also runnable by hand) checks external links; `lychee.toml` skips hosts that refuse automated requests. Run either locally with `lychee --config lychee.toml [--offline] --root-dir "$PWD/public" 'public/**/*.html'` after `hugo --minify`.
 

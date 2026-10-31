@@ -4,13 +4,13 @@
   xmlns:content="http://purl.org/rss/1.0/modules/content/"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>{{ .Site.Title }}</title>
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
     <link>{{ .Site.BaseURL }}</link>
     <description>{{ .Site.Params.description | default (.Site.Title | plainify) }}</description>
     <language>{{ .Site.LanguageCode }}</language>
     <managingEditor>{{ with .Site.Params.displayName }}{{ . }}{{ end }}</managingEditor>
     <lastBuildDate>{{ now.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>
-    <atom:link href="{{ "index.xml" | absURL }}" rel="self" type="application/rss+xml" />
+    {{ with .OutputFormats.Get "rss" }}<atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml" />{{ end }}
     {{ with .Site.Params.avatarURL }}
     <image>
       <url>{{ . | absURL }}</url>
@@ -18,7 +18,9 @@
       <link>{{ site.BaseURL }}</link>
     </image>
     {{ end }}
-    {{ $pages := where .Site.RegularPages "Section" "posts" }}
+    {{- /* The home feed carries every post in full; a tag or series feed lists its own posts as summaries. */ -}}
+    {{ $full := .IsHome }}
+    {{ $pages := cond .IsHome (where .Site.RegularPages "Section" "posts") (where .RegularPages "Section" "posts") }}
     {{ range $pages }}
     <item>
       <title>{{ .Title | plainify }}</title>
@@ -31,7 +33,7 @@
       {{ else }}
       <description>{{ .Summary | plainify | htmlUnescape }}</description>
       {{ end }}
-      <content:encoded>{{ printf "<![CDATA[%s]]>" .Content | safeHTML }}</content:encoded>
+      {{ if $full }}<content:encoded>{{ printf "<![CDATA[%s]]>" .Content | safeHTML }}</content:encoded>{{ end }}
       {{ range .Params.tags }}
       <category>{{ . }}</category>
       {{ end }}

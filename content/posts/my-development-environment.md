@@ -5,7 +5,7 @@ draft: false
 description: "A walkthrough of my macOS development setup: zsh, neovim, tmux, and 80+ CLI tools — all managed from a single dotfiles repo with a one-command install."
 images:
   - "images/og/my-development-environment.png"
-tags: ["developer-tools", "dotfiles", "neovim", "tmux", "macos"]
+tags: ["developer-tools"]
 keywords: ["development environment", "dotfiles", "neovim", "tmux", "macos setup"]
 ---
 

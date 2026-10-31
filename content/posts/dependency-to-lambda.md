@@ -2,10 +2,11 @@
 title: "From Dependency Parses to Montague Semantics via Vector-Grounded Concept Bases"
 date: 2026-01-31
 draft: false
+math: true
 description: "Exploring how Universal Dependencies parse trees, Montague-style typed lambda calculus, and vector-derived concept bases fit together into a compositional semantics pipeline."
 images:
   - "images/og/dependency-to-lambda.png"
-tags: ["nlp", "formal-semantics", "lambda-calculus", "dependency-parsing"]
+tags: ["nlp", "formal-semantics"]
 keywords: ["natural language processing", "formal semantics", "lambda calculus", "dependency parsing", "computational linguistics"]
 ---
 

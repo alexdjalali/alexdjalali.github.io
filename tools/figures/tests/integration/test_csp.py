@@ -12,7 +12,7 @@ from tests.helpers import read_html
 
 pytestmark = pytest.mark.integration
 
-MATH_POST = "posts/one-query-language-from-filter-chip-to-chart/index.html"
+MATH_POST = "posts/dependency-to-lambda/index.html"
 
 
 def _directive(html: str, name: str) -> set[str]:

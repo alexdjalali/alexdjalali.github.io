@@ -5,9 +5,9 @@ draft: false
 description: "AI is here. Six months, 1,200 commits, and 594 stories of building a production AI platform with agents — what held, what broke, and what the data says about where AI still falls down."
 images:
   - "images/og/six-months-of-enterprise-development-with-ai.png"
-tags: ["ai", "software-engineering", "architecture", "static-analysis", "infrastructure"]
+tags: ["ai", "software-engineering", "architecture", "process"]
 keywords: ["ai software development", "lessons learned", "guardrails", "static analysis", "claude code", "skills", "infrastructure drift", "ai coding agents"]
-series: ["Software Architecture"]
+series: ["AI-Assisted Engineering"]
 ---
 
 AI is here. Not as autocomplete, and not as a demo. For the last six months I have built a production AI platform — and the shared toolkit extracted from it — with agents writing the large majority of the code. Roughly 1,200 commits. 63 epics, 594 stories, 359 implementation plans, 117 Architecture Decision Records. Real tenants, real cloud accounts, real pages at 2 AM.

@@ -1,6 +1,7 @@
 /* Projects (Systems: Present / Past) and Courses pages, each project a figure beside its text, alternating sides. */
 
-.projects-content { padding: 1rem 0 4rem; }
+.projects-content { padding: 1rem 0 1rem; }
+.projects-content .project-card:last-child { border-bottom: 0; }
 .projects-content > h2 { margin: 3.5rem 0 1rem; padding-bottom: .5rem; border-bottom: 1px solid var(--black); font-size: clamp(2.25rem, 4vw, 3.25rem); font-weight: 200; }
 .projects-content > h2::before { content: "Book III. "; font-family: var(--font-label); font-size: .75rem; letter-spacing: .18em; text-transform: uppercase; color: var(--red); vertical-align: middle; }
 
@@ -26,3 +27,9 @@
 .project-tech { padding: .25rem .625rem; border: 1px solid var(--black); font-family: var(--font-label); font-size: .6875rem; letter-spacing: .1em; text-transform: uppercase; }
 .read-more-btn { display: inline-flex; align-items: center; gap: .5rem; min-height: 2.75rem; padding: 0 1.25rem; border: 1px solid var(--black); font-family: var(--font-label); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; }
 .read-more-btn:hover { box-shadow: 4px 4px 0 var(--black); transform: translate(-2px, -2px); }
+
+/* Courses: a format line under each title, and teaching materials grouped one row per day. */
+.projects-content .project-card .course-meta { margin: -.5rem 0 0; font-family: var(--font-label); font-size: .75rem; letter-spacing: .14em; color: var(--red); }
+.course-materials { display: grid; gap: .5rem; margin: 0; padding: 0; list-style: none; }
+.course-materials__row { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.course-materials__row > .label { min-width: 4rem; color: var(--ink-3); }

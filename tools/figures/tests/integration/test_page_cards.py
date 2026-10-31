@@ -20,6 +20,7 @@ PAGES = (
     "cv",
     "gear",
     "media",
+    "consulting",
     "presentations",
     "projects",
     "publications",
