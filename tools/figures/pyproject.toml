@@ -31,6 +31,7 @@ src = ["src", "tests"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "D", "PLW1514"]
+# preview only to reach PLW1514 (unspecified-encoding); explicit-preview-rules keeps every other preview rule off
 preview = true
 explicit-preview-rules = true
 ignore = ["D203", "D213"]

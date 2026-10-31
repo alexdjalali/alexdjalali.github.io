@@ -17,7 +17,7 @@
 }
 .back-to-top.visible { opacity: 1; visibility: visible; }
 @media (max-width: 47.99rem) { .back-to-top { bottom: 1rem; right: 1rem; width: 2.5rem; height: 2.5rem; } }
-.back-to-top:hover { opacity: 1; transform: translateY(-2px); }
+.back-to-top:hover { transform: translateY(-2px); }
 
 /* collapsible-code.js */
 .code-collapse { margin-bottom: 1em; overflow: hidden; }

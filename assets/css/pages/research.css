@@ -2,8 +2,8 @@
 
 .research-hero { display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem 4rem; border-bottom: 1px solid var(--black); }
 .research-hero__text { flex: 1 1 26rem; min-width: 0; }
-.research-hero .display { font-size: clamp(2.25rem, 4.5vw, 3.75rem); }
 .research-hero__fig { flex: 0 1 28rem; width: 28rem; max-width: 100%; }
+@media (max-width: 63.99rem) { .research-hero__fig { flex: 0 0 auto; width: min(20rem, 100%); margin: 0 auto; } }
 
 .research-content { padding: 2rem 0 4rem; counter-reset: part; }
 .research-content h2 { counter-increment: part; margin: 3.5rem 0 1rem; padding-bottom: .5rem; border-bottom: 1px solid var(--black); font-size: 2rem; font-weight: 200; }

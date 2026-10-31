@@ -7,6 +7,8 @@ from pathlib import Path
 
 import pytest
 
+from tests.helpers import site_stylesheet
+
 pytestmark = pytest.mark.integration
 
 RULE = re.compile(r"([^{}]+)\{([^{}]*)\}")
@@ -14,7 +16,7 @@ ANIMATES = re.compile(r"animation(?:-name)?\s*:\s*(?!none)[a-z]", re.IGNORECASE)
 
 
 def _bundle(built_site: Path) -> str:
-    return next((built_site / "css").glob("site.*.css")).read_text(encoding="utf-8")
+    return site_stylesheet(built_site)
 
 
 def test_bundle_has_keyframes_and_a_reduced_motion_block(built_site: Path) -> None:

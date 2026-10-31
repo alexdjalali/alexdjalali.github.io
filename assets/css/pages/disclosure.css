@@ -2,8 +2,8 @@
 
 .disclosure-hero { display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem 4rem; }
 .disclosure-hero__text { flex: 1 1 24rem; min-width: 0; }
-.disclosure-hero .display { font-size: clamp(2.25rem, 4.5vw, 3.75rem); }
 .disclosure-hero__fig { flex: 0 1 24rem; width: 24rem; max-width: 100%; }
+@media (max-width: 63.99rem) { .disclosure-hero__fig { flex: 0 0 auto; width: min(20rem, 100%); margin: 0 auto; } }
 .disclosure-content { padding: 2rem 0 4rem; border-top: 1px solid var(--black); }
 .disclosure-content h2, .disclosure-content h3 { margin: 2.5rem 0 1rem; font-weight: 300; }
 .disclosure-content a { border-bottom: 1px solid var(--red); }

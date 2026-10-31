@@ -1,7 +1,7 @@
 /* Article: figure hero, contents sidebar, prose column, lemma boxes, Q.E.D. */
 
 .article-hero { display: flex; flex-wrap: wrap; align-items: center; gap: 3rem 5rem; padding: clamp(3rem, 7vw, 5rem) 0 4rem; border-bottom: 1px solid var(--black); }
-.article-hero__fig { position: relative; flex: 0 1 30rem; width: 30rem; max-width: 100%; }
+.article-hero__fig { flex: 0 1 30rem; width: 30rem; max-width: 100%; }
 .article-hero__text { flex: 1 1 24rem; min-width: 0; }
 .article-hero .display { font-size: clamp(2rem, 4vw, 3.25rem); }
 .post-cover { display: block; width: 100%; height: auto; max-height: 24rem; margin: 0 0 2.5rem; object-fit: cover; object-position: 50% 25%; border: 1px solid var(--black); }

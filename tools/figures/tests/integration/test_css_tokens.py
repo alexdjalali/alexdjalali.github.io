@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from tests.helpers import read_html
+from tests.helpers import read_html, site_stylesheet
 
 pytestmark = pytest.mark.integration
 
@@ -46,6 +46,6 @@ def test_head_links_one_site_bundle(built_site: Path) -> None:
 
 def test_bundle_contains_shared_component_rules(built_site: Path) -> None:
     """The built bundle defines the card hover lift and the topic-filter chip."""
-    css = next((built_site / "css").glob("site.*.css")).read_text(encoding="utf-8")
+    css = site_stylesheet(built_site)
     assert ".card:hover.frame" in css.replace(" ", "")
     assert ".chip{" in css.replace(" ", "")

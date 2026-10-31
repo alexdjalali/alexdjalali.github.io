@@ -7,6 +7,7 @@
 .notfound { display: flex; flex-wrap: wrap; align-items: center; gap: 3rem 5rem; padding: clamp(3rem, 8vw, 6rem) 0; }
 .notfound__fig { flex: 0 1 26rem; width: 26rem; max-width: 100%; }
 .notfound__text { flex: 1 1 24rem; min-width: 0; }
+@media (max-width: 63.99rem) { .notfound__fig { flex: 0 0 auto; width: min(20rem, 100%); margin: 0 auto; } .notfound__text { order: -1; } }
 .error-search { margin: 2rem 0 0; }
 .error-hint { margin: 0 0 .75rem; color: var(--ink-3); }
 .error-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem; }

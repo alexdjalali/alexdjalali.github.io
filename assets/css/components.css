@@ -50,8 +50,3 @@ svg.fig { display: block; width: 100%; height: auto; font-family: var(--font-bod
 @media (prefers-reduced-motion: reduce) {
   .card .frame, .ul, .row { transition: none; }
 }
-
-/* Narrow screens: hero figures shrink and centre so the headline stays the first thing read. */
-@media (max-width: 63.99rem) {
-  .research-hero__fig, .disclosure-hero__fig, .notfound__fig { flex: 0 0 auto; width: min(20rem, 100%); margin: 0 auto; }
-}
