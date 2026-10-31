@@ -1,0 +1,41 @@
+[
+  {
+    "@type": "Course",
+    "name": "Applied AI at TIYA Services",
+    "description": "A three-day onsite course: Generative AI for Daily Work with Microsoft 365 Copilot, Agentic AI with Microsoft Copilot using the Copilot agent builder, and Advanced Agents with Copilot Studio.",
+    "hasPart": [
+      {
+        "@type": "Course",
+        "name": "Generative AI for Daily Work"
+      },
+      {
+        "@type": "Course",
+        "name": "Agentic AI with Microsoft Copilot"
+      },
+      {
+        "@type": "Course",
+        "name": "Advanced Agents with Copilot Studio"
+      }
+    ],
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "Onsite",
+      "startDate": "2026-10-20",
+      "location": {
+        "@type": "Place",
+        "name": "TIYA Services",
+        "address": "Ft. Benning, GA"
+      },
+      "instructor": [
+        {
+          "@type": "Person",
+          "name": "AJ Djalali"
+        },
+        {
+          "@type": "Person",
+          "name": "Alex Rhodeen"
+        }
+      ]
+    }
+  }
+]

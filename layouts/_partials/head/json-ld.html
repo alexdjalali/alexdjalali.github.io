@@ -140,3 +140,11 @@
 }
 </script>
 {{- end -}}
+
+{{- /* Pages with data/schema/<page>.json (Courses, Talks): one schema.org object per entry, linked to the page. */ -}}
+{{- $page := . }}
+{{- with .File }}{{ with index hugo.Data.schema .ContentBaseName }}
+{{- range . }}
+<script type="application/ld+json">{{ merge (dict "@context" "https://schema.org" "url" $page.Permalink) . | jsonify | safeJS }}</script>
+{{- end }}
+{{- end }}{{ end -}}

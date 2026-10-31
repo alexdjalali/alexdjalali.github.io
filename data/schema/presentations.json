@@ -1,0 +1,22 @@
+[
+  {
+    "@type": "Event",
+    "name": "Enforcing Engineering Discipline with AI",
+    "description": "A talk at the IDEaS Upskilling Workshop on AI for Research: the software engineering lifecycle hasn't changed, but with AI it is now enforceable.",
+    "startDate": "2026",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Georgia Institute of Technology",
+      "address": "Atlanta, GA"
+    },
+    "superEvent": {
+      "@type": "Event",
+      "name": "IDEaS Upskilling Workshop on AI for Research"
+    },
+    "performer": {
+      "@type": "Person",
+      "name": "AJ Djalali"
+    }
+  }
+]
