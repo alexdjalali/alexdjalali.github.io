@@ -17,9 +17,10 @@
 .consulting__line { margin: 0; max-width: 40rem; font-family: var(--font-body); font-size: 1.125rem; line-height: 1.55; }
 .consulting__cta { display: flex; flex-wrap: wrap; gap: .75rem; }
 .consulting__trust .label { margin: 0 0 .75rem; color: var(--ink-3); }
-.consulting__logos { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; }
-.consulting__logos img { display: block; height: 1.75rem; width: auto; filter: grayscale(100%); opacity: .8; transition: opacity .2s, filter .2s; }
-.consulting__logos a:hover img { filter: none; opacity: 1; }
+.consulting__names { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem .875rem; margin: 0; font-family: var(--font-display); font-size: 1.25rem; font-weight: 300; }
+.consulting__name { border-bottom: 1px solid transparent; }
+.consulting__name:hover { border-bottom-color: var(--red); }
+.consulting__sep { color: var(--red); }
 @media (min-width: 60rem) { .consulting { grid-template-columns: 1fr auto; } .consulting__trust { grid-column: 1 / -1; } }
 
 .rule-black { height: 1px; background: var(--black); }

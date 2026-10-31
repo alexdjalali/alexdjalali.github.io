@@ -17,7 +17,7 @@ assets/
   css/tokens.css            Design tokens: palette, IBM Plex fonts (the only file with colour literals)
   css/*.css, css/pages/     Base, motion, components, content, syntax; one stylesheet per page type
   js/                       reveal.js (scroll reveal), topic-filter, search, timelines, card-deck, share, abstract toggle
-data/                       topics.json, logos.json, locations.json, timeline.json, technologies.json; figures/research.json is generated
+data/                       topics.json, trusted.json, locations.json, timeline.json, technologies.json; figures/research.json is generated
 tools/figures/              Python figure generator (uv, ruff, basedpyright, pytest)
 static/
   bib/                      25 individual BibTeX files (publications, dissertation, patents)

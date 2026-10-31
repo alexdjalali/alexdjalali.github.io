@@ -25,11 +25,9 @@
   </div>
   <div class="consulting__trust">
     <p class="label">Trusted By</p>
-    <div class="consulting__logos">
-      {{- range hugo.Data.logos }}
-      <a href="{{ .url }}" target="_blank" rel="noopener noreferrer"><img src="{{ .file | relURL }}" alt="{{ .name }}" loading="lazy"></a>
-      {{- end }}
-    </div>
+    <p class="consulting__names">
+      {{- range $i, $org := hugo.Data.trusted }}{{ if $i }}<span class="consulting__sep" aria-hidden="true">·</span>{{ end }}<a href="{{ $org.url }}" class="consulting__name" target="_blank" rel="noopener noreferrer">{{ $org.name }}</a>{{ end -}}
+    </p>
   </div>
 </section>
 

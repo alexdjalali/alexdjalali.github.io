@@ -16,10 +16,10 @@ pytestmark = pytest.mark.integration
 
 
 def test_home_contains_definition_figures_cta_and_logos(built_site: Path, repo_root: Path) -> None:
-    """Definition text, up to six cards and no separate latest card, both CTAs, one img per logo."""
+    """Definition, up to six cards (no latest card), both CTAs, a linked name per trusted-by entry."""
     html = read_html(built_site, "index.html")
     n_posts = len(published_posts(repo_root))
-    logos = json.loads((repo_root / "data" / "logos.json").read_text(encoding="utf-8"))
+    logos = json.loads((repo_root / "data" / "trusted.json").read_text(encoding="utf-8"))
     text = re.sub(r"<[^>]+>", "", html)
     assert (
         "A blog is a set of propositions about language, machines, and the systems between them."
@@ -34,7 +34,10 @@ def test_home_contains_definition_figures_cta_and_logos(built_site: Path, repo_r
     )
     assert re.search(rf'href="?{booking}"?[^>]*><i[^>]*></i> Book a Call', hero)
     assert "Book a Call" in html and "Get in Touch" in html
-    assert len(re.findall(r'<img src="?/images/logos/', html)) == len(logos)
+    assert "/images/logos/" not in html  # names, not 48 px bitmaps
+    trust = html[html.index("consulting__trust") : html.index("rule-black")]
+    names = [unescape(n) for n in re.findall(r'<a [^>]*class="?consulting__name"?[^>]*>([^<]+)</a>', trust)]
+    assert names == [logo["name"] for logo in logos]
     assert "landing-service-card" not in html
 
 
