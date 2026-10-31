@@ -8,7 +8,14 @@
 .cv-list .pub-title a { border-bottom: 1px solid var(--rule); }
 .cv-list .pub-title a:hover { border-bottom-color: var(--red); }
 .cv-list .pub-extra { display: block; margin-top: .25rem; font-style: italic; color: var(--ink-2); }
-.cv-list li > br { display: none; }
+.cv-list li > br, .cv-list .talk-body > br { display: none; }
 .cv-list li .bib-link, .cv-list li .abstract-toggle { margin: .75rem .5rem 0 0; }
 .research-content .cv-list > li { position: static; margin: 0; }
 .research-content .cv-list > li::before, .research-content .cv-list > li::after { content: none; }
+
+/* Talks: the figure is a thumbnail beside its citation (stacked and capped on narrow screens). */
+.talks-content .cv-list > li > .fig-frame { max-width: 16rem; margin-bottom: 1rem; }
+@media (min-width: 48rem) {
+  .talks-content .cv-list > li { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr); gap: 2rem; align-items: start; }
+  .talks-content .cv-list > li > .fig-frame { margin: 0; }
+}

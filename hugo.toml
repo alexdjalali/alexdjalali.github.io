@@ -42,6 +42,7 @@ inline = [["$", "$"], ["\\(", "\\)"]]
   priority = 0.5
 
 [params]
+bookingURL = "https://calendly.com/alex-djalali/30min"  # "Book a Call" target on home and footer
 definitionLabel = "Definition 1."
 definition = "A blog is a set of propositions about language, machines, and the systems between them."
 author = "a.j.djalali+claude"

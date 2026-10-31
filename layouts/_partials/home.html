@@ -1,10 +1,11 @@
 {{- $posts := (sort (where site.RegularPages "Section" "posts") "File.Path").ByDate.Reverse -}}
-{{- $latest := index $posts 0 -}}
 {{- $research := hugo.Data.figures.research -}}
 <section class="home-hero">
   <div class="home-hero__text">
     <p class="kicker">{{ site.Params.definitionLabel }}</p>
     <h1 class="display">{{ partial "rise.html" site.Params.definition }}</h1>
+  </div>
+  <div class="home-hero__postulates">
     <ol class="postulates">
       <li><span class="label">Postulate 1.</span><span>The author is a linguist: Stanford PhD, formal semantics.</span></li>
       <li><span class="label">Postulate 2.</span><span>The author is an engineer: Ask Data at Tableau; co-founder of PerceptivePanda, acquired by Zapier.</span></li>
@@ -12,13 +13,6 @@
     </ol>
     <p class="therefore">∴ &nbsp;Read on.</p>
   </div>
-  <a href="{{ $latest.RelPermalink }}" class="card home-latest" aria-label="Latest: Proposition {{ partial "numeral.html" $latest }}, {{ $latest.Title }}">
-    <div class="frame">{{ partial "figure.html" (dict "kind" "posts" "key" $latest.File.ContentBaseName) }}</div>
-    <span class="label home-latest__row"><span class="home-latest__num">Proposition {{ partial "numeral.html" $latest }}. · Latest</span></span>
-    <span class="ttl home-latest__title">{{ $latest.Title }}</span>
-    {{ with $latest.Description }}<span class="prove"><em>To prove:</em> {{ . }}</span>{{ end }}
-    <span class="label prop-card__meta">{{ $latest.Date.Format "Jan 2, 2006" }} · {{ $latest.ReadingTime }} min</span>
-  </a>
 </section>
 
 <section class="consulting" aria-labelledby="consulting-title">
@@ -26,7 +20,7 @@
     Available for consulting: AI product &amp; engineering, enterprise AI transformation, and board &amp; executive advisory.
   </p>
   <div class="consulting__cta">
-    <a href="mailto:alex.djalali@gmail.com" class="btn btn--solid"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Call</a>
+    <a href="{{ site.Params.bookingURL }}" class="btn btn--solid" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Call</a>
     <a href="mailto:alex.djalali@gmail.com" class="btn"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Get in Touch</a>
   </div>
   <div class="consulting__trust">
@@ -47,7 +41,7 @@
     <a href="{{ "posts/" | relURL }}" class="ul label">All {{ partial "roman.html" (len $posts) }} →</a>
   </div>
   <div class="card-grid">
-    {{- range first 6 (after 1 $posts) }}
+    {{- range first 6 $posts }}
     {{ partial "prop-card.html" . }}
     {{- end }}
   </div>

@@ -84,3 +84,12 @@ def test_resume_lists_do_not_inherit_the_publications_list_style(built_site: Pat
     rule = _rule(css, ".cv-page .cv-list>li")
     assert "padding:0" in rule and "border-bottom:0" in rule
     assert ".cv-page .cv-list>li::before,.cv-page .cv-list>li::after{content:none}" in css
+
+
+def test_talk_figures_are_thumbnails_beside_their_citation(built_site: Path) -> None:
+    """A talk's figure is a capped thumbnail beside its citation, not a full-width banner above it."""
+    css = site_stylesheet(built_site)
+    assert re.search(r"max-width:\s*\d+(?:\.\d+)?rem", _rule(css, ".talks-content .cv-list>li>.fig-frame"))
+    assert "grid-template-columns" in css[css.index(".talks-content .cv-list>li{") :]
+    html = read_html(built_site, "presentations/index.html")
+    assert html.count("talk-body") == html.count("<svg role=") > 0
