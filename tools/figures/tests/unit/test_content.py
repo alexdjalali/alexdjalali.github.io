@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from figures.content import OrphanFigureError, post_slugs, post_titles, validate_registry
+from figures.content import OrphanFigureError, load_site, post_slugs, post_titles, validate_registry
 
 pytestmark = pytest.mark.unit
 
@@ -41,3 +41,14 @@ def test_titles_are_read_from_front_matter(tmp_path: Path) -> None:
     _post(tmp_path, "b.md", "title: Bare")
     _post(tmp_path, "c.md", "title: Draft\ndraft: true")
     assert post_titles(tmp_path) == {"a": "Quoted: yes", "b": "Bare"}
+
+
+def test_site_values_come_from_hugo_toml_and_a_missing_key_is_named(tmp_path: Path) -> None:
+    """``load_site`` returns title, host and definition, and names the key that is missing."""
+    (tmp_path / "hugo.toml").write_text(
+        'baseURL = "https://example.org/"\ntitle = "T"\n[params]\ndefinition = "D."\n', encoding="utf-8"
+    )
+    assert load_site(tmp_path) == ("T", "example.org", "D.")
+    (tmp_path / "hugo.toml").write_text('baseURL = "https://example.org/"\ntitle = "T"\n', encoding="utf-8")
+    with pytest.raises(ValueError, match="params.definition"):
+        load_site(tmp_path)

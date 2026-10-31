@@ -1,10 +1,12 @@
-"""Discover post slugs from ``content/posts`` and enforce registry coverage rules."""
+"""Read the site: post slugs and titles from ``content/posts``, site values from ``hugo.toml``."""
 
 from __future__ import annotations
 
 import re
+import tomllib
 from collections.abc import Iterable, Mapping
 from pathlib import Path
+from urllib.parse import urlparse
 
 _FRONT_MATTER = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 _DRAFT = re.compile(r"^draft:\s*true\s*$", re.MULTILINE)
@@ -45,3 +47,21 @@ def validate_registry(slugs: Iterable[str], registered: Mapping[str, object]) ->
     orphans = sorted(set(registered) - known)
     if orphans:
         raise OrphanFigureError(f"registered figures without a post: {', '.join(orphans)}")
+
+
+def load_site(root: Path) -> tuple[str, str, str]:
+    """Return the site ``title``, the ``baseURL`` host and ``params.definition`` from ``hugo.toml``.
+
+    Raises ``ValueError`` naming the first missing key, so a renamed key fails generation rather
+    than drawing a blank card.
+    """
+    config = tomllib.loads((root / "hugo.toml").read_text(encoding="utf-8"))
+    values = {
+        "title": config.get("title"),
+        "baseURL": urlparse(config.get("baseURL") or "").netloc,
+        "params.definition": config.get("params", {}).get("definition"),
+    }
+    missing = [key for key, value in values.items() if not value]
+    if missing:
+        raise ValueError(f"hugo.toml: missing {missing[0]}")
+    return values["title"], values["baseURL"], values["params.definition"]

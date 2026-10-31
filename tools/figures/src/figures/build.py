@@ -1,31 +1,30 @@
 """Render every figure, data file, social card and icon to its repo path; write them; report drift.
 
 The composition root of the generator: it loads the repo data, builds a ``FigureContext`` per
-figure, and returns ``{repo-relative path: content}`` — text for partials and data, bytes for the
-PNG cards and icons. I/O happens only in the loaders and in ``write`` / ``drift``.
+figure, and returns ``{repo-relative path: content}`` — text for partials and data, a ``Raster`` for
+the PNG cards and icons (drawn only when ``write`` finds it stale). I/O happens only in the
+loaders and in ``write`` / ``drift``.
 
-Rasters are compared by the SVG digest stamped into each PNG, not by bytes: resvg output can differ
-by a few pixels between CPUs, but a card drawn from a stale title or figure carries a stale digest.
+Rasters are compared by the digest (fonts, resvg version, SVG) stamped into each PNG, not by bytes:
+resvg output can differ by a few pixels between CPUs, but a stale card carries a stale digest.
 """
 
 from __future__ import annotations
 
 import html
 import json
-import tomllib
 from collections.abc import Mapping
 from dataclasses import replace
 from pathlib import Path
-from urllib.parse import urlparse
 
 import figures.posts  # noqa: F401  (importing registers the post builders)
 from figures import raster
 from figures.bib import load_entries, research_summary
-from figures.content import post_slugs, post_titles, validate_registry
+from figures.content import load_site, post_slugs, post_titles, validate_registry
 from figures.data import load_locations, load_timeline
 from figures.default import default_construction
 from figures.model import Figure, FigureContext
-from figures.pages import PAGE_FIGURES
+from figures.pages import CARD_FIGURES, PAGE_FIGURES
 from figures.registry import FigureBuilder, registered
 
 PARTIALS = Path("layouts/_partials/figures")
@@ -41,8 +40,6 @@ ICONS = {
     32: Path("static/images/favicon-32x32.png"),
     180: Path("static/images/apple-touch-icon.png"),
 }
-RASTER_FILES = (OG_DEFAULT, FAVICON_ICO, *ICONS.values())
-"""Fixed-name raster outputs (per-post cards live under ``OG_DIR``)."""
 
 
 def wrap(kind: str, key: str, figure: Figure) -> str:
@@ -56,16 +53,9 @@ def wrap(kind: str, key: str, figure: Figure) -> str:
     )
 
 
-def _site(root: Path) -> tuple[str, str, str]:
-    """Return the site title, host and ``params.definition`` from ``hugo.toml``."""
-    config = tomllib.loads((root / "hugo.toml").read_text(encoding="utf-8"))
-    host = urlparse(config.get("baseURL", "")).netloc
-    return config.get("title", ""), host, config.get("params", {}).get("definition", "")
-
-
 def _rasters(root: Path, post_figures: Mapping[str, Figure], definition: Figure) -> dict[Path, raster.Raster]:
     """Return the per-post social cards, the default card and the icons, not yet drawn."""
-    name, host, sentence = _site(root)
+    name, host, sentence = load_site(root)
     titles = post_titles(root / "content" / "posts")
     og = (raster.OG_SIZE,)
     out: dict[Path, raster.Raster] = {}
@@ -112,7 +102,8 @@ def render_all(root: Path, builders: Mapping[str, FigureBuilder] | None = None) 
         page_figures[page_key] = builder(replace(base, slug=key))
         out[PARTIALS / kind / f"{key}.html"] = wrap(kind, key, page_figures[page_key])
     out[RESEARCH_JSON] = json.dumps(research_summary(bib), indent=2, sort_keys=True) + "\n"
-    out.update(_rasters(root, post_figures, page_figures["pages/definition"]))
+    definition = CARD_FIGURES["definition"](replace(base, slug="definition"))
+    out.update(_rasters(root, post_figures, definition))
     return out
 
 

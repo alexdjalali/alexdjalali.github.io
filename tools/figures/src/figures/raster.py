@@ -1,19 +1,22 @@
 """Raster outputs drawn in the house style: per-post social cards, the default card, and favicons.
 
-Everything is SVG composed here and rendered to PNG with resvg, using only the IBM Plex fonts
-vendored in ``tools/figures/fonts`` (system fonts are skipped), so a card looks the same on every
-machine.
+Everything is SVG composed here and rendered to PNG with resvg, using only the fonts vendored in
+``tools/figures/fonts`` (IBM Plex, plus Noto Sans Math for logic symbols; system fonts are
+skipped), so a card looks the same on every machine. Each PNG carries a digest of what it was
+drawn from, so drift is detected without comparing pixels.
 """
 
 from __future__ import annotations
 
 import hashlib
 import html
+import importlib.metadata
 import re
 import struct
 import textwrap
 import zlib
 from dataclasses import dataclass
+from functools import cache
 from pathlib import Path
 
 import resvg_py
@@ -21,7 +24,7 @@ import resvg_py
 from figures.svg import K, R, W
 
 FONT_DIR = Path(__file__).resolve().parents[2] / "fonts"
-"""Vendored IBM Plex and Noto Sans Math TTFs (SIL OFL, see ``OFL.txt`` beside them)."""
+"""Vendored IBM Plex and Noto Sans Math TTFs (SIL OFL; ``OFL-IBMPlex.txt``, ``OFL-NotoSansMath.txt``)."""
 OG_SIZE = (1200, 630)
 """Open Graph card size in pixels."""
 ICON_SIZES = (16, 32, 180)
@@ -137,8 +140,19 @@ def ico(pngs: dict[int, bytes]) -> bytes:
     return head + entries + blobs
 
 
+@cache
+def renderer_fingerprint() -> str:
+    """Return a hash of the vendored fonts and the resvg version: everything besides the SVG."""
+    h = hashlib.sha256(importlib.metadata.version("resvg-py").encode())
+    for font in sorted(FONT_DIR.glob("*.ttf")):
+        h.update(font.name.encode() + font.read_bytes())
+    return h.hexdigest()
+
+
 def stamp(data: bytes, digest: str) -> bytes:
     """Return the PNG ``data`` with ``digest`` in a ``tEXt`` chunk right after ``IHDR``."""
+    if data[:8] != b"\x89PNG\r\n\x1a\n" or data[12:16] != b"IHDR":
+        raise ValueError("stamp: data is not a PNG starting with IHDR")
     body = _STAMP_KEY + b"\x00" + digest.encode("ascii")
     chunk = struct.pack(">I", len(body)) + b"tEXt" + body + struct.pack(">I", zlib.crc32(b"tEXt" + body))
     end_of_ihdr = 8 + 25
@@ -162,8 +176,8 @@ class Raster:
 
     @property
     def digest(self) -> str:
-        """Return the SHA-256 of the sizes and SVG: what the image was drawn from."""
-        return hashlib.sha256(f"{self.sizes}\n{self.svg}".encode()).hexdigest()
+        """Return the SHA-256 of the renderer, sizes and SVG: everything the image was drawn from."""
+        return hashlib.sha256(f"{renderer_fingerprint()}\n{self.sizes}\n{self.svg}".encode()).hexdigest()
 
     def render(self) -> bytes:
         """Draw the image, stamping the digest into every PNG it contains."""

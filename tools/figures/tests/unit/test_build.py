@@ -141,7 +141,7 @@ def test_editing_a_title_makes_its_card_drift(repo: Path) -> None:
 
 
 def test_every_figure_glyph_is_in_a_vendored_font(repo_root: Path) -> None:
-    """Cards render with the vendored fonts only, so every non-ASCII label character must be in one."""
+    """Every character in a figure label or a card (title, kicker, name, definition) has a vendored glyph."""
     from fontTools.ttLib import TTFont
 
     from figures.raster import FONT_DIR

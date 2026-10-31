@@ -99,7 +99,6 @@ PAGE_FIGURES: dict[str, FigureBuilder] = {
     "pages/ai-venn": c.ai_venn,
     "pages/not-found": c.not_found,
     "pages/scout": c.scout,
-    "pages/definition": c.definition,  # card-only: drawn into og-default.png, not placed on a page
     "talks/enforcing-engineering-discipline": c.ratchet,
     "talks/tiya-applied-ai": c.three_days,
     "projects/conversational-document-intelligence": c.nine_formats,
@@ -111,3 +110,6 @@ PAGE_FIGURES: dict[str, FigureBuilder] = {
     "projects/dissertation": c.comparative,
 }
 """Page figures keyed ``<kind>/<key>``, the path of the partial under ``figures/``."""
+
+CARD_FIGURES: dict[str, FigureBuilder] = {"definition": c.definition}
+"""Figures drawn only into social cards (``og-default.png``); no partial is written for them."""

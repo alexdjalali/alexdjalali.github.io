@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import struct
 
 import pytest
@@ -91,10 +92,24 @@ def test_raster_digest_tracks_its_source_and_is_stamped_into_every_image() -> No
     assert read_stamp(one.render()) == one.digest
     icon = Raster(mark_svg(), ((16, 16), (32, 32)))
     data = icon.render()
-    assert data[:4] == b"\x00\x00\x01\x00" and read_stamp(data) == icon.digest
+    assert data[:4] == b"\x00\x00\x01\x00" and data.count(icon.digest.encode()) == 2
 
 
 def test_title_is_wrapped_before_it_is_escaped() -> None:
     """Entities do not count toward the line width and are never split across lines."""
     svg = card_svg("K", "Q&A Q&A Q&A Q&A Q&A", '<svg class="fig" viewBox="0 0 1 1"></svg>', "n", "u", wrap=7)
-    assert svg.count("Q&amp;A") == 5 and "&amp\n" not in svg
+    lines = re.findall(r"<text[^>]*font-size=\"54\"[^>]*>(.*?)</text>", svg)
+    assert lines and all(line.endswith("Q&amp;A") for line in lines) and "…" not in svg
+
+
+def test_digest_covers_the_fonts_and_renderer(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Swapping a vendored font or the resvg version changes every raster's digest."""
+    before = Raster(mark_svg(), ((16, 16),)).digest
+    monkeypatch.setattr("figures.raster.renderer_fingerprint", lambda: "different")
+    assert Raster(mark_svg(), ((16, 16),)).digest != before
+
+
+def test_stamp_refuses_non_png_data() -> None:
+    """Stamping assumes a PNG signature and IHDR; anything else is an error, not silent corruption."""
+    with pytest.raises(ValueError, match="not a PNG"):
+        stamp(b"GIF89a" + b"\x00" * 40, "ab" * 32)

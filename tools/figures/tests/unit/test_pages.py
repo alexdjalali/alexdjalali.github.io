@@ -22,7 +22,6 @@ EXPECTED_KEYS = {
     "pages/ai-venn",
     "pages/not-found",
     "pages/scout",
-    "pages/definition",
     "talks/enforcing-engineering-discipline",
     "talks/tiya-applied-ai",
     "projects/conversational-document-intelligence",
