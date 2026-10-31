@@ -69,3 +69,10 @@ def test_display_headlines_are_capped_and_narrow_header_stays_compact(built_site
     narrow = _media_blocks(css, "47.99rem")
     assert ".site-header__right{display:contents}" in narrow
     assert ".books__num{display:none}" in narrow
+
+
+def test_resume_technology_logos_are_icon_sized(built_site: Path) -> None:
+    """The Resume's Technologies logos are capped at icon size, not drawn at the full prose width."""
+    assert read_html(built_site, "cv/index.html").count("tech-icon") > 0
+    rule = _rule(site_stylesheet(built_site), ".tech-icon img")
+    assert "width:2.25rem" in rule and "height:2.25rem" in rule
