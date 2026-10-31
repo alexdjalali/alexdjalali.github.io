@@ -11,6 +11,7 @@ images:
 ## Present
 
 <div class="project-card">
+  {{< construction "projects/conversational-document-intelligence" >}}
   <h2>Conversational Document Intelligence Platform</h2>
   <div class="project-tech-list">
     <span class="project-tech">Go</span>
@@ -32,6 +33,7 @@ images:
 </div>
 
 <div class="project-card">
+  {{< construction "projects/house-proceedings-corpus" >}}
   <h2>House Proceedings Corpus</h2>
   <div class="project-tech-list">
     <span class="project-tech">Python</span>
@@ -57,6 +59,7 @@ images:
 ## Past
 
 <div class="project-card">
+  {{< construction "projects/enterprise-search-ingestion" >}}
   <h2>Enterprise Search &amp; Ingestion Platform</h2>
   <div class="project-tech-list">
     <span class="project-tech">Python</span>
@@ -77,6 +80,7 @@ images:
 </div>
 
 <div class="project-card">
+  {{< construction "projects/perceptivepanda" >}}
   <h2>PerceptivePanda</h2>
   <div class="project-tech-list">
     <span class="project-tech">Python</span>
@@ -92,6 +96,7 @@ images:
 </div>
 
 <div class="project-card">
+  {{< construction "projects/cleargraph-ask-data" >}}
   <h2>ClearGraph / Tableau Ask Data</h2>
   <div class="project-tech-list">
     <span class="project-tech">NLP</span>
@@ -119,6 +124,7 @@ images:
 </div>
 
 <div class="project-card">
+  {{< construction "projects/poot" >}}
   <h2>Partial Order Optimality Theory</h2>
   <div class="project-tech-list">
     <span class="project-tech">Python</span>
@@ -135,6 +141,7 @@ images:
 </div>
 
 <div class="project-card">
+  {{< construction "projects/dissertation" >}}
   <h2>Doctoral Dissertation: On Adjectival Comparatives</h2>
   <div class="project-tech-list">
     <span class="project-tech">Formal Semantics</span>

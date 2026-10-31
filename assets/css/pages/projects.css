@@ -1,0 +1,28 @@
+/* Projects: Present / Past sections, each project a figure beside its text, alternating sides. */
+
+.projects-content { padding: 1rem 0 4rem; }
+.projects-content > h2 { margin: 3.5rem 0 1rem; padding-bottom: .5rem; border-bottom: 1px solid var(--black); font-size: clamp(2.25rem, 4vw, 3.25rem); font-weight: 200; }
+.projects-content > h2::before { content: "Book III. "; font-family: var(--font-label); font-size: .75rem; letter-spacing: .18em; text-transform: uppercase; color: var(--red); vertical-align: middle; }
+
+.projects-content .project-card {
+  display: grid; gap: 1.5rem 3rem; margin: 0; padding: 2.5rem 0;
+  border: 0; border-bottom: 1px solid var(--rule); border-radius: 0; box-shadow: none; background: none;
+}
+.projects-content .project-card > .fig-frame { align-self: start; }
+.projects-content .project-card h2 { margin: 0; padding: 0; border: 0; font-size: 1.875rem; font-weight: 300; line-height: 1.15; }
+.projects-content .project-card p { margin: 0; max-width: var(--measure); font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.65; color: var(--ink-2); }
+.projects-content .project-card a { border-bottom: 1px solid var(--red); }
+.projects-content .project-card > :not(.fig-frame) { grid-column: 1; }
+@media (min-width: 56rem) {
+  .projects-content .project-card { grid-template-columns: minmax(0, 24rem) minmax(0, 1fr); align-items: start; }
+  .projects-content .project-card > .fig-frame { grid-row: 1 / span 6; grid-column: 1; }
+  .projects-content .project-card > :not(.fig-frame) { grid-column: 2; }
+  .projects-content .project-card:nth-of-type(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 24rem); }
+  .projects-content .project-card:nth-of-type(even) > .fig-frame { grid-column: 2; }
+  .projects-content .project-card:nth-of-type(even) > :not(.fig-frame) { grid-column: 1; }
+}
+
+.project-tech-list { display: flex; flex-wrap: wrap; gap: .5rem; }
+.project-tech { padding: .25rem .625rem; border: 1px solid var(--black); font-family: var(--font-label); font-size: .6875rem; letter-spacing: .1em; text-transform: uppercase; }
+.read-more-btn { display: inline-flex; align-items: center; gap: .5rem; min-height: 2.75rem; padding: 0 1.25rem; border: 1px solid var(--black); font-family: var(--font-label); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; }
+.read-more-btn:hover { box-shadow: 4px 4px 0 var(--black); transform: translate(-2px, -2px); }

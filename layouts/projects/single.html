@@ -1,29 +1,11 @@
-{{ define "title" }}
-  {{ .Title }} · {{ .Site.Title }}
-{{ end }}
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
-  <section class="container page">
-    <article>
-      <header>
-        <h1 class="title">
-          <a class="title-link" href="{{ .Permalink | safeURL }}">
-            {{ .Title }}
-          </a>
-        </h1>
-      </header>
-
-      {{ .Content }}
-    </article>
-  </section>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@11.12.3/dist/mermaid.min.js"
-    integrity="sha256-cdxU5IF3m1Jt5eYVwusAyZ+lrLddqcVSTQLjM9L9qJo=" crossorigin="anonymous"></script>
-  <script>
-    (function() {
-      var body = document.body;
-      var dark = body.classList.contains('colorscheme-dark') ||
-        (body.classList.contains('colorscheme-auto') &&
-         window.matchMedia('(prefers-color-scheme: dark)').matches);
-      mermaid.initialize({ startOnLoad: true, theme: dark ? 'dark' : 'default' });
-    })();
-  </script>
+<section class="page-hero">
+  <p class="kicker">Book III.</p>
+  <h1 class="display">{{ partial "rise.html" "Projects: seven constructions, present and past." }}</h1>
+  {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+</section>
+<article class="projects-content">
+  {{ .Content }}
+</article>
 {{ end }}
