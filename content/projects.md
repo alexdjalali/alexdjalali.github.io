@@ -68,14 +68,26 @@ images:
     <span class="project-tech">Spark</span>
     <span class="project-tech">Databricks</span>
     <span class="project-tech">CLIP</span>
-    <span class="project-tech">S3</span>
     <span class="project-tech">Qdrant</span>
+    <span class="project-tech">Weaviate</span>
+    <span class="project-tech">S3</span>
+    <span class="project-tech">MinIO</span>
     <span class="project-tech">Redis</span>
     <span class="project-tech">GPU</span>
+    <span class="project-tech">Prometheus</span>
     <span class="project-tech">Docker</span>
   </div>
   <p>
-    A large-scale semantic search and image ingestion platform for enterprise workloads. The search API blends dense vector nearest-neighbor retrieval via Qdrant with keyword and metadata filters, delivering sub-200ms query latency. Circuit breakers, retry logic with exponential backoff, and Redis caching provide fault tolerance and graceful degradation. The ingestion engine moves images from S3 through CLIP embedding generation on distributed Ray/GPU clusters, processing over 400 million images in under 24 hours. Batch-level fault isolation, dead-letter tracking, and end-of-run reconciliation ensure zero-error completion across multi-million-image datasets. Full observability spans the pipeline via Prometheus and structured logging.
+    A large-scale semantic search and image ingestion platform built with <a href="https://www.inaturalist.org/" target="_blank" rel="noopener noreferrer">iNaturalist</a> and released as open source under the MIT license (<strong>iNatInq</strong>). I am its top contributor. It has two engines. The <strong>query engine</strong> embeds a text query with CLIP, checks a semantic cache, and runs dense nearest-neighbor retrieval in Qdrant (Weaviate is also supported) blended with keyword and metadata filters, delivering sub-200ms query latency. The <strong>ingestion engine</strong> lists images in S3, embeds them with CLIP on distributed Ray/GPU clusters (with Spark and Databricks pipelines alongside), and upserts the vectors to Qdrant, processing over 400 million images in under 24 hours.
+  </p>
+  <p>
+    Every external call is wrapped in retry with exponential backoff, circuit breakers, and rate limiting, so search degrades gracefully when a dependency fails. Ingestion is built to finish clean at scale: batch-level fault isolation, a dead-letter queue with reprocessing, checkpointing for resumable jobs, change data capture for incremental updates, and end-of-run reconciliation. Prometheus metrics cover clients, breakers, retries, cache, search, and ingestion, and all logs are structured.
+  </p>
+  <p>
+    Retrieval quality is measured, not assumed. A benchmark harness scores Precision@K, Recall@K, NDCG@K, MAP@K, and MRR, along with p50/p95 latency and throughput, against the <a href="https://arxiv.org/abs/2411.02537" target="_blank" rel="noopener noreferrer">INQUIRE</a> text-to-image retrieval benchmark (Vendrow et al., NeurIPS 2024). INQUIRE pairs 250 expert-level natural-world queries with iNat24, a dataset of five million iNaturalist images. The same harness compares vector-database providers and four quantization profiles (float32, scalar, scalar with rescoring, and binary with rescoring).
+  </p>
+  <p>
+    <a href="https://github.com/inaturalist/Inquire-vector-search" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> View on GitHub</a>
   </p>
 </div>
 
