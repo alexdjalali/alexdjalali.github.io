@@ -3,11 +3,23 @@
 from __future__ import annotations
 
 import struct
-from pathlib import Path
 
 import pytest
 
-from figures.raster import ICON_SIZES, OG_SIZE, card_svg, flatten, ico, mark_svg, png, wrap_title
+from figures.raster import (
+    FONT_DIR,
+    ICON_SIZES,
+    OG_SIZE,
+    Raster,
+    card_svg,
+    flatten,
+    ico,
+    mark_svg,
+    png,
+    read_stamp,
+    stamp,
+    wrap_title,
+)
 
 pytestmark = pytest.mark.unit
 
@@ -30,8 +42,8 @@ def test_card_renders_at_social_card_size() -> None:
     """A card with a figure and a title renders as a 1200x630 PNG."""
     fig = '<svg class="fig" viewBox="0 0 100 100" style="aspect-ratio: 1"><circle cx="50" cy="50" r="30"/>'
     fig += "</svg>"
-    svg = card_svg("Book I · Writing", "A title &amp; more", fig)
-    assert "A title &amp; more" in svg
+    svg = card_svg("Book I · Writing", "A title & more", fig, "a.j.djalali", "example.org")
+    assert "A title &amp; more" in svg and "EXAMPLE.ORG" in svg
     assert _png_size(png(svg, *OG_SIZE)) == OG_SIZE
 
 
@@ -48,8 +60,7 @@ def test_mark_and_icon_container() -> None:
 
 def test_fonts_are_vendored() -> None:
     """The raster fonts ship with the generator, so cards render the same on every machine."""
-    fonts = Path(__file__).resolve().parents[2] / "fonts"
-    assert {p.name for p in fonts.glob("*.ttf")} >= {
+    assert {p.name for p in FONT_DIR.glob("*.ttf")} >= {
         "IBMPlexSans-Light.ttf",
         "IBMPlexSerif-Italic.ttf",
         "IBMPlexMono-Regular.ttf",
@@ -63,3 +74,27 @@ def test_flatten_drops_halos_and_filter_references() -> None:
         '<g filter="url(#wc)" opacity="0.9"><rect fill="#D62718"></rect></g>'
     )
     assert flatten(fig) == '<g opacity="0.9"><rect fill="#D62718"></rect></g>'
+
+
+def test_stamp_round_trips_and_keeps_the_png_valid() -> None:
+    """A digest stamped into a PNG reads back, and the image still decodes to the same size."""
+    data = stamp(png(mark_svg(), 16, 16), "ab" * 32)
+    assert read_stamp(data) == "ab" * 32
+    assert _png_size(data) == (16, 16)
+    assert read_stamp(png(mark_svg(), 16, 16)) is None
+
+
+def test_raster_digest_tracks_its_source_and_is_stamped_into_every_image() -> None:
+    """The digest changes with the SVG; single PNGs and each PNG inside an ICO carry it."""
+    one, other = Raster(mark_svg(), ((16, 16),)), Raster(mark_svg() + " ", ((16, 16),))
+    assert one.digest != other.digest
+    assert read_stamp(one.render()) == one.digest
+    icon = Raster(mark_svg(), ((16, 16), (32, 32)))
+    data = icon.render()
+    assert data[:4] == b"\x00\x00\x01\x00" and read_stamp(data) == icon.digest
+
+
+def test_title_is_wrapped_before_it_is_escaped() -> None:
+    """Entities do not count toward the line width and are never split across lines."""
+    svg = card_svg("K", "Q&A Q&A Q&A Q&A Q&A", '<svg class="fig" viewBox="0 0 1 1"></svg>', "n", "u", wrap=7)
+    assert svg.count("Q&amp;A") == 5 and "&amp\n" not in svg

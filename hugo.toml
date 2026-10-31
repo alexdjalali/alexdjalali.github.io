@@ -42,6 +42,7 @@ inline = [["$", "$"], ["\\(", "\\)"]]
   priority = 0.5
 
 [params]
+definition = "A blog is a set of propositions about language, machines, and the systems between them."
 author = "a.j.djalali+claude"
 displayName = "a.j.djalali"
 description = "a.j.djalali's personal blog"

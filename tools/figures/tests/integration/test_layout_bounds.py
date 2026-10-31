@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from figures.content import post_slugs
 from tests.helpers import read_html, site_stylesheet
 
 pytestmark = pytest.mark.integration
@@ -51,10 +52,10 @@ def test_no_compass_ring_overflows_the_hero_figures(built_site: Path) -> None:
 
 def test_posts_share_their_generated_card_and_no_ai_image_remains(built_site: Path, repo_root: Path) -> None:
     """Every post's social image is its generated card, and the retired AI images are gone."""
-    for md in sorted((repo_root / "content" / "posts").glob("*.md")):
-        html = read_html(built_site, f"posts/{md.stem}/index.html")
-        assert f"images/og/{md.stem}.png" in html, md.stem
-        assert (repo_root / "static" / "images" / "og" / f"{md.stem}.png").exists()
+    for slug in post_slugs(repo_root / "content" / "posts"):
+        html = read_html(built_site, f"posts/{slug}/index.html")
+        assert f"images/og/{slug}.png" in html, slug
+        assert (repo_root / "static" / "images" / "og" / f"{slug}.png").exists()
         assert "images/posts/" not in html
     retired = ["headshot.png", "suspenders.png", "motorcyle.jpeg", "posts"]
     assert [n for n in retired if (repo_root / "static" / "images" / n).exists()] == []

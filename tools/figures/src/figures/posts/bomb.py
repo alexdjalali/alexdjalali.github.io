@@ -25,6 +25,8 @@ def bomb(_ctx: FigureContext) -> Figure:
             for i, p in enumerate(rows[lv]):
                 f.line(p, rows[lv + 1][2 * i], dt=0.02).line(p, rows[lv + 1][2 * i + 1], dt=0.02)
     f.wash(f'<ellipse cx="50" cy="80" rx="44" ry="7" fill="{R}"></ellipse>', 0.55)
-    f.text(58, 15, "1 skeptic", 3.4, "start").text(92, 9, "2ⁿ", 4.4, "end")
+    f.text(58, 15, "1 skeptic", 3.4, "start").text(
+        92, 9, '2<tspan font-size="2.8" dy="-1.6">n</tspan>', 4.4, "end"
+    )
     caption = "A binary tree that doubles at each of five levels, from one skeptic to a chain reaction"
     return Figure(svg=f.svg(), caption=caption)

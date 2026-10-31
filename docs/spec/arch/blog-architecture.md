@@ -10,7 +10,7 @@ graph TD
         C["content/search/_index.md<br/>(search page)"]
         D["content/ai-disclaimer.md"]
         E["static/bib/*.bib<br/>(45 BibTeX files)"]
-        F["static/images/<br/>(headshot, logos, hero images)"]
+        F["static/images/<br/>(portrait, logos, generated social cards and icons)"]
     end
 
     subgraph "Configuration"

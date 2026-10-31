@@ -115,7 +115,7 @@ Former Software Architect & Principal Engineer (Salesforce & Tableau)
 </div>
 
 </div>
-<img src="../static/images/suspenders.png" style="height: 250px; border-radius: 12px;" />
+<img src="../static/images/portrait.png" style="height: 250px; border-radius: 12px;" />
 </div>
 
 <!-- Speaker notes:

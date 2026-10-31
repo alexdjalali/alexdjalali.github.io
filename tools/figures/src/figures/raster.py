@@ -7,9 +7,13 @@ machine.
 
 from __future__ import annotations
 
+import hashlib
+import html
 import re
 import struct
 import textwrap
+import zlib
+from dataclasses import dataclass
 from pathlib import Path
 
 import resvg_py
@@ -17,12 +21,12 @@ import resvg_py
 from figures.svg import K, R, W
 
 FONT_DIR = Path(__file__).resolve().parents[2] / "fonts"
-"""Vendored IBM Plex TTFs (SIL OFL, see ``OFL.txt`` beside them)."""
+"""Vendored IBM Plex and Noto Sans Math TTFs (SIL OFL, see ``OFL.txt`` beside them)."""
 OG_SIZE = (1200, 630)
 """Open Graph card size in pixels."""
 ICON_SIZES = (16, 32, 180)
 """Favicon sizes: two for ``favicon.ico`` and the browser tab, 180 for the apple-touch icon."""
-SITE_URL = "ALEXDJALALI.GITHUB.IO"
+_STAMP_KEY = b"figures-digest"
 
 _SANS = 'font-family="IBM Plex Sans" font-weight="300"'
 _MONO = 'font-family="IBM Plex Mono"'
@@ -33,6 +37,8 @@ _FILTER_REF = re.compile(r' filter="url\(#[a-z]+\)"')
 
 def png(svg: str, width: int, height: int) -> bytes:
     """Render ``svg`` to PNG bytes at ``width`` x ``height`` with the vendored fonts only."""
+    if not any(FONT_DIR.glob("*.ttf")):
+        raise FileNotFoundError(f"no vendored fonts in {FONT_DIR}; cards would render without text")
     return bytes(
         resvg_py.svg_to_bytes(
             svg_string=svg,
@@ -75,13 +81,16 @@ def _place(fig_svg: str, x: float, y: float, size: float) -> str:
     return head + flatten(fig_svg[match.end() :])
 
 
-def card_svg(kicker: str, title: str, fig_svg: str, size: int = 54, wrap: int = 19) -> str:
+def card_svg(
+    kicker: str, title: str, fig_svg: str, site_name: str, site_url: str, size: int = 54, wrap: int = 19
+) -> str:
     """Return a 1200x630 card: mark and name, kicker, wrapped title, and the figure in a frame.
 
-    ``title`` must already be SVG-safe (``&amp;`` for ``&``).
+    ``kicker``, ``title``, ``site_name`` and ``site_url`` are plain text; they are escaped here,
+    after wrapping, so entities never count toward or split across a line.
     """
     w, h = OG_SIZE
-    lines = wrap_title(title, wrap)
+    lines = [html.escape(line) for line in wrap_title(title, wrap)]
     lead = size * 1.18
     top = 300 - (len(lines) - 1) * lead / 2
     text = "".join(
@@ -94,10 +103,11 @@ def card_svg(kicker: str, title: str, fig_svg: str, size: int = 54, wrap: int = 
         f'<rect x="24" y="24" width="{w - 48}" height="{h - 48}" fill="none" '
         f'stroke="{K}" stroke-width="1.5"/>'
         f'<polygon points="72,108 108,108 72,72" fill="{R}"/>'
-        f'<text x="124" y="104" font-size="34" {_SANS} fill="{K}">a.j.djalali</text>'
+        f'<text x="124" y="104" font-size="34" {_SANS} fill="{K}">{html.escape(site_name)}</text>'
         f'<text x="72" y="{top - lead + 6:.1f}" font-size="18" {_MONO} letter-spacing="3" fill="{R}">'
-        f"{kicker.upper()}</text>{text}"
-        f'<text x="72" y="566" font-size="16" {_MONO} letter-spacing="3" fill="{K}">{SITE_URL}</text>'
+        f"{html.escape(kicker.upper())}</text>{text}"
+        f'<text x="72" y="566" font-size="16" {_MONO} letter-spacing="3" fill="{K}">'
+        f"{html.escape(site_url.upper())}</text>"
         f'<rect x="660" y="65" width="500" height="500" fill="{W}" stroke="{K}" stroke-width="1.5"/>'
         f"{_place(fig_svg, 660, 65, 500)}</svg>"
     )
@@ -125,3 +135,39 @@ def ico(pngs: dict[int, bytes]) -> bytes:
         blobs += data
         offset += len(data)
     return head + entries + blobs
+
+
+def stamp(data: bytes, digest: str) -> bytes:
+    """Return the PNG ``data`` with ``digest`` in a ``tEXt`` chunk right after ``IHDR``."""
+    body = _STAMP_KEY + b"\x00" + digest.encode("ascii")
+    chunk = struct.pack(">I", len(body)) + b"tEXt" + body + struct.pack(">I", zlib.crc32(b"tEXt" + body))
+    end_of_ihdr = 8 + 25
+    return data[:end_of_ihdr] + chunk + data[end_of_ihdr:]
+
+
+def read_stamp(data: bytes) -> str | None:
+    """Return the digest stamped into PNG (or ICO-embedded PNG) ``data``, or ``None``."""
+    match = re.search(rb"tEXt" + re.escape(_STAMP_KEY) + rb"\x00([0-9a-f]{64})", data)
+    return match.group(1).decode("ascii") if match else None
+
+
+@dataclass(frozen=True, slots=True)
+class Raster:
+    """An SVG to draw at one size (a PNG) or several square sizes (an ICO)."""
+
+    svg: str
+    """The complete SVG document."""
+    sizes: tuple[tuple[int, int], ...]
+    """Pixel sizes; more than one packs square PNGs into an ICO."""
+
+    @property
+    def digest(self) -> str:
+        """Return the SHA-256 of the sizes and SVG: what the image was drawn from."""
+        return hashlib.sha256(f"{self.sizes}\n{self.svg}".encode()).hexdigest()
+
+    def render(self) -> bytes:
+        """Draw the image, stamping the digest into every PNG it contains."""
+        pngs = [stamp(png(self.svg, w, h), self.digest) for w, h in self.sizes]
+        if len(pngs) == 1:
+            return pngs[0]
+        return ico({w: data for (w, _), data in zip(self.sizes, pngs, strict=True)})

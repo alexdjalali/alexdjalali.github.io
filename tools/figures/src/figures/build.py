@@ -4,17 +4,19 @@ The composition root of the generator: it loads the repo data, builds a ``Figure
 figure, and returns ``{repo-relative path: content}`` — text for partials and data, bytes for the
 PNG cards and icons. I/O happens only in the loaders and in ``write`` / ``drift``.
 
-Raster drift is checked by presence, not bytes: the text partials are the reviewed source, and PNG
-bytes may differ by a few pixels between resvg builds on different CPUs.
+Rasters are compared by the SVG digest stamped into each PNG, not by bytes: resvg output can differ
+by a few pixels between CPUs, but a card drawn from a stale title or figure carries a stale digest.
 """
 
 from __future__ import annotations
 
 import html
 import json
+import tomllib
 from collections.abc import Mapping
 from dataclasses import replace
 from pathlib import Path
+from urllib.parse import urlparse
 
 import figures.posts  # noqa: F401  (importing registers the post builders)
 from figures import raster
@@ -41,7 +43,6 @@ ICONS = {
 }
 RASTER_FILES = (OG_DEFAULT, FAVICON_ICO, *ICONS.values())
 """Fixed-name raster outputs (per-post cards live under ``OG_DIR``)."""
-_DEFINITION = "A blog is a set of propositions about language, machines, and the systems between them."
 
 
 def wrap(kind: str, key: str, figure: Figure) -> str:
@@ -55,23 +56,36 @@ def wrap(kind: str, key: str, figure: Figure) -> str:
     )
 
 
-def _rasters(root: Path, post_figures: Mapping[str, Figure], definition: Figure) -> dict[Path, bytes]:
-    """Return the per-post social cards, the default card and the icons as PNG/ICO bytes."""
+def _site(root: Path) -> tuple[str, str, str]:
+    """Return the site title, host and ``params.definition`` from ``hugo.toml``."""
+    config = tomllib.loads((root / "hugo.toml").read_text(encoding="utf-8"))
+    host = urlparse(config.get("baseURL", "")).netloc
+    return config.get("title", ""), host, config.get("params", {}).get("definition", "")
+
+
+def _rasters(root: Path, post_figures: Mapping[str, Figure], definition: Figure) -> dict[Path, raster.Raster]:
+    """Return the per-post social cards, the default card and the icons, not yet drawn."""
+    name, host, sentence = _site(root)
     titles = post_titles(root / "content" / "posts")
-    out: dict[Path, bytes] = {}
+    og = (raster.OG_SIZE,)
+    out: dict[Path, raster.Raster] = {}
     for slug, fig in post_figures.items():
-        svg = raster.card_svg("Book I · Writing", html.escape(titles.get(slug, slug)), fig.svg)
-        out[OG_DIR / f"{slug}.png"] = raster.png(svg, *raster.OG_SIZE)
-    card = raster.card_svg("Definition 1.", _DEFINITION, definition.svg, size=42, wrap=26)
-    out[OG_DEFAULT] = raster.png(card, *raster.OG_SIZE)
-    icons = {s: raster.png(raster.mark_svg(), s, s) for s in raster.ICON_SIZES}
-    out.update({ICONS[s]: data for s, data in icons.items()})
-    out[FAVICON_ICO] = raster.ico({s: icons[s] for s in (16, 32)})
+        card = raster.card_svg("Book I · Writing", titles.get(slug, slug), fig.svg, name, host)
+        out[OG_DIR / f"{slug}.png"] = raster.Raster(card, og)
+    card = raster.card_svg("Definition 1.", sentence, definition.svg, name, host, size=42, wrap=26)
+    out[OG_DEFAULT] = raster.Raster(card, og)
+    mark = raster.mark_svg()
+    out.update({path: raster.Raster(mark, ((s, s),)) for s, path in ICONS.items()})
+    out[FAVICON_ICO] = raster.Raster(mark, ((16, 16), (32, 32)))
     return out
 
 
-def render_all(root: Path, builders: Mapping[str, FigureBuilder] | None = None) -> dict[Path, str | bytes]:
-    """Return every generated file as ``{repo-relative path: content}`` (text, or bytes for rasters).
+Output = str | raster.Raster
+"""A generated file's content: text, or a raster drawn on write."""
+
+
+def render_all(root: Path, builders: Mapping[str, FigureBuilder] | None = None) -> dict[Path, Output]:
+    """Return every generated file as ``{repo-relative path: content}`` (text, or a ``Raster``).
 
     ``builders`` defaults to the registry; raises ``OrphanFigureError`` for a registered slug
     that has no post.
@@ -86,7 +100,7 @@ def render_all(root: Path, builders: Mapping[str, FigureBuilder] | None = None) 
         locations=tuple(load_locations(root / "data" / "locations.json")),
         timeline=tuple(load_timeline(root / "data" / "timeline.json")),
     )
-    out: dict[Path, str | bytes] = {}
+    out: dict[Path, Output] = {}
     post_figures: dict[str, Figure] = {}
     for slug in slugs:
         builder = registry.get(slug) or default_construction(slug)
@@ -102,19 +116,19 @@ def render_all(root: Path, builders: Mapping[str, FigureBuilder] | None = None) 
     return out
 
 
-def _stale(root: Path, expected: Mapping[Path, str | bytes]) -> list[Path]:
+def _stale(root: Path, expected: Mapping[Path, Output]) -> list[Path]:
     """Return generated-looking files (figure partials, social cards) that nothing produces."""
     found = [p.relative_to(root) for kind in KINDS for p in sorted((root / PARTIALS / kind).glob("*.html"))]
     found += [p.relative_to(root) for p in sorted((root / OG_DIR).glob("*.png"))]
     return [p for p in found if p not in expected]
 
 
-def _matches(path: Path, content: str | bytes) -> bool:
-    """Return whether ``path`` holds ``content``; a raster only has to exist (see module doc)."""
+def _matches(path: Path, content: Output) -> bool:
+    """Return whether ``path`` holds ``content``; a raster matches on its stamped digest."""
     if not path.exists():
         return False
-    if isinstance(content, bytes):
-        return True
+    if isinstance(content, raster.Raster):
+        return raster.read_stamp(path.read_bytes()) == content.digest
     return path.read_text(encoding="utf-8") == content
 
 
@@ -124,16 +138,11 @@ def write(root: Path) -> list[Path]:
     changed: list[Path] = []
     for rel, content in expected.items():
         path = root / rel
-        if isinstance(content, bytes):
-            if path.exists() and path.read_bytes() == content:
-                continue
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_bytes(content)
-        else:
-            if path.exists() and path.read_text(encoding="utf-8") == content:
-                continue
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(content, encoding="utf-8")
+        if _matches(path, content):
+            continue
+        path.parent.mkdir(parents=True, exist_ok=True)
+        data = content.render() if isinstance(content, raster.Raster) else content.encode("utf-8")
+        path.write_bytes(data)
         changed.append(rel)
     for rel in _stale(root, expected):
         (root / rel).unlink()

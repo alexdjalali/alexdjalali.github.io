@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import html
 import json
 import re
 from pathlib import Path
@@ -21,7 +22,10 @@ BIB = "@article{a2020x,\n  title = {T},\n  author = {A},\n  journal = {J},\n  ye
 @pytest.fixture
 def repo(tmp_path: Path) -> Path:
     """Build a minimal repo skeleton: posts (one a draft), one bib file, and the data files."""
-    (tmp_path / "hugo.toml").write_text("", encoding="utf-8")
+    (tmp_path / "hugo.toml").write_text(
+        'baseURL = "https://example.org/"\ntitle = "site"\n[params]\ndefinition = "A test site."\n',
+        encoding="utf-8",
+    )
     posts = tmp_path / "content" / "posts"
     posts.mkdir(parents=True)
     (posts / "alpha.md").write_text("---\ntitle: A\n---\nx\n", encoding="utf-8")
@@ -61,7 +65,7 @@ def test_check_is_clean_after_generate_and_names_an_edited_file(repo: Path) -> N
     cli.main(["generate", "--root", str(repo)])
     assert cli.main(["check", "--root", str(repo)]) == 0
     target = repo / build.PARTIALS / "posts" / "alpha.html"
-    target.write_text(target.read_text(encoding="utf-8") + "<!-- hand edit -->")
+    target.write_text(target.read_text(encoding="utf-8") + "<!-- hand edit -->", encoding="utf-8")
     assert build.drift(repo) == [build.PARTIALS / "posts" / "alpha.html"]
     assert cli.main(["check", "--root", str(repo)]) == 1
 
@@ -111,8 +115,9 @@ def test_generate_writes_social_cards_and_icons(repo: Path) -> None:
     cli.main(["generate", "--root", str(repo)])
     cards = {p.name for p in (repo / build.OG_DIR).glob("*.png")}
     assert {"alpha.png", "beta.png"} <= cards and "wip.png" not in cards
-    for rel in build.RASTER_FILES:
-        assert (repo / rel).read_bytes()[:4] in (b"\x89PNG", b"\x00\x00\x01\x00")
+    assert (repo / build.FAVICON_ICO).read_bytes()[:4] == b"\x00\x00\x01\x00"
+    for rel in (build.OG_DEFAULT, *build.ICONS.values()):
+        assert (repo / rel).read_bytes()[:4] == b"\x89PNG"
 
 
 def test_deleted_post_makes_its_card_stale(repo: Path) -> None:
@@ -123,3 +128,34 @@ def test_deleted_post_makes_its_card_stale(repo: Path) -> None:
     cli.main(["generate", "--root", str(repo)])
     (repo / build.OG_DIR / "alpha.png").unlink()
     assert build.drift(repo) == [build.OG_DIR / "alpha.png"]
+
+
+def test_editing_a_title_makes_its_card_drift(repo: Path) -> None:
+    """A card is in sync only while it was drawn from the current title and figure."""
+    cli.main(["generate", "--root", str(repo)])
+    post = repo / "content" / "posts" / "alpha.md"
+    post.write_text("---\ntitle: A renamed post\n---\nx\n", encoding="utf-8")
+    assert build.drift(repo) == [build.OG_DIR / "alpha.png"]
+    assert cli.main(["generate", "--root", str(repo)]) == 0
+    assert build.drift(repo) == []
+
+
+def test_every_figure_glyph_is_in_a_vendored_font(repo_root: Path) -> None:
+    """Cards render with the vendored fonts only, so every non-ASCII label character must be in one."""
+    from fontTools.ttLib import TTFont
+
+    from figures.raster import FONT_DIR
+
+    covered: set[int] = set()
+    for font in FONT_DIR.glob("*.ttf"):
+        covered |= set(TTFont(font).getBestCmap() or {})
+    labels = [
+        html.unescape(t)
+        for content in build.render_all(repo_root).values()
+        if isinstance(content, str)
+        for t in re.findall(r"<text[^>]*>(.*?)</text>", content)
+    ]
+    missing = sorted(
+        {ch for label in labels for ch in re.sub(r"<[^>]+>", "", label) if ord(ch) not in covered}
+    )
+    assert missing == []
