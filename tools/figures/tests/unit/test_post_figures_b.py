@@ -7,7 +7,7 @@ import re
 import pytest
 
 from figures.model import FigureContext
-from figures.posts import anatomy, bomb, course, decorators, devenv, layers, montague
+from figures.posts import anatomy, bomb, course, decorators, devenv, layers, montague, query_core
 from figures.svg import K
 
 pytestmark = pytest.mark.unit
@@ -45,6 +45,17 @@ def test_decorators_draws_the_four_rings() -> None:
         assert name in svg
 
 
+def test_query_core_folds_one_tree_into_every_target() -> None:
+    """One filter tree (three leaf clauses) folds into each labelled target: SQL, CQL and a chart."""
+    svg = query_core.query_core(CTX).svg
+    assert query_core.TARGETS == ("SQL", "CQL", "chart")
+    for target in query_core.TARGETS:
+        assert f">{target}<" in svg
+    for leaf in query_core.LEAVES:
+        assert leaf in svg
+    assert len(query_core.LEAVES) == 3
+
+
 def test_bomb_doubles_each_level() -> None:
     """1 + 2 + 4 + 8 + 16 nodes in the five-level tree."""
     svg = bomb.bomb(CTX).svg
@@ -61,6 +72,7 @@ def test_bomb_doubles_each_level() -> None:
         devenv.devenv,
         layers.layers,
         montague.montague,
+        query_core.query_core,
     ],
 )
 def test_figures_are_deterministic_and_captioned(builder) -> None:

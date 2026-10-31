@@ -11,5 +11,6 @@ from figures.posts import (  # noqa: F401
     layers,
     montague,
     patterns,
+    query_core,
     six_months,
 )
