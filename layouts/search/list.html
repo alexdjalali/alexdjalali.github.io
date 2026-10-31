@@ -1,23 +1,18 @@
-{{ define "title" }}
-  Search · {{ .Site.Title }}
-{{ end }}
+{{ define "title" }}Search · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
-  <section class="container page">
-    <article>
-      <header>
-        <div class="post-title">
-          <h1 class="title">Search</h1>
-        </div>
-      </header>
-      <div class="search-container">
-        <div class="search-input-wrap">
-          <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
-          <input type="search" class="search-input" id="search-input"
-            placeholder="Search posts..." aria-label="Search posts"
-            data-index="{{ "index.json" | relURL }}">
-        </div>
-        <ul class="search-results" id="search-results"></ul>
-      </div>
-    </article>
-  </section>
+<section class="search-page">
+  <p class="kicker">Search.</p>
+  <h1 class="visually-hidden">Search</h1>
+  <div class="search-container">
+    <label for="search-input" class="label search-label">Find a proposition</label>
+    <div class="search-input-wrap">
+      <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+      <input type="search" class="search-input" id="search-input"
+        placeholder="Search posts..." aria-label="Search posts"
+        data-index="{{ "index.json" | relURL }}">
+    </div>
+    <ul class="search-results" id="search-results" aria-live="polite"></ul>
+    <p class="label search-hint">Searches titles, descriptions, tags and full text</p>
+  </div>
+</section>
 {{ end }}

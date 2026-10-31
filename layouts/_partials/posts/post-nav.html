@@ -1,15 +1,24 @@
+{{- /* Previous and next propositions by date. */ -}}
 {{ if or .PrevInSection .NextInSection }}
-<nav class="post-nav" aria-label="Post navigation">
+<nav class="post-nav" aria-label="More propositions">
   {{ with .PrevInSection }}
-  <a class="post-nav-link prev" href="{{ .Permalink }}">
-    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Previous
+  <a class="card post-nav-link prev" href="{{ .Permalink }}">
+    <span class="frame post-nav-fig">{{ partial "figure.html" (dict "kind" "posts" "key" .File.ContentBaseName) }}</span>
+    <span>
+      <span class="label post-nav-dir">← Proposition {{ partial "numeral.html" . }}.</span>
+      <span class="ttl post-nav-title">{{ .Title }}</span>
+    </span>
   </a>
   {{ else }}
   <span></span>
   {{ end }}
   {{ with .NextInSection }}
-  <a class="post-nav-link next" href="{{ .Permalink }}">
-    Next <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+  <a class="card post-nav-link next" href="{{ .Permalink }}">
+    <span class="frame post-nav-fig">{{ partial "figure.html" (dict "kind" "posts" "key" .File.ContentBaseName) }}</span>
+    <span>
+      <span class="label post-nav-dir">Next Proposition {{ partial "numeral.html" . }}. →</span>
+      <span class="ttl post-nav-title">{{ .Title }}</span>
+    </span>
   </a>
   {{ else }}
   <span></span>

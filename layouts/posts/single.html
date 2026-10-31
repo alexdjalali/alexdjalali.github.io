@@ -1,83 +1,63 @@
-{{ define "title" }}
-  {{ .Title }} · {{ .Site.Title }}
-{{ end }}
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
-  <div class="reading-progress" id="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-  <section class="container post">
-    <article>
-      <header>
-        <div class="post-title">
-          <h1 class="title">
-            <a class="title-link" href="{{ .Permalink | safeURL }}">
-              {{ .Title }}
-            </a>
-          </h1>
-        </div>
-        <div class="post-meta">
-          <div class="date">
-            <span class="posted-on">
-              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
-              <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
-                {{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}
-              </time>
-            </span>
-            {{ if gt .Lastmod.Unix .Date.Unix }}
-            <span class="last-updated">
-              <i class="fa-solid fa-pen" aria-hidden="true"></i>
-              Updated <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
-                {{ .Lastmod | time.Format (.Site.Params.dateFormat | default "January 2, 2006") }}
-              </time>
-            </span>
-            {{ end }}
-            <span class="reading-time">
-              <i class="fa-solid fa-clock" aria-hidden="true"></i>
-              {{ i18n "reading_time" .ReadingTime }}
-            </span>
-            {{ if eq .Params.claude false }}
-            <span class="claude-badge claude-badge-no">
-              <i class="fa-solid fa-robot" aria-hidden="true"></i> AI
-            </span>
-            {{ else }}
-            <span class="claude-badge claude-badge-yes">
-              <i class="fa-solid fa-robot" aria-hidden="true"></i> AI
-            </span>
-            {{ end }}
-          </div>
-          {{ with .GetTerms "authors" }}{{ partial "taxonomy/authors.html" . }}{{ end }}
-          {{ with .GetTerms "categories" }}{{ partial "taxonomy/categories.html" . }}{{ end }}
-          {{ with .GetTerms "tags" }}{{ partial "taxonomy/tags.html" . }}{{ end }}
-        </div>
-      </header>
-
-      {{ if .TableOfContents }}
-      <aside class="toc">
-        <details>
-          <summary>Table of Contents</summary>
-          <nav>
-            {{ .TableOfContents }}
-          </nav>
-        </details>
-      </aside>
-      {{ end }}
-
-      <div class="post-content">
-        {{ if .Params.featuredImage }}
-          <img src="{{ .Params.featuredImage | relURL }}" alt="{{ .Title }}" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 720px" width="1168" height="784" style="width:100%;height:auto;"/>
+{{- $numeral := partial "numeral.html" . -}}
+<div class="reading-progress" id="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+<article class="article">
+  <header class="article-hero">
+    <div class="article-hero__fig">
+      {{ partial "compass.html" . }}
+      <div class="frame">{{ partial "figure.html" (dict "kind" "posts" "key" .File.ContentBaseName) }}</div>
+    </div>
+    <div class="article-hero__text">
+      <p class="kicker">Book I. · Proposition {{ $numeral }}.</p>
+      <h1 class="display">{{ partial "rise.html" .Title }}</h1>
+      {{ with .Description }}<p class="lede"><em>To prove:</em> {{ . }}</p>{{ end }}
+      <div class="article-meta label">
+        <span>Given:</span>
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006") }}</time>
+        {{ if gt .Lastmod.Unix .Date.Unix }}
+        <span class="last-updated"><i class="fa-solid fa-pen" aria-hidden="true"></i> Updated <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Lastmod | time.Format (.Site.Params.dateFormat | default "January 2, 2006") }}</time></span>
         {{ end }}
-        {{ .Content }}
+        <span class="reading-time"><i class="fa-solid fa-clock" aria-hidden="true"></i> {{ i18n "reading_time" .ReadingTime }}</span>
+        {{ if eq .Params.claude false }}
+        <span class="claude-badge claude-badge-no" tabindex="0"><i class="fa-solid fa-robot" aria-hidden="true"></i> no AI</span>
+        {{ else }}
+        <span class="claude-badge claude-badge-yes" tabindex="0"><i class="fa-solid fa-robot" aria-hidden="true"></i> AI-assisted</span>
+        {{ end }}
       </div>
+      <div class="article-terms">
+        {{ with .GetTerms "authors" }}{{ partial "taxonomy/authors.html" . }}{{ end }}
+        {{ with .GetTerms "categories" }}{{ partial "taxonomy/categories.html" . }}{{ end }}
+        {{ with .GetTerms "tags" }}{{ partial "taxonomy/tags.html" . }}{{ end }}
+      </div>
+    </div>
+  </header>
 
-      {{ partial "posts/share.html" . }}
-      {{ partial "posts/related.html" . }}
-      {{ partial "posts/author-bio.html" . }}
-      {{ partial "posts/post-nav.html" . }}
+  <div class="article-body">
+    {{ with .TableOfContents }}
+    <aside class="article-toc" aria-label="Contents">
+      <p class="label">Contents</p>
+      {{ . }}
+    </aside>
+    {{ end }}
+    <div class="post-content{{ if findRE `^\s*[A-Z][a-z]` .Plain 1 }} post-content--dropcap{{ end }}">
+      {{ if .Params.featuredImage }}
+        <img src="{{ .Params.featuredImage | relURL }}" alt="{{ .Title }}" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 720px" width="1168" height="784" style="width:100%;height:auto;"/>
+      {{ end }}
+      {{ .Content }}
+      <p class="qed qed--end">Q.E.D. &nbsp;∎</p>
+    </div>
+  </div>
 
-      <footer>
-        {{ partial "posts/series.html" . }}
-        {{ partial "posts/giscus.html" . }}
-      </footer>
-    </article>
+  {{ partial "posts/share.html" . }}
+  {{ partial "posts/related.html" . }}
+  {{ partial "posts/author-bio.html" . }}
+  {{ partial "posts/post-nav.html" . }}
 
-    {{ partial "posts/math.html" . }}
-  </section>
+  <footer>
+    {{ partial "posts/series.html" . }}
+    {{ partial "posts/giscus.html" . }}
+  </footer>
+</article>
+{{ partial "posts/math.html" . }}
 {{ end }}

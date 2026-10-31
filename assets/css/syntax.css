@@ -1,0 +1,34 @@
+/* Code blocks: white on black, palette-only token colours (Chroma classes, noClasses = false).
+   Blue has too little contrast on black, so keywords and strings are yellow and errors red. */
+
+pre {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-label);
+  font-size: .8125rem;
+  line-height: 1.6;
+  tab-size: 4;
+}
+pre code { padding: 0; background: none; color: inherit; font: inherit; }
+:not(pre) > code { padding: .1em .35em; background: var(--wash); border: 1px solid var(--rule); font-family: var(--font-label); font-size: .875em; }
+
+.chroma { background: var(--black); color: var(--white); }
+.chroma .err { color: var(--red); }
+
+/* keywords */
+.chroma .k, .chroma .kc, .chroma .kd, .chroma .kn, .chroma .kp, .chroma .kr, .chroma .kt, .chroma .ow { color: var(--yellow); }
+
+/* strings and regular expressions */
+.chroma .s, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .dl, .chroma .sd, .chroma .s2, .chroma .se,
+.chroma .sh, .chroma .si, .chroma .sx, .chroma .sr, .chroma .s1, .chroma .ss { color: var(--yellow); }
+
+/* comments */
+.chroma .c, .chroma .ch, .chroma .cm, .chroma .c1, .chroma .cs, .chroma .cp, .chroma .cpf { color: var(--code-comment); font-style: italic; }
+
+/* names, numbers, operators, punctuation stay white; definitions are underlined for structure */
+.chroma .n, .chroma .nx, .chroma .nb, .chroma .bp, .chroma .nn, .chroma .nt, .chroma .nd, .chroma .o,
+.chroma .p, .chroma .m, .chroma .mi, .chroma .mf, .chroma .w, .chroma .l { color: var(--white); }
+.chroma .nf, .chroma .nc, .chroma .fm { color: var(--white); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }

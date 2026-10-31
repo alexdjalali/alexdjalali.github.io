@@ -23,49 +23,44 @@
     integrity="sha256-cdxU5IF3m1Jt5eYVwusAyZ+lrLddqcVSTQLjM9L9qJo=" crossorigin="anonymous"></script>
   <script>
     (function() {
-      var body = document.body;
-      var dark = body.classList.contains('colorscheme-dark') ||
-        (body.classList.contains('colorscheme-auto') &&
-         window.matchMedia('(prefers-color-scheme: dark)').matches);
-      var palette = ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f'];
-      var text = dark ? '#e6e6e6' : '#222222';
-      var muted = dark ? '#9a9a9a' : '#666666';
+      // The palette lives in tokens.css; read it so this file holds no colour literals.
+      var css = getComputedStyle(document.documentElement);
+      function token(name) { return css.getPropertyValue(name).trim(); }
+      var red = token('--red'), yellow = token('--yellow'), blue = token('--blue');
+      var black = token('--black'), white = token('--white'), grey = token('--ink-3');
+      var palette = [blue, red, yellow, black, grey];
       mermaid.initialize({
         startOnLoad: true,
         theme: 'base',
         themeVariables: {
-          darkMode: dark,
           background: 'transparent',
-          primaryColor: dark ? '#2f3b4a' : '#dce6f2',
-          primaryTextColor: text,
-          primaryBorderColor: palette[0],
-          lineColor: muted,
-          textColor: text,
-          pie1: palette[0], pie2: palette[1], pie3: palette[2], pie4: palette[3], pie5: palette[4],
-          pieStrokeColor: dark ? '#212121' : '#ffffff',
+          primaryColor: white,
+          primaryTextColor: black,
+          primaryBorderColor: black,
+          lineColor: black,
+          textColor: black,
+          pie1: red, pie2: yellow, pie3: blue, pie4: black, pie5: grey,
+          pieStrokeColor: white,
           pieOuterStrokeColor: 'transparent',
-          pieTitleTextColor: text,
-          pieLegendTextColor: text,
-          pieSectionTextColor: '#ffffff',
+          pieTitleTextColor: black,
+          pieLegendTextColor: black,
+          pieSectionTextColor: white,
           pieOpacity: '1',
           xyChart: {
             backgroundColor: 'transparent',
-            titleColor: text,
-            xAxisLabelColor: text, yAxisLabelColor: text,
-            xAxisTitleColor: text, yAxisTitleColor: text,
-            xAxisLineColor: muted, yAxisLineColor: muted,
-            xAxisTickColor: muted, yAxisTickColor: muted,
+            titleColor: black,
+            xAxisLabelColor: black, yAxisLabelColor: black,
+            xAxisTitleColor: black, yAxisTitleColor: black,
+            xAxisLineColor: black, yAxisLineColor: black,
+            xAxisTickColor: black, yAxisTickColor: black,
             plotColorPalette: palette.join(', ')
           },
-          quadrant1Fill: dark ? '#3a2f2f' : '#f6e3e3',
-          quadrant2Fill: dark ? '#3a352a' : '#f8eedc',
-          quadrant3Fill: dark ? '#2a3530' : '#e3f1e8',
-          quadrant4Fill: dark ? '#2b3340' : '#e2eaf5',
-          quadrant1TextFill: text, quadrant2TextFill: text, quadrant3TextFill: text, quadrant4TextFill: text,
-          quadrantPointFill: palette[1],
-          quadrantPointTextFill: text,
-          quadrantXAxisTextFill: text, quadrantYAxisTextFill: text,
-          quadrantTitleFill: text
+          quadrant1Fill: white, quadrant2Fill: white, quadrant3Fill: white, quadrant4Fill: white,
+          quadrant1TextFill: black, quadrant2TextFill: black, quadrant3TextFill: black, quadrant4TextFill: black,
+          quadrantPointFill: red,
+          quadrantPointTextFill: black,
+          quadrantXAxisTextFill: black, quadrantYAxisTextFill: black,
+          quadrantTitleFill: black
         }
       });
     })();

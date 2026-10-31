@@ -13,8 +13,8 @@
     <nav class="series-nav" aria-label="Post series navigation">
       <div class="series-nav-header">
         <span class="series-nav-icon"><i class="fa-solid fa-layer-group" aria-hidden="true"></i></span>
-        <span class="series-nav-title">{{ .LinkTitle }}</span>
-        <span class="series-nav-badge">Part {{ $partNum }} of {{ $total }}</span>
+        <span class="series-nav-title ttl">{{ .LinkTitle }}</span>
+        <span class="series-nav-badge label">Part {{ $partNum }} of {{ $total }}</span>
       </div>
       <ol class="series-nav-list">
         {{ range $i, $p := $pages }}

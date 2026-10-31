@@ -1,27 +1,22 @@
-{{ $related := .Site.RegularPages.Related . }}
-{{ $prev := .PrevInSection }}
-{{ $next := .NextInSection }}
-{{ $filtered := slice }}
-{{ range $related }}
-  {{ if and (ne . $prev) (ne . $next) }}
-    {{ $filtered = $filtered | append . }}
-  {{ end }}
-{{ end }}
-{{ $filtered = $filtered | first 3 }}
-{{ with $filtered }}
-<section class="related-posts">
-  <h3><i class="fa-solid fa-newspaper" aria-hidden="true"></i> Related Posts</h3>
+{{- /* Related propositions: up to three neighbours by tag, each with its figure. */ -}}
+{{- $related := .Site.RegularPages.Related . -}}
+{{- $prev := .PrevInSection -}}
+{{- $next := .NextInSection -}}
+{{- $filtered := slice -}}
+{{- range $related }}{{ if and (ne . $prev) (ne . $next) }}{{ $filtered = $filtered | append . }}{{ end }}{{ end -}}
+{{- $filtered = $filtered | first 3 -}}
+{{- with $filtered }}
+<section class="related-posts" aria-labelledby="related-title">
+  <h3 id="related-title" class="label">Cf. also</h3>
   <div class="related-posts-grid">
-    {{ range . }}
-    <a class="related-post-card" href="{{ .Permalink }}">
-      <div class="related-post-title">{{ .Title }}</div>
-      <div class="related-post-date">
-        <time datetime="{{ .Date.Format "2006-01-02" }}">
-          {{ .Date | time.Format "January 2, 2006" }}
-        </time>
-      </div>
+    {{- range . }}
+    <a class="card related-post-card" href="{{ .Permalink }}">
+      <span class="frame">{{ partial "figure.html" (dict "kind" "posts" "key" .File.ContentBaseName) }}</span>
+      <span class="label related-post-num">Proposition {{ partial "numeral.html" . }}.</span>
+      <span class="ttl related-post-title">{{ .Title }}</span>
+      <time class="label related-post-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format "January 2, 2006" }}</time>
     </a>
-    {{ end }}
+    {{- end }}
   </div>
 </section>
-{{ end }}
+{{- end }}

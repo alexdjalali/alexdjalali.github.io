@@ -4,6 +4,7 @@
 svg.fig { display: block; width: 100%; height: auto; font-family: var(--font-body); }
 .fig-frame { margin: 0; border: 1px solid var(--black); background: var(--white); }
 .fig-frame--empty { min-height: 6rem; }
+.frame > .fig-frame { border: 0; }
 
 /* Underline that draws on hover or when current */
 .ul {

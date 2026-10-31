@@ -1,51 +1,33 @@
-{{ define "title" }}
-  404 · {{ .Site.Title }}
-{{ end }}
+{{ define "title" }}404 · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
-  <section class="container page error-page">
-    <article>
-      <header>
-        <div class="post-title">
-          <h1 class="title">404</h1>
-        </div>
-        <p class="error-subtitle">Page not found</p>
-      </header>
-
-      <div class="search-container">
-        <p class="error-hint">Try searching for what you were looking for:</p>
-        <div class="search-input-wrap">
-          <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
-          <input type="search" class="search-input" id="search-input"
-            placeholder="Search posts..." aria-label="Search posts"
-            data-index="{{ "index.json" | relURL }}">
-        </div>
-        <ul class="search-results" id="search-results"></ul>
+<section class="notfound">
+  <div class="notfound__fig frame">{{ partial "figure.html" (dict "kind" "pages" "key" "not-found") }}</div>
+  <div class="notfound__text">
+    <p class="kicker">Error 404 · Reductio ad absurdum.</p>
+    <h1 class="display">{{ partial "rise.html" "Suppose this page exists." }}</h1>
+    <p class="lede">Then its angles sum to 190°. Contradiction. Therefore the page does not exist — or it moved when the site was rewritten.</p>
+    <div class="search-container error-search">
+      <p class="label error-hint">Try searching for what you were looking for:</p>
+      <div class="search-input-wrap">
+        <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+        <input type="search" class="search-input" id="search-input"
+          placeholder="Search posts..." aria-label="Search posts"
+          data-index="{{ "index.json" | relURL }}">
       </div>
-
-      {{ $recent := first 3 (where .Site.RegularPages "Section" "posts") }}
-      {{ with $recent }}
-      <section class="related-posts">
-        <h3><i class="fa-solid fa-newspaper" aria-hidden="true"></i> Recent Posts</h3>
-        <div class="related-posts-grid">
-          {{ range . }}
-          <a class="related-post-card" href="{{ .Permalink }}">
-            <div class="related-post-title">{{ .Title }}</div>
-            <div class="related-post-date">
-              <time datetime="{{ .Date.Format "2006-01-02" }}">
-                {{ .Date | time.Format "January 2, 2006" }}
-              </time>
-            </div>
-          </a>
-          {{ end }}
-        </div>
-      </section>
-      {{ end }}
-
-      <div class="error-home">
-        <a href="{{ .Site.BaseURL }}" class="read-more-btn">
-          <i class="fa-solid fa-house" aria-hidden="true"></i> Back to Home
-        </a>
-      </div>
-    </article>
-  </section>
+      <ul class="search-results" id="search-results" aria-live="polite"></ul>
+    </div>
+    <div class="error-actions">
+      <a href="{{ .Site.BaseURL }}" class="btn btn--solid">Return to Definition 1</a>
+      <a href="{{ "search/" | relURL }}" class="btn">Search</a>
+    </div>
+  </div>
+</section>
+{{ with first 3 ((sort (where .Site.RegularPages "Section" "posts") "File.Path").ByDate.Reverse) }}
+<section class="error-recent" aria-labelledby="recent-title">
+  <h2 id="recent-title" class="label">Recent propositions</h2>
+  <div class="card-grid">
+    {{- range . }}{{ partial "prop-card.html" . }}{{ end }}
+  </div>
+</section>
+{{ end }}
 {{ end }}
