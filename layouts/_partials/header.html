@@ -1,12 +1,5 @@
 {{- /* Header: text mark, four Books (numbered I.–IV.), search, and the active Book's sub-nav. */ -}}
 {{- $path := .RelPermalink -}}
-{{- $active := "" -}}
-{{- range .Site.Menus.main -}}
-  {{- range .Params.match -}}
-    {{- if hasPrefix $path . }}{{ $active = . }}{{ end -}}
-  {{- end -}}
-{{- end -}}
-{{- $numerals := slice "I." "II." "III." "IV." -}}
 <header class="site-header">
   <div class="container site-header__bar">
     <a class="site-mark" href="{{ "/" | relLangURL }}">
@@ -18,7 +11,7 @@
         {{- range $i, $book := .Site.Menus.main -}}
           {{- $on := false -}}
           {{- range $book.Params.match }}{{ if hasPrefix $path . }}{{ $on = true }}{{ end }}{{ end -}}
-          <a href="{{ $book.URL | relLangURL }}" class="ul{{ if $on }} on{{ end }}"{{ if $on }} aria-current="true"{{ end }}><span class="books__num">{{ index $numerals $i }}</span> {{ $book.Name }}</a>
+          <a href="{{ $book.URL | relLangURL }}" class="ul{{ if $on }} on{{ end }}"{{ if $on }} aria-current="true"{{ end }}><span class="books__num">{{ partial "roman.html" (add $i 1) }}.</span> {{ $book.Name }}</a>
         {{- end -}}
       </nav>
       <a href="{{ "search/" | relLangURL }}" aria-label="Search" class="btn btn--icon nav-search-link">

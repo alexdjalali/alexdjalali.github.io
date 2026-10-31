@@ -34,10 +34,13 @@ def _fields(body: str) -> dict[str, str]:
     pos = 0
     while m := _FIELD.search(body, pos):
         start = m.end()
-        if start >= len(body) or body[start] not in '{"':
-            pos = start
-            continue
-        raw, pos = _value(body, start)
+        if start >= len(body):
+            break
+        if body[start] in '{"':
+            raw, pos = _value(body, start)
+        else:
+            end = next((i for i, ch in enumerate(body[start:], start) if ch in ",}\n"), len(body))
+            raw, pos = body[start:end], end
         out[m.group(1).lower()] = " ".join(raw.replace("{", "").replace("}", "").split())
     return out
 
@@ -59,6 +62,8 @@ def load_entries(bib_dir: Path) -> list[BibEntry]:
         if head is None:
             raise ValueError(f"{path.name}: no BibTeX entry header")
         fields = _fields(text[head.end() :])
+        if "year" not in fields:
+            raise ValueError(f"{path.name}: no year field")
         venue = next((fields[f] for f in _VENUE_FIELDS if f in fields), "")
         entries.append(
             BibEntry(

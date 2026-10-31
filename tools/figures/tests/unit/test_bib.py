@@ -44,3 +44,22 @@ def test_summary_totals_equal_the_entry_count(entries) -> None:
     assert s["papers"] + s["patents"] + s["dissertation"] == s["total"] == len(entries)
     assert sum(n for kinds in s["by_year"].values() for n in kinds.values()) == len(entries)
     assert sum(output_by_year(entries).values()) == len(entries)
+
+
+def _write_bib(tmp_path: Path, body: str) -> Path:
+    """Write one ``.bib`` file holding ``body`` and return its directory."""
+    (tmp_path / "x.bib").write_text(body, encoding="utf-8")
+    return tmp_path
+
+
+def test_bare_year_value_is_parsed(tmp_path: Path) -> None:
+    """Scholar-style ``year = 2027,`` (no braces or quotes) is read as a year."""
+    bib = _write_bib(tmp_path, "@article{k2027,\n  title={T},\n  year = 2027,\n  journal={J}\n}\n")
+    assert load_entries(bib)[0].year == 2027
+
+
+def test_missing_year_names_the_file(tmp_path: Path) -> None:
+    """An entry without a year fails with the file name, not a bare ``KeyError``."""
+    bib = _write_bib(tmp_path, "@article{k,\n  title={T},\n  journal={J}\n}\n")
+    with pytest.raises(ValueError, match=r"x\.bib: no year"):
+        load_entries(bib)

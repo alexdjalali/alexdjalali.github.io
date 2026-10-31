@@ -45,7 +45,7 @@ Three things block implementing this on the current stack:
    - The lifeline and career lanes are the no-JS and reduced-motion view of the About and Resume timelines; the interactive D3 timelines (ADR-0003) replace them when JS is on.
    - Media keeps its real cover images; the canvas's hashed covers were placeholders.
    - A post without a registry entry gets a default construction derived from its slug.
-   - Output is committed. CI runs the generator and fails on `git diff --exit-code`.
+   - Output is committed. CI runs `uv run figures check`, which regenerates in memory and fails when any committed partial differs from, or is missing from, the generator's output.
 5. **Motion.**
    - Figure parts carry animation classes (draw, bloom, pop, grow, fade); headlines rise word by word.
    - A small script adds an `is-revealed` class through `IntersectionObserver`, so figures assemble as they scroll into view.
@@ -85,7 +85,7 @@ graph TD
         CSS[assets/css: tokens + motion]
         JS[assets/js: reveal observer]
     end
-    CI[GitHub Actions<br/>generate → git diff --exit-code → hugo build]
+    CI[GitHub Actions<br/>figures check → hugo build]
     P --> REG
     BIB --> GEN
     LOC --> GEN

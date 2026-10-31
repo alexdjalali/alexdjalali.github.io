@@ -9,7 +9,7 @@
     <span class="qed">Q.E.D.&nbsp; ∎</span>
     <span class="site-footer__links">
       {{ range sort .Site.Params.social "weight" }}
-        {{ if .icon }}<a href="{{ .url | safeURL }}" aria-label="{{ .name }}" target="_blank" rel="noopener noreferrer"{{ if .rel }} rel="{{ .rel }}"{{ end }}{{ if .type }} type="{{ .type }}"{{ end }}><i class="{{ replace .icon " fa-2x" "" }}" aria-hidden="true"></i></a>{{ end }}
+        {{ if .icon }}<a href="{{ .url | safeURL }}" aria-label="{{ .name }}" target="_blank" rel="noopener noreferrer{{ with .rel }} {{ . }}{{ end }}"{{ if .type }} type="{{ .type }}"{{ end }}><i class="{{ replace .icon " fa-2x" "" }}" aria-hidden="true"></i></a>{{ end }}
       {{ end }}
       <a href="{{ "archives/" | relURL }}" class="ul">Archive</a>
       <a href="{{ "ai-disclaimer/" | relURL }}" class="ul">AI disclosure</a>

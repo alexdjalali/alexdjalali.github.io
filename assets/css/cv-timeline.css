@@ -165,7 +165,6 @@
     var(--black) 0%, var(--red) 50%, var(--black) 100%
   );
   background-size: 200% 100%;
-  animation: gradient-slide 3s linear infinite;
 }
 
 .cv-section h2 {
@@ -187,7 +186,6 @@
     var(--black) 0%, var(--red) 50%, var(--black) 100%
   );
   background-size: 200% 100%;
-  animation: gradient-slide 3s linear infinite;
 }
 
 /* Entry cards */
@@ -460,7 +458,6 @@
     var(--black) 0%, var(--red) 50%, var(--black) 100%
   );
   background-size: 200% 100%;
-  animation: gradient-slide 3s linear infinite;
 }
 
 .cv-skills h3 {
@@ -533,7 +530,6 @@
     var(--black) 0%, var(--red) 50%, var(--black) 100%
   );
   background-size: 200% 100%;
-  animation: gradient-slide 3s linear infinite;
 }
 
 /* Print styles */

@@ -4,10 +4,12 @@
 {{- $posts := (sort .Pages "File.Path").ByDate.Reverse -}}
 {{- $count := len $posts -}}
 {{- $words := slice "zero" "one" "two" "three" "four" "five" "six" "seven" "eight" "nine" "ten" "eleven" "twelve" "thirteen" "fourteen" "fifteen" "sixteen" "seventeen" "eighteen" "nineteen" "twenty" -}}
+{{- $label := string $count -}}
+{{- if le $count 20 }}{{ $label = index $words $count }}{{ end -}}
 {{- $topics := hugo.Data.topics -}}
 <section class="page-hero">
   <p class="kicker">Book I.</p>
-  <h1 class="display">{{ partial "rise.html" (printf "Writing: %s propositions, in order of proof." (cond (le $count 20) (index $words $count) (string $count))) }}</h1>
+  <h1 class="display">{{ partial "rise.html" (printf "Writing: %s propositions, in order of proof." $label) }}</h1>
   <p class="lede">Essays and field guides on engineering with AI, software architecture, distributed systems, and the semantics of natural language. Each carries a figure drawn from its own argument.</p>
 </section>
 

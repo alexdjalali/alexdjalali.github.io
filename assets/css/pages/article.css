@@ -33,7 +33,9 @@
 .post-content h2::before { content: "§" counter(section) ". "; color: var(--red); }
 .post-content h3 { margin: 2.5rem 0 .75rem; font-size: 1.5rem; font-weight: 300; }
 .post-content strong { font-weight: 400; }
-.post-content blockquote { position: relative; counter-increment: lemma; margin: 3rem 0; padding: 2rem 2rem 1.75rem; border: 1px solid var(--black); border-left: 1px solid var(--black); font-style: normal; font-family: var(--font-display); font-weight: 200; font-size: 1.75rem; line-height: 1.2; }
+.post-content blockquote { position: relative; counter-increment: lemma; margin: 3rem 0; padding: 2rem 2rem 1.75rem; border: 1px solid var(--black); font-style: normal; font-family: var(--font-display); font-weight: 200; font-size: 1.75rem; line-height: 1.2; }
+.post-content blockquote p:first-child { margin-top: 0; }
+.post-content blockquote p:last-child { margin-bottom: 0; }
 .post-content blockquote::before { content: "Lemma " counter(lemma) "."; position: absolute; top: -.75rem; left: 1.5rem; padding: 0 .5rem; background: var(--white); color: var(--red); font-family: var(--font-label); font-size: .75rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 400; }
 .post-content table { display: block; overflow-x: auto; }
 .qed--end { margin: 2.5rem 0 0; text-align: right; font-size: 1.375rem; }

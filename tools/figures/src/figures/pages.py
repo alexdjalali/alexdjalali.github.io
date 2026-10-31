@@ -5,6 +5,7 @@ from __future__ import annotations
 from figures import constructions as c
 from figures.bib import output_by_year
 from figures.constructions import LEAD
+from figures.data import HORIZON
 from figures.model import Figure, FigureContext
 from figures.registry import FigureBuilder
 from figures.svg import PRIMARIES, B, Fig, R, Y, rect
@@ -20,6 +21,8 @@ _LANES = {
 def research_output(ctx: FigureContext) -> Figure:
     """Stack papers (blue), the dissertation (yellow) and patents (red) for each year."""
     counts = output_by_year(ctx.bib)
+    if not counts:
+        raise ValueError("research_output: no bibliography entries (is static/bib empty?)")
     years = list(range(min(y for y, _ in counts), max(y for y, _ in counts) + 1))
     tallest = max(sum(counts.get((yr, k), 0) for k, _ in _KIND_COLOURS) for yr in years)
     unit = min(9.0, 60.0 / tallest)
@@ -47,7 +50,7 @@ def research_output(ctx: FigureContext) -> Figure:
 
 def lifeline(ctx: FigureContext) -> Figure:
     """Draw the places lived, 1984 to now, as one measured line with a bar per place."""
-    y0, y1 = 1984, 2026.9
+    y0, y1 = 1984, HORIZON
 
     def xs(y: float) -> float:
         return 4 + (y - y0) / (y1 - y0) * 92
@@ -69,7 +72,7 @@ def lifeline(ctx: FigureContext) -> Figure:
 
 def career_lanes(ctx: FigureContext) -> Figure:
     """Draw education, work and side-work entries as bars in three lanes."""
-    y0, y1 = 1999, 2026.9
+    y0, y1 = 1999, HORIZON
 
     def xs(y: float) -> float:
         return 18 + (y - y0) / (y1 - y0) * 78

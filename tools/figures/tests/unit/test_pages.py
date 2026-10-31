@@ -75,3 +75,18 @@ def test_every_page_figure_is_deterministic_and_captioned(key: str, ctx: FigureC
     assert a == b
     assert a.caption.strip()
     assert a.svg.startswith('<svg class="fig"')
+
+
+@pytest.mark.parametrize("builder", [lifeline, career_lanes])
+def test_axis_end_follows_the_horizon(builder, ctx: FigureContext, monkeypatch: pytest.MonkeyPatch) -> None:
+    """The time axis ends at ``HORIZON``, so bumping it moves the axis with the ongoing bars."""
+    before = builder(ctx).svg
+    monkeypatch.setattr("figures.pages.HORIZON", 2030.0)
+    assert builder(ctx).svg != before
+
+
+def test_research_output_with_no_bibliography_names_the_cause() -> None:
+    """An empty bibliography raises a message naming the cause, not a bare ``ValueError``."""
+    empty = FigureContext(slug="page", bib=(), locations=(), timeline=())
+    with pytest.raises(ValueError, match="no bibliography"):
+        research_output(empty)
