@@ -70,3 +70,12 @@ def test_home_grid_opens_with_the_newest_proposition(built_site: Path, repo_root
     grid = html[html.index("card-grid") :]
     first = re.search(r'href="?(/posts/[^/"]+/)', grid)
     assert first and first.group(1) == f"/posts/{newest.stem}/"
+
+
+def test_projects_corollary_names_both_sections(built_site: Path) -> None:
+    """The Book III corollary on home points at Projects and names both its sections, Systems and Courses."""
+    html = read_html(built_site, "index.html")
+    card = re.search(r'href="?/projects/"?[^>]*class="?card corollary"?>(.*?)</a>', html, re.DOTALL)
+    assert card
+    text = re.sub(r"<[^>]+>", " ", card.group(1))
+    assert "Systems" in text and "courses" in text.lower()
