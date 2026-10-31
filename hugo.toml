@@ -55,7 +55,6 @@ info = ["AI Strategy Advisor"]
 dateFormat = "January 2, 2006"
 since = 2026
 customJS = ["js/collapsible-code.js", "js/reading-progress.js", "js/share.js", "js/search.js", "js/publication-abstract.js", "js/back-to-top.js", "js/card-deck.js", "js/reveal.js", "js/topic-filter.js"]
-math = true
 favicon_32 = "images/favicon-32x32.png"
 favicon_16 = "images/favicon-16x16.png"
 touchicon = "images/apple-touch-icon.png"
@@ -121,7 +120,7 @@ name = "About"
 weight = 4
 url = "about/"
 [languages.en.menu.main.params]
-match = ["/about/", "/cv/", "/media/", "/gear/", "/ai-disclaimer/"]
+match = ["/about/", "/consulting/", "/cv/", "/media/", "/gear/", "/ai-disclaimer/"]
 
 [[languages.en.menu.main]]
 identifier = "publications"
@@ -159,31 +158,38 @@ weight = 1
 url = "about/"
 
 [[languages.en.menu.main]]
+identifier = "consulting"
+parent = "about"
+name = "Consulting"
+weight = 2
+url = "consulting/"
+
+[[languages.en.menu.main]]
 identifier = "resume"
 parent = "about"
 name = "Resume"
-weight = 2
+weight = 3
 url = "cv/"
 
 [[languages.en.menu.main]]
 identifier = "media"
 parent = "about"
 name = "Media"
-weight = 3
+weight = 4
 url = "media/"
 
 [[languages.en.menu.main]]
 identifier = "gear"
 parent = "about"
 name = "Gear"
-weight = 4
+weight = 5
 url = "gear/"
 
 [[languages.en.menu.main]]
 identifier = "ai"
 parent = "about"
 name = "AI disclosure"
-weight = 5
+weight = 6
 url = "ai-disclaimer/"
 
 [[params.social]]

@@ -55,3 +55,19 @@ def test_the_course_has_structured_data_with_a_provider_and_no_institution(repo_
     assert mine["provider"] == {"@type": "Person", "name": "AJ Djalali"}
     assert "hasCourseInstance" not in mine
     assert not re.search(r"georgia|gatech", json.dumps(mine), re.IGNORECASE)
+
+
+def test_each_course_card_states_its_format_and_the_open_course_invites_instructors(built_site: Path) -> None:
+    """Both cards open with a format line; the open course tells instructors how to get the solutions."""
+    tiya, course = _cards(built_site)
+    for card in (tiya, course):
+        assert re.search(r'class="?course-meta', card)
+    assert "Onsite" in tiya and "Graduate" in course
+    assert "calendly.com/alex-djalali/30min" in course
+
+
+def test_the_tiya_materials_are_grouped_by_day(built_site: Path) -> None:
+    """Ten loose buttons become a kit row and one row per day, so the card reads like the other one."""
+    tiya = _cards(built_site)[0]
+    rows = re.findall(r'<(?:li|div) class="?course-materials__row', tiya)
+    assert len(rows) == 4

@@ -1,0 +1,24 @@
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
+{{ define "content" }}
+<section class="page-hero">
+  <p class="kicker">{{ .Params.kicker }}</p>
+  <h1 class="display">{{ partial "rise.html" .Params.headline }}</h1>
+  {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+</section>
+<article class="prose consulting-page">
+  {{ .Content }}
+</article>
+<section class="consulting" aria-labelledby="consulting-next">
+  <p class="consulting__line" id="consulting-next">The first call is thirty minutes: what you are building, where it is stuck, and whether I can help.</p>
+  <div class="consulting__cta">
+    <a href="{{ site.Params.bookingURL }}" class="btn btn--solid" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Call</a>
+    <a href="mailto:alex.djalali@gmail.com" class="btn"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Get in Touch</a>
+  </div>
+  <div class="consulting__trust">
+    <p class="label">Trusted By</p>
+    <p class="consulting__names">
+      {{- range $i, $org := hugo.Data.trusted }}{{ if $i }}<span class="consulting__sep" aria-hidden="true">·</span>{{ end }}<a href="{{ $org.url }}" class="consulting__name" target="_blank" rel="noopener noreferrer">{{ $org.name }}</a>{{ end -}}
+    </p>
+  </div>
+</section>
+{{ end }}

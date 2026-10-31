@@ -42,3 +42,4 @@
 .corollary__book { color: var(--red); }
 .corollary__name { font-size: 1.625rem; font-weight: 300; line-height: 1.2; }
 .corollary__desc { font-family: var(--font-body); font-size: 1rem; color: var(--ink-2); }
+.consulting__more { align-self: center; }

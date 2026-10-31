@@ -5,7 +5,7 @@ draft: false
 description: "How the decorator pattern cleanly separates logging, metrics, retry, and circuit breaking from business logic — with examples in Python and Go."
 images:
   - "images/og/decorator-pattern-observability-resilience.png"
-tags: ["architecture", "design-patterns", "observability", "resilience"]
+tags: ["architecture", "design-patterns", "reliability"]
 keywords: ["decorator pattern", "observability", "resilience", "design patterns", "python", "go"]
 series: ["Software Architecture"]
 ---

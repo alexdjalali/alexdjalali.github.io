@@ -7,7 +7,7 @@ images:
   - "images/og/professional-software-engineering-for-ai-and-distributed-systems.png"
 tags: ["software-engineering", "education", "distributed-systems", "ai", "architecture"]
 keywords: ["software engineering course", "distributed systems", "AI engineering", "production systems", "graduate course", "architecture decision records", "trunk-based development", "clean architecture"]
-series: ["Software Architecture"]
+series: ["AI-Assisted Engineering"]
 ---
 
 Computer science programs teach programming. They teach data structures, algorithms, complexity analysis, and language syntax. Students graduate knowing how to invert a binary tree, implement a hash map, and reason about Big-O notation. These are valuable skills. They are also insufficient.

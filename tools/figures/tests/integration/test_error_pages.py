@@ -35,6 +35,7 @@ def test_no_dark_mode_remains_in_the_base_layout(repo_root: Path, built_site: Pa
     source = (repo_root / "layouts" / "baseof.html").read_text(encoding="utf-8")
     assert "colorscheme" not in source
     assert "prefers-color-scheme" not in source
-    assert "getPropertyValue" in source
-    assert not re.search(r"#[0-9a-fA-F]{6}\b", source)
+    loader = (repo_root / "assets" / "js" / "mermaid-init.js").read_text(encoding="utf-8")
+    assert "getPropertyValue" in loader
+    assert not re.search(r"#[0-9a-fA-F]{6}\b", source + loader)
     assert "colorscheme" not in read_html(built_site, "index.html")

@@ -1,0 +1,9 @@
+{{- /* One deferred script per resource in the slice: plain under the dev server, minified and fingerprinted otherwise. */ -}}
+{{- range . -}}
+{{- if hugo.IsServer -}}
+<script defer src="{{ .RelPermalink }}"></script>
+{{- else -}}
+{{- $js := . | resources.Minify | resources.Fingerprint -}}
+<script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+{{- end -}}
+{{- end -}}

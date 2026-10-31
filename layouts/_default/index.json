@@ -6,7 +6,8 @@
     "title": {{ .Title | jsonify }},
     "url": {{ .RelPermalink | jsonify }},
     "description": {{ .Description | default "" | jsonify }},
-    "tags": {{ .Params.tags | default (slice) | jsonify }},
+    {{- $tags := slice }}{{ range .GetTerms "tags" }}{{ $tags = $tags | append .LinkTitle }}{{ end }}
+    "tags": {{ $tags | jsonify }},
     "date": {{ .Date.Format "January 2, 2006" | jsonify }},
     "content": {{ .Plain | truncate 300 "" | jsonify }}
   }
