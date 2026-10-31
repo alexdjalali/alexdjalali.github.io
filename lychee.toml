@@ -17,5 +17,7 @@ exclude = [
   '^https://www\.linkedin\.com/',
   # Serves browsers, but fails the TLS handshake with GitHub's runners.
   '^https://(www\.)?ginew\.com/',
+  # Answers browsers, but stalls GitHub's runners past every retry.
+  '^https://www\.gnu\.org/',
   '^mailto:',
 ]
