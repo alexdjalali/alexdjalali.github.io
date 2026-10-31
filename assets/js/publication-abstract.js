@@ -10,9 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Query .pub-abstract elements only inside publication list items.
   // The posts list page also uses .pub-abstract for descriptions, but its
   // <li> elements have an onclick attribute (from the template) — exclude those.
-  // Note: we cannot use :not(.has-link) because clickable-list.js (an IIFE that
-  // runs before DOMContentLoaded) adds .has-link to all <li> with any <a href>,
-  // including publication entries.
   var abstracts = document.querySelectorAll(".cv-list li:not([onclick]) .pub-abstract");
 
   // If no abstracts on this page, this is a no-op (safe for non-publications pages)

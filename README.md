@@ -6,48 +6,41 @@ Personal academic blog built with [Hugo](https://gohugo.io/) on an in-repo theme
 
 ```
 content/
-  about.md                  Landing page with avatar and post cards
-  cv.md                     Resume / CV with timeline styling
-  publications.md           Publications, conferences, dissertation, and patents
-  presentations.md          Talks and conference presentations
-  projects.md               Present and past project cards
-  media.md                  Media recommendations with card-deck navigation
-  gear.md                   Development environment and tools
-  ai-disclaimer.md          AI usage disclosure
+  about.md, cv.md, publications.md, presentations.md, projects.md, media.md, gear.md, ai-disclaimer.md
   posts/                    Blog posts (LaTeX math via KaTeX, collapsible code blocks)
   search/                   Site search index
+layouts/                    The whole theme: baseof, one folder per page type
+  _partials/                Head, header (four Books), footer, figure/numeral/glyph helpers, JSON-LD
+  _partials/figures/        Generated SVG figures (committed; never hand-edited)
+  _shortcodes/              construction (embeds a generated figure), mermaid
 assets/
   css/tokens.css            Design tokens: palette, IBM Plex fonts (the only file with colour literals)
-  css/base.css              Reset, typography, shell (header, Books nav, footer)
-  css/custom.css            Legacy styles, removed as each page type is restyled
-  js/clickable-list.js      Clickable list item handler
-  js/collapsible-code.js    Expandable code blocks with copy-to-clipboard
-layouts/
-  posts/list.html           Posts index with year/month timeline grouping
-  cv/single.html            CV page layout
-  presentations/single.html Reveal.js presentation embed layout
-  _partials/                Head, header (four Books), footer, JSON-LD, custom icons
-presentations/              Presentation source files (Markdown, demos)
+  css/*.css, css/pages/     Base, motion, components, content, syntax; one stylesheet per page type
+  js/                       reveal.js (scroll reveal), topic-filter, search, timelines, card-deck, share, abstract toggle
+data/                       topics.json, logos.json, locations.json, timeline.json; figures/research.json is generated
+tools/figures/              Python figure generator (uv, ruff, basedpyright, pytest)
 static/
   bib/                      25 individual BibTeX files (publications, dissertation, patents)
-  images/                   Avatar, favicon, OG images, presentation diagrams
+  images/, fonts/           Avatar, favicon, OG images, vendored Font Awesome fonts
   presentations/            Compiled slide decks; tiya-applied-ai/ is a full course kit (rebuild with its build/make.sh)
+presentations/              Presentation source files (Markdown, demos)
 resume/                     Resume source (LaTeX) and compiled PDF
-hugo.toml                   Site configuration, nav, social links, KaTeX, Google Analytics
+hugo.toml                   Site configuration, Books menu, social links, KaTeX, Google Analytics
 ```
 
 ## Features
 
+- **Byrne's Euclid design**: five-colour palette (red, yellow, blue, black, white), thin IBM Plex, light only (no dark mode)
+- **Four Books**: I Writing, II Research (Talks), III Projects, IV About (Resume, Media, Gear, AI disclosure)
+- **Propositions**: each post is numbered by chronological rank, its description is the "To prove:" line, and it ends with Q.E.D.
+- **Generated figures**: every post and data page has an SVG drawn from its own argument or data (see below)
+- **Motion**: figures draw themselves and headlines rise word by word as they scroll into view; `prefers-reduced-motion` and no-JS show everything fully drawn
+- **Timelines**: static lanes generated from `data/timeline.json`, replaced by the interactive D3 timelines when JS is on
 - **LaTeX math rendering** via KaTeX with Goldmark passthrough delimiters (`$...$` inline, `$$...$$` display)
 - **Collapsible code blocks** with language headers and copy-to-clipboard
-- **Pinterest-style post cards** on the homepage (2-column CSS grid)
-- **Timeline-styled lists** for publications, CV entries, and posts index
-- **Downloadable BibTeX** for all publications and patents
-- **Reveal.js presentations** embedded via custom layout
-- **Card-deck navigation** for Media and Gear pages
-- **Light only**: five-colour palette (red, yellow, blue, black, white); no dark mode
-- **JSON-LD** structured data for SEO
-- **Google Analytics** (G-R50JVPX7MP)
+- **Topic filter and search** on the Writing index; publication abstract toggles; downloadable BibTeX
+- **Reveal.js presentations** embedded via custom layout; card-deck navigation on Media
+- **Giscus comments**, **JSON-LD** structured data, **Google Analytics** (G-R50JVPX7MP)
 
 ## Local Development
 
@@ -55,7 +48,27 @@ hugo.toml                   Site configuration, nav, social links, KaTeX, Google
 hugo server -D
 ```
 
-Requires Hugo v0.124.0+ (extended). Current: v0.156.0.
+Requires Hugo extended (CI pins 0.156.0; developed on 0.169.0) and [uv](https://docs.astral.sh/uv/) for the figure generator.
+
+## Adding a figure for a new post
+
+Figures are SVG partials generated by `tools/figures` and committed under `layouts/_partials/figures/`.
+
+1. Write the post in `content/posts/<slug>.md`. Without further work it gets a default construction derived from the slug.
+2. For a figure drawn from the post's argument, add `tools/figures/src/figures/posts/<name>.py` with a builder registered under the post slug, and import it in `posts/__init__.py`:
+
+   ```python
+   @register("my-new-post")
+   def my_post(ctx: FigureContext) -> Figure:
+       f = Fig()
+       f.grow(rect(20, 20, 60, 40, B))
+       return Figure(svg=f.svg(), caption="Describe the figure for screen readers")
+   ```
+
+3. Regenerate and review the diff: `cd tools/figures && uv run figures generate`.
+4. Run the checks: `uv run figures check` (CI fails when committed output drifts from the generator) and `uv run pytest -q`.
+
+Data-driven figures (research histogram, homes line, career lanes) regenerate from `static/bib/*.bib`, `data/locations.json` and `data/timeline.json` with the same command.
 
 ## Deployment
 

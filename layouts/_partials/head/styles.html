@@ -1,8 +1,5 @@
-{{- /* One stylesheet: legacy (customCSS, removed at the end of the redesign) first so new rules win, then tokens → base → icons → motion → components → syntax → per-page. */ -}}
+{{- /* One stylesheet: tokens → base → icons → motion → components → syntax → per-page. */ -}}
 {{- $parts := slice -}}
-{{- range site.Params.customCSS -}}
-  {{- with resources.Get . }}{{ $parts = $parts | append . }}{{ end -}}
-{{- end -}}
 {{- range slice "css/tokens.css" "css/base.css" "css/fontawesome.css" "css/motion.css" "css/components.css" "css/components-js.css" "css/content.css" "css/syntax.css" "css/cv-timeline.css" -}}
   {{- with resources.Get . }}{{ $parts = $parts | append . }}{{ end -}}
 {{- end -}}

@@ -8,4 +8,5 @@
 .resume-content a { border-bottom: 1px solid var(--rule); }
 .resume-content a:hover { border-bottom-color: var(--red); color: var(--red); }
 .resume-content a.btn, .resume-content a.read-more-btn { border-bottom: 1px solid var(--black); }
+.page-hero .cv-tagline { margin: 1.5rem 0 0; font-size: 1.125rem; }
 .cv-tagline a { border-bottom: 1px solid var(--red); }
