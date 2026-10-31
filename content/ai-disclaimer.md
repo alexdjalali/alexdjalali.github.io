@@ -15,9 +15,9 @@ I use AI tools — primarily [Claude](https://www.anthropic.com/claude) — in m
 
 Every blog post on this site includes an **AI badge** next to the date and reading time:
 
-- <i class="fa-solid fa-robot" style="color: #2980b9;"></i> **AI** — This post was written with AI assistance. I directed the content, provided the ideas and context, and edited the output. The AI helped with drafting and structure.
+- <i class="fa-solid fa-robot badge-ai"></i> **AI** — This post was written with AI assistance. I directed the content, provided the ideas and context, and edited the output. The AI helped with drafting and structure.
 
-- <i class="fa-solid fa-robot" style="color: #bbb;"></i> **AI** — This post was written without AI assistance.
+- <i class="fa-solid fa-robot badge-no-ai"></i> **AI** — This post was written without AI assistance.
 
 ### What "AI assistance" means here
 

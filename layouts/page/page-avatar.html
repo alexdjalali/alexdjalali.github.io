@@ -1,18 +1,14 @@
-{{ define "title" }}
-  {{ .Title }} · {{ .Site.Title }}
-{{ end }}
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
-  <section class="container page">
-    <article>
-      <header>
-        <h1 class="title">
-          <a class="title-link" href="{{ .Permalink | safeURL }}">
-            {{ .Title }}
-          </a>
-        </h1>
-      </header>
-
-      {{ .Content }}
-    </article>
-  </section>
+<section class="page-hero disclosure-hero">
+  <div class="disclosure-hero__text">
+    <p class="kicker">Book IV. · AI disclosure</p>
+    <h1 class="display">{{ partial "rise.html" "AI disclosure: the author and Claude overlap." }}</h1>
+    {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+  </div>
+  <div class="disclosure-hero__fig frame">{{ partial "figure.html" (dict "kind" "pages" "key" "ai-venn") }}</div>
+</section>
+<article class="prose disclosure-content">
+  {{ .Content }}
+</article>
 {{ end }}

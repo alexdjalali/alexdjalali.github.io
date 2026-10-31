@@ -1,32 +1,25 @@
-{{ define "title" }}
-  {{ .Title }} · {{ .Site.Title }}
-{{ end }}
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 {{ define "content" }}
-  <section class="container page">
-    <article>
-      <header>
-        <h1 class="title">
-          <a class="title-link" href="{{ .Permalink | safeURL }}">
-            {{ .Title }}
-          </a>
-        </h1>
-      </header>
-
-      <div class="gear-grid">
-        {{ range .Params.categories }}
-        <div class="gear-card">
-          <h2 class="gear-card-title">
-            <i class="{{ .icon }}" aria-hidden="true"></i>
-            {{ .title }}
-          </h2>
-          <ul class="gear-card-list">
-            {{ range .items }}
-            <li>{{ . | markdownify }}</li>
-            {{ end }}
-          </ul>
-        </div>
-        {{ end }}
-      </div>
-    </article>
+{{- $shapes := slice "circle" "square" "triangle" -}}
+{{- $colors := slice "red" "yellow" "blue" "black" -}}
+<section class="page-hero">
+  <p class="kicker">Book IV. · Gear</p>
+  <h1 class="display">{{ partial "rise.html" "Gear: the instruments of the work." }}</h1>
+  {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+</section>
+<div class="gear-grid">
+  {{ range $i, $cat := .Params.categories }}
+  <section class="gear-card frame">
+    <h2 class="gear-card-title">
+      {{ partial "glyph.html" (dict "shape" (index $shapes (mod $i 3)) "color" (index $colors (mod $i 4))) }}
+      <span><span class="label gear-card-num">Instrument {{ partial "roman.html" (add $i 1) }}.</span>{{ $cat.title }}</span>
+    </h2>
+    <ul class="gear-card-list">
+      {{ range $cat.items }}
+      <li>{{ . | markdownify }}</li>
+      {{ end }}
+    </ul>
   </section>
+  {{ end }}
+</div>
 {{ end }}

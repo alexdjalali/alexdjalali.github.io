@@ -1,0 +1,11 @@
+/* Gear: numbered instruments, each in a frame with a palette glyph. */
+
+.gear-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(24rem, 100%), 1fr)); gap: 2rem; padding: 1rem 0 4rem; }
+.gear-card { padding: 1.5rem; }
+.gear-card-title { display: flex; align-items: center; gap: 1rem; margin: 0 0 1rem; font-size: 1.5rem; font-weight: 300; line-height: 1.2; }
+.gear-card-title .glyph { flex: 0 0 auto; width: 2.25rem; height: 2.25rem; }
+.gear-card-num { display: block; color: var(--red); }
+.gear-card-list { margin: 0; padding: 0; list-style: none; font-family: var(--font-body); font-size: 1rem; line-height: 1.5; }
+.gear-card-list li { padding: .5rem 0; border-top: 1px solid var(--rule); }
+.gear-card-list a { border-bottom: 1px solid var(--rule); }
+.gear-card-list a:hover { border-bottom-color: var(--red); color: var(--red); }

@@ -1,0 +1,24 @@
+/* Media: the card deck keeps its behaviour; cards are framed, covers stay real. */
+
+.media-content { padding: 1rem 0 4rem; }
+.media-content > h2 { margin: 3.5rem 0 1.5rem; padding-bottom: .5rem; border-bottom: 1px solid var(--black); font-size: 2rem; font-weight: 200; }
+.media-content .card-deck { max-width: 44rem; }
+.media-content .project-card {
+  display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.5rem;
+  border: 1px solid var(--black); border-radius: 0; background: var(--white); box-shadow: none;
+}
+.media-content .project-card img { display: block; width: 7.5rem; height: auto; border: 1px solid var(--black); border-radius: 0; }
+.media-content .project-card h2 { margin: 0 0 .75rem; padding: 0; border: 0; font-size: 1.5rem; font-weight: 300; line-height: 1.2; }
+.media-content .project-card a { border-bottom: 1px solid var(--rule); }
+.media-content .project-card a:hover { border-bottom-color: var(--red); }
+
+.project-tech-list { display: flex; flex-wrap: wrap; gap: .5rem; }
+.project-tech, .reading-category { padding: .25rem .625rem; border: 1px solid var(--black); font-family: var(--font-label); font-size: .6875rem; letter-spacing: .1em; text-transform: uppercase; }
+.reading-category { background: var(--black); color: var(--white); }
+
+/* Stars: yellow shapes with a black outline (yellow alone fails contrast on white). */
+.star-rating { display: inline-flex; gap: .2rem; margin-top: .75rem; filter: drop-shadow(1px 0 0 var(--black)) drop-shadow(-1px 0 0 var(--black)) drop-shadow(0 1px 0 var(--black)) drop-shadow(0 -1px 0 var(--black)); }
+.star-rating > span { display: inline-block; width: 1.25rem; height: 1.25rem; clip-path: polygon(50% 0, 62% 35%, 98% 35%, 69% 57%, 80% 91%, 50% 70%, 20% 91%, 31% 57%, 2% 35%, 38% 35%); }
+.star-rating .star-full { background: var(--yellow); }
+.star-rating .star-half { background: linear-gradient(90deg, var(--yellow) 50%, var(--white) 50%); }
+.star-rating .star-empty { background: var(--white); }

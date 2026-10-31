@@ -42,8 +42,8 @@ h2:hover .heading-link, h3:hover .heading-link, .heading-link:focus-visible { op
 
 .last-updated { font-size: .85em; color: var(--ink-3); }
 .claude-badge { position: relative; margin-left: .25em; font-size: .85em; cursor: help; }
-.claude-badge-yes { color: var(--blue); }
-.claude-badge-no { color: var(--ink-3); }
+.claude-badge-yes, .badge-ai { color: var(--blue); }
+.claude-badge-no, .badge-no-ai { color: var(--ink-3); }
 .claude-badge::after {
   content: ""; position: absolute; bottom: calc(100% + .4em); left: 50%; transform: translateX(-50%);
   width: max-content; max-width: 18rem; padding: .5em .8em; z-index: 100; pointer-events: none; opacity: 0;
