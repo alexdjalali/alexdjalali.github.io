@@ -66,5 +66,3 @@ I collect guitars — electrics and acoustics, old and new. And I'm an audiophil
 <div style="text-align: right; margin-bottom: 1.5em;">
   <img src="/images/signature.png" class="about-signature" alt="a.j.djalali signature">
 </div>
-
-<div class="about-hero">{{< construction "pages/scout" >}}</div>

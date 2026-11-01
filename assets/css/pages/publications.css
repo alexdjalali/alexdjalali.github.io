@@ -10,8 +10,10 @@
 .cv-list .pub-extra { display: block; margin-top: .25rem; font-style: italic; color: var(--ink-2); }
 .cv-list li > br, .cv-list .talk-body > br { display: none; }
 .cv-list li .bib-link, .cv-list li .abstract-toggle { margin: .75rem .5rem 0 0; }
-.research-content .cv-list > li { position: static; margin: 0; }
-.research-content .cv-list > li::before, .research-content .cv-list > li::after { content: none; }
+/* Citation lists (research pages, post references) drop the resume's dot-and-rail. */
+.research-content .cv-list > li, .post-content .cv-list > li { position: static; margin: 0; }
+.research-content .cv-list > li::before, .research-content .cv-list > li::after,
+.post-content .cv-list > li::before, .post-content .cv-list > li::after { content: none; }
 
 /* Talks: the figure is a thumbnail beside its citation (stacked and capped on narrow screens). */
 .talks-content .cv-list > li > .fig-frame { max-width: 16rem; margin-bottom: 1rem; }

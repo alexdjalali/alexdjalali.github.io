@@ -41,14 +41,11 @@
 }
 
 /* Bars */
+/* Opaque so the year grid drawn beneath never shows through bars or their labels;
+   hover emphasis comes from the JS dimming the other bars. */
 .bar-rect {
   cursor: pointer;
-  opacity: 0.8;
   transition: opacity 0.2s;
-}
-
-.bar-rect:hover {
-  opacity: 1;
 }
 
 /* Expand button */

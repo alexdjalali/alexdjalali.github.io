@@ -42,10 +42,11 @@ def test_disclosure_has_the_venn_figure_and_both_badges(built_site: Path) -> Non
     assert "#2980b9" not in html
 
 
-def test_about_shows_the_scout_construction_in_its_content(built_site: Path) -> None:
-    """The Scout figure that replaced the motorcycle photo renders inside the About article body."""
+def test_about_content_ends_with_the_signature_not_a_figure(built_site: Path) -> None:
+    """The About article closes on the signature; the Scout figure lives on Gear, not hanging after it."""
     html = read_html(built_site, "about/index.html")
     start = re.search(r'<article class="?about-content', html)
     assert start
     body = html[start.end() : html.index("</article>", start.end())]
-    assert "fig-pages-scout-cap" in body
+    assert "fig-pages-scout-cap" not in body
+    assert "about-signature" in body

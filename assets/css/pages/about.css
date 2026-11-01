@@ -12,5 +12,4 @@
 .about-content a { color: var(--black); border-bottom: 1px solid var(--red); }
 .about-content a:hover { color: var(--red); }
 .about-content #about-timeline { max-width: none; margin: 2rem 0; }
-.about-content .about-hero { max-width: 28rem; margin: 2rem 0 0; }
 .about-content .about-signature { max-width: 12rem; height: auto; }
