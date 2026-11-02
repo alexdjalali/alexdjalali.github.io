@@ -2,7 +2,7 @@
 title: "The Decorator Pattern for Observability and Resilience"
 date: 2026-02-22
 draft: false
-description: "How the decorator pattern cleanly separates logging, metrics, retry, and circuit breaking from business logic — with examples in Python and Go."
+description: "Why logging, metrics, retry and circuit breaking belong in wrappers rather than in your business logic, with examples in Go and Python."
 images:
   - "images/og/decorator-pattern-observability-resilience.png"
 tags: ["architecture", "design-patterns", "reliability"]
@@ -10,19 +10,19 @@ keywords: ["decorator pattern", "observability", "resilience", "design patterns"
 series: ["Software Architecture"]
 ---
 
-Production services require logging, metrics collection, retry logic, and circuit breaking. The central question is where these cross-cutting concerns should reside. The naive approach — scattering observability and resilience logic directly inside business methods — produces implementations that are predominantly infrastructure boilerplate, with the actual domain logic obscured. Modifications to retry policies or metrics backends require changes across every service in the codebase, violating the single-responsibility principle and making the system brittle to operational change.
+Every production service I have worked on needs logging, metrics, retries and circuit breaking. Nobody argues about that. The interesting question is where all of it should live. The naive answer (and it is the answer most of us reach for first) is to put it directly inside the business methods, which leaves you with functions that are mostly infrastructure boilerplate and only incidentally about the domain. Then someone decides to change the retry policy, or swap the metrics backend, and you find yourself editing every service in the codebase. That is the single-responsibility principle violated in the most tedious way possible.
 
-The decorator pattern provides a principled alternative. Each cross-cutting concern is extracted into a standalone wrapper that implements the same interface as the component it decorates. Each wrapper adds exactly one behavior — logging, metrics, retry, or circuit breaking — then delegates to the inner implementation. The business logic remains unaware that it is being observed or protected, and each concern can be developed, tested, and modified independently.
+The decorator pattern offers a more principled alternative. You pull each cross-cutting concern out into its own wrapper, and that wrapper implements the same interface as the thing it wraps. Each one adds exactly one behavior (logging, say, or retry), then hands the call to the implementation inside it. The business logic never learns that it is being watched or protected, and each concern can be written, tested and changed on its own.
 
 ## Motivation: Failure in Distributed Systems
 
-In a monolithic system, a failed function call raises an exception that the caller handles directly. Distributed systems present a fundamentally different failure model. Network partitions, request timeouts, overloaded upstreams, and cold starts are not edge cases; they are routine operational conditions. Every service-to-service call requires a defensive layer: retries with exponential backoff to allow transient failures to resolve, circuit breakers to prevent a degraded upstream from cascading into the caller, timeouts to bound resource consumption on hung connections, and structured logging to enable distributed tracing across service boundaries.
+In a monolith, a failed function call raises an exception and the caller deals with it. Distributed systems fail differently. Network partitions, timeouts, overloaded upstreams and cold starts are not edge cases there; they are a normal Tuesday. So every call from one service to another needs some defensive layer around it: retries with exponential backoff so that transient failures have a chance to clear, circuit breakers so that one degraded upstream doesn't drag its callers down with it, timeouts so that a hung connection can't hold resources forever, and structured logging so that you can trace a request across service boundaries after the fact.
 
-The decorator pattern enables uniform application of these concerns across every client and service boundary without duplicating the implementation. A single `RetryDecorator` wraps any client interface. A single `CircuitBreakerDecorator` protects any upstream dependency. When the operational team determines that a backoff strategy should change from exponential to jittered, the modification is confined to one file. When a new database client is introduced, the same decorator stack is composed with a domain-specific error classifier, and the full set of protections — logging, metrics, retry, circuit breaking — is applied automatically.
+What the decorator pattern buys you is the ability to apply all of this uniformly, at every client and service boundary, without writing it twice. One `RetryDecorator` wraps any client interface. One `CircuitBreakerDecorator` protects any upstream. When operations decides the backoff should be jittered rather than purely exponential, the change touches one file. And when a new database client comes along, you compose the same stack around it with an error classifier for that particular database, and it inherits logging, metrics, retry and circuit breaking for free.
 
 ## The Pattern in Go
 
-Go's implicit interface satisfaction makes the decorator pattern particularly natural. A logging decorator for an event producer is a struct that holds the inner producer and a logger. It satisfies the same `EventProducer` interface, so callers cannot distinguish it from the underlying implementation:
+Go's implicit interfaces make the pattern feel almost native. A logging decorator for an event producer is simply a struct that holds the inner producer and a logger. Because it satisfies the same `EventProducer` interface, callers have no way of telling it apart from the real thing:
 
 ```go
 // loggingProducer wraps an EventProducer with structured logging.
@@ -52,7 +52,7 @@ func (p *loggingProducer) Publish(ctx context.Context, event Event) error {
 }
 ```
 
-A circuit breaker decorator follows the same structural pattern. It checks the circuit state before each call and records the outcome afterward. If the upstream has exceeded the failure threshold, the decorator short-circuits immediately without attempting the call:
+A circuit breaker has the same shape. It checks the state of the circuit before each call and records the outcome afterward; if the upstream has already failed too often, it returns immediately without trying the call at all:
 
 ```go
 // circuitBreakerProducer fails fast when the upstream is degraded.
@@ -73,11 +73,11 @@ func (p *circuitBreakerProducer) Publish(ctx context.Context, event Event) error
 }
 ```
 
-The essential property is that every decorator accepts and returns the same interface. This makes decorators composable — an arbitrary number can be stacked without altering any type signatures.
+The property that matters is that every decorator takes and returns the same interface. That is what makes them composable: you can stack as many as you like without changing a single type signature.
 
 ## The Pattern in Python
 
-Python's `__getattr__` proxy mechanism extends the pattern further. Rather than wrapping each method individually, the decorator intercepts attribute access at the class level, determines whether the attribute is callable, and wraps it transparently. This approach yields a single decorator class that operates on any interface without per-method boilerplate:
+Python lets you go a step further with `__getattr__`. Instead of wrapping each method by hand, the decorator intercepts attribute access, checks whether the attribute is callable, and wraps it on the way out. The result is one decorator class that works on any interface at all, with no per-method boilerplate:
 
 ```python
 class LoggingDecorator:
@@ -121,11 +121,11 @@ class LoggingDecorator:
         return wrapper
 ```
 
-The same `__getattr__` approach generalizes to metrics, retry, timeout, and circuit breaker decorators. Each is a standalone class capable of wrapping any object that exposes callable attributes.
+The same trick works for metrics, retry, timeout and circuit breaker decorators. Each is a small standalone class that can wrap any object with callable attributes.
 
 ## Composition: Stacking Decorators
 
-The power of the pattern lies in composition. Each decorator is independent — it is aware only of the interface it wraps and the single concern it introduces. Decorators are composed into a stack where each layer contributes exactly one behavior. A fluent builder makes the ordering explicit and the composition readable:
+Where the pattern really earns its keep is composition. Each decorator knows about exactly two things: the interface it wraps and the one concern it adds. You stack them, and each layer contributes one behavior. A fluent builder makes the order explicit and, to my mind at least, rather pleasant to read:
 
 ```go
 // Fluent builder — reads top-to-bottom as outermost to innermost.
@@ -139,7 +139,7 @@ svc := decorators.NewBuilder(NewUserService(repo), "users").
     Build()
 ```
 
-Without a builder, the manual composition is equally explicit. Each variable name documents the layer being applied:
+You don't need a builder, mind you. Composing by hand is just as explicit, and the variable names document each layer as you go:
 
 ```python
 # Stack order: Logging → Metrics → Retry → CircuitBreaker → Timeout → Raw
@@ -152,8 +152,8 @@ with_metrics = MetricsDecorator(with_retry, service="neo4j")
 client = LoggingDecorator(with_metrics, service_name="neo4j", logger=logger)
 ```
 
-When a new database client is introduced — Redis, Elasticsearch, Kafka — the same decorator stack is composed with a domain-specific error classifier, and the full complement of observability and resilience behaviors is inherited without additional implementation effort.
+When a new client shows up (Redis, Elasticsearch, Kafka, whatever it happens to be), you build the same stack around it with an error classifier that knows that system's failures, and it inherits every bit of the observability and resilience above without any new implementation work.
 
 ## Summary
 
-The decorator pattern confines each cross-cutting concern to a single file with a single responsibility. Business logic remains clean: a repository implementation is concerned with data access, not with Prometheus histograms or retry scheduling. Decorators are individually testable — the inner interface is mocked, and the wrapper's behavior is verified in isolation. The composition is explicit and inspectable: the builder chain or factory function specifies exactly which protections are in place and in what order. There is no annotation indirection, no framework-level interception, and no implicit behavior — only functions wrapping functions, each with a well-defined contract.
+None of this is new, of course. The Gang of Four wrote the pattern down in 1994, and functional programmers would point out (correctly) that it is just function composition wearing a trench coat. But that is rather the point. A repository should be about data access, not about Prometheus histograms or when to retry, and decorators let it stay that way. Each one can be tested on its own by mocking the interface it wraps, and the builder chain or factory tells you, in order, exactly which protections are in place. There is no annotation magic and no framework quietly intercepting your calls; there are only functions wrapping functions, each with a contract you can read. I have yet to find a cleaner way to keep the plumbing out of the house.

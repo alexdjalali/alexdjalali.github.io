@@ -3,28 +3,28 @@ title: "From Dependency Parses to Montague Semantics via Vector-Grounded Concept
 date: 2026-01-31
 draft: false
 math: true
-description: "Exploring how Universal Dependencies parse trees, Montague-style typed lambda calculus, and vector-derived concept bases fit together into a compositional semantics pipeline."
+description: "That Universal Dependencies parses, a Montague-style typed lambda calculus and concept bases derived from vectors can be fitted together into a single compositional semantics pipeline, and how."
 images:
   - "images/og/dependency-to-lambda.png"
 tags: ["nlp", "formal-semantics"]
 keywords: ["natural language processing", "formal semantics", "lambda calculus", "dependency parsing", "computational linguistics"]
 ---
 
-A persistent challenge in computational semantics is bridging the gap between syntactic parse representations — which capture grammatical structure — and formal semantic representations capable of supporting inference. Dependency parsers produce trees annotated with grammatical relations (subject, object, modifier), but these structures lack the compositional semantics needed for entailment, quantifier scope resolution, or logical reasoning. This post explores how three well-established traditions — Universal Dependencies parsing, <a href="#ref-montague1973">Montague</a>-style higher-order typed lambda calculus, and distributional vector semantics — can be synthesized into a coherent pipeline that translates dependency trees into concept-grounded logical forms. The discussion draws on foundational work by <a href="#ref-reddy2016">Reddy et al. (2016)</a> on transforming dependency structures to logical forms, as well as recent syntax-guided approaches to semantic translation <a href="#ref-bai2021">(Bai & Zhao, 2021)</a>.
+One of the more persistent problems in computational semantics (and one I have been chewing on, in one form or another, since graduate school) is how to get from a syntactic parse, which tells you about grammatical structure, to a formal semantic representation that can actually support inference. Dependency parsers give you trees labeled with grammatical relations (subject, object, modifier), but those trees have none of the compositional semantics you need for entailment, quantifier scope or logical reasoning more generally. In what follows I want to show how three well-established traditions, namely Universal Dependencies parsing, a <a href="#ref-montague1973">Montague</a>-style higher-order typed lambda calculus, and distributional vector semantics, can be put together into a single pipeline that translates dependency trees into logical forms grounded in concepts. Nothing here is mine alone. I lean heavily on <a href="#ref-reddy2016">Reddy et al. (2016)</a>, who showed how to transform dependency structures into logical forms, and on more recent syntax-guided approaches to semantic translation <a href="#ref-bai2021">(Bai & Zhao, 2021)</a>, to name just two.
 
 ## Architecture
 
-A natural way to organize these components is as a multi-stage pipeline. A [Stanford CoreNLP](https://stanfordnlp.github.io/CoreNLP/) dependency parser <a href="#ref-chen2014">(Chen & Manning, 2014)</a> produces token-level annotations — lemma, POS tag, dependency relation, and head position — which feed into two parallel tracks. The Stanford parser generates Universal Dependencies (UD) trees <a href="#ref-demarneffe2014">(de Marneffe et al., 2014)</a> via its neural network dependency parser, providing typed dependency relations (e.g., `nsubj`, `obj`, `det`, `amod`) that serve as the syntactic backbone for semantic translation.
+The most natural way to organize these components, to my mind at least, is as a pipeline with several stages. A [Stanford CoreNLP](https://stanfordnlp.github.io/CoreNLP/) dependency parser <a href="#ref-chen2014">(Chen & Manning, 2014)</a> annotates each token with its lemma, part-of-speech tag, dependency relation and head position. Its neural dependency parser produces Universal Dependencies (UD) trees <a href="#ref-demarneffe2014">(de Marneffe et al., 2014)</a>, and the typed relations in those trees (`nsubj`, `obj`, `det`, `amod` and so on) serve as the syntactic backbone for everything that follows.
 
-The first track embeds tokens via sentence transformers and clusters the resulting vectors into canonical concepts using deterministic k-means. The second track extracts <a href="#ref-dowty1991">Dowty (1991)</a> proto-role features from dependency arcs and classifies verbs according to <a href="#ref-levin1993">Beth Levin's (1993)</a> taxonomy. Both tracks converge in a semantic graph builder, which constructs a typed predicate-argument structure. A final generation stage produces a lambda-calculus term from the graph, applies beta-reduction and simplification, validates types, and emits a canonical string representation. None of these components are individually novel — the contribution is in tracing how they compose.
+From there the annotations feed two parallel tracks. The first embeds tokens with a sentence transformer and clusters the resulting vectors into canonical concepts using deterministic k-means. The second extracts <a href="#ref-dowty1991">Dowty's (1991)</a> proto-role features from the dependency arcs and classifies verbs according to <a href="#ref-levin1993">Beth Levin's (1993)</a> taxonomy. (Beth, I should disclose, sat on my dissertation committee, so I come to her verb classes as something less than a neutral party.) The two tracks meet in a semantic graph builder, which constructs a typed predicate-argument structure, and a final stage produces a lambda term from that graph, beta-reduces and simplifies it, checks its types, and emits a canonical string. None of these components is novel on its own; whatever contribution there is lies in tracing how they compose.
 
-As a running illustration, the sentence *"Every tall senator approved the new bill"* enters the pipeline as raw text and exits as a fully typed, quantifier-scoped lambda term — with each lexical constant grounded to a canonical concept ID derived from its embedding cluster. The remainder of this post traces that sentence through each stage.
+As a running example, I will follow the sentence *"Every tall senator approved the new bill"* from the moment it enters the pipeline as raw text to the moment it leaves as a fully typed lambda term with its quantifiers scoped, each of its lexical constants grounded to a concept ID derived from an embedding cluster.
 
 ## The Type System
 
-The standard representation language for this kind of pipeline is a higher-order typed lambda calculus in the <a href="#ref-montague1973">Montague (1973)</a> tradition. The type system comprises two primitive types — $e$ (entity) and $t$ (truth value) — and a recursive function type constructor. Common derived types include properties ($e \to t$), binary relations ($e \to (e \to t)$), generalized quantifiers ($(e \to t) \to ((e \to t) \to t)$), and connectives ($t \to (t \to t)$).
+The standard representation language for a pipeline of this kind is a higher-order typed lambda calculus in the <a href="#ref-montague1973">Montague (1973)</a> tradition. Its type system has two primitive types, $e$ (entities) and $t$ (truth values), and a recursive constructor for function types. The derived types that come up most often are properties ($e \to t$), binary relations ($e \to (e \to t)$), generalized quantifiers ($(e \to t) \to ((e \to t) \to t)$) and connectives ($t \to (t \to t)$).
 
-The primitive and derived types are defined as follows:
+Concretely, the types are these:
 
 ```
 Primitive types:
@@ -40,13 +40,13 @@ Derived types:
     Modifier    = (e → t) → (e → t)
 ```
 
-The type system constrains well-formedness: a function of type $e \to t$ can only be applied to a term of type $e$, and the result has type $t$. Attempting to apply a property to another property — for example, $(\textsf{Tall}\;\textsf{Senator})$ where both are $e \to t$ — raises a type error at construction time. This enables type-driven composition and catches arity mismatches before evaluation.
+The type system is what keeps the representations well formed. A function of type $e \to t$ can only be applied to a term of type $e$, and the result has type $t$. Try to apply one property to another (say, $(\textsf{Tall}\;\textsf{Senator})$ with both typed $e \to t$) and you get a type error at construction time. That is precisely what makes type-driven composition possible, and it has the pleasant side effect of catching arity mismatches before anything is evaluated.
 
-For example, the determiner *every* has type $(e \to t) \to ((e \to t) \to t)$. It consumes a restrictor property (the noun) and a scope property (the verb phrase), yielding a truth value. The adjective *tall* has the modifier type $(e \to t) \to (e \to t)$: it takes a property and returns a refined property. These types determine how constituents compose — *tall senator* is $(\textsf{Tall}\;\textsf{Senator})$ where $\textsf{Tall} : (e \to t) \to (e \to t)$ applied to $\textsf{Senator} : e \to t$ yields a new property of type $e \to t$.
+To take the obvious example, the determiner *every* has type $(e \to t) \to ((e \to t) \to t)$: it consumes a restrictor property (the noun) and a scope property (the verb phrase) and yields a truth value. The adjective *tall* has the modifier type $(e \to t) \to (e \to t)$, taking a property and returning a more specific one. The types alone determine how constituents compose. *Tall senator* is $(\textsf{Tall}\;\textsf{Senator})$, where $\textsf{Tall} : (e \to t) \to (e \to t)$ applied to $\textsf{Senator} : e \to t$ yields a new property of type $e \to t$. (I have, I should admit, a long-standing soft spot for *tall*; I spent a dissertation on what happens when you put *-er* on the end of it.)
 
 ## The AST
 
-In Montague's framework, the abstract syntax tree requires exactly four node types. Predicates, quantifiers, and connectives are not distinct AST categories — they are typed constants composed via curried application. The four node types are:
+In Montague's framework, the abstract syntax tree needs exactly four kinds of node. Predicates, quantifiers and connectives are not categories of their own; they are simply typed constants, composed by curried application. The four kinds are these:
 
 ```
 Variable(x, τ)         // bound or free variable of type τ
@@ -57,7 +57,7 @@ Abstraction(x, φ)      // lambda abstraction: λx. φ
 
 Curried application is defined recursively: $\textsf{Apply}(f, a, b) = \textsf{Application}(\textsf{Application}(f, a), b)$.
 
-To illustrate the uniformity of this representation, consider how the words in *"Every tall senator approved the new bill"* reduce to the same AST primitives:
+To see how uniform this representation is, consider how every word in *"Every tall senator approved the new bill"* reduces to the same primitives:
 
 ```
 Senator : e → t                             // common noun
@@ -69,15 +69,15 @@ Tall    : (e → t) → (e → t)                // modifier
 New     : (e → t) → (e → t)                // modifier
 ```
 
-The phrase *"senator approved"* is simply $\textsf{Application}(\textsf{Application}(\textsf{Approve}, \textsf{Senator}), \ldots)$ — no special syntax is required for any linguistic category. Every word in the sentence is a typed constant; composition is handled entirely by $\textsf{Application}$ and $\textsf{Abstraction}$.
+The phrase *"senator approved"* is just $\textsf{Application}(\textsf{Application}(\textsf{Approve}, \textsf{Senator}), \ldots)$, and no linguistic category needs any special syntax. Every word in the sentence is a typed constant, and composition is handled entirely by $\textsf{Application}$ and $\textsf{Abstraction}$. There is something almost Spartan about it, which is, I think, its chief virtue.
 
 ## Translation: Dependency Arcs to Lambda Terms
 
-The central question is how dependency relations map to semantic argument positions. The natural approach, following <a href="#ref-reddy2016">Reddy et al. (2016)</a>, is a recursive transpiler that walks the dependency tree bottom-up, building typed lambda terms at each node. The recursive structure of the algorithm mirrors the recursive structure of the dependency tree itself: each subtree is translated independently, and the results are composed according to the dependency relation that connects them.
+The central question, then, is how dependency relations map onto semantic argument positions. The natural approach, following <a href="#ref-reddy2016">Reddy et al. (2016)</a>, is a recursive transpiler that walks the dependency tree from the bottom up, building a typed lambda term at each node. The recursion in the algorithm mirrors the recursion in the tree: each subtree is translated on its own, and the results are composed according to the relation that connects them.
 
 ### Recursive Definition
 
-The translation function $\mathcal{T}$ is defined over dependency tree nodes. Given a node $n$ with head word $w$, POS tag $p$, and a set of dependents $\{d_1, d_2, \ldots\}$ each bearing a dependency relation $\text{rel}(d_i)$, the function proceeds as follows:
+The translation function $\mathcal{T}$ is defined over the nodes of a dependency tree. Given a node $n$ with head word $w$, part-of-speech tag $p$ and a set of dependents $\{d_1, d_2, \ldots\}$, each bearing a dependency relation $\text{rel}(d_i)$, it proceeds as follows:
 
 ```
 function T(node) → LambdaTerm
@@ -112,11 +112,11 @@ function T(node) → LambdaTerm
     return term
 ```
 
-The $\text{bind\_argument}$ function handles the interaction between quantified noun phrases and the verb. When the argument is a quantifier term (produced by a `det` dependent), the verb's lambda term is threaded into the quantifier's scope position. When the argument is a bare entity constant (a proper noun), it is applied directly via curried application.
+The $\text{bind\_argument}$ function is where quantified noun phrases meet the verb. If the argument is a quantifier term (produced by a `det` dependent), the verb's lambda term is threaded into the quantifier's scope position. If it is a bare entity constant, such as a proper noun, it is applied directly by curried application.
 
 ### Worked Example
 
-Consider the sentence *"Every tall senator approved the new bill."* The Stanford CoreNLP dependency parse <a href="#ref-chen2014">(Chen & Manning, 2014)</a> produces the following tree:
+Back to our sentence, *"Every tall senator approved the new bill."* The Stanford CoreNLP parser <a href="#ref-chen2014">(Chen & Manning, 2014)</a> gives us this tree:
 
 ```
 approved(ROOT)
@@ -128,19 +128,19 @@ approved(ROOT)
     └── new(amod)
 ```
 
-The transpiler processes this tree bottom-up, starting from the leaves and composing terms at each level.
+The transpiler works from the leaves upward, composing terms at each level.
 
 **Step 1: Translate the subject subtree `senator(nsubj)`.**
 
-The transpiler recurses into the `senator` node, which has two dependents: `tall(amod)` and `every(det)`.
+The transpiler recurses into the `senator` node, which has two dependents, `tall(amod)` and `every(det)`.
 
-First, the leaf *tall* is translated to a modifier constant $\textsf{Tall} : (e \to t) \to (e \to t)$. The base noun *senator* becomes $\textsf{Senator} : e \to t$. The modifier is applied to produce a refined property:
+The leaf *tall* becomes a modifier constant, $\textsf{Tall} : (e \to t) \to (e \to t)$, and the noun *senator* becomes $\textsf{Senator} : e \to t$. Applying the modifier gives a more specific property:
 
 ```
 (Tall Senator) : e → t
 ```
 
-Next, the determiner *every* is translated to $\textsf{Every} : (e \to t) \to ((e \to t) \to t)$. The modified noun is wrapped as the restrictor, producing a quantifier term that awaits a scope:
+The determiner *every* then becomes $\textsf{Every} : (e \to t) \to ((e \to t) \to t)$, and the modified noun is wrapped as its restrictor, leaving a quantifier term that is still waiting for a scope:
 
 ```
 Every (λx. (Tall Senator) x)  [scope: _]
@@ -148,13 +148,13 @@ Every (λx. (Tall Senator) x)  [scope: _]
 
 **Step 2: Translate the object subtree `bill(obj)`.**
 
-The same recursive procedure applies. The leaf *new* becomes $\textsf{New} : (e \to t) \to (e \to t)$, and *bill* becomes $\textsf{Bill} : e \to t$. The modifier applies:
+The same procedure applies here. The leaf *new* becomes $\textsf{New} : (e \to t) \to (e \to t)$, *bill* becomes $\textsf{Bill} : e \to t$, and the modifier applies:
 
 ```
 (New Bill) : e → t
 ```
 
-The determiner *the* becomes $\textsf{The} : (e \to t) \to ((e \to t) \to t)$, and the modified noun is wrapped:
+The determiner *the* becomes $\textsf{The} : (e \to t) \to ((e \to t) \to t)$, and the modified noun is wrapped in turn. (I am treating *the* as a quantifier here, in the Russellian manner, which will annoy some readers.)
 
 ```
 The (λy. (New Bill) y)  [scope: _]
@@ -162,7 +162,7 @@ The (λy. (New Bill) y)  [scope: _]
 
 **Step 3: Compose at the root `approved(ROOT)`.**
 
-The verb *approved* is assigned the binary relation type $\textsf{Approve} : e \to (e \to t)$. The transpiler now binds the subject and object arguments. The object quantifier's scope is filled first — it receives the verb applied to the subject variable and the object variable:
+The verb *approved* is assigned the binary relation type $\textsf{Approve} : e \to (e \to t)$, and the transpiler now binds the subject and the object. The object quantifier's scope is filled first, receiving the verb applied to the subject variable and the object variable:
 
 ```
 Every (λx. (Tall Senator) x)
@@ -170,7 +170,7 @@ Every (λx. (Tall Senator) x)
                (λy. Approve x y))
 ```
 
-The outermost quantifier $\textsf{Every}$ takes two arguments: the restrictor $\lambda x.\;(\textsf{Tall}\;\textsf{Senator})\;x$ and the scope $\lambda x.\;\ldots$. Within the scope, the inner quantifier $\textsf{The}$ takes its own restrictor $\lambda y.\;(\textsf{New}\;\textsf{Bill})\;y$ and scope $\lambda y.\;\textsf{Approve}\;x\;y$, where $x$ is bound by the outer abstraction and $y$ by the inner one.
+The outermost quantifier, $\textsf{Every}$, takes two arguments: the restrictor $\lambda x.\;(\textsf{Tall}\;\textsf{Senator})\;x$ and the scope $\lambda x.\;\ldots$. Inside that scope, the inner quantifier $\textsf{The}$ takes its own restrictor, $\lambda y.\;(\textsf{New}\;\textsf{Bill})\;y$, and its own scope, $\lambda y.\;\textsf{Approve}\;x\;y$, where $x$ is bound by the outer abstraction and $y$ by the inner one. Note that this gives the subject wide scope, which is the surface reading; the inverse reading would need something more (a type-shifting rule or a continuation, at least), and I leave it aside here.
 
 **Step 4: The final AST.**
 
@@ -188,11 +188,11 @@ Apply(
                 Apply(Approve, x, y)))))
 ```
 
-Each recursive call to $\mathcal{T}$ produces a self-contained typed term. The composition at each level is determined entirely by the dependency relation — `amod` triggers modifier application, `det` triggers quantifier wrapping, `nsubj` and `obj` trigger argument binding — which is why the algorithm generalizes across arbitrary dependency trees without sentence-specific rules.
+Each recursive call to $\mathcal{T}$ produces a self-contained typed term, and the composition at each level is determined entirely by the dependency relation: `amod` triggers modifier application, `det` triggers quantifier wrapping, and `nsubj` and `obj` trigger argument binding. That is why the algorithm generalizes to arbitrary dependency trees without any rules specific to a sentence.
 
 ## Vector-Grounded Concept Base
 
-Lexical grounding is the bridge between surface forms and the formal representation. Each token is embedded via a sentence transformer, and the resulting vectors are clustered using seeded k-means into canonical concepts. The seed ensures determinism: identical inputs always produce identical concept assignments. Each cluster centroid defines a canonical concept with a stable SHA-256-derived identifier.
+So far the constants have been, in effect, just names. Lexical grounding is what connects those names to the words people actually use. Each token is embedded with a sentence transformer, and the resulting vectors are clustered into canonical concepts with seeded k-means. The seed keeps things deterministic, so identical inputs always produce identical concepts, and each cluster centroid defines a canonical concept with a stable identifier derived from SHA-256.
 
 ```
 mapper ← CanonicalConceptMapper(n_clusters: 256, seed: 42)
@@ -202,11 +202,11 @@ mapping ← mapper.map(feature, text: "senator", lemma: "senator")
 // → ConceptMapping(concept_id: "a3f2c8", label: "Senator", confidence: 0.87)
 ```
 
-The concept mapper assigns each token a canonical concept ID and a confidence score derived from the distance to the cluster centroid. These concept IDs are threaded into the lambda-calculus constants via the `concept_id` field, linking the formal representation to the distributional semantics.
+The concept mapper gives each token a canonical concept ID and a confidence score derived from its distance to the centroid. Those IDs are threaded into the lambda constants through the `concept_id` field, which is what ties the formal representation to the distributional one.
 
 ### Sample Lexicon
 
-After fitting the concept mapper to a corpus, each cluster centroid defines a canonical concept. The resulting lexicon annotates each concept with its semantic type, cluster ID, representative surface forms, and the proto-role frame assigned by the verb classifier. A fragment of such a lexicon:
+Once the mapper has been fitted to a corpus, each centroid defines a canonical concept, and the resulting lexicon records each concept's semantic type, cluster ID, representative surface forms and (for verbs) the proto-role frame assigned by the classifier. A fragment of such a lexicon looks like this:
 
 | Concept ID | Label | Type | Surface Forms | Proto-Roles |
 |:-----------|:------|:-----|:--------------|:------------|
@@ -218,11 +218,11 @@ After fitting the concept mapper to a corpus, each cluster centroid defines a ca
 | `f44c12` | $\textsf{Bank}_\text{fin}$ | $e \to t$ | bank, lender, financial institution | — |
 | `f44c13` | $\textsf{Bank}_\text{geo}$ | $e \to t$ | bank, shore, riverbank, embankment | — |
 
-Each entry records the mapping from distributional cluster to formal type. The surface form sets show which tokens ground to the same concept — *senator*, *legislator*, *lawmaker*, and *congressperson* all resolve to concept `a3f2c8` with type $e \to t$. Verbs carry proto-role annotations that inform argument binding during transpilation. The two $\textsf{Bank}$ entries illustrate polysemy resolution: the surface form *bank* appears in both concepts, but the sentence transformer's contextual embedding disambiguates the intended sense at runtime.
+Each entry maps a distributional cluster onto a formal type. The sets of surface forms show which tokens ground to the same concept; *senator*, *legislator*, *lawmaker* and *congressperson* all resolve to `a3f2c8`, of type $e \to t$. Verbs carry the proto-role annotations that inform argument binding during translation. And the two $\textsf{Bank}$ entries show polysemy being resolved: the form *bank* appears in both, but the sentence transformer's contextual embedding picks out the intended sense at runtime.
 
-When the transpiler encounters the token *ratify* in a dependency tree, it queries the lexicon and retrieves concept `b71e04` ($\textsf{Approve}$), producing the constant $\textsf{Constant}(\text{Approve},\; e \to (e \to t),\; \texttt{b71e04})$. This means the sentences *"The senator approved the bill"* and *"The legislator ratified the measure"* produce structurally identical lambda terms — both ground to the same concept constants — despite sharing no surface forms.
+So when the transpiler meets the token *ratify*, it looks it up and retrieves `b71e04` ($\textsf{Approve}$), producing the constant $\textsf{Constant}(\text{Approve},\; e \to (e \to t),\; \texttt{b71e04})$. It follows that *"The senator approved the bill"* and *"The legislator ratified the measure"* yield structurally identical lambda terms, grounded to the same constants, even though they share no surface forms at all. (Whether a senator ratifying something is *really* the same as approving it is a question I will leave to the political scientists.)
 
-This grounding enables the recognition that two different surface forms may map to the same canonical concept if their embeddings cluster together. The confidence scores assigned by the mapper decrease with distance from the cluster centroid, reflecting decreasing typicality:
+In other words, two different surface forms can map to the same canonical concept whenever their embeddings cluster together, and the mapper's confidence falls off with distance from the centroid, which tracks, roughly, how typical a member of the concept the word is:
 
 ```
 map("senator",    lemma: "senator")    → (concept_id: "a3f2c8", label: "Senator", confidence: 0.87)
@@ -230,19 +230,21 @@ map("legislator", lemma: "legislator") → (concept_id: "a3f2c8", label: "Senato
 map("lawmaker",   lemma: "lawmaker")   → (concept_id: "a3f2c8", label: "Senator", confidence: 0.74)
 ```
 
-Conversely, polysemous forms are distinguished by context. The word *bank* in *"the river bank"* and *"the investment bank"* receives different embeddings from the sentence transformer (which encodes the full sentential context), and these embeddings cluster into distinct canonical concepts — `f44c12` (financial) vs. `f44c13` (geographical) — with the contextual embedding resolving the ambiguity before the token reaches the transpiler.
+Conversely, polysemous forms are told apart by their context. *Bank* in *"the river bank"* and in *"the investment bank"* receives different embeddings from the sentence transformer (which encodes the whole sentence), and those embeddings fall into different clusters, `f44c12` (financial) and `f44c13` (geographical), so the ambiguity is resolved before the token ever reaches the transpiler.
 
 ## Semantic Role Assignment
 
-A further refinement involves extracting <a href="#ref-dowty1991">Dowty (1991)</a> proto-role features from dependency arcs to inform argument labeling. Agent-like properties (volitionality, sentience, causation) are associated with ARG0 positions, while patient-like properties (change of state, affectedness) are associated with ARG1.
+One further refinement is to extract <a href="#ref-dowty1991">Dowty's (1991)</a> proto-role features from the dependency arcs and use them to label arguments. Agent-like properties (volition, sentience, causation) are associated with ARG0, and patient-like properties (change of state, being affected) with ARG1.
 
-Verb classification follows <a href="#ref-levin1993">Levin's (1993)</a> taxonomy, which groups verbs by shared syntactic behavior and assigns thematic role frames accordingly. Returning to the running example, the verb *approved* belongs to a Levin class that shares the frame `ARG0:Agent, ARG1:Theme` with verbs like *endorse*, *ratify*, and *sanction* — the same synonyms that cluster together in the concept base.
+Verbs are classified according to <a href="#ref-levin1993">Levin's (1993)</a> taxonomy, which groups verbs by their shared syntactic behavior and assigns thematic frames accordingly. In our example, *approved* belongs to a Levin class that shares the frame `ARG0:Agent, ARG1:Theme` with *endorse*, *ratify* and *sanction*, which are, not coincidentally, the same synonyms that cluster together in the concept base.
 
-The Stanford parser <a href="#ref-chen2014">(Chen & Manning, 2014)</a> produces $\text{nsubj}(\textit{approved},\;\textit{senator})$ and $\text{obj}(\textit{approved},\;\textit{bill})$. The Dowty classifier examines the proto-role features of each argument: *senator* is volitional and sentient (proto-agent), and *bill* undergoes a change of state — it becomes approved (proto-patient). These features confirm the ARG0/ARG1 assignment derived from the dependency relations, providing a redundant check that strengthens confidence in the resulting predicate-argument structure. The final lambda term thus carries both its formal type structure and its grounded proto-role annotations: $\textsf{Approve}$ is labeled with `ARG0:Agent, ARG1:Theme`, matching the lexicon entry for concept `b71e04`.
+The Stanford parser <a href="#ref-chen2014">(Chen & Manning, 2014)</a> gives us $\text{nsubj}(\textit{approved},\;\textit{senator})$ and $\text{obj}(\textit{approved},\;\textit{bill})$. The Dowty classifier then looks at the proto-role features of each argument. *Senator* is volitional and sentient (a proto-agent), and *bill* undergoes a change of state, in that it becomes approved (a proto-patient). These features agree with the ARG0/ARG1 assignment derived from the dependency relations, which gives us a redundant check on the predicate-argument structure. The final lambda term therefore carries both its formal type structure and its grounded proto-role annotations, with $\textsf{Approve}$ labeled `ARG0:Agent, ARG1:Theme`, just as the lexicon entry for `b71e04` says it should be.
 
 ## Summary
 
-The ideas presented here connect three traditions: dependency grammar for syntactic analysis, <a href="#ref-montague1973">Montague</a> semantics for compositional meaning representation, and distributional semantics for lexical grounding. The Stanford CoreNLP dependency parser <a href="#ref-demarneffe2014">(de Marneffe et al., 2014)</a> provides the syntactic backbone — typed dependency relations that a transpiler can map systematically to predicate-argument structures. The typed lambda calculus provides a representation language that supports beta-reduction, type checking, and logical inference. And vector-grounded concept bases bridge surface variation with semantic identity. The synthesis yields a pipeline that takes raw text and produces typed, normalized, concept-grounded logical forms suitable for downstream reasoning tasks. Related approaches include incremental dependency-to-semantics translation for embodied agents <a href="#ref-brick2007">(Brick & Scheutz, 2007)</a>, CCG-based Montague parsing <a href="#ref-upshotmontague">(upshot-montague)</a>, Minimal Recursion Semantics as an alternative compositional formalism <a href="#ref-copestake2005">(Copestake et al., 2005)</a>, and monotonicity-driven inference from Universal Dependency trees <a href="#ref-chen2021">(Chen & Gao, 2021)</a>.
+The point I want to make is this: three traditions that are usually taught in different buildings fit together rather well. Dependency grammar supplies the syntactic analysis, <a href="#ref-montague1973">Montague</a> semantics the compositional representation of meaning, and distributional semantics the grounding of the lexicon. The Stanford parser <a href="#ref-demarneffe2014">(de Marneffe et al., 2014)</a> gives us typed dependency relations that a transpiler can map systematically onto predicate-argument structures; the typed lambda calculus gives us a representation that supports beta-reduction, type checking and inference; and concept bases grounded in vectors bridge the gap between surface variation and semantic identity. The result is a pipeline that takes raw text and produces typed, normalized logical forms, grounded in concepts and ready for downstream reasoning.
+
+It is not without problems, of course. Quantifier scope ambiguity is handled only in its surface form, the treatment of definites is (let's say) opinionated, and the concept base inherits whatever its embedding model gets wrong. Others have taken related paths that are well worth reading: incremental dependency-to-semantics translation for embodied agents <a href="#ref-brick2007">(Brick & Scheutz, 2007)</a>, CCG-based Montague parsing <a href="#ref-upshotmontague">(upshot-montague)</a>, Minimal Recursion Semantics as an alternative compositional formalism <a href="#ref-copestake2005">(Copestake et al., 2005)</a>, and monotonicity-driven inference from Universal Dependency trees <a href="#ref-chen2021">(Chen & Gao, 2021)</a>. That last one takes me back to natural logic, which Chris Potts and I worked on at Stanford, and which I suspect is where a pipeline like this one ought to go next.
 
 ## References
 

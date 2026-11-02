@@ -2,26 +2,26 @@
 title: "My Development Environment"
 date: 2026-01-15
 draft: false
-description: "A walkthrough of my macOS development setup: zsh, neovim, tmux, and 80+ CLI tools — all managed from a single dotfiles repo with a one-command install."
+description: "A tour of my macOS setup (zsh, Neovim, tmux and 80-odd command-line tools), all of it kept in one dotfiles repo that installs with a single command."
 images:
   - "images/og/my-development-environment.png"
 tags: ["developer-tools"]
 keywords: ["development environment", "dotfiles", "neovim", "tmux", "macos setup"]
 ---
 
-Every developer I respect has a dotfiles repo. Not because the configs themselves are interesting — most of them aren't — but because maintaining one forces you to make deliberate choices about your tools. You can't version-control a setup you don't understand. The act of curating a dotfiles repo is the act of deciding what matters in your workflow and throwing everything else away.
+Every developer I respect keeps a dotfiles repo. The configs themselves are rarely interesting (most people's aren't, mine included), but keeping them under version control forces you to make deliberate choices about your tools, because you can't very well version a setup you don't understand. Curating a dotfiles repo amounts to deciding what matters in your workflow and throwing the rest away.
 
-Mine lives at [github.com/alexdjalali/dotfiles](https://github.com/alexdjalali/dotfiles). It provisions a full macOS development environment from a blank machine in a single command. This post walks through what's in it and why.
+Mine lives at [github.com/alexdjalali/dotfiles](https://github.com/alexdjalali/dotfiles), and it turns a blank Mac into a full development environment with a single command. What follows is a tour of what's in it and, where I can justify it, why.
 
 ## The Philosophy
 
-Three principles:
+The whole thing rests on three principles, and I'll admit up front that the first one is partly aesthetic.
 
-**One theme everywhere.** [Catppuccin Mocha](https://catppuccin.com/) in the terminal, in the editor, in tmux, in git diffs, in bat output. Visual consistency across tools isn't vanity — it reduces context-switching friction. When everything looks like it belongs together, your brain stops noticing the seams between tools and starts focusing on the work.
+I use one theme everywhere: [Catppuccin Mocha](https://catppuccin.com/) in the terminal, the editor, tmux, git diffs and `bat`. I would like to claim this is about reducing the friction of switching contexts, and it is (when everything looks like it belongs together, you stop noticing the seams between tools), but I also just like how it looks.
 
-**Modern replacements for legacy tools.** `ls` becomes `eza`. `cat` becomes `bat`. `grep` becomes `ripgrep`. `find` becomes `fd`. `sed` becomes `sd`. `du` becomes `dust`. `top` becomes `btop`. `diff` becomes `delta`. These aren't gimmicks. They're faster, they have better defaults, and they produce output that's actually readable.
+I replace the old Unix tools with modern ones wherever a good replacement exists: `eza` for `ls`, `bat` for `cat`, `ripgrep` for `grep`, `fd` for `find`, `sd` for `sed`, `dust` for `du`, `btop` for `top` and `delta` for `diff`. None of these are gimmicks. They're faster, their defaults are better, and their output is something a person can actually read.
 
-**One command, full setup.** A fresh Mac should go from "nothing installed" to "fully productive" with `./install.sh`. No manual steps. No "oh, I also need to install X." The install script is idempotent — safe to run again whenever I add something new.
+And a fresh Mac should go from nothing installed to fully productive with `./install.sh`, with no manual steps and no "oh, I also need to install X" the next morning. The script is idempotent, so I can safely run it again whenever I add something.
 
 ## The Shell
 
@@ -35,21 +35,21 @@ for conf in "$DOTFILES/zsh/conf.d/"*.zsh(N); do
 done
 ```
 
-Each numbered file in `conf.d/` handles one concern — environment variables, path setup, aliases, completions, fzf config, tool initialization. When I want to change how aliases work, I open `04-aliases.zsh`. When I want to tweak fzf, I open `06-fzf.zsh`. No scrolling through a 500-line `.zshrc` looking for the right section.
+Each numbered file in `conf.d/` handles one concern (environment variables, the path, aliases, completions, fzf, tool initialization), so when I want to change an alias I open `04-aliases.zsh`, and when I want to tweak fzf I open `06-fzf.zsh`. Nobody should have to scroll through a 500-line `.zshrc` looking for the right section.
 
-The plugins are minimal and deliberate:
+The plugins are few, and each one is there on purpose:
 
-- [fzf-tab](https://github.com/Aloxaf/fzf-tab) — replaces zsh's default completion menu with fzf, so tab completion gets fuzzy matching and preview windows
-- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) — ghost text from history
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) — real-time command highlighting
-- [zoxide](https://github.com/ajeetdsouza/zoxide) — frecency-based `cd` replacement (learns which directories you visit most)
-- [atuin](https://github.com/atuinsh/atuin) — shell history with full-text search and optional sync across machines
+- [fzf-tab](https://github.com/Aloxaf/fzf-tab): replaces zsh's default completion menu with fzf, so tab completion gets fuzzy matching and preview windows
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions): ghost text from history
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting): real-time command highlighting
+- [zoxide](https://github.com/ajeetdsouza/zoxide): frecency-based `cd` replacement (learns which directories you visit most)
+- [atuin](https://github.com/atuinsh/atuin): shell history with full-text search and optional sync across machines
 
-I intentionally removed the default `git` plugin from Oh My Zsh. It defines 176 aliases, most of which I'll never use, and some of which shadow commands I actually want. My own git aliases live in `conf.d/04-aliases.zsh` where I control exactly what exists.
+I removed Oh My Zsh's default `git` plugin on purpose. It defines 176 aliases, most of which I will never use and a few of which shadow commands I actually want. My own git aliases live in `conf.d/04-aliases.zsh`, where I know exactly what exists.
 
 ## tmux
 
-I spend most of my day inside tmux. The config is hand-rolled with Catppuccin Mocha colors — no plugin themes, just raw color codes mapped to the palette:
+I spend most of my day inside tmux. Its config is hand-rolled, with the Catppuccin colors written in as raw codes rather than pulled from a theme plugin:
 
 ```tmux
 # Status bar
@@ -61,7 +61,7 @@ set -g pane-border-style "fg=#313244"
 set -g pane-active-border-style "fg=#cba6f7"
 ```
 
-Vim-style keybindings for everything: `h/j/k/l` for pane navigation, `|` and `-` for splits (instead of the unintuitive `"` and `%` defaults), `v` and `y` in copy mode. True color and undercurl support are configured so Neovim's LSP diagnostic squiggly lines render correctly inside tmux — a detail that took an embarrassing amount of time to get right:
+The keybindings are Vim-style throughout: `h/j/k/l` to move between panes, `|` and `-` for splits (in place of the frankly baffling `"` and `%` defaults), and `v` and `y` in copy mode. True color and undercurl are configured so that Neovim's squiggly LSP diagnostics render properly inside tmux, a detail that took me an embarrassingly long time to get right:
 
 ```tmux
 set -g default-terminal "tmux-256color"
@@ -70,22 +70,22 @@ set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
 set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
 ```
 
-[tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) and [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) handle session persistence. I can reboot and come back to exactly where I left off — same windows, same panes, same working directories.
+[tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) and [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) take care of persistence, so I can reboot and come back to exactly the windows, panes and working directories I left.
 
 ## Neovim
 
-AstroNvim-based config, fully Lua, with 30+ plugin configurations. The key pieces:
+The editor config is built on AstroNvim, written entirely in Lua, with configurations for 30-odd plugins. The pieces that matter most are these:
 
 - **LSP** for every language I work in (Go via `gopls`, Python via `basedpyright`, TypeScript via `ts_ls`, Lua via `lua_ls`, LaTeX via `texlab`)
 - **DAP** (Debug Adapter Protocol) for stepping through Go and Python without leaving the editor
 - **Treesitter** for syntax highlighting, text objects, and structural navigation
-- **59 custom LuaSnip snippets for LaTeX** — 20 for TikZ/pgfplots, 17 for Beamer presentations, 22 for common packages and document structures
+- **59 custom LuaSnip snippets for LaTeX**: 20 for TikZ/pgfplots, 17 for Beamer presentations, 22 for common packages and document structures
 
-The LaTeX setup deserves a mention. I do academic writing in Neovim with [VimTeX](https://github.com/lervag/vimtex), `latexmk` for continuous compilation, and [Skim](https://skim-app.sourceforge.io/) for PDF preview with SyncTeX forward/inverse search. Click a line in the PDF, and Neovim jumps to that line in the source. Click a line in Neovim, and Skim jumps to the corresponding position in the PDF. Once you've experienced this workflow, writing LaTeX in anything else feels broken.
+The LaTeX setup deserves a word, if only because I wrote a dissertation full of lambda terms and proof trees and have opinions about it. I do academic writing in Neovim with [VimTeX](https://github.com/lervag/vimtex), `latexmk` compiling continuously, and [Skim](https://skim-app.sourceforge.io/) for the PDF with SyncTeX search in both directions. Click a line in the PDF and Neovim jumps to it in the source; click a line in Neovim and Skim jumps to the corresponding spot in the PDF. Once you've worked this way, writing LaTeX in anything else feels broken.
 
 ## Git
 
-The `.gitconfig` is opinionated:
+My `.gitconfig` is, I'll grant, opinionated:
 
 ```gitconfig
 [core]
@@ -119,21 +119,21 @@ The `.gitconfig` is opinionated:
 	autoSquash = true
 ```
 
-A few choices worth explaining:
+A few of those choices deserve an explanation.
 
-**GPG signing on every commit.** Non-negotiable. If your commits aren't signed, anyone can impersonate you with `git config user.email`.
+Every commit is GPG-signed. I don't consider that optional: if your commits aren't signed, anyone can impersonate you with `git config user.email`.
 
-**Delta as the pager.** Side-by-side diffs with syntax highlighting and line numbers, themed to match everything else. `git diff` output becomes something you actually want to read.
+Delta is the pager, which gives me side-by-side diffs with syntax highlighting and line numbers, themed like everything else. It turns `git diff` into something you might actually want to read.
 
-**Histogram diff algorithm.** Produces better diffs than the default Myers algorithm, especially for moved blocks of code. Once you switch, you notice the difference immediately and never go back.
+The diff algorithm is histogram rather than the default Myers. It produces better diffs, especially when blocks of code move, and once you've switched you notice the difference immediately.
 
-**rerere enabled.** "Reuse recorded resolution" — git remembers how you resolved a conflict and applies the same resolution automatically if it encounters the same conflict again. Essential for long-running feature branches that rebase often.
+`rerere` ("reuse recorded resolution") is on, so git remembers how I resolved a conflict and applies the same resolution if the same conflict comes up again. On a long-running branch that rebases often, that is close to essential.
 
-**Pull with rebase, rebase with autoStash.** No merge commits from `git pull`. If I have local changes when pulling, git stashes them automatically, rebases, and pops the stash. Clean linear history with zero effort.
+Finally, `git pull` rebases and rebasing auto-stashes. There are no merge commits from pulling, and if I have local changes, git stashes them, rebases and pops them back without my having to think about it. The history stays linear for free.
 
 ## The Brewfile
 
-Everything I install lives in one file. Running `brew bundle` on a fresh machine installs the entire stack — CLI tools, languages, casks, fonts:
+Everything I install lives in one file, and `brew bundle` on a fresh machine installs the lot (command-line tools, languages, casks and fonts):
 
 ```ruby
 # Modern CLI Replacements
@@ -173,26 +173,26 @@ brew "mongosh"
 brew "grpcurl"
 ```
 
-The full Brewfile has 80+ entries. The point isn't that I use all of them every day — the point is that when I need `k9s` or `grpcurl` or `hyperfine`, it's already there. The cost of installing something unused is a few hundred megabytes of disk. The cost of needing something that isn't installed is a context switch away from the problem I'm solving.
+The full Brewfile has more than 80 entries. I certainly don't use all of them every day; the point is that when I need `k9s` or `grpcurl` or `hyperfine`, it's already there. Installing something I never use costs a few hundred megabytes of disk. Needing something that isn't installed costs a context switch away from whatever problem I was in the middle of, which is the more expensive of the two by some margin.
 
 ## Raycast Scripts
 
-[Raycast](https://www.raycast.com/) replaced Spotlight on my machine. Beyond its built-in features, I have 29 custom script commands in `~/dotfiles/raycast/` that automate common workflows:
+[Raycast](https://www.raycast.com/) replaced Spotlight on my machine some time ago. On top of what it does out of the box, I keep 29 script commands in `~/dotfiles/raycast/` for the things I do often:
 
-- `focus-mode.sh` / `end-focus-mode.sh` — toggle Do Not Disturb, close distracting apps, set Slack status
-- `meeting-mode.sh` — same as focus mode but opens Zoom and positions windows
-- `open-project.sh` — fuzzy-find a project directory and open it in Cursor
-- `lazygit-here.sh` — open lazygit in the current Finder directory
-- `git-status-all.sh` — check git status across all project directories at once
-- `dev-stack.sh` — start/stop the local dev stack (Docker containers, databases)
-- `k8s-context.sh` — switch kubectl context without remembering cluster names
-- `window-layout-coding.sh` — arrange windows into my preferred coding layout
+- `focus-mode.sh` / `end-focus-mode.sh`: toggle Do Not Disturb, close distracting apps, set Slack status
+- `meeting-mode.sh`: same as focus mode but opens Zoom and positions windows
+- `open-project.sh`: fuzzy-find a project directory and open it in Cursor
+- `lazygit-here.sh`: open lazygit in the current Finder directory
+- `git-status-all.sh`: check git status across all project directories at once
+- `dev-stack.sh`: start/stop the local dev stack (Docker containers, databases)
+- `k8s-context.sh`: switch kubectl context without remembering cluster names
+- `window-layout-coding.sh`: arrange windows into my preferred coding layout
 
-Each script is a plain bash file with Raycast metadata in the header. No plugins, no dependencies, no framework. When something annoys me more than twice, it becomes a Raycast script.
+Each one is a plain bash file with Raycast's metadata in the header, with no plugins or dependencies behind it. My rule, such as it is: when something annoys me more than twice, it becomes a Raycast script.
 
 ## The Install Script
 
-The whole thing bootstraps from a blank Mac:
+All of it bootstraps from a blank Mac:
 
 ```bash
 git clone https://github.com/alexdjalali/dotfiles.git ~/dotfiles
@@ -200,9 +200,9 @@ cd ~/dotfiles
 ./install.sh
 ```
 
-The script runs 15 steps: Xcode CLT, Homebrew, `brew bundle`, shell setup, Oh My Zsh with plugins, symlinks (with automatic backup of existing files), fzf integration, bat/delta Catppuccin theme, iTerm2 shell integration, directory scaffolding, TPM and tmux plugins, git-lfs, LaTeX environment, and a headless Neovim bootstrap that syncs all plugins and installs Treesitter parsers.
+The script runs 15 steps: the Xcode command-line tools, Homebrew, `brew bundle`, the shell, Oh My Zsh and its plugins, symlinks (backing up whatever was there before), fzf, the Catppuccin theme for `bat` and delta, iTerm2's shell integration, directory scaffolding, TPM and the tmux plugins, git-lfs, the LaTeX environment, and finally a headless Neovim run that syncs every plugin and installs the Treesitter parsers.
 
-It's idempotent. Every step checks whether it's already been done before doing it. Symlinks check whether they already point to the right place. Homebrew checks whether it's already installed. The script produces a clean log of what it did and what it skipped:
+Every step checks whether it has already been done before doing it (a symlink checks where it points, Homebrew checks whether it's installed), which is what makes the script safe to rerun. It logs what it did and what it skipped:
 
 ```
 [ok]    Homebrew already installed
@@ -215,7 +215,7 @@ It's idempotent. Every step checks whether it's already been done before doing i
 
 ## AI Tool Integration
 
-The dotfiles also manage my AI coding tool configurations. The same engineering standards get symlinked into three different tools:
+The repo also manages the configuration for my AI coding tools, and the same engineering standards are symlinked into three of them:
 
 ```
 ~/.claude/CLAUDE.md        -> ~/dotfiles/.claude/CLAUDE.md
@@ -225,12 +225,12 @@ The dotfiles also manage my AI coding tool configurations. The same engineering 
 ~/.kilocode/rules          -> ~/dotfiles/kilocode/rules
 ```
 
-This means my [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Cursor](https://www.cursor.com/), and [Kilo Code](https://kilocode.ai/) configurations are version-controlled alongside everything else. When I update a standard — say, adding a new quality gate or refining an architecture pattern — the change propagates to every tool the next time I open it. I wrote more about this workflow in [How I Learned to Love the Bomb](/posts/how-i-learned-to-love-the-bomb/).
+So my [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Cursor](https://www.cursor.com/) and [Kilo Code](https://kilocode.ai/) configurations are versioned alongside everything else. When I change a standard (a new quality gate, say, or a refinement to an architecture pattern), every tool picks it up the next time I open it. I wrote more about how that works in [How I Learned to Love the Bomb](/posts/how-i-learned-to-love-the-bomb/).
 
 ## The Point
 
-None of this is about having the fanciest terminal or the most plugins. It's about removing friction. Every tool configured here solves a specific problem I hit repeatedly: navigating code, reviewing diffs, managing containers, switching contexts, staying in flow.
+I should say, in fairness to anyone who has read this far, that none of it is about having the fanciest terminal or the most plugins. Every tool here is configured because it solves a problem I kept running into, whether that's finding my way around code, reading diffs, wrangling containers or just staying in the flow of the work.
 
-The dotfiles repo is the mechanism that makes this sustainable. Without it, I'd spend my first day on any new machine reinstalling things from memory, getting half the configs wrong, and losing a day of productivity. With it, I clone one repo, run one script, and I'm working.
+What makes it last is the repo itself. Without it, my first day on any new machine would be spent reinstalling things from memory and getting half the configs wrong. With it, I clone one repository, run one script, and get on with my day.
 
-The whole thing is MIT-licensed and [on GitHub](https://github.com/alexdjalali/dotfiles) if any of it is useful to you.
+It's all MIT-licensed and [on GitHub](https://github.com/alexdjalali/dotfiles). Take whatever is useful to you (and if you find a better diff algorithm than histogram, do let me know).
