@@ -4,6 +4,7 @@ from figures.posts import (  # noqa: F401
     agile,
     anatomy,
     bomb,
+    corpus,
     course,
     decorators,
     devenv,

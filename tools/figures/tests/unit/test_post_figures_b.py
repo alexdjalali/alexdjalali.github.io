@@ -7,7 +7,17 @@ import re
 import pytest
 
 from figures.model import FigureContext
-from figures.posts import anatomy, bomb, course, decorators, devenv, layers, montague, query_core
+from figures.posts import (
+    anatomy,
+    bomb,
+    corpus,
+    course,
+    decorators,
+    devenv,
+    layers,
+    montague,
+    query_core,
+)
 from figures.svg import K
 
 pytestmark = pytest.mark.unit
@@ -62,11 +72,20 @@ def test_bomb_doubles_each_level() -> None:
     assert len(re.findall(r'class="an-pop"', svg)) == 31
 
 
+def test_corpus_wires_one_bundle_to_three_readers() -> None:
+    """One sheet stack connects to exactly three named readers: people, wiki and index."""
+    svg = corpus.corpus(CTX).svg
+    assert len(re.findall(r'class="an-draw"[^>]*></line>', svg)) == 3
+    for reader in ("people", "wiki", "index"):
+        assert f">{reader}<" in svg
+
+
 @pytest.mark.parametrize(
     "builder",
     [
         anatomy.anatomy,
         bomb.bomb,
+        corpus.corpus,
         course.course,
         decorators.decorators,
         devenv.devenv,
