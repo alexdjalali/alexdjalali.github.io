@@ -16,7 +16,10 @@ from figures.posts import (
     devenv,
     layers,
     montague,
+    one_row,
+    qud,
     query_core,
+    worktrees,
 )
 from figures.svg import K
 
@@ -80,6 +83,35 @@ def test_corpus_wires_one_bundle_to_three_readers() -> None:
         assert f">{reader}<" in svg
 
 
+def test_one_row_feeds_every_derived_artifact() -> None:
+    """One descriptor row is the only authored fact; one drawn line reaches each derived artifact."""
+    svg = one_row.one_row(CTX).svg
+    assert len(one_row.DERIVED) == 4
+    assert len(re.findall(r'class="an-draw"[^>]*></path>', svg)) == len(one_row.DERIVED)
+    for label in one_row.DERIVED:
+        assert f">{label}<" in svg
+    assert ">one row<" in svg
+
+
+def test_worktrees_cut_every_lane_from_one_base_and_pick_one_commit_each() -> None:
+    """Every lane starts at the shared base commit and lands exactly one commit on integration."""
+    assert len({lane.start for lane in worktrees.LANES}) == 1
+    svg = worktrees.worktrees(CTX).svg
+    assert len(re.findall(r'class="an-draw"[^>]*></path>', svg)) == len(worktrees.LANES)
+    commit_squares = re.findall(r'<rect[^>]*width="4.00" height="4.00"', svg)
+    assert len(commit_squares) == 2 * len(worktrees.LANES)  # a wash draws halo + body
+    assert ">integration<" in svg
+
+
+def test_qud_stack_is_the_path_from_root_to_the_open_node() -> None:
+    """The stack beside the d-tree lists the root-to-focus path, with the clarification on top."""
+    assert qud.STACK == (qud.CLARIFICATION, *reversed(qud.PATH))
+    svg = qud.qud(CTX).svg
+    for label in qud.STACK:
+        assert f">{label}<" in svg
+    assert len(re.findall(r"<circle", svg)) >= len(qud.NODES)
+
+
 @pytest.mark.parametrize(
     "builder",
     [
@@ -91,7 +123,10 @@ def test_corpus_wires_one_bundle_to_three_readers() -> None:
         devenv.devenv,
         layers.layers,
         montague.montague,
+        one_row.one_row,
+        qud.qud,
         query_core.query_core,
+        worktrees.worktrees,
     ],
 )
 def test_figures_are_deterministic_and_captioned(builder) -> None:
