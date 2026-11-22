@@ -6,7 +6,7 @@ Athens, GA | 312.576.4525 | [alex.djalali@gmail.com](mailto:alex.djalali@gmail.c
 
 ## Summary
 
-Research faculty and engineering leader with 12 years building language technology that ships---from formal semantics research at Stanford through two acquisitions (ClearGraph by Tableau, PerceptivePanda by Zapier) and into production systems serving hundreds of thousands of users. PhD in Linguistics, 9 patents in NL interfaces, 15+ peer-reviewed publications. Designed the NLP architecture behind Tableau's Ask Data before transformer models existed, built deterministic control layers over LLMs grounded in discourse theory, and currently build production AI systems at Georgia Tech---including vector search over 400M images and RAG pipelines on AWS Bedrock. Scaled teams from founding engineer to 30+, led AI strategy across Salesforce's cloud portfolio, and consult on AI agents and retrieval-augmented generation for startups in maritime and financial services.
+Research faculty and engineering leader with 12 years building language technology that ships---from formal semantics research at Stanford through two acquisitions (ClearGraph by Tableau, PerceptivePanda by Zapier) and into production systems serving hundreds of thousands of users. PhD in Linguistics, 9 patents in NL interfaces, 10 peer-reviewed publications. Designed the NLP architecture behind Tableau's Ask Data before transformer models existed, built deterministic control layers over LLMs grounded in discourse theory, and currently build production AI systems at Georgia Tech---including vector search over 400M images and RAG pipelines on AWS Bedrock. Scaled teams from founding engineer to 30+, led AI strategy across Salesforce's cloud portfolio, and consult on AI agents and retrieval-augmented generation for startups in maritime and financial services.
 
 ---
 
@@ -93,7 +93,7 @@ Research faculty and engineering leader with 12 years building language technolo
 
 ---
 
-## Selected Publications *(15+ total; see [Google Scholar](https://scholar.google.com/citations?user=nNk4g6oAAAAJ))*
+## Selected Publications *(10 total; see [Google Scholar](https://scholar.google.com/citations?user=nNk4g6oAAAAJ))*
 
 - **Djalali, AJ** et al. "Inferencing underspecified natural language utterances in visual analysis." *Proc. 24th Intl. Conf. on Intelligent User Interfaces* (IUI), 2019.
 - **Djalali, AJ**. "A constructive solution to the ranking problem in Partial Order Optimality Theory." *Journal of Logic, Language & Information*, 2017.
