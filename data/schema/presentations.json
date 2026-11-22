@@ -66,5 +66,104 @@
       "@type": "Person",
       "name": "AJ Djalali"
     }
+  },
+  {
+    "@type": "Event",
+    "name": "A conceptual-epistemic perspective on model theory",
+    "description": "The mass/count distinction as a contrast in conceptualization, with a level of conceptual representation mediating between language and the world.",
+    "startDate": "2014",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "University of Tübingen",
+      "address": "Tübingen, Germany"
+    },
+    "superEvent": {
+      "@type": "Event",
+      "name": "Workshop on Models in Formal Semantics and Pragmatics, ESSLLI 2014"
+    },
+    "performer": {
+      "@type": "Person",
+      "name": "AJ Djalali"
+    }
+  },
+  {
+    "@type": "Event",
+    "name": "Extension, ontological type, and morphosyntactic class: Three ingredients of countability",
+    "description": "Three factors that jointly determine whether a noun is count or mass.",
+    "startDate": "2010",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Ruhr-Universität Bochum",
+      "address": "Bochum, Germany"
+    },
+    "superEvent": {
+      "@type": "Event",
+      "name": "Conference on Empirical, Theoretical and Computational Approaches to Countability in Natural Language"
+    },
+    "performer": {
+      "@type": "Person",
+      "name": "AJ Djalali"
+    }
+  },
+  {
+    "@type": "Event",
+    "name": "The effect of focus on bridging inferences",
+    "description": "A perception experiment on how prosodic focus shifts the referents listeners choose for bridging inferences.",
+    "startDate": "2008",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "LSA Annual Meeting",
+      "address": "Chicago, IL"
+    },
+    "superEvent": {
+      "@type": "Event",
+      "name": "LSA Annual Meeting"
+    },
+    "performer": {
+      "@type": "Person",
+      "name": "AJ Djalali"
+    }
+  },
+  {
+    "@type": "Event",
+    "name": "The effects of scale type and salience on the interpretation of scalar implicature",
+    "description": "An experiment on whether scale type and the salience of alternatives affect the strength of scalar implicature.",
+    "startDate": "2008",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Linguistic Society of America"
+    },
+    "superEvent": {
+      "@type": "Event",
+      "name": "LSA Annual Meeting"
+    },
+    "performer": {
+      "@type": "Person",
+      "name": "AJ Djalali"
+    }
+  },
+  {
+    "@type": "Event",
+    "name": "Distinguishing among contextually-determined aspects of utterance meaning: An empirical investigation",
+    "description": "An empirical study finding that the line between what is said and what is implicated is gradient rather than categorical.",
+    "startDate": "2007",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "LSA Annual Meeting",
+      "address": "Anaheim, CA"
+    },
+    "superEvent": {
+      "@type": "Event",
+      "name": "LSA Annual Meeting"
+    },
+    "performer": {
+      "@type": "Person",
+      "name": "AJ Djalali"
+    }
   }
 ]

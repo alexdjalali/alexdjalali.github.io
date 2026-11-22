@@ -28,6 +28,11 @@ EXPECTED_KEYS = {
     "talks/tiya-applied-ai",
     "talks/gt-medellin-scaleups",
     "talks/tiya-applied-ai-days-2-3",
+    "talks/esslli-2014-conceptual-epistemic",
+    "talks/countability-2010",
+    "talks/lsa-2008-bridging",
+    "talks/lsa-2008-scalar",
+    "talks/lsa-2007-said-implicated",
     "courses/tiya-applied-ai",
     "courses/professional-software-engineering",
     "projects/conversational-document-intelligence",
@@ -155,3 +160,48 @@ def test_semester_draws_fifteen_week_cells_in_seven_pillar_groups(ctx: FigureCon
     runs = [len(list(group)) for _, group in itertools.groupby(cells)]
     assert runs == list(SEMESTER_GROUPS)
     assert ">Orion<" in svg
+
+
+@pytest.mark.parametrize(
+    ("name", "labels"),
+    [
+        ("mediated", (">language<", ">concepts<", ">world<")),
+        (
+            "three_ingredients",
+            (">extension<", ">ontological type<", ">morphosyntactic class<", ">count / mass<"),
+        ),
+        ("bridging", (">focus<", ">referent A<", ">referent B<")),
+        ("scalar", (">some<", ">most<", ">all<", ">not all<")),
+        ("gradient", (">said<", ">implicated<")),
+    ],
+)
+def test_academic_talk_figures_label_what_each_talk_argues(name: str, labels: tuple[str, ...]) -> None:
+    """Each moved academic talk's figure names the terms its argument turns on.
+
+    Why this test is important: the five talks moved from Research to Talks need figures that encode
+    their claims, not decoration; a dropped or renamed label means the figure no longer says it.
+    What it tests: every expected label is in the builder's SVG, and the caption is non-empty.
+    """
+    from figures import constructions
+
+    fig = getattr(constructions, name)(FigureContext(slug="page", bib=(), locations=(), timeline=()))
+    for label in labels:
+        assert label in fig.svg, (name, label)
+    assert fig.caption
+
+
+def test_academic_talk_figures_encode_their_structure() -> None:
+    """The figures' shapes carry the argument, not just the labels.
+
+    Why this test is important: a label can survive while the structure it names is lost.
+    What it tests: concepts alone are washed between language and world; bridging washes one of two
+    referents and leaves the other dashed; the gradient draws ``GRADIENT_STEPS`` cells.
+    """
+    from figures.constructions import GRADIENT_STEPS, bridging, gradient, mediated
+
+    empty = FigureContext(slug="page", bib=(), locations=(), timeline=())
+    assert len(re.findall(r'class="an-bloom"', mediated(empty).svg)) == 1
+    b = bridging(empty).svg
+    assert len(re.findall(r'class="an-bloom"', b)) == 1
+    assert "stroke-dasharray" in b
+    assert len(re.findall(r'class="an-pop"[^>]*><rect', gradient(empty).svg)) == GRADIENT_STEPS == 7

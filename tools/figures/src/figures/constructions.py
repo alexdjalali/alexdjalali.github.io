@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 
 from figures.model import Figure, FigureContext
-from figures.svg import PRIMARIES, B, Fig, K, R, W, Y, circ, rect
+from figures.svg import PRIMARIES, B, Fig, K, R, W, Y, circ, rect, tri
 
 LEAD = 0.2
 """Delay before a page figure starts drawing, so it follows the headline."""
@@ -90,6 +90,98 @@ def cohort(_ctx: FigureContext) -> Figure:
     caption = (
         "Ten circles, one for each visiting scaleup, ringed around a blue square for the campus; "
         "dashed spokes join each to the campus and a ring joins the founders to one another"
+    )
+    return Figure(f.svg(), caption)
+
+
+def mediated(_ctx: FigureContext) -> Figure:
+    """ESSLLI 2014: a layer of concepts mediates between language and the world."""
+    f = Fig(LEAD)
+    f.pop(rect(30, 12, 40, 12, Y)).text(50, 20, "language", 3.6, italic=False)
+    f.line((50, 24), (50, 40), w=0.4)
+    f.wash(rect(30, 40, 40, 14, B)).text(50, 49, "concepts", 3.6, fill=W, italic=False)
+    f.line((50, 54), (50, 70), w=0.4)
+    f.pop(rect(30, 70, 40, 12, R)).text(50, 78, "world", 3.6, fill=W, italic=False)
+    f.dashed((76, 18), (76, 76)).text(80, 48, "×", 5, "start", italic=False)
+    caption = (
+        "Three stacked bands, language above concepts above the world, joined through the washed "
+        "concepts band; a dashed line from language straight to the world is struck through"
+    )
+    return Figure(f.svg(), caption)
+
+
+def three_ingredients(_ctx: FigureContext) -> Figure:
+    """Countability 2010: extension, ontological type and morphosyntactic class jointly decide count/mass."""
+    f = Fig(LEAD)
+    inputs = [
+        (circ(18, 22, 7, B), (18, 22), "extension"),
+        (tri(50, 22, 8, Y), (50, 22), "ontological type"),
+        (rect(75, 15, 14, 14, R), (82, 22), "morphosyntactic class"),
+    ]
+    for shape, (x, y), label in inputs:
+        f.pop(shape).text(x, y + 14, label, 3, italic=False)
+    for _, (x, y), _ in inputs:
+        f.line((x, y + 17), (50, 66), w=0.35, dt=0.05)
+    f.wash(circ(50, 72, 6, K), 0.8).text(50, 88, "count / mass", 3.6)
+    caption = (
+        "A circle for extension, a triangle for ontological type and a square for morphosyntactic "
+        "class, each joined to one node that decides whether a noun is count or mass"
+    )
+    return Figure(f.svg(), caption)
+
+
+def bridging(_ctx: FigureContext) -> Figure:
+    """LSA 2008: prosodic focus steers a bridging inference to one of two referents."""
+    f = Fig(LEAD)
+    f.pop(rect(36, 14, 28, 10, Y)).text(50, 21, "focus", 3.6, italic=False)
+    f.line((49, 6), (51, 11), w=0.6)
+    f.line((44, 24), (24, 60), w=0.5)
+    f.dashed((56, 24), (76, 60))
+    f.wash(circ(24, 66, 7, R)).ring(76, 66, 7)
+    f.text(24, 82, "referent A", 3.2).text(76, 82, "referent B", 3.2)
+    caption = (
+        "An accented word marked focus, with a solid line to one washed referent and a dashed line to "
+        "an outlined alternative: focus decides which referent the bridge reaches"
+    )
+    return Figure(f.svg(), caption)
+
+
+def scalar(_ctx: FigureContext) -> Figure:
+    """LSA 2008: on the scale some < most < all, saying some implicates not all."""
+    f = Fig(LEAD)
+    f.line((14, 56), (86, 56), w=0.4)
+    for x, word, c in [(18, "some", B), (50, "most", Y), (82, "all", R)]:
+        f.pop(circ(x, 56, 4, c)).text(x, 68, word, 3.6, italic=False)
+    f.path("M18 50 Q50 16 82 50", w=0.35).text(50, 28, "not all", 3.4)
+    f.text(50, 88, "scale type · salience · implicature", 3)
+    caption = (
+        "Three points on a scale, some, most and all, with an arc from some to all labelled not all: "
+        "the scalar implicature whose strength the study measured"
+    )
+    return Figure(f.svg(), caption)
+
+
+GRADIENT_STEPS = 7
+"""Cells in the said-to-implicated ramp; the talk's finding is a gradient, not a binary."""
+
+
+def gradient(_ctx: FigureContext) -> Figure:
+    """LSA 2007: what is said and what is implicated lie on a gradient, not on two sides of a line."""
+    f = Fig(LEAD)
+    cell = 76 / GRADIENT_STEPS
+    for i in range(GRADIENT_STEPS):
+        share = i / (GRADIENT_STEPS - 1)
+        colour, opacity = (B, 1 - share) if share < 0.5 else (R, share)
+        f.pop(
+            f'<rect x="{12 + i * cell:.2f}" y="40.00" width="{cell - 1:.2f}" height="18.00" '
+            f'fill="{colour}" opacity="{max(opacity, 0.25):.2f}"></rect>',
+            dt=0.05,
+        )
+    f.text(14, 70, "said", 3.6, "start").text(86, 70, "implicated", 3.6, "end")
+    f.dashed((50, 32), (50, 66)).text(50, 28, "no sharp line", 3)
+    caption = (
+        "Seven cells shading from blue, what is said, to red, what is implicated, with a dashed "
+        "midline marked no sharp line: the distinction is gradient"
     )
     return Figure(f.svg(), caption)
 

@@ -1,16 +1,7 @@
 {
   "by_year": {
-    "2007": {
-      "paper": 1
-    },
-    "2008": {
-      "paper": 2
-    },
     "2009": {
       "paper": 2
-    },
-    "2010": {
-      "paper": 1
     },
     "2011": {
       "paper": 2
@@ -19,7 +10,7 @@
       "paper": 3
     },
     "2014": {
-      "paper": 2
+      "paper": 1
     },
     "2015": {
       "dissertation": 1
@@ -41,7 +32,7 @@
     }
   },
   "dissertation": 1,
-  "papers": 15,
+  "papers": 10,
   "patents": 9,
-  "total": 25
+  "total": 20
 }
