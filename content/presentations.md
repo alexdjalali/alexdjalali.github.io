@@ -25,7 +25,9 @@ card: "talks/enforcing-engineering-discipline"
   </li>
   <li>{{< construction "talks/gt-medellin-scaleups" >}}
   <div class="talk-body">
-  <span class="pub-authors"><strong>Djalali, AJ</strong>.</span> <span class="pub-title">"From Startup to Acquisition: A Founder Session with the GT Medellín Scaleups."</span> <span class="pub-extra">Met with the second cohort of Medellín scaleups visiting Georgia Tech, hosted by EI2 Global and <a href="https://gtmedellin.org/" target="_blank" rel="noopener noreferrer">GT Medellín</a>. Centergy, Georgia Institute of Technology, Atlanta, GA. 2026.</span>
+  <span class="pub-authors"><strong>Djalali, AJ</strong>.</span> <span class="pub-title">"From Startup to Acquisition: A Founder Session with the GT Medellín Scaleups."</span> <span class="pub-extra">Met with the second cohort of Medellín scaleups visiting Georgia Tech, hosted by EI2 Global and GT Medellín. Centergy, Georgia Institute of Technology, Atlanta, GA. 2026.</span>
+  <br>
+  <a href="https://gtmedellin.org/" class="bib-link" target="_blank" rel="noopener noreferrer">GT Medellín</a>
   </div>
   </li>
   <li>{{< construction "talks/tiya-applied-ai" >}}
