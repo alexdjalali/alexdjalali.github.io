@@ -46,10 +46,12 @@ def test_abstract_toggle_selector_matches_each_abstract(built_site: Path, repo_r
     assert len(re.findall(r'class="?pub-abstract"?', html)) == expected
 
 
-def test_talks_has_two_figures_and_all_links(built_site: Path, repo_root: Path) -> None:
-    """Two talk figures render and every bib-link href from the source is present."""
+def test_talks_has_a_figure_per_talk_and_all_links(built_site: Path, repo_root: Path) -> None:
+    """Every talk's figure renders (one per construction in the source) and every bib-link href is present."""
     html = read_html(built_site, "presentations/index.html")
     source = (repo_root / "content" / "presentations.md").read_text(encoding="utf-8")
-    assert html.count("<svg role=") == 2
+    talks = source.count('{{< construction "talks/')
+    assert talks >= 1
+    assert html.count("<svg role=") == talks
     for href in set(re.findall(r'href="([^"]+)" class="bib-link"', source)):
         assert href in html, href

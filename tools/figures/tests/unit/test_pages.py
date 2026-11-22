@@ -10,6 +10,7 @@ from pathlib import Path
 import pytest
 
 from figures.bib import load_entries
+from figures.constructions import SCALEUPS, TIYA_DAYS, cohort, days_two_three
 from figures.data import load_locations, load_timeline
 from figures.model import Figure, FigureContext
 from figures.pages import PAGE_FIGURES, career_lanes, lifeline, research_output
@@ -25,6 +26,8 @@ EXPECTED_KEYS = {
     "pages/scout",
     "talks/enforcing-engineering-discipline",
     "talks/tiya-applied-ai",
+    "talks/gt-medellin-scaleups",
+    "talks/tiya-applied-ai-days-2-3",
     "courses/tiya-applied-ai",
     "courses/professional-software-engineering",
     "projects/conversational-document-intelligence",
@@ -72,6 +75,23 @@ def test_research_output_has_a_bar_segment_per_year_and_kind(ctx: FigureContext)
     """One stacked segment for each (year, kind) pair present in the bibliography."""
     pairs = {(e.year, e.kind) for e in ctx.bib}
     assert _bars(research_output(ctx).svg) == len(pairs)
+
+
+def test_cohort_draws_ten_scaleups_around_one_campus(ctx: FigureContext) -> None:
+    """The Medellín talk figure: ten scaleups (the cohort size) ringed around one campus square."""
+    assert SCALEUPS == 10
+    svg = cohort(ctx).svg
+    assert len(re.findall(r'class="an-pop"[^>]*><circle', svg)) == SCALEUPS
+    assert len(re.findall(r'<rect[^>]*width="12.00" height="12.00"', svg)) == 2  # a wash: halo + body
+
+
+def test_days_two_three_washes_only_the_days_being_taught(ctx: FigureContext) -> None:
+    """Days 2 and 3 are washed in colour and dated; day 1 is drawn as an outline only."""
+    svg = days_two_three(ctx).svg
+    assert len(re.findall(r'<rect[^>]*width="24.00" height="24.00" fill="#', svg)) == 2 * 2  # two washes
+    assert len(re.findall(r'<rect[^>]*fill="none"', svg)) == 1
+    for _, _, date in TIYA_DAYS[1:]:
+        assert f">{date}<" in svg
 
 
 @pytest.mark.parametrize("key", sorted(EXPECTED_KEYS))

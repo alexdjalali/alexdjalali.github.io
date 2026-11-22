@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import math
+
 from figures.model import Figure, FigureContext
 from figures.svg import PRIMARIES, B, Fig, K, R, W, Y, circ, rect
 
@@ -21,17 +23,75 @@ def ratchet(_ctx: FigureContext) -> Figure:
     return Figure(f.svg(), "A staircase that only descends: guardrail violations can fall but never rise")
 
 
-def three_days(_ctx: FigureContext) -> Figure:
-    """Draw the TIYA course: three days, three squares."""
+TIYA_DAYS = (
+    (B, "Generative AI", ""),
+    (Y, "Agentic AI", "Dec 1"),
+    (R, "Advanced", "Dec 2"),
+)
+"""``(colour, label, date)`` for each TIYA course day; the date is set only for scheduled sessions."""
+
+
+def _course_days(taught: tuple[int, ...]) -> Fig:
+    """Draw the three TIYA days, washing the ``taught`` ones (1-based) and outlining the rest."""
     f = Fig(LEAD)
-    for i, (c, label) in enumerate([(B, "Generative AI"), (Y, "Agentic AI"), (R, "Advanced")]):
+    for i, (c, label, date) in enumerate(TIYA_DAYS):
         x = 10 + i * 28
-        f.wash(rect(x, 30, 24, 24, c)).text(x + 12, 64, f"Day {i + 1}", 3.6, italic=False).text(
-            x + 12, 70, label, 3
-        )
+        if i + 1 in taught:
+            f.wash(rect(x, 30, 24, 24, c))
+            if date and len(taught) < len(TIYA_DAYS):
+                f.text(x + 12, 24, date, 3.2, italic=False)
+        else:
+            f.pop(
+                f'<rect x="{x:.2f}" y="30.00" width="24.00" height="24.00" fill="none" '
+                f'stroke="{K}" stroke-width="0.4"></rect>'
+            )
+        f.text(x + 12, 64, f"Day {i + 1}", 3.6, italic=False).text(x + 12, 70, label, 3)
         if i < 2:
             f.line((x + 25, 42), (x + 27, 42), w=0.5)
+    return f
+
+
+def three_days(_ctx: FigureContext) -> Figure:
+    """Draw the TIYA course: three days, three squares."""
+    f = _course_days((1, 2, 3))
     return Figure(f.svg(), "Three squares for the three course days: generative AI, agentic AI, advanced")
+
+
+def days_two_three(_ctx: FigureContext) -> Figure:
+    """Draw the TIYA days 2 and 3 sessions: day 1 outlined, days 2 and 3 washed and dated."""
+    f = _course_days((2, 3))
+    caption = (
+        "Three squares for the three TIYA course days; day 1 is an outline, and days 2 and 3, "
+        "agentic AI on December 1 and advanced agents on December 2, are filled in"
+    )
+    return Figure(f.svg(), caption)
+
+
+SCALEUPS = 10
+"""Scaleups in the GT Medellín cohort that visited campus (the program's invitation)."""
+
+
+def cohort(_ctx: FigureContext) -> Figure:
+    """GT Medellín scaleups: ten founders ringed around one campus, joined to it and to each other."""
+    f = Fig(LEAD)
+    cx, cy, r = 50.0, 46.0, 30.0
+    points = [
+        (cx + r * math.sin(2 * math.pi * i / SCALEUPS), cy - r * math.cos(2 * math.pi * i / SCALEUPS))
+        for i in range(SCALEUPS)
+    ]
+    f.wash(rect(cx - 6, cy - 6, 12, 12, B))
+    for p, q in zip(points, points[1:] + points[:1], strict=True):
+        f.line(p, q, w=0.3, dt=0.03)
+    for x, y in points:
+        f.dashed((cx, cy), (x, y), w=0.25, dt=0.02)
+    for i, (x, y) in enumerate(points):
+        f.pop(circ(x, y, 3.2, (R, Y)[i % 2]), dt=0.05)
+    f.text(50, 92, "ten scaleups · one campus · one network", 3.2)
+    caption = (
+        "Ten circles, one for each visiting scaleup, ringed around a blue square for the campus; "
+        "dashed spokes join each to the campus and a ring joins the founders to one another"
+    )
+    return Figure(f.svg(), caption)
 
 
 SEMESTER_GROUPS = (3, 2, 2, 2, 2, 2, 2)

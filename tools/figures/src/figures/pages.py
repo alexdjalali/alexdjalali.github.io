@@ -101,6 +101,8 @@ PAGE_FIGURES: dict[str, FigureBuilder] = {
     "pages/scout": c.scout,
     "talks/enforcing-engineering-discipline": c.ratchet,
     "talks/tiya-applied-ai": c.three_days,
+    "talks/gt-medellin-scaleups": c.cohort,
+    "talks/tiya-applied-ai-days-2-3": c.days_two_three,
     "projects/conversational-document-intelligence": c.nine_formats,
     "projects/knowledge-engine-toolkit": c.toolkit,
     "courses/tiya-applied-ai": c.three_days,
