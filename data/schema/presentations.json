@@ -1,6 +1,54 @@
 [
   {
     "@type": "Event",
+    "name": "Applied AI at TIYA Services, Days 2 and 3",
+    "description": "Days 2 and 3 of a three-day onsite course: Agentic AI with Microsoft Copilot and Advanced Agents with Copilot Studio.",
+    "startDate": "2026",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "TIYA Services",
+      "address": "Ft. Benning, GA"
+    },
+    "performer": {
+      "@type": "Person",
+      "name": "AJ Djalali"
+    }
+  },
+  {
+    "@type": "Event",
+    "name": "From Startup to Acquisition: A Founder Session with the GT Medellín Scaleups",
+    "description": "A founder session with the second cohort of Medellín scaleups visiting Georgia Tech, hosted by EI2 Global and GT Medellín.",
+    "startDate": "2026",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Centergy, Georgia Institute of Technology",
+      "address": "Atlanta, GA"
+    },
+    "performer": {
+      "@type": "Person",
+      "name": "AJ Djalali"
+    }
+  },
+  {
+    "@type": "Event",
+    "name": "Applied AI at TIYA Services",
+    "description": "A three-day onsite course: Generative AI for Daily Work, Agentic AI with Microsoft Copilot, and Advanced Agents with Copilot Studio.",
+    "startDate": "2026",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "TIYA Services",
+      "address": "Ft. Benning, GA"
+    },
+    "performer": {
+      "@type": "Person",
+      "name": "AJ Djalali"
+    }
+  },
+  {
+    "@type": "Event",
     "name": "Enforcing Engineering Discipline with AI",
     "description": "A talk at the IDEaS Upskilling Workshop on AI for Research: the software engineering lifecycle hasn't changed, but with AI it is now enforceable.",
     "startDate": "2026",
